@@ -85,7 +85,7 @@ public class LoginActivity extends Activity {
 				} else {
 					// Prompt user to enter credentials
 					Toast.makeText(getApplicationContext(),
-							"Please enter the credentials!", Toast.LENGTH_LONG)
+							R.string.no_input, Toast.LENGTH_LONG)
 							.show();
 				}
 			}
@@ -130,17 +130,17 @@ public class LoginActivity extends Activity {
 							// Check for error node in json
 							if (!error) {
 								
-								Toast.makeText(getApplicationContext(), "OK", Toast.LENGTH_LONG).show();
 								// user successfully logged in
-								String uid = jObj.getString("uid");
-
-								JSONObject user = jObj.getJSONObject("user");
-								String name = user.getString("name");
-								String email = user.getString("email");
-								String created_at = user
-										.getString("created_at");
+								String apiKey = jObj.getString("apiKey");
+								String fullname = jObj.getString("fullname");
+								String phone = jObj.getString("phone");
+								String personalID = jObj.getString("personalID");
+								String personalID_img = jObj.getString("personalID_img");
+								String link_avatar = jObj.getString("link_avatar");
+								String created_at = jObj.getString("created_at");
+								String status = jObj.getString("status");
 								// Inserting row in users table
-								db.addUser(name, email, uid, created_at);
+								db.addUser(apiKey, fullname, phone,personalID,personalID_img,link_avatar, created_at,status);
 								// Create login session
 								session.setLogin(true);
 								
@@ -152,9 +152,9 @@ public class LoginActivity extends Activity {
 								
 							} else {
 								// Error in login. Get the error message
-								String errorMsg = jObj.getString("error_msg");
+								String message = jObj.getString("message");
 								Toast.makeText(getApplicationContext(),
-										errorMsg, Toast.LENGTH_LONG).show();
+										message, Toast.LENGTH_LONG).show();
 							}
 						} catch (JSONException e) {
 							// JSON error
@@ -177,7 +177,6 @@ public class LoginActivity extends Activity {
 			protected Map<String, String> getParams() {
 				// Posting parameters to login url
 				Map<String, String> params = new HashMap<String, String>();
-				params.put("tag", "login");
 				params.put("email", email);
 				params.put("password", password);
 

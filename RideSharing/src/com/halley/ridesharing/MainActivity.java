@@ -82,9 +82,9 @@ public class MainActivity extends ActionBarActivity implements
 		
 		// Add Navigation Drawer
 		this.addNavDrawer(this);
-		if (savedInstanceState == null) {
-			displayView(0);
-		}
+//		if (savedInstanceState == null) {
+//			displayView(0);
+//		}
 		
 
 		if (!session.isLoggedIn()) {
@@ -208,21 +208,17 @@ public class MainActivity extends ActionBarActivity implements
 	 * */
 	private void displayView(int position) {
 		// update the main content by replacing fragments
-		Fragment fragment = null;
-		Bundle bundle = null;
+		Intent intent = null;
 		switch (position) {
 		case 0:
-			fragment = new HomeFragment();
-			bundle = new Bundle();
+			intent = new Intent(this,UserProfileActivity.class);
 			// SqLite database handler
 			db = new DatabaseHandler(getApplicationContext());
 			// Fetching user details from sqlite
 			HashMap<String, String> user = db.getUserDetails();
 			String name = user.get("name");
 			String email = user.get("email");
-			bundle.putString("name", name);
-			bundle.putString("email", email);
-			fragment.setArguments(bundle);
+			
 
 			break;
 		// case 1:
@@ -232,15 +228,11 @@ public class MainActivity extends ActionBarActivity implements
 			break;
 		}
 
-		if (fragment != null) {
-			FragmentManager fragmentManager = getFragmentManager();
-			FragmentTransaction transaction = fragmentManager
-					.beginTransaction();
-			transaction.replace(R.id.frame_container, fragment);
-			transaction.commit();
-			// update selected item and title, then close the drawer
-			mDrawerList.setItemChecked(position, true);
-			mDrawerList.setSelection(position);
+		if (intent != null) {
+			startActivity(intent);
+//			// update selected item and title, then close the drawer
+//			mDrawerList.setItemChecked(position, true);
+//			mDrawerList.setSelection(position);
 			
 			mDrawerLayout.closeDrawer(mDrawerList);
 		} else {

@@ -38,7 +38,6 @@ public class RegisterActivity extends Activity {
 	private static final String TAG = RegisterActivity.class.getSimpleName();
 	private Button btnRegister;
 	private Button btnLinkToLogin;
-	private EditText inputFullName;
 	private EditText inputEmail;
 	private EditText inputPassword;
 	private ProgressDialog pDialog;
@@ -50,7 +49,6 @@ public class RegisterActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_register);
 
-		inputFullName = (EditText) findViewById(R.id.name);
 		inputEmail = (EditText) findViewById(R.id.email);
 		inputPassword = (EditText) findViewById(R.id.password);
 		btnRegister = (Button) findViewById(R.id.btnRegister);
@@ -78,15 +76,14 @@ public class RegisterActivity extends Activity {
 		// Register Button Click event
 		btnRegister.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View view) {
-				String name = inputFullName.getText().toString();
 				String email = inputEmail.getText().toString();
 				String password = inputPassword.getText().toString();
 
-				if (!name.isEmpty() && !email.isEmpty() && !password.isEmpty()) {
-					registerUser(name, email, password);
+				if (!email.isEmpty() && !password.isEmpty()) {
+					registerUser(email, password);
 				} else {
 					Toast.makeText(getApplicationContext(),
-							"Please enter your details!", Toast.LENGTH_LONG)
+							R.string.no_input, Toast.LENGTH_LONG)
 							.show();
 				}
 			}
@@ -106,10 +103,9 @@ public class RegisterActivity extends Activity {
 	}
 
 	/**
-	 * Function to store user in MySQL database will post params(tag, name,
-	 * email, password) to register url
+	 * Function to store user in MySQL database will post params(* email, password) to register url
 	 * */
-	private void registerUser(final String name, final String email,
+	private void registerUser(final String email,
 			final String password) {
 		// Tag used to cancel the request
 		String tag_string_req = "req_register";
@@ -129,18 +125,8 @@ public class RegisterActivity extends Activity {
 							JSONObject jObj = new JSONObject(response.substring(response.indexOf("{"), response.lastIndexOf("}") + 1));
 							boolean error = jObj.getBoolean("error");
 							if (!error) {
-								// User successfully stored in MySQL
-								// Now store the user in sqlite
-								String uid = jObj.getString("uid");
-
-								JSONObject user = jObj.getJSONObject("user");
-								String name = user.getString("name");
-								String email = user.getString("email");
-								String created_at = user
-										.getString("created_at");
-								Toast.makeText(getApplicationContext(), name+" "+email, Toast.LENGTH_LONG).show();
-//								 Inserting row in users table
-//								db.addUser(name, email, uid, created_at);
+								String message = jObj.getString("message");
+								Toast.makeText(getApplicationContext(),message, Toast.LENGTH_LONG).show();
 
 								 //Launch login activity
 								Intent intent = new Intent(
@@ -153,9 +139,9 @@ public class RegisterActivity extends Activity {
 
 								// Error occurred in registration. Get the error
 								// message
-								String errorMsg = jObj.getString("error_msg");
+								String message = jObj.getString("message");
 								Toast.makeText(getApplicationContext(),
-										errorMsg, Toast.LENGTH_LONG).show();
+										message, Toast.LENGTH_LONG).show();
 							}
 						} catch (JSONException e) {
 							e.printStackTrace();
@@ -177,8 +163,6 @@ public class RegisterActivity extends Activity {
 			protected Map<String, String> getParams() {
 				// Posting params to register url
 				Map<String, String> params = new HashMap<String, String>();
-				params.put("tag", "register");
-				params.put("name", name);
 				params.put("email", email);
 				params.put("password", password);
 

@@ -3,11 +3,13 @@
     package="com.halley.registerandlogin"
     android:versionCode="1"
     android:versionName="1.0" >
-	<permission
+
+    <permission
         android:name="com.halley.registerandlogin.permission.MAPS_RECEIVE"
         android:protectionLevel="signature" />
- 
+
     <uses-permission android:name="com.halley.registerandlogin.permission.MAPS_RECEIVE" />
+
     <uses-sdk
         android:minSdkVersion="14"
         android:targetSdkVersion="21" />
@@ -17,11 +19,11 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
- 
+
     <!-- Required to show current location -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
- 
+
     <!-- Required OpenGL ES 2.0. for Maps V2 -->
     <uses-feature
         android:glEsVersion="0x00020000"
@@ -36,9 +38,10 @@
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
-         <meta-data
+        <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyAzDxQKOqEK28Fk2kondQN_kXEvYXGz41U" />
+
         <activity
             android:name=".LoginActivity"
             android:label="@string/app_name"
@@ -57,29 +60,32 @@
             <meta-data
                 android:name="android.app.default_searchable"
                 android:value=".ItineraryActivity" />
-            
         </activity>
         <activity
             android:name=".RegisterActivity"
-            android:parentActivityName="com.halley.ridesharing.LoginActivity"
             android:label="@string/app_name"
             android:launchMode="singleTop"
+            android:parentActivityName="com.halley.ridesharing.LoginActivity"
             android:windowSoftInputMode="adjustPan" >
         </activity>
         <activity
             android:name="com.halley.ridesharing.ItineraryActivity"
-            android:parentActivityName="com.halley.ridesharing.MainActivity" 
             android:label="@string/title_activity_itinerary"
-            android:theme="@android:style/Theme.Holo.Light.DarkActionBar"
-             >
+            android:parentActivityName="com.halley.ridesharing.MainActivity"
+            android:theme="@android:style/Theme.Holo.Light.DarkActionBar" >
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
- 
+
             <meta-data
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable"
                 android:value=".ItineraryActivity" />
+        </activity>
+        <activity
+            android:name="com.halley.ridesharing.UserProfileActivity"
+            android:label="@string/title_activity_user_profile"
+            android:parentActivityName="com.halley.ridesharing.MainActivity" >
         </activity>
     </application>
 

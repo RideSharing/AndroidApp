@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical"
+            android:padding="4dip" >
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" >
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.5" >
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:contentDescription="Main Image"
+                        android:padding="1dp"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/ic_avatar" />
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/image_border_profile"
+                        android:contentDescription="Image Border"
+                        android:padding="0dp" />
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_margin="8dp"
+                        android:background="@drawable/image_border_profile"
+                        android:clickable="true"
+                        android:contentDescription="image"
+                        android:padding="4dp"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/ic_edit_picture" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.5"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:id="@+id/fullname"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="10dp"
+                        android:text="Nguyen Nhat Cuong"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textColor="#000"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/location"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_below="@+id/locationButton"
+                        android:gravity="right"
+                        android:padding="5dip"
+                        android:text="DA NANG"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textColor="@color/location_user" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:orientation="horizontal"
+                android:padding="4dip" >
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:orientation="horizontal"
+                android:padding="4dip" >
+
+                <TextView
+                    android:id="@+id/email"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/border_profile"
+                    android:padding="3dip"
+                    android:text="@string/email"
+                    android:textColor="#000000"
+                    android:textSize="20dp" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/email"
+                    android:layout_alignRight="@+id/email"
+                    android:layout_alignTop="@+id/email" >
+
+                    <ImageView
+                        android:id="@+id/editEmail"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:background="@drawable/ic_edit"
+                        android:contentDescription="image" />
+                </LinearLayout>
+            </RelativeLayout>
+
+            <EditText
+                android:id="@+id/inputEmail"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/email_hint"
+                android:minLines="1" >
+            </EditText>
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:orientation="horizontal"
+                android:padding="4dip" >
+
+                <TextView
+                    android:id="@+id/phone"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/border_profile"
+                    android:padding="3dip"
+                    android:text="@string/phone"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="#000000"
+                    android:textSize="20dp" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/phone"
+                    android:layout_alignRight="@+id/phone"
+                    android:layout_alignTop="@+id/phone" >
+
+                    <ImageView
+                        android:id="@+id/editPhone"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:background="@drawable/ic_edit"
+                        android:contentDescription="image" />
+                </LinearLayout>
+            </RelativeLayout>
+
+            <EditText
+                android:id="@+id/inputPhone"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/phone_hint"
+                android:minLines="1" >
+            </EditText>
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:orientation="horizontal"
+                android:padding="4dip" >
+
+                <TextView
+                    android:id="@+id/presionalID"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/border_profile"
+                    android:padding="3dip"
+                    android:text="@string/persionalID"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="#000000"
+                    android:textSize="20dp" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/presionalID"
+                    android:layout_alignRight="@+id/presionalID"
+                    android:layout_alignTop="@+id/presionalID" >
+
+                    <ImageView
+                        android:id="@+id/editPersionalID"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_marginRight="5dp"
+                        android:background="@drawable/ic_edit"
+                        android:contentDescription="image" />
+
+                    <ImageView
+                        android:id="@+id/editPersionalID_img"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:background="@drawable/ic_edit_picture"
+                        android:contentDescription="@string/imagePersionalID" />
+                </LinearLayout>
+            </RelativeLayout>
+
+            <EditText
+                android:id="@+id/inputPersionalID"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/persionalID_hint"
+                android:minLines="1" >
+            </EditText>
+		<LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dip" >
+
+            <Button
+                android:id="@+id/btnChangePassword"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_margin="5dp"
+                android:background="@color/btn_general"
+                android:text="@string/btn_change_password"
+                android:textColor="@color/white" />
+
+            <Button
+                android:id="@+id/btnUpgradeDriver"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@color/btn_general"
+                android:text="@string/btn_upgrade_driver"
+                android:textColor="@color/white" />
+
+        </LinearLayout>
+           
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

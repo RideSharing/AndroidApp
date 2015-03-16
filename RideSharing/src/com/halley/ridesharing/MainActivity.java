@@ -3,19 +3,17 @@ package com.halley.ridesharing;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
+import android.location.Location;
 import android.os.Bundle;
-import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.Menu;
@@ -27,6 +25,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
 import com.halley.helper.DatabaseHandler;
 import com.halley.helper.SessionManager;
 import com.halley.map.GPSLocation.GPSLocation;
@@ -37,13 +37,13 @@ import com.halley.registerandlogin.R;
 
 public class MainActivity extends ActionBarActivity implements
 		SearchView.OnQueryTextListener {
-
+	private GoogleMap googleMap;
 	private TextView txtName;
 	private TextView txtEmail;
 	private Button btnLogout;
 	private SearchView mSearchView;
 	private boolean driver = false;
-
+	private Location currentLocation;
 	private DatabaseHandler db;
 	public SessionManager session;
 
@@ -79,18 +79,31 @@ public class MainActivity extends ActionBarActivity implements
 		View cView = getLayoutInflater().inflate(
 				R.layout.switch_role_actionbar, null);
 		session = new SessionManager(getApplicationContext());
-		
+
 		// Add Navigation Drawer
 		this.addNavDrawer(this);
-//		if (savedInstanceState == null) {
-//			displayView(0);
-//		}
-		
+		// if (savedInstanceState == null) {
+		// displayView(0);
+		// }
 
 		if (!session.isLoggedIn()) {
 			logoutUser();
 		}
-		gps.isConnectGPS();
+		// Get current location and show on Google Maps
+		currentLocation = gps.getCurrentLocation();
+		//initilizeMap();
+		//Toast.makeText(this, currentLocation.toString(), Toast.LENGTH_LONG).show();
+//		CameraPosition cameraPosition = new CameraPosition.Builder()
+//				.target(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude())).zoom(14).build();
+//		googleMap.animateCamera(CameraUpdateFactory
+//				.newCameraPosition(cameraPosition));
+//		// create marker
+//		MarkerOptions marker = new MarkerOptions().position(
+//				new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude())).title(
+//				"Địa chỉ hiện tại của bạn ");
+//
+//		// adding marker
+//		googleMap.addMarker(marker);
 
 	}
 
@@ -113,12 +126,40 @@ public class MainActivity extends ActionBarActivity implements
 		finish();
 	}
 
-	public void roleOnclick(View v) {
-		Toast.makeText(this, "change ", Toast.LENGTH_SHORT).show();
+	private void initilizeMap() {
+
+		if (googleMap == null) {
+			googleMap = ((MapFragment) getFragmentManager().findFragmentById(
+                    R.id.map)).getMap();
+			googleMap.setMyLocationEnabled(true);
+
+			// Enable / Disable zooming controls
+			googleMap.getUiSettings().setZoomControlsEnabled(true);
+
+			// Enable / Disable Compass icon
+			googleMap.getUiSettings().setCompassEnabled(true);
+
+			// Enable / Disable Rotate gesture
+			googleMap.getUiSettings().setRotateGesturesEnabled(true);
+
+			// Enable / Disable zooming functionality
+			googleMap.getUiSettings().setZoomGesturesEnabled(true);
+			// FragmentManager fmanager =
+			// getActivity().getSupportFragmentManager();
+			// Fragment fragment = fmanager.findFragmentById(R.id.map);
+			// Log.d("Fragment ", fragment.toString());
+			// SupportMapFragment supportmapfragment =
+			// (SupportMapFragment)fragment;
+			// GoogleMap supportMap = supportmapfragment.getMap();
+
+			// check if map is created successfully or not
+			if (googleMap == null) {
+				Toast.makeText(this, "Sorry! unable to create maps",
+						Toast.LENGTH_SHORT).show();
+			}
+		}
 	}
-	private void addNavItems(){
-		
-	}
+
 	private void addNavDrawer(Context context) {
 		mTitle = mDrawerTitle = getTitle();
 		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -129,16 +170,14 @@ public class MainActivity extends ActionBarActivity implements
 		// load slide menu user's items
 		navUserMenuTitles = getResources().getStringArray(
 				R.array.nav_drawer_items_user);
-		
+
 		// load slide menu driver's items
-				navDriverMenuTitles = getResources().getStringArray(
-						R.array.nav_drawer_items_driver);
+		navDriverMenuTitles = getResources().getStringArray(
+				R.array.nav_drawer_items_driver);
 
 		// nav drawer icons from resources
 		navMenuIcons = getResources()
 				.obtainTypedArray(R.array.nav_drawer_icons);
-
-		
 
 		// adding nav drawer items to array
 		if (driver == true) {
@@ -165,11 +204,10 @@ public class MainActivity extends ActionBarActivity implements
 		mDrawerList.setAdapter(adapter);
 
 		mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
-				R.drawable.ic_drawer, // nav menu toggle icon
 				R.string.app_menu, // nav drawer open - description for
 									// accessibility
 				R.string.app_menu // nav drawer close - description for
-									// accessibility
+		// accessibility
 		) {
 			public void onDrawerClosed(View view) {
 				getSupportActionBar().setTitle(mTitle);
@@ -184,7 +222,6 @@ public class MainActivity extends ActionBarActivity implements
 			}
 		};
 		mDrawerLayout.setDrawerListener(mDrawerToggle);
-		
 
 	}
 
@@ -211,14 +248,13 @@ public class MainActivity extends ActionBarActivity implements
 		Intent intent = null;
 		switch (position) {
 		case 0:
-			intent = new Intent(this,UserProfileActivity.class);
+			intent = new Intent(this, UserProfileActivity.class);
 			// SqLite database handler
 			db = new DatabaseHandler(getApplicationContext());
 			// Fetching user details from sqlite
 			HashMap<String, String> user = db.getUserDetails();
 			String name = user.get("name");
 			String email = user.get("email");
-			
 
 			break;
 		// case 1:
@@ -230,10 +266,10 @@ public class MainActivity extends ActionBarActivity implements
 
 		if (intent != null) {
 			startActivity(intent);
-//			// update selected item and title, then close the drawer
-//			mDrawerList.setItemChecked(position, true);
-//			mDrawerList.setSelection(position);
-			
+			// // update selected item and title, then close the drawer
+			// mDrawerList.setItemChecked(position, true);
+			// mDrawerList.setSelection(position);
+
 			mDrawerLayout.closeDrawer(mDrawerList);
 		} else {
 			// error in creating fragment
@@ -276,7 +312,7 @@ public class MainActivity extends ActionBarActivity implements
 		case R.id.action_search:
 			return true;
 		case R.id.action_role:
-			if (this.driver==false) {
+			if (this.driver == false) {
 				item.setTitle("driver");
 				item.setIcon(getResources().getDrawable(R.drawable.ic_driver));
 				this.driver = true;
@@ -301,14 +337,16 @@ public class MainActivity extends ActionBarActivity implements
 	public boolean onPrepareOptionsMenu(Menu menu) {
 		// if nav drawer is opened, hide the action items
 		boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
-		
-		if(!drawerOpen){
-			if (this.driver==false) {
+
+		if (!drawerOpen) {
+			if (this.driver == false) {
 				menu.findItem(R.id.action_role).setTitle("user");
-				menu.findItem(R.id.action_role).setIcon(getResources().getDrawable(R.drawable.ic_user));
-			} else{
+				menu.findItem(R.id.action_role).setIcon(
+						getResources().getDrawable(R.drawable.ic_user));
+			} else {
 				menu.findItem(R.id.action_role).setTitle("driver");
-				menu.findItem(R.id.action_role).setIcon(getResources().getDrawable(R.drawable.ic_driver));
+				menu.findItem(R.id.action_role).setIcon(
+						getResources().getDrawable(R.drawable.ic_driver));
 			}
 			this.addNavDrawer(this.getApplicationContext());
 		}
@@ -354,6 +392,8 @@ public class MainActivity extends ActionBarActivity implements
 	public boolean onQueryTextSubmit(String location) {
 		Intent i = new Intent(this, ItineraryActivity.class);
 		i.putExtra("location", location);
+		i.putExtra("currentLatitude", gps.getCurrentLocation().getLatitude());
+		i.putExtra("currentLongitude", gps.getCurrentLocation().getLongitude());
 		startActivity(i);
 
 		return false;

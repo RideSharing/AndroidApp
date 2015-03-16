@@ -27,8 +27,8 @@
     <color name="counter_text_bg">#626262</color>
     <color name="counter_text_color">#c5c4c4</color>
     
-    <color name="genre">#666666</color>
-    <color name="year">#888888</color>
+    <color name="address">#666666</color>
+    <color name="leave_date">#888888</color>
     <color name="list_row_start_color">#ffffff</color>
     <color name="list_row_end_color">#ffffff</color>
     <color name="list_row_hover_start_color">#ebeef0</color>

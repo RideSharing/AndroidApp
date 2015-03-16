@@ -2,8 +2,6 @@ package com.halley.ridesharing;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +12,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.halley.registerandlogin.R;
 
 public class MapViewOfItineraryFragment extends Fragment {
@@ -22,7 +21,8 @@ public class MapViewOfItineraryFragment extends Fragment {
 	private GoogleMap googleMap;
 	Double latitude;
 	Double longitude;
-
+	Double currentlatitude;
+	Double currentlongitude;
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -34,11 +34,18 @@ public class MapViewOfItineraryFragment extends Fragment {
 		if (this.getArguments() != null) {
 			latitude = this.getArguments().getDouble("latitude");
 			longitude = this.getArguments().getDouble("longitude");
+			currentlatitude = this.getArguments().getDouble("currentLatitude");
+			currentlongitude = this.getArguments().getDouble("currentLongitude");
 
 			CameraPosition cameraPosition = new CameraPosition.Builder()
 					.target(new LatLng(latitude, longitude)).zoom(14).build();
 			googleMap.animateCamera(CameraUpdateFactory
 					.newCameraPosition(cameraPosition));
+			// create marker
+			MarkerOptions marker = new MarkerOptions().position(new LatLng(currentlatitude, currentlongitude)).title("Địa chỉ hiện tại của bạn ");
+			 
+			// adding marker
+			googleMap.addMarker(marker);
 		}
 		return rootView;
 	}

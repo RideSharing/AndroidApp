@@ -32,7 +32,7 @@ public class ListViewOfItineraryFragment extends Fragment {
 	private ListView listView;
 	private ItineraryListAdapter listAdapter;
 	private List<ItineraryItem> itineraryItems;
-	private static final String url = "http://api.androidhive.info/json/movies.json";
+	private static final String url = "http://192.168.10.74/itinerary.json";
 	private ProgressDialog pDialog;
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -40,7 +40,10 @@ public class ListViewOfItineraryFragment extends Fragment {
  
         View rootView = inflater.inflate(R.layout.fragment_list_view_of_itinerary, container, false);
         listView = (ListView) rootView.findViewById(R.id.list);
-        
+        pDialog = new ProgressDialog(this.getActivity());
+		// Showing progress dialog before making http request
+		pDialog.setMessage("Đang load dữ liệu...");
+		pDialog.show();
         showListView();
         Bundle bundle= this.getArguments();
         Toast.makeText(this.getActivity(), bundle.getString("location"), Toast.LENGTH_LONG).show();
@@ -53,10 +56,7 @@ public class ListViewOfItineraryFragment extends Fragment {
 		listAdapter = new ItineraryListAdapter(this.getActivity(), itineraryItems);
 		listView.setAdapter(listAdapter);
 
-		pDialog = new ProgressDialog(this.getActivity());
-		// Showing progress dialog before making http request
-		pDialog.setMessage("Loading...");
-		pDialog.show();
+		
 
 		// Creating volley request obj
 		JsonArrayRequest ItineraryReq = new JsonArrayRequest(url,
@@ -76,22 +76,24 @@ public class ListViewOfItineraryFragment extends Fragment {
 
 									JSONObject obj = response.getJSONObject(i);
 									ItineraryItem itineraryItem = new ItineraryItem();
-									itineraryItem.setTitle(obj.getString("title"));
-									itineraryItem.setThumbnailUrl(obj
+									itineraryItem.setDescription(obj.getString("description"));
+									itineraryItem.setStart_address(obj.getString("start_addess"));
+									itineraryItem.setEnd_address(obj.getString("end_addess"));
+									itineraryItem.setAvatarlUrl(obj
 											.getString("image"));
 									itineraryItem.setRating(((Number) obj
 											.get("rating")).doubleValue());
-									itineraryItem.setYear(obj.getInt("releaseYear"));
+									itineraryItem.setLeave_date(obj.getString("leave_date"));
+									itineraryItem.setCost(obj.getString("cost"));
+//									// Genre is json array
+//									JSONArray genreArry = obj.getJSONArray("genre");
+//									ArrayList<String> genre = new ArrayList<String>();
+//									for (int j = 0; j < genreArry.length(); j++) {
+//										genre.add((String) genreArry.get(j));
+//									}
+//									itineraryItem.setGenre(genre);
 
-									// Genre is json array
-									JSONArray genreArry = obj.getJSONArray("genre");
-									ArrayList<String> genre = new ArrayList<String>();
-									for (int j = 0; j < genreArry.length(); j++) {
-										genre.add((String) genreArry.get(j));
-									}
-									itineraryItem.setGenre(genre);
-
-									// adding movie to movies array
+									// adding itinerary to itinerary array
 									itineraryItems.add(itineraryItem);
 
 								} catch (JSONException e) {

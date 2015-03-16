@@ -7,20 +7,20 @@
  
     <!-- Thumbnail Image -->
     <com.android.volley.toolbox.NetworkImageView
-        android:id="@+id/thumbnail"
+        android:id="@+id/avatar"
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_alignParentLeft="true"
         android:layout_marginRight="8dp" />
  
-    <!-- Movie Title -->
+    <!-- Itinerary Title -->
     <TextView
-        android:id="@+id/title"
+        android:id="@+id/description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/thumbnail"
-        android:layout_toRightOf="@+id/thumbnail"
-        android:textSize="@dimen/title"
+        android:layout_alignTop="@+id/avatar"
+        android:layout_toRightOf="@+id/avatar"
+        android:textSize="@dimen/description"
         android:textStyle="bold" />
  
     <!-- Rating -->
@@ -28,30 +28,44 @@
         android:id="@+id/rating"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/title"
+        android:layout_below="@id/description"
         android:layout_marginTop="1dip"
-        android:layout_toRightOf="@+id/thumbnail"
+        android:layout_toRightOf="@+id/avatar"
         android:textSize="@dimen/rating" />
      
-    <!-- Genre -->
-    <TextView
-        android:id="@+id/genre"
+    <!--Start - End  Address -->
+    <LinearLayout 
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
         android:layout_below="@id/rating"
         android:layout_marginTop="5dp"
-        android:layout_toRightOf="@+id/thumbnail"
-        android:textColor="@color/genre"
-        android:textSize="@dimen/genre" />
- 
-    <!-- Release Year -->
+        android:layout_toRightOf="@+id/avatar"
+        android:id="@+id/address">
     <TextView
-        android:id="@+id/releaseYear"
+        android:id="@+id/start_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/address"
+        android:textSize="@dimen/address" />
+    <TextView
+        android:id="@+id/end_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/start_address"
+        android:textColor="@color/address"
+        android:textSize="@dimen/address" />
+    </LinearLayout>
+ 
+    <!-- Leave Date -->
+    <TextView
+        android:id="@+id/leave_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:textColor="@color/year"
-        android:textSize="@dimen/year" />
+        android:textColor="@color/leave_date"
+        android:layout_below="@id/address"
+        android:textSize="@dimen/leave_date" />
  
 </RelativeLayout>

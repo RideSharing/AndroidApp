@@ -78,7 +78,8 @@ ActionBar.TabListener {
 		Intent intent=getIntent();
 		if(intent.getExtras()!=null){
 			mAdapter.setLocation_address(getLocation(intent.getStringExtra("location")));
-			
+			mAdapter.setCurrentLatitude(intent.getExtras().getDouble("currentLatitude"));
+			mAdapter.setCurrentLongitude(intent.getExtras().getDouble("currentLongitude"));
 			//Toast.makeText(this, "submit " + intent.getExtras().getString("location"), Toast.LENGTH_SHORT).show();
 			
 		}

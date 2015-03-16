@@ -54,36 +54,40 @@ public class ItineraryListAdapter extends BaseAdapter {
  
         if (imageLoader == null)
             imageLoader = AppController.getInstance().getImageLoader();
-        NetworkImageView thumbNail = (NetworkImageView) convertView
-                .findViewById(R.id.thumbnail);
-        TextView title = (TextView) convertView.findViewById(R.id.title);
+        NetworkImageView avatar = (NetworkImageView) convertView
+                .findViewById(R.id.avatar);
+        TextView description = (TextView) convertView.findViewById(R.id.description);
         TextView rating = (TextView) convertView.findViewById(R.id.rating);
-        TextView genre = (TextView) convertView.findViewById(R.id.genre);
-        TextView year = (TextView) convertView.findViewById(R.id.releaseYear);
+        TextView start_address = (TextView) convertView.findViewById(R.id.start_address);
+        TextView end_address = (TextView) convertView.findViewById(R.id.end_address);
+        TextView leave_date = (TextView) convertView.findViewById(R.id.leave_date);
  
-        // getting movie data for the row
+        // getting itinerary data for the row
         ItineraryItem m = itineraryItems.get(position);
  
         // thumbnail image
-        thumbNail.setImageUrl(m.getThumbnailUrl(), imageLoader);
+        avatar.setImageUrl(m.getAvatarlUrl(), imageLoader);
          
         // title
-        title.setText(m.getTitle());
+        description.setText(m.getDescription());
          
         // rating
-        rating.setText("Rating: " + String.valueOf(m.getRating()));
-         
-        // genre
-        String genreStr = "";
-        for (String str : m.getGenre()) {
-            genreStr += str + ", ";
-        }
-        genreStr = genreStr.length() > 0 ? genreStr.substring(0,
-                genreStr.length() - 2) : genreStr;
-        genre.setText(genreStr);
+        rating.setText("Đánh giá: " + String.valueOf(m.getRating())+". Giá tiền: "+m.getCost()+" VNĐ");
+        // start_address
+        start_address.setText("Nơi đi: " + m.getStart_address());
+        // end_address
+        end_address.setText("Nơi đến: " + m.getEnd_address());
+//        // genre
+//        String genreStr = "";
+//        for (String str : m.getGenre()) {
+//            genreStr += str + ", ";
+//        }
+//        genreStr = genreStr.length() > 0 ? genreStr.substring(0,
+//                genreStr.length() - 2) : genreStr;
+//        genre.setText(genreStr);
          
         // release year
-        year.setText(String.valueOf(m.getYear()));
+        leave_date.setText("Ngày đi: " + m.getLeave_date());
  
         return convertView;
     }

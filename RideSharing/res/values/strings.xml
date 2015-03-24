@@ -40,6 +40,7 @@
         <item>Quản lý lịch trình</item>
         <item>Thống kê</item>
         <item>Thông tin ứng dụng</item>
+        <item>Đăng xuất</item>
     </string-array>
     <string-array name="nav_drawer_items_driver">
         <item>Trang chủ</item>
@@ -48,6 +49,7 @@
         <item>Quản lý lịch trình</item>
         <item>Thống kê</item>
         <item>Thông tin ứng dụng</item>
+        <item>Đăng xuất</item>
     </string-array>
     <!-- Nav Drawer List Item Icons -->
     <!-- Keep them in order as the titles are in -->

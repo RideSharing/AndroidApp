@@ -1,5 +1,6 @@
 package com.halley.registerandlogin;
 
+import com.halley.map.GPSLocation.GPSLocation;
 import com.halley.ridesharing.MainActivity;
 
 import android.support.v7.app.ActionBarActivity;
@@ -43,7 +44,8 @@ public class LoginActivity extends Activity {
 	private EditText inputPassword;
 	private ProgressDialog pDialog;
 	private SessionManager session;
-	private DatabaseHandler db;
+	
+
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -55,7 +57,7 @@ public class LoginActivity extends Activity {
 		btnLogin = (Button) findViewById(R.id.btnLogin);
 		btnRegister = (Button) findViewById(R.id.btnRegister);
 		btnLinkToForgotPassword=(Button)findViewById(R.id.btnLinkToForgotPasswordScreen);
-		db= new DatabaseHandler(getApplicationContext());
+		
 		// Progress dialog
 		pDialog = new ProgressDialog(this);
 		pDialog.setCancelable(false);
@@ -131,23 +133,16 @@ public class LoginActivity extends Activity {
 							if (!error) {
 								
 								// user successfully logged in
-								String apiKey = jObj.getString("apiKey");
-								String fullname = jObj.getString("fullname");
-								String phone = jObj.getString("phone");
-								String personalID = jObj.getString("personalID");
-								String personalID_img = jObj.getString("personalID_img");
-								String link_avatar = jObj.getString("link_avatar");
-								String created_at = jObj.getString("created_at");
-								String status = jObj.getString("status");
-								// Inserting row in users table
-								db.addUser(apiKey, fullname, phone,personalID,personalID_img,link_avatar, created_at,status);
+								
 								// Create login session
 								session.setLogin(true);
 								
 								// Launch main activity
 								Intent intent = new Intent(getApplicationContext(),
 										MainActivity.class);
+								
 								startActivity(intent);
+								
 								finish();
 								
 							} else {

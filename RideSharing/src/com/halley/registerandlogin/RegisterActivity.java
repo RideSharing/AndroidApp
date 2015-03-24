@@ -2,7 +2,6 @@ package com.halley.registerandlogin;
 
 import com.halley.ridesharing.MainActivity;
 
-
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -42,7 +41,6 @@ public class RegisterActivity extends Activity {
 	private EditText inputPassword;
 	private ProgressDialog pDialog;
 	private SessionManager session;
-	private DatabaseHandler db;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -60,9 +58,6 @@ public class RegisterActivity extends Activity {
 
 		// Session manager
 		session = new SessionManager(getApplicationContext());
-
-		// SQLite database handler
-		db = new DatabaseHandler(getApplicationContext());
 
 		// Check if user is already logged in or not
 		if (session.isLoggedIn()) {
@@ -82,9 +77,8 @@ public class RegisterActivity extends Activity {
 				if (!email.isEmpty() && !password.isEmpty()) {
 					registerUser(email, password);
 				} else {
-					Toast.makeText(getApplicationContext(),
-							R.string.no_input, Toast.LENGTH_LONG)
-							.show();
+					Toast.makeText(getApplicationContext(), R.string.no_input,
+							Toast.LENGTH_LONG).show();
 				}
 			}
 		});
@@ -103,16 +97,16 @@ public class RegisterActivity extends Activity {
 	}
 
 	/**
-	 * Function to store user in MySQL database will post params(* email, password) to register url
+	 * Function to store user in MySQL database will post params(* email,
+	 * password) to register url
 	 * */
-	private void registerUser(final String email,
-			final String password) {
+	private void registerUser(final String email, final String password) {
 		// Tag used to cancel the request
 		String tag_string_req = "req_register";
 
 		pDialog.setMessage("Registering ...");
 		showDialog();
-		
+
 		StringRequest strReq = new StringRequest(Method.POST,
 				AppConfig.URL_REGISTER, new Response.Listener<String>() {
 
@@ -122,19 +116,22 @@ public class RegisterActivity extends Activity {
 						hideDialog();
 
 						try {
-							JSONObject jObj = new JSONObject(response.substring(response.indexOf("{"), response.lastIndexOf("}") + 1));
+							JSONObject jObj = new JSONObject(response
+									.substring(response.indexOf("{"),
+											response.lastIndexOf("}") + 1));
 							boolean error = jObj.getBoolean("error");
 							if (!error) {
 								String message = jObj.getString("message");
-								Toast.makeText(getApplicationContext(),message, Toast.LENGTH_LONG).show();
+								Toast.makeText(getApplicationContext(),
+										message, Toast.LENGTH_LONG).show();
 
-								 //Launch login activity
+								// Launch login activity
 								Intent intent = new Intent(
 										RegisterActivity.this,
 										LoginActivity.class);
 								startActivity(intent);
 								finish();
-								
+
 							} else {
 
 								// Error occurred in registration. Get the error

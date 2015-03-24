@@ -57,8 +57,7 @@ public class MapViewOfItineraryFragment extends Fragment {
                     R.id.map)).getMap();
 			googleMap.setMyLocationEnabled(true);
 			
-			// Enable / Disable zooming controls
-			googleMap.getUiSettings().setZoomControlsEnabled(true);
+			
 			
 			// Enable / Disable Compass icon
 			googleMap.getUiSettings().setCompassEnabled(true);

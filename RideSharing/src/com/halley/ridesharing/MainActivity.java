@@ -3,13 +3,18 @@ package com.halley.ridesharing;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.location.Location;
 import android.os.Bundle;
+import android.provider.Settings;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
@@ -25,9 +30,12 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
-import com.halley.helper.DatabaseHandler;
+import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.halley.helper.SessionManager;
 import com.halley.map.GPSLocation.GPSLocation;
 import com.halley.model.slidingmenu.NavDrawerItem;
@@ -43,10 +51,12 @@ public class MainActivity extends ActionBarActivity implements
 	private Button btnLogout;
 	private SearchView mSearchView;
 	private boolean driver = false;
-	private Location currentLocation;
-	private DatabaseHandler db;
+	private double currentLatitude;
+	private double currentLongitude;
+	private final double DEFAULT_LATITUDE=16.054407;
+	private final double DEFAULT_LONGITUDE=108.202167;
 	public SessionManager session;
-
+	private Fragment fragment;
 	private DrawerLayout mDrawerLayout;
 	private ListView mDrawerList;
 	private ActionBarDrawerToggle mDrawerToggle;
@@ -71,7 +81,10 @@ public class MainActivity extends ActionBarActivity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		gps = new GPSLocation(this);
+
+		// Loading map
+		initilizeMap();
+		// check if GPS enabled
 
 		// enabling action bar app icon and behaving it as toggle button
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -89,26 +102,43 @@ public class MainActivity extends ActionBarActivity implements
 		if (!session.isLoggedIn()) {
 			logoutUser();
 		}
-		// Get current location and show on Google Maps
-		currentLocation = gps.getCurrentLocation();
-		//initilizeMap();
-		//Toast.makeText(this, currentLocation.toString(), Toast.LENGTH_LONG).show();
-//		CameraPosition cameraPosition = new CameraPosition.Builder()
-//				.target(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude())).zoom(14).build();
-//		googleMap.animateCamera(CameraUpdateFactory
-//				.newCameraPosition(cameraPosition));
-//		// create marker
-//		MarkerOptions marker = new MarkerOptions().position(
-//				new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude())).title(
-//				"Địa chỉ hiện tại của bạn ");
-//
-//		// adding marker
-//		googleMap.addMarker(marker);
 
 	}
 
 	public void logoutOnclick(View view) {
 		logoutUser();
+	}
+
+	public void getLocationOnclick(View view) {
+		gps = new GPSLocation(MainActivity.this);
+		if (gps.canGetLocation()) {
+			currentLatitude = gps.getLatitude();
+			currentLongitude = gps.getLongitude();
+			getCurrentLocation();
+		} else {
+			// can't get location
+			// GPS or Network is not enabled
+			// Ask user to enable GPS/network in settings
+			gps.showSettingsGPSAlert();
+
+		}
+
+	}
+
+	public void getCurrentLocation() {
+		CameraPosition cameraPosition = new CameraPosition.Builder()
+				.target(new LatLng(gps.getLatitude(), gps.getLongitude()))
+				.zoom(14).build();
+		googleMap.animateCamera(CameraUpdateFactory
+				.newCameraPosition(cameraPosition));
+		// create marker
+		MarkerOptions marker = new MarkerOptions().position(
+				new LatLng(gps.getLatitude(), gps.getLongitude())).title(
+				"Địa chỉ hiện tại của bạn ");
+
+		// adding marker
+		googleMap.addMarker(marker);
+
 	}
 
 	/**
@@ -118,23 +148,44 @@ public class MainActivity extends ActionBarActivity implements
 	public void logoutUser() {
 		session.setLogin(false);
 
-		db.deleteUsers();
-
 		// Launching the login activity
 		Intent intent = new Intent(MainActivity.this, LoginActivity.class);
 		startActivity(intent);
 		finish();
+	}
+	
+	public void showLogoutAlert() {
+		AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+		
+		// Setting Dialog Title
+		alertDialog.setTitle("Đăng xuất");
+
+		// Setting Dialog Message
+		alertDialog
+				.setMessage("Bạn muốn đăng xuất khỏi tài khoản?");
+
+		// On pressing Settings button
+		alertDialog.setPositiveButton("OK",
+				new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int which) {
+						logoutUser();
+					}
+				});
+		alertDialog.setNegativeButton("Hủy bỏ",new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int which) {
+				dialog.cancel();
+			}
+		});
+		// Showing Alert Message
+		alertDialog.show();
 	}
 
 	private void initilizeMap() {
 
 		if (googleMap == null) {
 			googleMap = ((MapFragment) getFragmentManager().findFragmentById(
-                    R.id.map)).getMap();
+					R.id.mapMain)).getMap();
 			googleMap.setMyLocationEnabled(true);
-
-			// Enable / Disable zooming controls
-			googleMap.getUiSettings().setZoomControlsEnabled(true);
 
 			// Enable / Disable Compass icon
 			googleMap.getUiSettings().setCompassEnabled(true);
@@ -144,6 +195,11 @@ public class MainActivity extends ActionBarActivity implements
 
 			// Enable / Disable zooming functionality
 			googleMap.getUiSettings().setZoomGesturesEnabled(true);
+			CameraPosition cameraPosition = new CameraPosition.Builder()
+					.target(new LatLng(DEFAULT_LATITUDE, DEFAULT_LONGITUDE))
+					.zoom(14).build();
+			googleMap.animateCamera(CameraUpdateFactory
+					.newCameraPosition(cameraPosition));
 			// FragmentManager fmanager =
 			// getActivity().getSupportFragmentManager();
 			// Fragment fragment = fmanager.findFragmentById(R.id.map);
@@ -181,12 +237,12 @@ public class MainActivity extends ActionBarActivity implements
 
 		// adding nav drawer items to array
 		if (driver == true) {
-			for (int i = 0; i < 6; i++) {
+			for (int i = 0; i < 7; i++) {
 				navDrawerItems.add(new NavDrawerItem(navDriverMenuTitles[i],
 						navMenuIcons.getResourceId(i, -1)));
 			}
 		} else {
-			for (int i = 0; i < 6; i++) {
+			for (int i = 0; i < 7; i++) {
 				navDrawerItems.add(new NavDrawerItem(navUserMenuTitles[i],
 						navMenuIcons.getResourceId(i, -1)));
 			}
@@ -247,19 +303,13 @@ public class MainActivity extends ActionBarActivity implements
 		// update the main content by replacing fragments
 		Intent intent = null;
 		switch (position) {
-		case 0:
+		case 2:
 			intent = new Intent(this, UserProfileActivity.class);
-			// SqLite database handler
-			db = new DatabaseHandler(getApplicationContext());
-			// Fetching user details from sqlite
-			HashMap<String, String> user = db.getUserDetails();
-			String name = user.get("name");
-			String email = user.get("email");
 
 			break;
-		// case 1:
-		// fragment = new FindPeopleFragment();
-		// break;
+		 case 6:
+			 showLogoutAlert();
+		 break;
 		default:
 			break;
 		}
@@ -390,10 +440,11 @@ public class MainActivity extends ActionBarActivity implements
 
 	@Override
 	public boolean onQueryTextSubmit(String location) {
+
 		Intent i = new Intent(this, ItineraryActivity.class);
 		i.putExtra("location", location);
-		i.putExtra("currentLatitude", gps.getCurrentLocation().getLatitude());
-		i.putExtra("currentLongitude", gps.getCurrentLocation().getLongitude());
+		i.putExtra("currentLatitude", currentLatitude);
+		i.putExtra("currentLongitude", currentLongitude);
 		startActivity(i);
 
 		return false;

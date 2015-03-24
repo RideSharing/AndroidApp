@@ -6,11 +6,11 @@ import java.util.Locale;
 
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
-import android.app.Activity;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
+import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
@@ -22,120 +22,120 @@ import com.halley.listitinerary.adapter.TabListItineraryAdapter;
 import com.halley.registerandlogin.R;
 
 public class ItineraryActivity extends FragmentActivity implements
-ActionBar.TabListener {
+		ActionBar.TabListener {
 
-	
+	private double fromLatitude, fromLongitude, toLatitude, toLongitude;
+	private Location fromLocation,toLocation;
 	private ActionBar actionBar;
 	private ViewPager viewPager;
-    private TabListItineraryAdapter mAdapter;
-    // Tab titles
-    private String[] tabs = { "ListView", "MapView"};
+	private TabListItineraryAdapter mAdapter;
+	// Tab titles
+	private String[] tabs = { "Bản đồ", "Danh sách" };
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_itinerary);
-		
+
 		// Initilization
-        viewPager = (ViewPager) findViewById(R.id.pager);
-        actionBar = getActionBar();
-        mAdapter = new TabListItineraryAdapter(getSupportFragmentManager());
- 
-        viewPager.setAdapter(mAdapter);
-        actionBar.setHomeButtonEnabled(true);
-        // Enabling Up / Back navigation
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);       
- 
-        // Adding Tabs
-        for (String tab_name : tabs) {
-            actionBar.addTab(actionBar.newTab().setText(tab_name)
-                    .setTabListener(this));
-        }
-        /**
-         * on swiping the viewpager make respective tab selected
-         * */
-        viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-         
-            @Override
-            public void onPageSelected(int position) {
-                // on changing the page
-                // make respected tab selected
-                actionBar.setSelectedNavigationItem(position);
-            }
-         
-            @Override
-            public void onPageScrolled(int arg0, float arg1, int arg2) {
-            }
-         
-            @Override
-            public void onPageScrollStateChanged(int arg0) {
-            }
-        });
+		viewPager = (ViewPager) findViewById(R.id.pager);
+		actionBar = getActionBar();
+		mAdapter = new TabListItineraryAdapter(getSupportFragmentManager(),
+				null);
+		Intent intent = this.getIntent();
+		if (intent.getExtras() != null) {
+			fromLocation = new Location("");
+			fromLocation.setLatitude(intent.getExtras().getDouble("fromLatitude"));
+			fromLocation.setLongitude(intent.getExtras().getDouble("fromLongitude"));
+			
+			toLocation = new Location("");
+			toLocation.setLatitude(intent.getExtras().getDouble("toLatitude"));
+			toLocation.setLongitude(intent.getExtras().getDouble("toLongitude"));
+			//Toast.makeText(this, location.toString(), Toast.LENGTH_LONG).show();
+			
+			mAdapter.setFrom_address(fromLocation);
+			mAdapter.setTo_address(toLocation);
+			mAdapter.setIsFrom(false);
+		}
+		viewPager.setAdapter(mAdapter);
+		actionBar.setHomeButtonEnabled(true);
+		// Enabling Up / Back navigation
+		actionBar.setDisplayHomeAsUpEnabled(true);
+		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+
+		// Adding Tabs
+		for (String tab_name : tabs) {
+			actionBar.addTab(actionBar.newTab().setText(tab_name)
+					.setTabListener(this));
+		}
+		/**
+		 * on swiping the viewpager make respective tab selected
+		 * */
+		viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+
+			@Override
+			public void onPageSelected(int position) {
+				// on changing the page
+				// make respected tab selected
+				actionBar.setSelectedNavigationItem(position);
+			}
+
+			@Override
+			public void onPageScrolled(int arg0, float arg1, int arg2) {
+			}
+
+			@Override
+			public void onPageScrollStateChanged(int arg0) {
+			}
+		});
 
 		// Enabling Back navigation on Action Bar icon
-        getActionBar().setDisplayHomeAsUpEnabled(true);
-		Intent intent=getIntent();
-		if(intent.getExtras()!=null){
-			mAdapter.setLocation_address(getLocation(intent.getStringExtra("location")));
-			mAdapter.setCurrentLatitude(intent.getExtras().getDouble("currentLatitude"));
-			mAdapter.setCurrentLongitude(intent.getExtras().getDouble("currentLongitude"));
-			//Toast.makeText(this, "submit " + intent.getExtras().getString("location"), Toast.LENGTH_SHORT).show();
-			
-		}
-		
-
-		// txtQuery = (TextView) findViewById(R.id.txtQuery);
-
-		//handleIntent(getIntent());
-
+		getActionBar().setDisplayHomeAsUpEnabled(true);
 	}
-	
-	public Address getLocation(String location){
+
+	public Address getLocation(String location) {
 		Geocoder geocoder;
-		Address add=null;
+		Address add = null;
 		List<android.location.Address> list_address = null;
 		geocoder = new Geocoder(this, Locale.getDefault());
 		try {
 			list_address = geocoder.getFromLocationName(location, 1);
-			 add = list_address.get(0);
-			
-			 
-			//Toast.makeText(this, "submit " + locality, Toast.LENGTH_SHORT).show();
+			add = list_address.get(0);
+
+			// Toast.makeText(this, "submit " + locality,
+			// Toast.LENGTH_SHORT).show();
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return add;
-		
+
 	}
 
-	
-
-//	@Override
-//	protected void onNewIntent(Intent intent) {
-//		setIntent(intent);
-//		handleIntent(intent);
-//	}
-//
-//	/**
-//	 * Handling intent data
-//	 */
-//	private void handleIntent(Intent intent) {
-//		if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
-//			String location = intent.getStringExtra(SearchManager.QUERY);
-//
-//			/**
-//			 * Use this query to display search results like 1. Getting the data
-//			 * from SQLite and showing in listview 2. Making webrequest and
-//			 * displaying the data For now we just display the query only
-//			 */
-//			
-//
-//		}
-//
-//	}
+	// @Override
+	// protected void onNewIntent(Intent intent) {
+	// setIntent(intent);
+	// handleIntent(intent);
+	// }
+	//
+	// /**
+	// * Handling intent data
+	// */
+	// private void handleIntent(Intent intent) {
+	// if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
+	// String location = intent.getStringExtra(SearchManager.QUERY);
+	//
+	// /**
+	// * Use this query to display search results like 1. Getting the data
+	// * from SQLite and showing in listview 2. Making webrequest and
+	// * displaying the data For now we just display the query only
+	// */
+	//
+	//
+	// }
+	//
+	// }
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -159,21 +159,25 @@ ActionBar.TabListener {
 	@Override
 	public void onTabReselected(Tab arg0, FragmentTransaction arg1) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void onTabSelected(Tab tab, FragmentTransaction arg1) {
 		// TODO Auto-generated method stub
 		viewPager.setCurrentItem(tab.getPosition());
-		
+
 	}
 
 	@Override
 	public void onTabUnselected(Tab arg0, FragmentTransaction arg1) {
 		// TODO Auto-generated method stub
-		
-	}
 
-	
+	}
+	 @Override
+	    public void onBackPressed() {
+	            super.onBackPressed();
+	            this.finish();
+	    }
+
 }

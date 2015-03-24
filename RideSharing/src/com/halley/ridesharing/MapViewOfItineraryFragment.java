@@ -9,82 +9,112 @@ import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.GoogleMap.OnMarkerDragListener;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.halley.registerandlogin.R;
 
-public class MapViewOfItineraryFragment extends Fragment {
+public class MapViewOfItineraryFragment extends Fragment implements
+		OnMarkerDragListener {
 
 	// Google Map
 	private GoogleMap googleMap;
-	Double latitude;
-	Double longitude;
-	Double currentlatitude;
-	Double currentlongitude;
+	Double fromLatitude, fromLongitude, toLatitude, toLongitude;
+	private boolean isFrom;
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
+		View view = inflater.inflate(R.layout.fragment_map_view_of_itinerary,
+				container, false);
+		// googleMap = ((MapFragment) getActivity().getFragmentManager()
+		// .findFragmentById(R.id.map)).getMap();
+		// Toast.makeText(this.getActivity(), container.getTag().toString(),
+		// Toast.LENGTH_LONG).show();
 
-		View rootView = inflater.inflate(
-				R.layout.fragment_map_view_of_itinerary, container, false);
-
-		initilizeMap();
 		if (this.getArguments() != null) {
-			latitude = this.getArguments().getDouble("latitude");
-			longitude = this.getArguments().getDouble("longitude");
-			currentlatitude = this.getArguments().getDouble("currentLatitude");
-			currentlongitude = this.getArguments().getDouble("currentLongitude");
+			fromLatitude = this.getArguments().getDouble("fromLatitude");
+			fromLongitude = this.getArguments().getDouble("fromLongitude");
+			toLatitude = this.getArguments().getDouble("toLatitude");
+			toLongitude = this.getArguments().getDouble("toLongitude");
+			isFrom = this.getArguments().getBoolean("isFrom");
+			initilizeMap();
+			
+				// create marker
+				MarkerOptions marker = new MarkerOptions().position(
+						new LatLng(fromLatitude, fromLongitude)).title(
+						"Địa chỉ hiện tại của bạn ");
 
-			CameraPosition cameraPosition = new CameraPosition.Builder()
-					.target(new LatLng(latitude, longitude)).zoom(14).build();
-			googleMap.animateCamera(CameraUpdateFactory
-					.newCameraPosition(cameraPosition));
-			// create marker
-			MarkerOptions marker = new MarkerOptions().position(new LatLng(currentlatitude, currentlongitude)).title("Địa chỉ hiện tại của bạn ");
-			 
-			// adding marker
-			googleMap.addMarker(marker);
+				// adding marker
+				googleMap.addMarker(marker);
+			
 		}
-		return rootView;
+		return view;
+	}
+
+	@Override
+	public void onSaveInstanceState(Bundle outState) {
+		// No call for super(). Bug on API Level > 11.
 	}
 
 	private void initilizeMap() {
-		
+
 		if (googleMap == null) {
-			googleMap = ((MapFragment) getActivity().getFragmentManager().findFragmentById(
-                    R.id.map)).getMap();
+			googleMap = ((MapFragment) this.getActivity().getFragmentManager()
+					.findFragmentById(R.id.map)).getMap();
 			googleMap.setMyLocationEnabled(true);
-			
-			
-			
+
 			// Enable / Disable Compass icon
 			googleMap.getUiSettings().setCompassEnabled(true);
-
+			googleMap.getUiSettings().setZoomControlsEnabled(true);
 			// Enable / Disable Rotate gesture
 			googleMap.getUiSettings().setRotateGesturesEnabled(true);
 
 			// Enable / Disable zooming functionality
 			googleMap.getUiSettings().setZoomGesturesEnabled(true);
-//			FragmentManager fmanager = getActivity().getSupportFragmentManager();
-//            Fragment fragment = fmanager.findFragmentById(R.id.map);
-//            Log.d("Fragment ", fragment.toString());
-//            SupportMapFragment supportmapfragment = (SupportMapFragment)fragment;
-//            GoogleMap supportMap = supportmapfragment.getMap();
- 
-            // check if map is created successfully or not
-            if (googleMap == null) {
-                Toast.makeText(this.getActivity(),
-                        "Sorry! unable to create maps", Toast.LENGTH_SHORT)
-                        .show();
-            }
-        } 
-    }
+			CameraPosition cameraPosition = new CameraPosition.Builder()
+					.target(new LatLng(toLatitude, toLongitude))
+					.zoom(14).build();
+			googleMap.animateCamera(CameraUpdateFactory
+					.newCameraPosition(cameraPosition));
+			googleMap.setOnMarkerDragListener(this);
+			// FragmentManager fmanager =
+			// getActivity().getSupportFragmentManager();
+			// Fragment fragment = fmanager.findFragmentById(R.id.map);
+			// Log.d("Fragment ", fragment.toString());
+			// SupportMapFragment supportmapfragment =
+			// (SupportMapFragment)fragment;
+			// GoogleMap supportMap = supportmapfragment.getMap();
+
+			// check if map is created successfully or not
+			if (googleMap == null) {
+				Toast.makeText(this.getActivity(),
+						"Sorry! unable to create maps", Toast.LENGTH_SHORT)
+						.show();
+			}
+
+		}
+	}
 
 	@Override
-	public void onResume() {
-		super.onResume();
-		initilizeMap();
+	public void onMarkerDrag(Marker arg0) {
+		// TODO Auto-generated method stub
+
 	}
+
+	@Override
+	public void onMarkerDragEnd(Marker arg0) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onMarkerDragStart(Marker arg0) {
+		// TODO Auto-generated method stub
+
+	}
+
 }

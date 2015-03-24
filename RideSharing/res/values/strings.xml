@@ -9,6 +9,10 @@
     <string name="hint_email">Nhập email</string>
     <string name="hint_password">Nhập mật khẩu</string>
     <string name="hint_name">Nhập họ tên</string>
+    <string name="hint_leave_date">Ngày đi</string>
+    <string name="hint_duration">Đi trong bao nhiêu giờ</string>
+    <string name="hint_cost">Giá tiền</string>
+    <string name="hint_description">Mô tả ngắn gọn về hành trình</string>
     <string name="btn_login">Đăng nhập</string>
     <string name="btn_change_password">Thay đổi mật khẩu</string>
     <string name="btn_upgrade_driver">Nâng cấp</string>
@@ -19,9 +23,13 @@
     <string name="btn_link_to_login">Màn hình đăng nhập.</string>
     <string name="persionalID">CMND</string>
     <string name="imagePersionalID">Ảnh CMND</string>
+    <string name="hint_start_addess">Nơi bắt đầu</string>
+    <string name="hint_end_addess">Nơi đến</string>
     <string name="email">Email</string>
     <string name="welcome">Welcome</string>
     <string name="btn_logout">Đăng xuất</string>
+    <string name="btn_submit">Xác nhận</string>
+    <string name="btn_submitAdvance">Nâng cao</string>
     <string name="name">Họ tên</string>
     <string name="drawer_open">Slider Menu Opened</string>
     <string name="drawer_close">Slider Menu Closed</string>
@@ -34,7 +42,6 @@
     <string name="home_screen">Trang chủ</string>
     <!-- Nav Drawer Menu Items -->
     <string-array name="nav_drawer_items_user">
-        <item>Trang chủ</item>
         <item>Tìm kiếm lịch trình</item>
         <item>Thông tin cá nhân</item>
         <item>Quản lý lịch trình</item>
@@ -43,7 +50,6 @@
         <item>Đăng xuất</item>
     </string-array>
     <string-array name="nav_drawer_items_driver">
-        <item>Trang chủ</item>
         <item>Đặt lịch trình</item>
         <item>Thông tin cá nhân</item>
         <item>Quản lý lịch trình</item>
@@ -63,11 +69,12 @@
     </string-array>
 
     <string name="title_activity_home_fragment">HomeFragment</string>
-    <string name="title_activity_itinerary">Lịch trình</string>
+    <string name="title_activity_itinerary">Tìm kiếm hành trình</string>
     <string name="title_item_list">Items</string>
     <string name="title_item_detail">Item Detail</string>
-    <string name="title_activity_user">UserActivity</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_user_profile">Thông tin cá nhân</string>
+    <string name="title_activity_register_itinerary">Đăng kí hành trình</string>
+    <string name="title_activity_register_advance">RegisterAdvanceActivity</string>
 
 </resources>

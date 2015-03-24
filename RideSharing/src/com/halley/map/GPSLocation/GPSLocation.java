@@ -25,6 +25,7 @@ public class GPSLocation extends Service implements LocationListener {
 	private Activity context;
 	private Location currentLocation;
 	private LocationManager locationManager;
+	
 	double latitude;
 	double longitude;
 	// flag for GPS status
@@ -49,7 +50,7 @@ public class GPSLocation extends Service implements LocationListener {
 
 	}
 	
-	public Location getLocation() {
+	public void getLocation() {
         try {
             locationManager = (LocationManager) context
                     .getSystemService(LOCATION_SERVICE);
@@ -105,8 +106,6 @@ public class GPSLocation extends Service implements LocationListener {
         } catch (Exception e) {
             e.printStackTrace();
         }
- 
-        return currentLocation;
     }
 
 	public void showSettingsGPSAlert() {
@@ -171,6 +170,7 @@ public class GPSLocation extends Service implements LocationListener {
 				Toast.LENGTH_LONG).show();
 
 	}
+	
 
 	/**
      * Function to get latitude
@@ -195,5 +195,14 @@ public class GPSLocation extends Service implements LocationListener {
         // return longitude
         return longitude;
     }
+
+	public Location getCurrentLocation() {
+		return currentLocation;
+	}
+
+	public void setCurrentLocation(Location currentLocation) {
+		this.currentLocation = currentLocation;
+	}
+    
 
 }

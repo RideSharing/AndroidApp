@@ -117,7 +117,7 @@ public class LoginActivity extends Activity {
 
 		pDialog.setMessage("Logging in ...");
 		showDialog();
-		//Toast.makeText(getApplicationContext(), "OK", Toast.LENGTH_LONG).show();
+		
 		StringRequest strReq = new StringRequest(Method.POST,
 				AppConfig.URL_LOGIN, new Response.Listener<String>() {
 					
@@ -133,9 +133,9 @@ public class LoginActivity extends Activity {
 							if (!error) {
 								
 								// user successfully logged in
-								
+								String apiKey=jObj.getString("apiKey");
 								// Create login session
-								session.setLogin(true);
+								session.setLogin(true,apiKey);
 								
 								// Launch main activity
 								Intent intent = new Intent(getApplicationContext(),

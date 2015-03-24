@@ -10,42 +10,29 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
 
-        <fragment
-            android:id="@+id/mapMain"
+        <android.support.v4.view.ViewPager
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/pager"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            class="com.google.android.gms.maps.MapFragment" />
-	
+            android:layout_height="match_parent" >
+        </android.support.v4.view.ViewPager>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@id/pager"
             android:layout_gravity="bottom"
-            android:padding="10dp"
-            android:background="@color/bg_login"
-            android:gravity="center_horizontal"
-             >
+            android:layout_marginTop="5dp" >
 
             <Button
-                android:id="@+id/btnLogin"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:id="@+id/btnSearch"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
                 android:layout_margin="5dp"
-                android:layout_weight="1"
-                android:background="@color/btn_login_bg"
-                android:text="@string/btn_logout"
-                android:onClick="logoutOnclick"
-                android:textColor="@color/btn_login" />
-
-            <Button
-                android:id="@+id/btnRegister"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:layout_weight="1"
-                android:onClick="getLocationOnclick"
-                android:background="@color/btn_login_bg"
-                android:text="@string/btn_register"
-                android:textColor="@color/btn_login" />
+                android:background="@color/bg_login"
+                android:text="@string/search_hint"
+                android:onClick="searchLocationOnclick"
+                android:textColor="@color/white" />
         </LinearLayout>
     </FrameLayout>
 

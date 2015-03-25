@@ -7,20 +7,23 @@
 
     <!-- Editext for Search -->
 
-    <EditText
-        android:id="@+id/inputSearch"
+    <com.halley.helper.CustomAutoCompleteTextView
+        android:id="@+id/atv_places"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:hint="Search products.."
-        android:inputType="textVisiblePassword" />
+        android:layout_alignParentTop="true"
+        android:hint="@string/str_atv_places" />
 
-    <Button
-        android:id="@+id/btnSearch"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:background="@color/bg_login"
-        android:text="@string/search_hint"
-        android:textColor="@color/white" />
+    
+
+        <Button
+            android:id="@+id/btnSearch"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="@color/bg_login"
+            android:text="@string/search_hint"
+            android:textColor="@color/white" />
+  
 
 </LinearLayout>

@@ -1,20 +1,15 @@
 package com.halley.ridesharing;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
 
 import android.annotation.SuppressLint;
-import android.app.Dialog;
+import android.app.FragmentManager;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
-import android.location.Address;
-import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -32,14 +27,12 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.halley.dialog.SearchDialogFragment;
 import com.halley.helper.DatabaseHandler;
 import com.halley.helper.SessionManager;
 import com.halley.listitinerary.adapter.TabListItineraryAdapter;
@@ -165,64 +158,17 @@ public class MainActivity extends ActionBarActivity implements
 	}
 
 	public void searchLocationOnclick(View view) {
-		final Dialog dialog = new Dialog(MainActivity.this);
-		dialog.setContentView(R.layout.dialog_search_location);
-		dialog.setTitle("Tìm địa điểm cần đến");
-		final EditText inputSearch;
-		Button btnSearch;
-		inputSearch = (EditText) dialog.findViewById(R.id.inputSearch);
-		btnSearch = (Button) dialog.findViewById(R.id.btnSearch);
-		// ArrayList for Listview
-		final ArrayList<HashMap<String, String>> locationList;
+		/** Instantiating TimeDailogFragment, which is a DialogFragment object */
+		SearchDialogFragment tFragment = new SearchDialogFragment();
 
-		final Geocoder geocoder = new Geocoder(dialog.getContext(),
-				Locale.getDefault());
-		btnSearch.setOnClickListener(new OnClickListener() {
+	
 
-			@Override
-			public void onClick(View v) {
-				try {
-					List<android.location.Address> list_address = null;
-					String search = inputSearch.getText().toString();
-					if (!search.equals("")) {
-						list_address = geocoder.getFromLocationName(search, 1);
-						if (list_address.isEmpty()) {
-							Toast.makeText(dialog.getContext(),
-									"Không tìm được địa điểm",
-									Toast.LENGTH_LONG).show();
-						} else {
-							Address address = list_address.get(0);
-							double latitude = address.getLatitude();
-							double longitude = address.getLongitude();
-							// Toast.makeText(dialog.getContext(),address.toString()
-							// , Toast.LENGTH_LONG).show();
-							Intent i = new Intent(MainActivity.this,
-									ItineraryActivity.class);
-							i.putExtra("toLatitude", latitude);
-							i.putExtra("toLongitude", longitude);
-							i.putExtra("fromLatitude",
-									currentLocation.getLatitude());
-							i.putExtra("fromLongitude",
-									currentLocation.getLongitude());
-							startActivity(i);
-							dialog.cancel();
-						}
-					} else {
-						Toast.makeText(dialog.getContext(),
-								"Bạn chưa nhập nơi cần đến", Toast.LENGTH_LONG)
-								.show();
-					}
+		/** Getting FragmentManager object */
+		FragmentManager fragmentManager = getFragmentManager();
 
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-
-			}
-		});
-
-		dialog.show();
-
+		/** Starting a FragmentTransaction */
+//		FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+		tFragment.show(fragmentManager, "search_location");
 	}
 
 	/**
@@ -230,7 +176,7 @@ public class MainActivity extends ActionBarActivity implements
 	 * preferences Clears the user data from sqlite users table
 	 * */
 	public void logoutUser() {
-		session.setLogin(false,null);
+		session.setLogin(false, null);
 
 		db.deleteUsers();
 

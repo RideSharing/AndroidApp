@@ -32,7 +32,7 @@
             android:orientation="vertical"
             android:padding="10dp" >
 
-            <EditText
+            <TextView
                 android:id="@+id/txtStartAddress"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -41,10 +41,11 @@
                 android:hint="@string/hint_start_addess"
                 android:inputType="textNoSuggestions"
                 android:padding="10dp"
+                android:onClick="showDialogonClick"
                 android:textColor="@color/input_login"
                 android:textColorHint="@color/input_login_hint" />
 
-            <EditText
+            <TextView
                 android:id="@+id/txtEndAddress"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -53,6 +54,7 @@
                 android:hint="@string/hint_end_addess"
                 android:inputType="textNoSuggestions"
                 android:padding="10dp"
+                android:onClick="showDialogonClick"
                 android:textColor="@color/input_login"
                 android:textColorHint="@color/input_login_hint" />
 
@@ -67,8 +69,8 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:layout_weight="1"
-                    android:onClick="submitOnclick"
                     android:background="@color/btn_login_bg"
+                    android:onClick="submitOnclick"
                     android:text="@string/btn_submit"
                     android:textColor="@color/btn_login" />
 
@@ -78,8 +80,8 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:layout_weight="1"
-                    android:onClick="AdvanceonClick"
                     android:background="@color/btn_login_bg"
+                    android:onClick="AdvanceonClick"
                     android:text="@string/btn_submitAdvance"
                     android:textColor="@color/btn_login" />
             </LinearLayout>

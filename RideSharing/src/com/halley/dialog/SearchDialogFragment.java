@@ -14,6 +14,7 @@ import java.util.Locale;
 
 import org.json.JSONObject;
 
+import android.app.Activity;
 import android.app.DialogFragment;
 import android.location.Address;
 import android.location.Geocoder;
@@ -32,6 +33,7 @@ import android.widget.Button;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.model.Marker;
 import com.halley.helper.PlaceJSONParser;
 import com.halley.registerandlogin.R;
 
@@ -41,6 +43,26 @@ public class SearchDialogFragment extends DialogFragment {
 	PlacesTask placesTask;
 	ParserTask parserTask;
 	Button btnSearch;
+	String search;
+	double latitude;
+	double longitude;
+
+	OnDataPass dataPasser;
+
+	public interface OnDataPass {
+		public void onDataPass(String address, double latitude,
+				double longtitude);
+	}
+
+	@Override
+	public void onAttach(Activity a) {
+		super.onAttach(a);
+		dataPasser = (OnDataPass) a;
+	}
+
+	public void passData(String address, double latitude, double longitude) {
+		dataPasser.onDataPass(address, latitude, longitude);
+	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -85,22 +107,32 @@ public class SearchDialogFragment extends DialogFragment {
 
 			@Override
 			public void onClick(View v) {
+
+				// String search = atvPlaces.getText().toString();
+				// Toast.makeText(getActivity(), search,
+				// Toast.LENGTH_LONG).show();
 				try {
 					final Geocoder geocoder = new Geocoder(getActivity(),
 							Locale.getDefault());
 
 					List<android.location.Address> list_address = null;
-					String search = atvPlaces.getText().toString();
+					search = atvPlaces.getText().toString();
 					if (search.trim().length() > 0) {
-						list_address = geocoder.getFromLocationName(search, 1);
+						list_address = geocoder.getFromLocationName(
+								search.trim(), 1);
 						if (list_address.isEmpty()) {
 							Toast.makeText(getActivity(),
 									"Không tìm được địa điểm",
 									Toast.LENGTH_LONG).show();
+
 						} else {
+
 							Address address = list_address.get(0);
-							double latitude = address.getLatitude();
-							double longitude = address.getLongitude();
+							latitude = address.getLatitude();
+							longitude = address.getLongitude();
+							passData(getDetailLocation(address), latitude, longitude);
+							dismiss();
+
 							// Toast.makeText(dialog.getContext(),address.toString()
 
 						}
@@ -118,6 +150,19 @@ public class SearchDialogFragment extends DialogFragment {
 			}
 		});
 		return v;
+	}
+	
+	public String getDetailLocation(Address position) {
+		String address = "";
+		if (position != null) {
+			for (int i = 0; i < 4; i++) {
+				if (position.getAddressLine(i) != null) {
+					address += position.getAddressLine(i) + " ";
+				}
+
+			}
+		}
+		return address;
 	}
 
 	/** A method to download json data from url */

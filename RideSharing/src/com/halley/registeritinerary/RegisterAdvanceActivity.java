@@ -105,6 +105,35 @@ public class RegisterAdvanceActivity extends ActionBarActivity {
 
 	}
 
+	private String getDigitfromDistance(String distance) {
+		String[] str;
+		str = distance.split(" ");
+		// Toast.makeText(this, str[0], Toast.LENGTH_LONG).show();
+		return str[0];
+	}
+
+	private String getDigitfromDuration(String duration) {
+		String[] str;
+		str = duration.split(" ");
+		int sumMin = 0;
+		if (str.length == 2) {
+			sumMin = Integer.parseInt(str[0]);
+
+		} else {
+			if (!str[1].equals("day")) {
+				sumMin = Integer.parseInt(str[0]) * 60
+						+ Integer.parseInt(str[2]);
+
+			} else {
+				sumMin = Integer.parseInt(str[0]) * 60 * 24
+						+ Integer.parseInt(str[2]) * 60;
+
+			}
+		}
+		// Toast.makeText(this, "" + sumMin, Toast.LENGTH_LONG).show();
+		return String.valueOf(sumMin);
+	}
+
 	private void showDateTimePicker() {
 		final Dialog dialog = new Dialog(context);
 
@@ -140,12 +169,13 @@ public class RegisterAdvanceActivity extends ActionBarActivity {
 	}
 
 	public void registerOnclick(View v) {
-		if (etDescription.getText().toString().trim().length()==0
-				|| etStartAddress.length()==0
-				|| etEndAddress.getText().toString().trim().length()==0
-				|| etLeave_date.getText().toString().trim().length()==0
-				|| etDuration.getText().toString().trim().length()==0
-				|| etCost.getText().toString().trim().length()==0) {
+		if (etDescription.getText().toString().trim().length() == 0
+				|| etStartAddress.length() == 0
+				|| etEndAddress.getText().toString().trim().length() == 0
+				|| etLeave_date.getText().toString().trim().length() == 0
+				|| etDuration.getText().toString().trim().length() == 0
+				|| etDistance.getText().toString().trim().length() == 0
+				|| etCost.getText().toString().trim().length() == 0) {
 
 			Toast.makeText(context,
 					this.getResources().getString(R.string.no_input),
@@ -157,7 +187,7 @@ public class RegisterAdvanceActivity extends ActionBarActivity {
 			cost = etCost.getText().toString();
 			addItinerary(start_address, start_address_lat, start_address_long,
 					end_address, end_address_lat, end_address_long, duration,
-					cost, description, leave_date);
+					distance, cost, description, leave_date);
 
 		}
 	}
@@ -166,7 +196,8 @@ public class RegisterAdvanceActivity extends ActionBarActivity {
 			final Double start_address_lat, final Double start_address_long,
 			final String end_address, final Double end_address_lat,
 			final Double end_address_long, final String duration,
-			final String cost, final String description, final String leave_date) {
+			final String distance, final String cost, final String description,
+			final String leave_date) {
 		// Tag used to cancel the request
 		String tag_string_req = "req_register_itinerary";
 		showDialog();
@@ -195,10 +226,11 @@ public class RegisterAdvanceActivity extends ActionBarActivity {
 								Intent intent = new Intent(
 										getApplicationContext(),
 										MainActivity.class);
-
+								intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 								startActivity(intent);
-
+								setResult(RESULT_OK, null);
 								finish();
+								
 
 							} else {
 								// Error in register itinerary. Get the error
@@ -239,8 +271,10 @@ public class RegisterAdvanceActivity extends ActionBarActivity {
 				params.put("end_address_lat", end_address_lat.toString());
 				params.put("end_address_long", end_address_long.toString());
 				params.put("leave_date", leave_date);
-				params.put("duration", duration);
+				params.put("duration", getDigitfromDuration(duration));
+				params.put("distance", getDigitfromDistance(distance));
 				params.put("cost", cost);
+				params.put("description", description);
 
 				return params;
 			}
@@ -294,5 +328,6 @@ public class RegisterAdvanceActivity extends ActionBarActivity {
 		if (pDialog.isShowing())
 			pDialog.dismiss();
 	}
+	
 
 }

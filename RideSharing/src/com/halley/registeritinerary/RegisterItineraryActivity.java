@@ -13,6 +13,7 @@ import java.util.Locale;
 
 import org.json.JSONObject;
 
+import android.app.FragmentManager;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -30,7 +31,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -42,17 +43,21 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
+import com.halley.dialog.SearchDialogFragment;
+import com.halley.dialog.SearchDialogFragment.OnDataPass;
 import com.halley.map.GPSLocation.GMapV2Direction;
 import com.halley.registerandlogin.R;
 
 public class RegisterItineraryActivity extends ActionBarActivity implements
-		OnMarkerDragListener {
+		OnMarkerDragListener, OnDataPass {
+	private final int REQUEST_EXIT=1;
 	private GoogleMap googleMap;
 	private Geocoder geocoder;
 	private double fromLatitude, fromLongitude, toLatitude, toLongitude;
-	private EditText etStartAddress;
-	private EditText etEndAddress;
+	private TextView etStartAddress;
+	private TextView etEndAddress;
 	private Marker marker_start_address;
 	private Marker marker_end_address;
 	private ActionBar actionBar;
@@ -61,11 +66,16 @@ public class RegisterItineraryActivity extends ActionBarActivity implements
 	Button btnAdvance;
 	private String distance;
 	private String duration;
+	// check onclick is From or to
+	private boolean isFrom;
+	// Direction maps
+	Polyline lineDirection = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_register_itinerary);
+		
 		actionBar = getSupportActionBar();
 		actionBar.setHomeButtonEnabled(true);
 		pDialog = new ProgressDialog(this);
@@ -74,8 +84,8 @@ public class RegisterItineraryActivity extends ActionBarActivity implements
 
 		// Enabling Up / Back navigation
 		actionBar.setDisplayHomeAsUpEnabled(true);
-		etStartAddress = (EditText) findViewById(R.id.txtStartAddress);
-		etEndAddress = (EditText) findViewById(R.id.txtEndAddress);
+		etStartAddress = (TextView) findViewById(R.id.txtStartAddress);
+		etEndAddress = (TextView) findViewById(R.id.txtEndAddress);
 		btnAdvance = (Button) findViewById(R.id.btnAdvance);
 		btnAdvance.setVisibility(View.INVISIBLE);
 		DisplayMetrics metrics = this.getResources().getDisplayMetrics();
@@ -118,6 +128,27 @@ public class RegisterItineraryActivity extends ActionBarActivity implements
 		return super.onOptionsItemSelected(item);
 	}
 
+	public void showDialogonClick(View v) {
+		switch (v.getId()) {
+		case R.id.txtStartAddress:
+
+			isFrom = true;
+			break;
+		case R.id.txtEndAddress:
+
+			isFrom = false;
+			break;
+		}
+		/** Instantiating TimeDailogFragment, which is a DialogFragment object */
+		SearchDialogFragment dialog = new SearchDialogFragment();
+
+		/** Getting FragmentManager object */
+		FragmentManager fragmentManager = getFragmentManager();
+
+		/** Starting a FragmentTransaction */
+		dialog.show(fragmentManager, "search_location");
+	}
+
 	public void AdvanceonClick(View v) {
 		pDialog.show();
 		new Handler().postDelayed(new Runnable() {
@@ -144,7 +175,7 @@ public class RegisterItineraryActivity extends ActionBarActivity implements
 							getDetailLocation(marker_end_address));
 					i.putExtra("duration", duration);
 					i.putExtra("distance", distance);
-					startActivity(i);
+					startActivityForResult(i, REQUEST_EXIT);
 				} else {
 					Toast.makeText(
 							context,
@@ -343,7 +374,9 @@ public class RegisterItineraryActivity extends ActionBarActivity implements
 		position = getLocation(marker.getPosition());
 		if (position != null) {
 			for (int i = 0; i < 4; i++) {
+
 				if (position.getAddressLine(i) != null) {
+					Log.d("De xem", position.getAddressLine(i).toString());
 					address += position.getAddressLine(i) + " ";
 				}
 
@@ -495,6 +528,7 @@ public class RegisterItineraryActivity extends ActionBarActivity implements
 			// Traversing through all the routes
 			for (int i = 0; i < result.size(); i++) {
 				points = new ArrayList<LatLng>();
+
 				lineOptions = new PolylineOptions();
 
 				// Fetching i-th route
@@ -505,6 +539,7 @@ public class RegisterItineraryActivity extends ActionBarActivity implements
 					HashMap<String, String> point = path.get(j);
 
 					if (j == 0) { // Get distance from the list
+
 						distance = point.get("distance");
 						continue;
 					} else if (j == 1) { // Get duration from the list
@@ -523,10 +558,37 @@ public class RegisterItineraryActivity extends ActionBarActivity implements
 				lineOptions.addAll(points);
 				lineOptions.width(2);
 				lineOptions.color(Color.BLUE);
+
+			}
+			if (lineDirection != null) {
+				Log.d("Remove", "OK");
+				lineDirection.remove();
+
 			}
 
 			// Drawing polyline in the Google Map for the i-th route
-			googleMap.addPolyline(lineOptions);
+			lineDirection = googleMap.addPolyline(lineOptions);
 		}
+	}
+
+	@Override
+	public void onDataPass(String address, double latitude, double longtitude) {
+		if (isFrom) {
+			etStartAddress.setText(address);
+		} else {
+			etEndAddress.setText(address);
+		}
+
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+	    if (requestCode == REQUEST_EXIT) {
+	         if (resultCode == RESULT_OK) {
+	            this.finish();
+
+	         }
+	     }
 	}
 }

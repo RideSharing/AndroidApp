@@ -33,6 +33,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.halley.dialog.SearchDialogFragment;
+import com.halley.dialog.SearchDialogFragment.OnDataPass;
 import com.halley.helper.DatabaseHandler;
 import com.halley.helper.SessionManager;
 import com.halley.listitinerary.adapter.TabListItineraryAdapter;
@@ -43,9 +44,9 @@ import com.halley.registerandlogin.LoginActivity;
 import com.halley.registerandlogin.R;
 import com.halley.registeritinerary.RegisterItineraryActivity;
 
-@SuppressLint("NewApi")
+@SuppressWarnings("deprecation")
 public class MainActivity extends ActionBarActivity implements
-		SearchView.OnQueryTextListener, ActionBar.TabListener {
+		SearchView.OnQueryTextListener, ActionBar.TabListener, OnDataPass {
 
 	private TextView txtName;
 	private TextView txtEmail;
@@ -159,16 +160,14 @@ public class MainActivity extends ActionBarActivity implements
 
 	public void searchLocationOnclick(View view) {
 		/** Instantiating TimeDailogFragment, which is a DialogFragment object */
-		SearchDialogFragment tFragment = new SearchDialogFragment();
-
-	
+		SearchDialogFragment dialog = new SearchDialogFragment();
 
 		/** Getting FragmentManager object */
 		FragmentManager fragmentManager = getFragmentManager();
 
 		/** Starting a FragmentTransaction */
-//		FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-		tFragment.show(fragmentManager, "search_location");
+		dialog.show(fragmentManager, "search_location");
+
 	}
 
 	/**
@@ -280,21 +279,18 @@ public class MainActivity extends ActionBarActivity implements
 		Intent intent = null;
 		switch (position) {
 		case 0:
-			intent = new Intent(this, RegisterItineraryActivity.class);
-			if (currentLocation != null) {
-				intent.putExtra("fromLatitude", currentLocation.getLatitude());
-				intent.putExtra("fromLongitude", currentLocation.getLongitude());
+			if (driver) {
+				intent = new Intent(this, RegisterItineraryActivity.class);
+				if (currentLocation != null) {
+					intent.putExtra("fromLatitude",
+							currentLocation.getLatitude());
+					intent.putExtra("fromLongitude",
+							currentLocation.getLongitude());
+				}
 			}
-			startActivity(intent);
 			break;
 		case 1:
 			intent = new Intent(this, UserProfileActivity.class);
-			// SqLite database handler
-			db = new DatabaseHandler(getApplicationContext());
-			// Fetching user details from sqlite
-			HashMap<String, String> user = db.getUserDetails();
-			String name = user.get("name");
-			String email = user.get("email");
 
 			break;
 		case 5:
@@ -439,29 +435,6 @@ public class MainActivity extends ActionBarActivity implements
 
 	@Override
 	public boolean onQueryTextSubmit(String search_location) {
-		// Bundle bundle = new Bundle();
-		// bundle.putDouble("currentLatitude", currentLocation.getLatitude());
-		// bundle.putDouble("currentLongitude", currentLocation.getLongitude());
-		// if(search_location!=null){
-		// bundle.putString("search_location", search_location);
-		// }
-		//
-
-		// // fragment.onResume();
-		// if (search_location != null) {
-		// // mAdapter.setSearch_location(search_location);
-		// Fragment fragment = ((TabListItineraryAdapter)
-		// viewPager.getAdapter())
-		// .getItem(0);
-		// mAdapter.notifyDataSetChanged();
-		// // FragmentTransaction fragmentTransaction
-		// =getSupportFragmentManager().beginTransaction();
-		// // fragmentTransaction.remove(fragment).commit();
-		// viewPager.setTag(search_location);
-		// } else {
-		// Toast.makeText(this, "Bạn chưa nhập nơi cần đến",
-		// Toast.LENGTH_SHORT).show();
-		// }
 
 		return false;
 	}
@@ -482,6 +455,19 @@ public class MainActivity extends ActionBarActivity implements
 	@Override
 	public void onTabUnselected(Tab arg0, FragmentTransaction arg1) {
 		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onDataPass(String address, double latitude, double longitude) {
+
+		Intent i = new Intent(this, ItineraryActivity.class);
+		i.putExtra("fromLatitude", currentLocation.getLatitude());
+		i.putExtra("fromLongitude", currentLocation.getLongitude());
+		i.putExtra("toLatitude", latitude);
+		i.putExtra("toLongitude", longitude);
+		i.putExtra("address", address);
+		startActivity(i);
 
 	}
 

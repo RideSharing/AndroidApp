@@ -6,7 +6,7 @@
     android:padding="8dp" >
  
     <!-- Thumbnail Image -->
-    <com.android.volley.toolbox.NetworkImageView
+    <com.halley.helper.CustomNetworkImageView
         android:id="@+id/avatar"
         android:layout_width="80dp"
         android:layout_height="80dp"

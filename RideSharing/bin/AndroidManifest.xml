@@ -100,6 +100,10 @@
             android:label="@string/title_activity_register_advance"
             android:parentActivityName="com.halley.registeritinerary.RegisterItineraryActivity" >
         </activity>
+        <activity
+            android:name=".PopupItineraryActivity"
+            android:label="@string/title_activity_popup_itinerary" >
+        </activity>
     </application>
 
 </manifest>

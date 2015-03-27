@@ -26,6 +26,7 @@ public class ItineraryActivity extends FragmentActivity implements
 
 	private double fromLatitude, fromLongitude, toLatitude, toLongitude;
 	private Location fromLocation,toLocation;
+	private String address="";
 	private ActionBar actionBar;
 	private ViewPager viewPager;
 	private TabListItineraryAdapter mAdapter;
@@ -52,7 +53,7 @@ public class ItineraryActivity extends FragmentActivity implements
 			toLocation.setLatitude(intent.getExtras().getDouble("toLatitude"));
 			toLocation.setLongitude(intent.getExtras().getDouble("toLongitude"));
 			//Toast.makeText(this, location.toString(), Toast.LENGTH_LONG).show();
-			
+			address=intent.getExtras().getString("address");
 			mAdapter.setFrom_address(fromLocation);
 			mAdapter.setTo_address(toLocation);
 			mAdapter.setIsFrom(false);

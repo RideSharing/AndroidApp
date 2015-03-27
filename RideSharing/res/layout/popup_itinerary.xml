@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/list_itinerary_row_selector"
+    android:padding="2dp" >
+
+    <!-- Start - End  Address -->
+
+    <LinearLayout
+        android:id="@+id/address"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rating"
+        android:layout_marginTop="3dp"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/start_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/address"
+            android:textSize="@dimen/address" />
+
+        <TextView
+            android:id="@+id/end_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/start_address"
+            android:textColor="@color/address"
+            android:textSize="@dimen/address" />
+
+        <TextView
+            android:id="@+id/leave_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:textColor="@color/leave_date"
+            android:textSize="@dimen/leave_date" />
+    </LinearLayout>
+
+    <!-- Leave Date -->
+
+    <Button
+        android:id="@+id/btnLinkToDetailItineraryScreen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/address"
+        android:background="@null"
+        android:text="@string/btn_link_to_detail_itinerary"
+        android:textAllCaps="false"
+        android:textColor="@color/bg_main"
+        android:textSize="13dp" />
+
+</RelativeLayout>

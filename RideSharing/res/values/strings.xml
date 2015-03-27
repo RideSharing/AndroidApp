@@ -40,7 +40,8 @@
     <string name="persionalID_hint">Nhập số chứng minh nhân dân</string>
     <string name="email_hint">Nhập email</string>
     <string name="home_screen">Trang chủ</string>
-     <string name="str_atv_places">Nhập địa điểm cần tìm</string>
+    <string name="str_atv_places">Nhập địa điểm cần tìm</string>
+    <string name="btn_link_to_detail_itinerary">Chi tiết...</string>
     <!-- Nav Drawer Menu Items -->
     <string-array name="nav_drawer_items_user">
         <item>Tìm kiếm lịch trình</item>
@@ -69,13 +70,13 @@
         <item>@drawable/ic_whats_hot</item>
     </string-array>
 
-    <string name="title_activity_home_fragment">HomeFragment</string>
     <string name="title_activity_itinerary">Tìm kiếm hành trình</string>
     <string name="title_item_list">Items</string>
     <string name="title_item_detail">Item Detail</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_user_profile">Thông tin cá nhân</string>
     <string name="title_activity_register_itinerary">Đăng kí hành trình</string>
-    <string name="title_activity_register_advance">RegisterAdvanceActivity</string>
+    <string name="title_activity_register_advance">Đăng kí bổ sung</string>
+    <string name="title_activity_popup_itinerary">PopupItineraryActivity</string>
 
 </resources>

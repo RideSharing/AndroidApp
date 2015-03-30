@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <ScrollView
+        android:id="@+id/scrollview"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginBottom="15dp"
+            android:orientation="vertical"
+            android:padding="4dip" >
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="145dp"
+                android:orientation="vertical" >
+
+                <RelativeLayout
+                    android:layout_width="114dp"
+                    android:layout_height="84dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="0.94" >
+
+                    <com.halley.helper.RoundedImageView
+                        android:id="@+id/avatar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentTop="true"
+                        android:adjustViewBounds="true"
+                        android:scaleType="centerInside"
+                        android:theme="@drawable/avatar_2" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:id="@+id/fullname"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textColor="#000"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:orientation="horizontal"
+                android:padding="4dip" >
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tvProfile1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="4dip"
+                android:text="Email"
+                android:textSize="17dp" />
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_marginBottom="15dp"
+                android:background="@drawable/image_border_profile"
+                android:orientation="horizontal"
+                android:padding="4dip"
+                android:textColor="@color/input_login"
+                android:textColorHint="@color/input_login_hint" >
+
+                <TextView
+                    android:id="@+id/email"
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:padding="3dip"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="#7A8B8B"
+                    android:textSize="15dp" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tvProfile2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="4dip"
+                android:text="@string/phone_number"
+                android:textSize="17dp" />
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_marginBottom="15dp"
+                android:background="@drawable/image_border_profile"
+                android:orientation="horizontal"
+                android:padding="4dip"
+                android:textColor="@color/input_login"
+                android:textColorHint="@color/input_login_hint" >
+
+                <TextView
+                    android:id="@+id/phone"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="3dip"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="#7A8B8B"
+                    android:textSize="15dp" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tvProfile3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="4dip"
+                android:text="@string/personalid"
+                android:textSize="17dp" />
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_marginBottom="15dp"
+                android:background="@drawable/image_border_profile"
+                android:orientation="horizontal"
+                android:padding="4dip"
+                android:textColor="@color/input_login"
+                android:textColorHint="@color/input_login_hint" >
+
+                <TextView
+                    android:id="@+id/presionalID"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="3dip"
+                    android:textColor="#7A8B8B"
+                    android:textSize="15dp" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tvProfile4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/personalid_img"
+                android:textSize="17dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dip" >
+
+                <Button
+                    android:id="@+id/btnChangePassword"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:background="#3DA5E1"
+                    android:onClick="changepasswordonClick"
+                    android:text="@string/btn_change_password"
+                    android:textColor="@color/white" />
+
+                <Button
+                    android:id="@+id/btnUpgradeDriver"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:background="#3DA5E1"
+                    android:onClick="clickCheck"
+                    android:text="@string/btn_upgrade_driver"
+                    android:textColor="@color/white" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

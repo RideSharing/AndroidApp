@@ -1,7 +1,0 @@
-# cache for current jar dependency. DO NOT EDIT.
-# format is <lastModified> <length> <SHA-1> <path>
-# Encoding is UTF-8
-1425001187000 995624 3e4e879d0b3dc11f2feb3f55e77e3b5bd82c4a28 /home/enclaveit/workspace/appcompat_v7/libs/android-support-v4.jar
-1427439595000 995624 3e4e879d0b3dc11f2feb3f55e77e3b5bd82c4a28 /media/DATA/AndroidGithub/AndroidHarold/RideSharing/libs/android-support-v4.jar
-1425001213000 3508206 9b63d9aba531aa7ff5dd30e0c872e8ca550b363a /home/enclaveit/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/libs/google-play-services.jar
-1427439595000 3508206 9b63d9aba531aa7ff5dd30e0c872e8ca550b363a /media/DATA/AndroidGithub/AndroidHarold/RideSharing/libs/google-play-services.jar

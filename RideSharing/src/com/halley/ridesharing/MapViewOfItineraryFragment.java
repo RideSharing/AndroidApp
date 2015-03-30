@@ -133,10 +133,21 @@ public class MapViewOfItineraryFragment extends Fragment implements
 									itineraryItem.setCost(itinerary
 											.getString("cost"));
 									itineraryItems.add(itineraryItem);
-									double latitude = Double.parseDouble(itinerary
-											.getString("start_address_lat"));
-									double longitude = Double.parseDouble(itinerary
-											.getString("start_address_long"));
+									double latitude;
+									double longitude;
+									if(isFrom){
+										latitude = Double.parseDouble(itinerary
+												.getString("start_address_lat"));
+										longitude = Double.parseDouble(itinerary
+												.getString("start_address_long"));
+									}
+									else{
+										latitude = Double.parseDouble(itinerary
+												.getString("end_address_lat"));
+										longitude = Double.parseDouble(itinerary
+												.getString("end_address_long"));
+									}
+									
 									Marker marker_driver = googleMap
 											.addMarker(new MarkerOptions()
 													.position(

@@ -96,5 +96,6 @@
     <string name="btn_link_to_register">Không phải thành viên? Đăng ký ngay</string>
     <string name="btn_link_back_login">Đã có mật khẩu, đăng nhập ngay</string>
     <string name="btn_send_pass_to_mail">Gửi mật khẩu cho email này</string>
+    <string name="title_activity_submit_itinerary">SubmitItineraryActivity</string>
 
 </resources>

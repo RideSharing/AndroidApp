@@ -226,7 +226,6 @@ public class RegisterAdvanceActivity extends ActionBarActivity {
 								Intent intent = new Intent(
 										getApplicationContext(),
 										MainActivity.class);
-								intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 								startActivity(intent);
 								setResult(RESULT_OK, null);
 								finish();

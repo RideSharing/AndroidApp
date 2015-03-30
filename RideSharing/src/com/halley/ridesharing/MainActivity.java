@@ -40,6 +40,7 @@ import com.halley.listitinerary.adapter.TabListItineraryAdapter;
 import com.halley.map.GPSLocation.GPSLocation;
 import com.halley.model.slidingmenu.NavDrawerItem;
 import com.halley.model.slidingmenu.adapter.NavDrawerListAdapter;
+import com.halley.profile.ProfileActivity;
 import com.halley.registerandlogin.LoginActivity;
 import com.halley.registerandlogin.R;
 import com.halley.registeritinerary.RegisterItineraryActivity;

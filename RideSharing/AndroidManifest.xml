@@ -42,7 +42,7 @@
             android:value="@integer/google_play_services_version" />
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyAZVUiUuG6JY2s_G8ZkL4h1X8gYrsAwzaI" />
+            android:value="AIzaSyAzDxQKOqEK28Fk2kondQN_kXEvYXGz41U" />
 
         <activity
             android:name=".LoginActivity"
@@ -85,7 +85,7 @@
                 android:value=".ItineraryActivity" />
         </activity>
         <activity
-            android:name="com.halley.ridesharing.ProfileActivity"
+            android:name="com.halley.profile.ProfileActivity"
             android:label="@string/title_activity_user_profile"
             android:parentActivityName="com.halley.ridesharing.MainActivity" >
         </activity>
@@ -105,16 +105,18 @@
             android:label="@string/title_activity_popup_itinerary" >
         </activity>
         <activity
-            android:name="com.halley.ridesharing.UpgradeProfile"
+            android:name="com.halley.profile.UpgradeProfile"
             android:label="@string/title_activity_upgrade_profile" >
-            
         </activity>
         <activity
-            android:name="com.halley.registerandlogin.ForgotPasswordActivity"
+            android:name=".ForgotPasswordActivity"
             android:label="@string/title_activity_forgot_password"
             android:launchMode="singleTop"
-          
             android:windowSoftInputMode="adjustPan" >
+        </activity>
+        <activity
+            android:name="com.halley.submititinerary.SubmitItineraryActivity"
+            android:label="@string/title_activity_submit_itinerary" >
         </activity>
     </application>
 

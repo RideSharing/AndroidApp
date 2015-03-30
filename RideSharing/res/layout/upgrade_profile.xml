@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent"
+    android:layout_gravity="center"
+    android:orientation="vertical" >
+
+    <ScrollView
+        android:id="@+id/scrollview"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            android:padding="4dip" >
+
+            <TextView
+                android:id="@+id/titleUpgrade"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="25dp"
+                android:text="@string/driver_information"
+                android:textSize="21dp" />
+
+            <TextView
+                android:id="@+id/tvdriver1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/driver_license"
+                android:textSize="17dp" />
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="44dp"
+                android:layout_marginBottom="15dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/image_border_profile"
+                android:orientation="horizontal"
+                android:padding="4dip"
+                android:textColor="@color/input_login"
+                android:textColorHint="@color/input_login_hint" >
+
+                <TextView
+                    android:id="@+id/tvDriverLicense"
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:layout_alignParentBottom="true"
+                    android:padding="3dip"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="#7A8B8B"
+                    android:textSize="20dp" />
+
+                <ImageView
+                    android:id="@+id/btneditDriver"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/ic_edit"
+                    android:contentDescription="image"
+                    android:onClick="updateDriverLicense" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tvDriver2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:text="@string/driver_license_img"
+                android:textSize="17dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="35dp" >
+
+                <com.halley.helper.ScaleImageView
+                    android:id="@+id/license_img"
+                    android:layout_width="118dp"
+                    android:layout_height="90dp"
+                    android:adjustViewBounds="true"
+                    android:onClick="zoomImage"
+                    android:scaleType="centerCrop" />
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentBottom="true"
+                    android:layout_weight="0.76"
+                    android:orientation="vertical" >
+
+                    <ImageView
+                        android:id="@+id/edit_personalid_img"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_alignParentBottom="true"
+                        android:onClick="btnClick"
+                        android:src="@drawable/icon_avatar" />
+
+                    <ImageView
+                        android:id="@+id/confirmImageLicense"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_above="@+id/edit_personalid_img"
+                        android:layout_alignParentLeft="true"
+                        android:onClick="uploadpersonal_img"
+                        android:src="@drawable/icon_upload" />
+                </RelativeLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

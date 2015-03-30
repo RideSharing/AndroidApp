@@ -6,6 +6,8 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_login">Đăng nhập</string>
     <string name="title_activity_register">Đăng kí</string>
+    <string name="title_activity_upgrade_profile">UpgradeProfile</string>
+    <string name="title_activity_forgot_password">ForgotPasswordActivity</string>
     <string name="hint_email">Nhập email</string>
     <string name="hint_password">Nhập mật khẩu</string>
     <string name="hint_name">Nhập họ tên</string>
@@ -78,5 +80,21 @@
     <string name="title_activity_register_itinerary">Đăng kí hành trình</string>
     <string name="title_activity_register_advance">Đăng kí bổ sung</string>
     <string name="title_activity_popup_itinerary">PopupItineraryActivity</string>
+    <string name="driver_information">Cập nhật thông tin lái xe</string>
+    <string name="dialog_field_fullname">Điền tên đầy đủ</string>
+    <string name="dialog_field_phone">Điền số điện thoại</string>
+    <string name="dialog_field_personalid">Điền số CMND</string>
+    <string name="dialog_text">Điền vào đây</string>
+    <string name="driver_license">Số bằng lái xe</string>
+    <string name="driver_license_img">Hình ảnh bằng lái xe</string>
+    <string name="phone_number">Số điện thoại</string>
+    <string name="personalid">Số CMND</string>
+    <string name="personalid_img">Hình ảnh CMND</string>
+    <string name="opendialog">Open Dialog</string>
+    <string name="dismiss">Dismiss</string>
+    <string name="title_activity_google_maps">GoogleMaps</string>
+    <string name="btn_link_to_register">Không phải thành viên? Đăng ký ngay</string>
+    <string name="btn_link_back_login">Đã có mật khẩu, đăng nhập ngay</string>
+    <string name="btn_send_pass_to_mail">Gửi mật khẩu cho email này</string>
 
 </resources>

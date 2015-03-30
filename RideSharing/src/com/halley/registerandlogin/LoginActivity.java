@@ -40,24 +40,22 @@ public class LoginActivity extends Activity {
 	private Button btnLogin;
 	private Button btnRegister;
 	private Button btnLinkToForgotPassword;
+	private Button btnForgotPassword;
 	private EditText inputEmail;
 	private EditText inputPassword;
 	private ProgressDialog pDialog;
 	private SessionManager session;
-	
-
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
-		
+
 		inputEmail = (EditText) findViewById(R.id.email);
 		inputPassword = (EditText) findViewById(R.id.password);
 		btnLogin = (Button) findViewById(R.id.btnLogin);
 		btnRegister = (Button) findViewById(R.id.btnRegister);
-		btnLinkToForgotPassword=(Button)findViewById(R.id.btnLinkToForgotPasswordScreen);
-		
+		btnForgotPassword = (Button) findViewById(R.id.btnForgotPassword);
 		// Progress dialog
 		pDialog = new ProgressDialog(this);
 		pDialog.setCancelable(false);
@@ -86,12 +84,22 @@ public class LoginActivity extends Activity {
 					checkLogin(email, password);
 				} else {
 					// Prompt user to enter credentials
-					Toast.makeText(getApplicationContext(),
-							R.string.no_input, Toast.LENGTH_LONG)
-							.show();
+					Toast.makeText(getApplicationContext(), R.string.no_input,
+							Toast.LENGTH_LONG).show();
 				}
 			}
 
+		});
+		btnForgotPassword.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				Intent i = new Intent(getApplicationContext(),
+						ForgotPasswordActivity.class);
+				startActivity(i);
+				finish();
+
+			}
 		});
 
 		// Link to ForgotPassword Screen
@@ -102,7 +110,7 @@ public class LoginActivity extends Activity {
 						RegisterActivity.class);
 				i.addFlags(Intent.FLAG_ACTIVITY_PREVIOUS_IS_TOP);
 				startActivity(i);
-				
+
 			}
 		});
 
@@ -117,34 +125,37 @@ public class LoginActivity extends Activity {
 
 		pDialog.setMessage("Logging in ...");
 		showDialog();
-		
+
 		StringRequest strReq = new StringRequest(Method.POST,
 				AppConfig.URL_LOGIN, new Response.Listener<String>() {
-					
+
 					@Override
 					public void onResponse(String response) {
 						Log.d(TAG, "Login Response: " + response.toString());
 						hideDialog();
 
 						try {
-							JSONObject jObj = new JSONObject(response.substring(response.indexOf("{"), response.lastIndexOf("}") + 1));
+							JSONObject jObj = new JSONObject(
+									response.substring(response.indexOf("{"),
+											response.lastIndexOf("}") + 1));
 							boolean error = jObj.getBoolean("error");
 							// Check for error node in json
 							if (!error) {
-								
+
 								// user successfully logged in
-								String apiKey=jObj.getString("apiKey");
+								String apiKey = jObj.getString("apiKey");
 								// Create login session
-								session.setLogin(true,apiKey);
-								
+								session.setLogin(true, apiKey);
+
 								// Launch main activity
-								Intent intent = new Intent(getApplicationContext(),
+								Intent intent = new Intent(
+										getApplicationContext(),
 										MainActivity.class);
-								
+
 								startActivity(intent);
-								
+
 								finish();
-								
+
 							} else {
 								// Error in login. Get the error message
 								String message = jObj.getString("message");

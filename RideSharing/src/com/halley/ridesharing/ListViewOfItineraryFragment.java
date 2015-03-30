@@ -150,7 +150,7 @@ public class ListViewOfItineraryFragment extends Fragment {
 
 					@Override
 					public void onErrorResponse(VolleyError error) {
-						Log.d("Login Error: ", error.getMessage().toString());
+						
 						Toast.makeText(getActivity(),
 								"Không thể kết nối đến server",
 								Toast.LENGTH_LONG).show();

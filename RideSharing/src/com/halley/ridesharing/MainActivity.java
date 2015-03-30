@@ -177,8 +177,7 @@ public class MainActivity extends ActionBarActivity implements
 	public void logoutUser() {
 		session.setLogin(false, null);
 
-		db.deleteUsers();
-
+		// db.deleteUsers();
 		// Launching the login activity
 		Intent intent = new Intent(MainActivity.this, LoginActivity.class);
 		startActivity(intent);
@@ -290,7 +289,7 @@ public class MainActivity extends ActionBarActivity implements
 			}
 			break;
 		case 1:
-			intent = new Intent(this, UserProfileActivity.class);
+			intent = new Intent(this, ProfileActivity.class);
 
 			break;
 		case 5:

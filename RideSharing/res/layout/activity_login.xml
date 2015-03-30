@@ -10,7 +10,7 @@
 
     <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="345dp"
         android:layout_gravity="center"
         android:orientation="vertical"
         android:paddingLeft="20dp"
@@ -75,16 +75,15 @@
         <!-- Link to Login Screen -->
 
         <Button
-            android:id="@+id/btnLinkToForgotPasswordScreen"
+            android:id="@+id/btnForgotPassword"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dip"
+            android:layout_marginTop="15dip"
             android:background="@null"
-            android:text="@string/btn_link_to_forgot_password"
+            android:text="Quên mật khẩu? Click vào đây"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="15dp" />
-
     </LinearLayout>
 
 </LinearLayout>

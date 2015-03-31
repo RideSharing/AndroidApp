@@ -49,7 +49,6 @@
         android:layout_below="@id/address"
         android:background="@null"
         android:text="@string/btn_link_to_detail_itinerary"
-        android:textAllCaps="false"
         android:textColor="@color/bg_main"
         android:textSize="13dp" />
 

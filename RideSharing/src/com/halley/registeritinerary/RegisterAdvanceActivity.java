@@ -1,5 +1,7 @@
 package com.halley.registeritinerary;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -15,6 +17,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -86,7 +90,7 @@ public class RegisterAdvanceActivity extends ActionBarActivity {
 			end_address_lat = bundle.getDouble("end_address_lat");
 			end_address_long = bundle.getDouble("end_address_long");
 			distance = bundle.getString("distance");
-			duration = bundle.getString("duration");
+			duration = transDuration(bundle.getString("duration"));
 		}
 		etStartAddress.setText(start_address);
 		etEndAddress.setText(end_address);
@@ -105,6 +109,28 @@ public class RegisterAdvanceActivity extends ActionBarActivity {
 
 	}
 
+	private String transDuration(String duration) {
+		String[] str;
+		str = duration.split(" ");
+		String sumMin = "";
+		if (str.length == 2) {
+			sumMin = Integer.parseInt(str[0])+" phút";
+
+		} else {
+			if (!str[1].equals("day")) {
+				sumMin = Integer.parseInt(str[0])+ " giờ "
+						+ Integer.parseInt(str[2])+" phút";
+
+			} else {
+				sumMin = Integer.parseInt(str[0]) * 24+ " ngày "+
+						+ Integer.parseInt(str[2])+" giờ";
+
+			}
+		}
+		// Toast.makeText(this, "" + sumMin, Toast.LENGTH_LONG).show();
+		return String.valueOf(sumMin);
+	}
+
 	private String getDigitfromDistance(String distance) {
 		String[] str;
 		str = distance.split(" ");
@@ -120,7 +146,7 @@ public class RegisterAdvanceActivity extends ActionBarActivity {
 			sumMin = Integer.parseInt(str[0]);
 
 		} else {
-			if (!str[1].equals("day")) {
+			if (!str[1].equals("ngày")) {
 				sumMin = Integer.parseInt(str[0]) * 60
 						+ Integer.parseInt(str[2]);
 
@@ -229,7 +255,6 @@ public class RegisterAdvanceActivity extends ActionBarActivity {
 								startActivity(intent);
 								setResult(RESULT_OK, null);
 								finish();
-								
 
 							} else {
 								// Error in register itinerary. Get the error
@@ -327,6 +352,5 @@ public class RegisterAdvanceActivity extends ActionBarActivity {
 		if (pDialog.isShowing())
 			pDialog.dismiss();
 	}
-	
 
 }

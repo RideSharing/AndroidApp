@@ -44,6 +44,7 @@ import com.halley.profile.ProfileActivity;
 import com.halley.registerandlogin.LoginActivity;
 import com.halley.registerandlogin.R;
 import com.halley.registeritinerary.RegisterItineraryActivity;
+import com.halley.searchitinerary.ItineraryActivity;
 
 @SuppressWarnings("deprecation")
 public class MainActivity extends ActionBarActivity implements
@@ -88,6 +89,7 @@ public class MainActivity extends ActionBarActivity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+
 		gps = new GPSLocation(this);
 		// get current Location of user
 		currentLocation = gps.getCurrentLocation();
@@ -98,6 +100,7 @@ public class MainActivity extends ActionBarActivity implements
 		View cView = getLayoutInflater().inflate(
 				R.layout.switch_role_actionbar, null);
 		session = new SessionManager(getApplicationContext());
+		driver = session.isDriver();
 		/** Set tab navigation mode */
 
 		getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
@@ -176,7 +179,7 @@ public class MainActivity extends ActionBarActivity implements
 	 * preferences Clears the user data from sqlite users table
 	 * */
 	public void logoutUser() {
-		session.setLogin(false, null);
+		session.setLogin(false, null, false);
 
 		// db.deleteUsers();
 		// Launching the login activity
@@ -206,17 +209,17 @@ public class MainActivity extends ActionBarActivity implements
 
 		// adding nav drawer items to array
 		if (driver == true) {
-			for (int i = 0; i < navDriverMenuTitles.length; i++) {
+			for (int i = navDrawerItems.size(); i < navDriverMenuTitles.length; i++) {
 				navDrawerItems.add(new NavDrawerItem(navDriverMenuTitles[i],
-						navMenuIcons.getResourceId(i, -1)));
-			}
-		} else {
-			for (int i = 0; i < navUserMenuTitles.length; i++) {
-				navDrawerItems.add(new NavDrawerItem(navUserMenuTitles[i],
 						navMenuIcons.getResourceId(i, -1)));
 			}
 
 		}
+		for (int i = navDrawerItems.size(), k = 0; k < navUserMenuTitles.length; i++, k++) {
+			navDrawerItems.add(new NavDrawerItem(navUserMenuTitles[k],
+					navMenuIcons.getResourceId(i, -1)));
+		}
+
 		// What's hot, We will add a counter here
 		// navDrawerItems.add(new NavDrawerItem(navMenuTitles[5], navMenuIcons
 		// .getResourceId(5, -1), true, "50+"));
@@ -277,9 +280,10 @@ public class MainActivity extends ActionBarActivity implements
 	private void displayView(int position) {
 		// update the main content by replacing fragments
 		Intent intent = null;
-		switch (position) {
-		case 0:
-			if (driver) {
+		if (driver) {
+			switch (position) {
+			case 0:
+
 				intent = new Intent(this, RegisterItineraryActivity.class);
 				if (currentLocation != null) {
 					intent.putExtra("fromLatitude",
@@ -287,17 +291,36 @@ public class MainActivity extends ActionBarActivity implements
 					intent.putExtra("fromLongitude",
 							currentLocation.getLongitude());
 				}
-			}
-			break;
-		case 1:
-			intent = new Intent(this, ProfileActivity.class);
 
-			break;
-		case 5:
-			logoutUser();
-			break;
-		default:
-			break;
+				break;
+			case 1:
+
+				break;
+			case 2:
+				intent = new Intent(this, ProfileActivity.class);
+				break;
+			case 6:
+				logoutUser();
+				break;
+			default:
+				break;
+			}
+		} else {
+			switch (position) {
+			case 0:
+				break;
+			case 1:
+				intent = new Intent(this, ProfileActivity.class);
+				break;
+			case 2:
+				
+				break;
+			case 5:
+				logoutUser();
+				break;
+			default:
+				break;
+			}
 		}
 
 		if (intent != null) {
@@ -317,20 +340,6 @@ public class MainActivity extends ActionBarActivity implements
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
-		// Get the SearchView and set the searchable configuration
-
-		SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-		// SearchView searchView = (SearchView)
-		// menu.findItem(R.id.action_search)
-		// .getActionView();
-
-		SearchView searchView = (SearchView) MenuItemCompat.getActionView(menu
-				.findItem(R.id.action_search));
-
-		searchView.setSearchableInfo(searchManager
-				.getSearchableInfo(getComponentName()));
-		searchView.setOnQueryTextListener(this);
-
 		return super.onCreateOptionsMenu(menu);
 
 	}
@@ -343,23 +352,6 @@ public class MainActivity extends ActionBarActivity implements
 		}
 		// Handle action bar actions click
 		switch (item.getItemId()) {
-		case R.id.action_settings:
-			return true;
-		case R.id.action_search:
-			return true;
-		case R.id.action_role:
-			if (this.driver == false) {
-				item.setTitle("driver");
-				item.setIcon(getResources().getDrawable(R.drawable.ic_driver));
-				this.driver = true;
-			} else {
-				item.setTitle("user");
-				item.setIcon(getResources().getDrawable(R.drawable.ic_user));
-				this.driver = false;
-			}
-			this.addNavDrawer(this.getApplicationContext());
-
-			return true;
 		default:
 			return super.onOptionsItemSelected(item);
 		}
@@ -373,31 +365,6 @@ public class MainActivity extends ActionBarActivity implements
 	public boolean onPrepareOptionsMenu(Menu menu) {
 		// if nav drawer is opened, hide the action items
 		boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
-
-		if (!drawerOpen) {
-			if (this.driver == false) {
-				menu.findItem(R.id.action_role).setTitle("user");
-				menu.findItem(R.id.action_role).setIcon(
-						getResources().getDrawable(R.drawable.ic_user));
-			} else {
-				for (int i = 0; i < menu.size(); i++) {
-					// If the drawer is moving / settling or open do not draw
-					// the icons
-					menu.getItem(i)
-							.setVisible(
-									mDrawerState != DrawerLayout.STATE_DRAGGING
-											&& mDrawerState != DrawerLayout.STATE_SETTLING
-											&& !drawerOpen);
-				}
-				menu.findItem(R.id.action_role).setTitle("driver");
-				menu.findItem(R.id.action_role).setIcon(
-						getResources().getDrawable(R.drawable.ic_driver));
-			}
-			this.addNavDrawer(this.getApplicationContext());
-		}
-		menu.findItem(R.id.action_settings).setVisible(!drawerOpen);
-		menu.findItem(R.id.action_role).setVisible(!drawerOpen);
-		menu.findItem(R.id.action_search).setVisible(!drawerOpen);
 		return super.onPrepareOptionsMenu(menu);
 	}
 

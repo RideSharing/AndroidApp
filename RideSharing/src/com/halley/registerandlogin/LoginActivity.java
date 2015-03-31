@@ -45,6 +45,7 @@ public class LoginActivity extends Activity {
 	private EditText inputPassword;
 	private ProgressDialog pDialog;
 	private SessionManager session;
+	private boolean isDriver=false;;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -144,9 +145,10 @@ public class LoginActivity extends Activity {
 
 								// user successfully logged in
 								String apiKey = jObj.getString("apiKey");
+								isDriver(apiKey);
 								// Create login session
-								session.setLogin(true, apiKey);
-
+								session.setLogin(true, apiKey,isDriver);
+								
 								// Launch main activity
 								Intent intent = new Intent(
 										getApplicationContext(),
@@ -186,6 +188,74 @@ public class LoginActivity extends Activity {
 				params.put("email", email);
 				params.put("password", password);
 
+				return params;
+			}
+
+		};
+
+		// Adding request to request queue
+		AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+	}
+
+	private void isDriver(final String apiKey) {
+		
+		// Tag used to cancel the request
+		String tag_string_req = "req_get_driver";
+		
+		
+
+
+		StringRequest strReq = new StringRequest(Method.GET,
+				AppConfig.URL_GET_DRIVER, new Response.Listener<String>() {
+
+					@Override
+					public void onResponse(String response) {
+
+						try {
+							JSONObject jObj = new JSONObject(
+									response.substring(response.indexOf("{"),
+											response.lastIndexOf("}") + 1));
+							boolean error = jObj.getBoolean("error");
+							
+							// Check for error node in json
+							if (!error) {
+									String user=jObj.getString("user_id");
+									if(user.trim().length()==0){
+										Toast.makeText(getApplicationContext(), "NO", Toast.LENGTH_LONG).show();
+										isDriver= false;
+									}
+									else{
+										Toast.makeText(getApplicationContext(), "Yes", Toast.LENGTH_LONG).show();
+										isDriver= true;
+									}
+								
+							} else {
+								// Error in login. Get the error message
+								String message = jObj.getString("message");
+								Toast.makeText(getApplicationContext(),
+										message, Toast.LENGTH_LONG).show();
+							}
+						} catch (JSONException e) {
+							// JSON error
+							e.printStackTrace();
+						}
+
+					}
+				}, new Response.ErrorListener() {
+
+					@Override
+					public void onErrorResponse(VolleyError error) {
+						Log.e(TAG, "Login 2 Error: " + error.getMessage());
+						
+						
+					}
+				}) {
+
+			@Override
+			public Map<String, String> getHeaders() {
+				// Posting parameters to login url
+				Map<String, String> params = new HashMap<String, String>();
+				params.put("Authorization", apiKey);
 				return params;
 			}
 

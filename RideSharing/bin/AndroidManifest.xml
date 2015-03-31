@@ -71,7 +71,7 @@
             android:windowSoftInputMode="adjustPan" >
         </activity>
         <activity
-            android:name="com.halley.ridesharing.ItineraryActivity"
+            android:name="com.halley.searchitinerary.ItineraryActivity"
             android:label="@string/title_activity_itinerary"
             android:parentActivityName="com.halley.ridesharing.MainActivity"
             android:theme="@android:style/Theme.Holo.Light.DarkActionBar" >
@@ -112,11 +112,17 @@
             android:name=".ForgotPasswordActivity"
             android:label="@string/title_activity_forgot_password"
             android:launchMode="singleTop"
+            android:parentActivityName="com.halley.ridesharing.LoginActivity"
             android:windowSoftInputMode="adjustPan" >
         </activity>
         <activity
             android:name="com.halley.submititinerary.SubmitItineraryActivity"
-            android:label="@string/title_activity_submit_itinerary" >
+            android:label="@string/title_activity_submit_itinerary"
+            android:parentActivityName="com.halley.ridesharing.MainActivity" >
+        </activity>
+        <activity
+            android:name=".SearchAdvanceActivity"
+            android:label="@string/title_activity_search_advance" >
         </activity>
     </application>
 

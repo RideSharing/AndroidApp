@@ -13,7 +13,13 @@ public class AppConfig {
 	// Server driver register itinerary url
 	public static String URL_REGISTER_ITINERARY = "http://192.168.10.74/RESTFul/v1/itinerary";
 	
+	// Server driver submit itinerary url
+	public static String URL_SUBMIT_ITINERARY = "http://192.168.10.74/RESTFul/v1/accept_itinerary";
+	
+	//Server get driver id
 
+	public static String URL_GET_DRIVER = "http://192.168.10.74/RESTFul/v1/driver/user_id";
+	
 	public static String URL_PASSWORD = "http://192.168.10.74/RESTFul/v1/user/password";
 
 	public static String URL_AVATAR = "http://192.168.10.74/RESTFul/v1/user/link_avatar";

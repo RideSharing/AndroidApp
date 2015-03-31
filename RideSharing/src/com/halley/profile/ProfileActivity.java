@@ -896,11 +896,11 @@ public class ProfileActivity extends Activity {
 													decodeString.length);
 
 									avatar.setImageBitmap(decodeByte);
-									avatar.getLayoutParams().height = 20;
+									
 									// avatar.setAnimateImageBitmap(decodeByte,
 									// true);
 								}
-								if (!"".equals(link_avatar)) {
+								if (!"".equals(personalid_img)) {
 									byte[] decodeString2 = Base64.decode(
 											personalid_img, Base64.DEFAULT);
 									decodeByte2 = BitmapFactory

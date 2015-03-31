@@ -12,8 +12,8 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 
-import com.halley.ridesharing.ListViewOfItineraryFragment;
-import com.halley.ridesharing.MapViewOfItineraryFragment;
+import com.halley.searchitinerary.ListViewOfItineraryFragment;
+import com.halley.searchitinerary.MapViewOfItineraryFragment;
 
 public class TabListItineraryAdapter extends FragmentPagerAdapter {
 	Fragment fragment;

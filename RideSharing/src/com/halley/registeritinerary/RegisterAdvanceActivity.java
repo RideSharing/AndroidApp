@@ -37,6 +37,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.halley.app.AppConfig;
 import com.halley.app.AppController;
+import com.halley.dialog.SearchDialogFragment.OnDataPass;
 import com.halley.helper.SessionManager;
 import com.halley.registerandlogin.R;
 import com.halley.registerandlogin.RegisterActivity;
@@ -61,6 +62,7 @@ public class RegisterAdvanceActivity extends ActionBarActivity {
 			end_address_long;
 	private SessionManager session;
 	private ProgressDialog pDialog;
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

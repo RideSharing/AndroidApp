@@ -61,12 +61,15 @@
     <!-- Nav Drawer List Item Icons -->
     <!-- Keep them in order as the titles are in -->
     <string-array name="nav_drawer_icons">
-        <item>@drawable/ic_home</item>
-        <item>@drawable/ic_people</item>
-        <item>@drawable/ic_photos</item>
-        <item>@drawable/ic_communities</item>
-        <item>@drawable/ic_pages</item>
-        <item>@drawable/ic_whats_hot</item>
+        <item>@drawable/ic_search_itinerary</item>
+        <item>@drawable/ic_profile</item>
+        <item>@drawable/ic_manage_itinerary</item>
+        <item>@drawable/ic_statistic</item>
+        <item>@drawable/ic_about_us</item>
+        <item>@drawable/ic_logout</item>
+    </string-array>
+     <string-array name="nav_drawer_icons_driver">
+        <item>@drawable/ic_register_itinerary</item>
     </string-array>
 
     <string name="title_activity_itinerary">Tìm kiếm hành trình</string>

@@ -72,6 +72,7 @@ public class RegisterItineraryActivity extends ActionBarActivity implements
 	Polyline lineDirection = null;
 
 	@Override
+	
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_register_itinerary);
@@ -581,14 +582,15 @@ public class RegisterItineraryActivity extends ActionBarActivity implements
 
 	}
 
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-	    if (requestCode == REQUEST_EXIT) {
-	         if (resultCode == RESULT_OK) {
-	            this.finish();
-
-	         }
-	     }
-	}
+//	@Override
+//	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//
+//	    if (requestCode == REQUEST_EXIT) {
+//	         if (resultCode == RESULT_OK) {
+//	            setResult(RESULT_OK, null);
+//	        	 this.finish();
+//	            
+//	         }
+//	     }
+//	}
 }

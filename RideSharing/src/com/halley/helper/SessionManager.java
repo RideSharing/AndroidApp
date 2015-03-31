@@ -54,7 +54,7 @@ public class SessionManager {
 	}
 	
 	public boolean isDriver() {
-		return pref.getBoolean(KEY_IS_LOGGEDIN, false);
+		return pref.getBoolean(KEY_IS_DRIVER, false);
 	}
 }
 

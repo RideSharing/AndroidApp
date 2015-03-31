@@ -2,6 +2,10 @@ package com.halley.ridesharing;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.annotation.SuppressLint;
 import android.app.FragmentManager;
@@ -31,7 +35,14 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.Request.Method;
+import com.android.volley.toolbox.StringRequest;
+import com.halley.app.AppConfig;
+import com.halley.app.AppController;
 import com.halley.dialog.SearchDialogFragment;
 import com.halley.dialog.SearchDialogFragment.OnDataPass;
 import com.halley.helper.DatabaseHandler;
@@ -43,13 +54,16 @@ import com.halley.model.slidingmenu.adapter.NavDrawerListAdapter;
 import com.halley.profile.ProfileActivity;
 import com.halley.registerandlogin.LoginActivity;
 import com.halley.registerandlogin.R;
+import com.halley.registerandlogin.RegisterActivity;
 import com.halley.registeritinerary.RegisterItineraryActivity;
 import com.halley.searchitinerary.ItineraryActivity;
 
 @SuppressWarnings("deprecation")
 public class MainActivity extends ActionBarActivity implements
 		SearchView.OnQueryTextListener, ActionBar.TabListener, OnDataPass {
-
+	// LogCat tag
+	private static final String TAG = RegisterActivity.class.getSimpleName();
+	private final int REQUEST_REFRESH = 10;
 	private TextView txtName;
 	private TextView txtEmail;
 	private Button btnLogout;
@@ -72,7 +86,7 @@ public class MainActivity extends ActionBarActivity implements
 	// slide menu items
 	private String[] navUserMenuTitles;
 	private String[] navDriverMenuTitles;
-	private TypedArray navMenuIcons;
+	private TypedArray navMenuIcons,navMenuIconsdriver;
 
 	private ArrayList<NavDrawerItem> navDrawerItems;
 	private NavDrawerListAdapter adapter;
@@ -88,6 +102,9 @@ public class MainActivity extends ActionBarActivity implements
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		session = new SessionManager(getApplicationContext());
+		driver=session.isDriver();
+
 		setContentView(R.layout.activity_main);
 
 		gps = new GPSLocation(this);
@@ -99,8 +116,7 @@ public class MainActivity extends ActionBarActivity implements
 		getSupportActionBar().setHomeButtonEnabled(true);
 		View cView = getLayoutInflater().inflate(
 				R.layout.switch_role_actionbar, null);
-		session = new SessionManager(getApplicationContext());
-		driver = session.isDriver();
+		
 		/** Set tab navigation mode */
 
 		getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
@@ -179,7 +195,7 @@ public class MainActivity extends ActionBarActivity implements
 	 * preferences Clears the user data from sqlite users table
 	 * */
 	public void logoutUser() {
-		session.setLogin(false, null, false);
+		session.setLogin(false, null,false);
 
 		// db.deleteUsers();
 		// Launching the login activity
@@ -206,18 +222,21 @@ public class MainActivity extends ActionBarActivity implements
 		// nav drawer icons from resources
 		navMenuIcons = getResources()
 				.obtainTypedArray(R.array.nav_drawer_icons);
+		// nav drawer icons from resources
+				navMenuIconsdriver = getResources()
+						.obtainTypedArray(R.array.nav_drawer_icons_driver);
 
 		// adding nav drawer items to array
 		if (driver == true) {
 			for (int i = navDrawerItems.size(); i < navDriverMenuTitles.length; i++) {
 				navDrawerItems.add(new NavDrawerItem(navDriverMenuTitles[i],
-						navMenuIcons.getResourceId(i, -1)));
+						navMenuIconsdriver.getResourceId(i, -1)));
 			}
 
 		}
 		for (int i = navDrawerItems.size(), k = 0; k < navUserMenuTitles.length; i++, k++) {
 			navDrawerItems.add(new NavDrawerItem(navUserMenuTitles[k],
-					navMenuIcons.getResourceId(i, -1)));
+					navMenuIcons.getResourceId(k, -1)));
 		}
 
 		// What's hot, We will add a counter here
@@ -313,7 +332,7 @@ public class MainActivity extends ActionBarActivity implements
 				intent = new Intent(this, ProfileActivity.class);
 				break;
 			case 2:
-				
+
 				break;
 			case 5:
 				logoutUser();
@@ -324,7 +343,7 @@ public class MainActivity extends ActionBarActivity implements
 		}
 
 		if (intent != null) {
-			startActivity(intent);
+			startActivityForResult(intent, REQUEST_REFRESH);
 			// // update selected item and title, then close the drawer
 			// mDrawerList.setItemChecked(position, true);
 			// mDrawerList.setSelection(position);

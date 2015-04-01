@@ -46,8 +46,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -57,7 +59,7 @@ public class UpgradeProfile extends Activity {
 	private SessionManager session;
 	private String key;
 	TextView driverLicense, titleUpgrade;
-	String saveLicense, img_str;
+	String saveLicense, img_str, a;
 	private ImageView imageLicense, confirmImage;
 	private TextView tvDriver1, tvDriver2, tvDriverLicense;
 	private AlertDialog dialog;
@@ -71,16 +73,17 @@ public class UpgradeProfile extends Activity {
 		driverLicense = (TextView) findViewById(R.id.tvDriverLicense);
 		imageLicense = (ImageView) findViewById(R.id.license_img);
 		imageLicense.setOnTouchListener(new Touch());
-		confirmImage = (ImageView) findViewById(R.id.confirmImageLicense);
 		titleUpgrade = (TextView) findViewById(R.id.titleUpgrade);
 		tvDriver1 = (TextView) findViewById(R.id.tvdriver1);
 		tvDriver2 = (TextView) findViewById(R.id.tvDriver2);
 		tvDriverLicense = (TextView) findViewById(R.id.tvDriverLicense);
-		Typeface face = Typeface.createFromAsset(getAssets(),"fonts/DejaVuSerifCondensed-BoldItalic.ttf");
+		Typeface face = Typeface.createFromAsset(getAssets(),
+				"fonts/DejaVuSerifCondensed-BoldItalic.ttf");
 		titleUpgrade.setTypeface(face);
 		tvDriver1.setTypeface(face);
 		tvDriver2.setTypeface(face);
-		Typeface face2 = Typeface.createFromAsset(getAssets(),"fonts/font_new.ttf");
+		Typeface face2 = Typeface.createFromAsset(getAssets(),
+				"fonts/font_new.ttf");
 		tvDriverLicense.setTypeface(face2);
 		session = new SessionManager(getApplicationContext());
 		// Progress dialog
@@ -88,16 +91,6 @@ public class UpgradeProfile extends Activity {
 		pDialog.setCancelable(false);
 
 		showLicense();
-
-		confirmImage.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				updateDriverImage();
-				Toast.makeText(getApplicationContext(), "Update succesfully.",
-						Toast.LENGTH_LONG).show();
-			}
-		});
 
 	}
 
@@ -135,22 +128,42 @@ public class UpgradeProfile extends Activity {
 				byte[] image = stream.toByteArray();
 				img_str = Base64.encodeToString(image, 0);
 				new Handler().postDelayed(new Runnable() {
-					
+
 					@Override
 					public void run() {
 						imageLicense.setImageDrawable(null);
 						imageLicense.setBackground(d);
-						
+
 					}
-				}, 2000);
-					
-				}
-			
+				}, 1000);
+
+			}
 
 		default:
 			break;
 		}
 
+	}
+
+	public void submit(View view) {
+
+		if (!session.isDriver()) {
+			session.setDriver(true);
+			// if ((saveLicense.toString().length() == 0) ||
+			// (img_str.toString().length() == 0)) {
+			// Toast.makeText(getApplicationContext(), R.string.no_input,
+			// Toast.LENGTH_SHORT).show();
+			// } else {
+			registerDriver();
+			Toast.makeText(getApplicationContext(), R.string.confirm_driver,
+					Toast.LENGTH_SHORT).show();
+			// }
+
+		}
+		updateDriverImage();
+		updateDriver();
+		Toast.makeText(getApplicationContext(), R.string.update_success,
+				Toast.LENGTH_SHORT).show();
 	}
 
 	public void updateDriverLicense(View v) {
@@ -165,25 +178,43 @@ public class UpgradeProfile extends Activity {
 		builder.setView(view);
 		final EditText editDriverLicense = (EditText) view
 				.findViewById(R.id.editDriverLicense);
+		Button confirmChangeDriver = (Button) view
+				.findViewById(R.id.btnChangeDriverLicense);
+		Button cancelChangeDriver = (Button) view
+				.findViewById(R.id.btnCancelDriverLicense);
+		final AlertDialog dialog = builder.create();
+		a = driverLicense.getText().toString();
 		editDriverLicense.setText(driverLicense.getText().toString());
-		builder.setPositiveButton("Confirm", new OnClickListener() {
+		confirmChangeDriver.setOnClickListener(new View.OnClickListener() {
 
 			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				saveLicense = editDriverLicense.getText().toString();
-				driverLicense.setText(saveLicense);
-				updateDriver();
+			public void onClick(View v) {
+
+				saveLicense = editDriverLicense.getText().toString().trim();
+				if (saveLicense.length() == 0) {
+					Toast.makeText(getApplicationContext(),
+							getResources().getString(R.string.no_input),
+							Toast.LENGTH_LONG).show();
+				} else if (!saveLicense.equals(a)) {
+					driverLicense.setText(saveLicense);
+
+					dialog.dismiss();
+					Toast.makeText(getApplicationContext(),
+							R.string.submit_change, Toast.LENGTH_LONG).show();
+				} else {
+					Toast.makeText(getApplicationContext(),
+							R.string.cancel_change, Toast.LENGTH_LONG).show();
+				}
 			}
 		});
-		builder.setNegativeButton("Cancel", new OnClickListener() {
+		cancelChangeDriver.setOnClickListener(new View.OnClickListener() {
 
 			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				// TODO Auto-generated method stub
-
+			public void onClick(View v) {
+				dialog.dismiss();
 			}
 		});
-		AlertDialog dialog = builder.create();
+
 		dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
 		return dialog;
 
@@ -221,8 +252,8 @@ public class UpgradeProfile extends Activity {
 								// Error occurred in registration. Get the error
 								// message
 								String errorMsg = jObj.getString("error_msg");
-								Toast.makeText(getApplicationContext(),
-										errorMsg, Toast.LENGTH_LONG).show();
+								// Toast.makeText(getApplicationContext(),
+								// errorMsg, Toast.LENGTH_LONG).show();
 							}
 						} catch (JSONException e) {
 							e.printStackTrace();
@@ -234,8 +265,8 @@ public class UpgradeProfile extends Activity {
 					@Override
 					public void onErrorResponse(VolleyError error) {
 						Log.e(TAG, "Registration Error: " + error.getMessage());
-						Toast.makeText(getApplicationContext(),
-								error.getMessage(), Toast.LENGTH_LONG).show();
+						// Toast.makeText(getApplicationContext(),
+						// error.getMessage(), Toast.LENGTH_LONG).show();
 						hideDialog();
 					}
 				}) {
@@ -310,8 +341,8 @@ public class UpgradeProfile extends Activity {
 					@Override
 					public void onErrorResponse(VolleyError error) {
 						Log.e(TAG, "Registration Error: " + error.getMessage());
-						Toast.makeText(getApplicationContext(),
-								error.getMessage(), Toast.LENGTH_LONG).show();
+						// Toast.makeText(getApplicationContext(),
+						// error.getMessage(), Toast.LENGTH_LONG).show();
 						hideDialog();
 					}
 				}) {
@@ -376,14 +407,13 @@ public class UpgradeProfile extends Activity {
 
 								byte[] decodeString = Base64.decode(
 										driver_license_img, Base64.DEFAULT);
-								decodeByte = BitmapFactory
-										.decodeByteArray(decodeString, 0,
-												decodeString.length);
-								
+								decodeByte = BitmapFactory.decodeByteArray(
+										decodeString, 0, decodeString.length);
+
 								TouchImageView iv = new TouchImageView(
 										getApplicationContext());
 								iv.setImageBitmap(decodeByte);
-								
+
 								UpgradeProfile.this.imageLicense
 										.setImageBitmap(decodeByte);
 
@@ -428,13 +458,89 @@ public class UpgradeProfile extends Activity {
 		// Adding request to request queue
 		AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
 	}
-	
+
+	public void registerDriver() {
+		// Tag used to cancel the request
+		String tag_string_req = "req_register";
+
+		pDialog.setMessage("Changing ...");
+		showDialog();
+
+		StringRequest strReq = new StringRequest(Method.POST,
+				AppConfig.URL_DRIVER, new Response.Listener<String>() {
+
+					@Override
+					public void onResponse(String response) {
+						Log.d(TAG, "Driver Response: " + response.toString());
+						hideDialog();
+
+						try {
+							JSONObject jObj = new JSONObject(
+									response.substring(response.indexOf("{"),
+											response.lastIndexOf("}") + 1));
+							boolean error = jObj.getBoolean("error");
+							if (!error) {
+
+								String message = jObj.getString("message");
+
+							} else {
+
+								// Error occurred in registration. Get the error
+								// message
+								String errorMsg = jObj.getString("error_msg");
+								Toast.makeText(getApplicationContext(),
+										errorMsg, Toast.LENGTH_LONG).show();
+							}
+						} catch (JSONException e) {
+							e.printStackTrace();
+						}
+
+					}
+				}, new Response.ErrorListener() {
+
+					@Override
+					public void onErrorResponse(VolleyError error) {
+						Log.e(TAG, "Registration Error: " + error.getMessage());
+						// Toast.makeText(getApplicationContext(),
+						// error.getMessage(), Toast.LENGTH_LONG).show();
+						// hideDialog();
+					}
+				}) {
+
+			@Override
+			public Map<String, String> getHeaders() throws AuthFailureError {
+				// Posting parameters to login url
+				Map<String, String> params = new HashMap<String, String>();
+				key = session.getAPIKey();
+				// Toast.makeText(getApplicationContext(), "Go Go "+ key,
+				// Toast.LENGTH_LONG).show();
+				params.put("Authorization", key);
+
+				return params;
+			}
+
+			@Override
+			protected Map<String, String> getParams() {
+				// Posting params to register url
+				Map<String, String> params = new HashMap<String, String>();
+				params.put("driver_license", saveLicense);
+				params.put("driver_license_img", img_str);
+
+				return params;
+			}
+
+		};
+
+		// Adding request to request queue
+		AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+	}
+
 	public void zoomImage(View view) {
 		FragmentTransaction ft = getFragmentManager().beginTransaction();
 		MyDialogFragment frag = new MyDialogFragment();
 		frag.show(ft, "txn_tag");
 	}
-	
+
 	public class MyDialogFragment extends DialogFragment {
 
 		@Override
@@ -466,7 +572,7 @@ public class UpgradeProfile extends Activity {
 		}
 
 	}
-	
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -495,10 +601,10 @@ public class UpgradeProfile extends Activity {
 		if (pDialog.isShowing())
 			pDialog.dismiss();
 	}
-	
+
 	@Override
-    public void onBackPressed() {
-            super.onBackPressed();
-            this.finish();
-    }
+	public void onBackPressed() {
+		super.onBackPressed();
+		this.finish();
+	}
 }

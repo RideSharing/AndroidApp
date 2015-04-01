@@ -124,10 +124,6 @@
             android:name=".SearchAdvanceActivity"
             android:label="@string/title_activity_search_advance" >
         </activity>
-        <activity
-            android:name=".AboutUsActivity"
-            android:label="@string/title_activity_about_us" >
-        </activity>
     </application>
 
 </manifest>

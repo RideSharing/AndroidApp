@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:background="#EEEEEE"
     android:orientation="vertical" >
 
     <ScrollView
@@ -14,17 +15,17 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_marginBottom="15dp"
-            android:orientation="vertical"
-            android:padding="4dip" >
+            android:orientation="vertical" >
 
             <LinearLayout
                 android:layout_width="fill_parent"
-                android:layout_height="145dp"
+                android:layout_height="fill_parent"
+                android:background="#87CEFA"
                 android:orientation="vertical" >
 
                 <RelativeLayout
                     android:layout_width="114dp"
-                    android:layout_height="84dp"
+                    android:layout_height="114dp"
                     android:layout_gravity="center"
                     android:layout_weight="0.94" >
 
@@ -46,7 +47,7 @@
                         android:layout_height="20dp"
                         android:layout_alignParentBottom="true"
                         android:layout_alignParentRight="true"
-                        android:background="@drawable/icon_avatar"
+                        android:background="@drawable/profile_change"
                         android:contentDescription="@string/imagePersionalID"
                         android:onClick="editAvatar" />
 
@@ -57,14 +58,14 @@
                         android:layout_above="@+id/editAvatar"
                         android:layout_alignParentRight="true"
                         android:onClick="uploadavatar"
-                        android:src="@drawable/icon_upload" />
+                        android:src="@drawable/upload_change" />
                 </RelativeLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:orientation="horizontal" >
+                    android:orientation="vertical" >
 
                     <TextView
                         android:id="@+id/fullname"
@@ -72,17 +73,41 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:textColor="#000"
+                        android:textColor="#FFFFFF"
                         android:textStyle="bold" />
 
-                    <ImageView
-                        android:id="@+id/editEmail"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:layout_alignParentLeft="true"
-                        android:background="@drawable/ic_edit"
-                        android:contentDescription="image"
-                        android:onClick="updateProfile" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="horizontal" >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="@string/change_profile"
+                            android:textColor="#FFFFFF" />
+
+                        <ImageView
+                            android:id="@+id/editEmail"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_alignParentLeft="true"
+                            android:background="@drawable/ic_edit"
+                            android:contentDescription="image"
+                            android:onClick="updateProfile" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" >
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" >
+                    </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
 
@@ -97,15 +122,19 @@
                 android:id="@+id/tvProfile1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@drawable/border_textview"
                 android:padding="4dip"
                 android:text="Email"
+                android:textColor="#000000"
                 android:textSize="17dp" />
 
             <RelativeLayout
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_marginBottom="15dp"
-                android:background="@drawable/image_border_profile"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/border_edittext"
                 android:orientation="horizontal"
                 android:padding="4dip"
                 android:textColor="@color/input_login"
@@ -125,15 +154,19 @@
                 android:id="@+id/tvProfile2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@drawable/border_textview"
                 android:padding="4dip"
                 android:text="@string/phone_number"
+                android:textColor="#000000"
                 android:textSize="17dp" />
 
             <RelativeLayout
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_marginBottom="15dp"
-                android:background="@drawable/image_border_profile"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/border_edittext"
                 android:orientation="horizontal"
                 android:padding="4dip"
                 android:textColor="@color/input_login"
@@ -153,15 +186,19 @@
                 android:id="@+id/tvProfile3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@drawable/border_textview"
                 android:padding="4dip"
                 android:text="@string/personalid"
+                android:textColor="#000000"
                 android:textSize="17dp" />
 
             <RelativeLayout
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_marginBottom="15dp"
-                android:background="@drawable/image_border_profile"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/border_edittext"
                 android:orientation="horizontal"
                 android:padding="4dip"
                 android:textColor="@color/input_login"
@@ -180,7 +217,9 @@
                 android:id="@+id/tvProfile4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@drawable/border_textview"
                 android:text="@string/personalid_img"
+                android:textColor="#000000"
                 android:textSize="17dp" />
 
             <LinearLayout
@@ -189,24 +228,23 @@
                 android:orientation="horizontal" >
 
                 <LinearLayout
-                    android:layout_width="156dp"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1.07"
                     android:orientation="horizontal" >
 
-                    <com.halley.helper.ScaleImageView
-                        android:id="@+id/personalid_img"
-                        android:layout_width="136dp"
-                        android:layout_height="fill_parent"
-                        android:adjustViewBounds="true"
-                        android:onClick="zoomImage"
-                        android:scaleType="centerCrop" />
-
                     <RelativeLayout
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_alignParentBottom="true"
-                        android:orientation="vertical" >
+                        android:layout_weight="1"
+                        android:background="@drawable/border_edittext"
+                        android:gravity="center" >
+
+                        <com.halley.helper.ScaleImageView
+                            android:id="@+id/personalid_img"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:onClick="zoomImage"
+                            android:scaleType="centerCrop" />
 
                         <ImageView
                             android:id="@+id/edit_personalid_img"
@@ -215,16 +253,31 @@
                             android:layout_alignParentBottom="true"
                             android:onClick="btnClick"
                             android:src="@drawable/icon_avatar" />
+                    </RelativeLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/border_edittext"
+                        android:orientation="vertical" >
 
                         <ImageView
-                            android:id="@+id/imageView1"
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:layout_above="@+id/edit_personalid_img"
-                            android:layout_alignParentLeft="true"
+                            android:id="@+id/uploadpersonalimg"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_gravity="center"
                             android:onClick="uploadpersonal_img"
                             android:src="@drawable/icon_upload" />
-                    </RelativeLayout>
+
+                        <TextView
+                            android:id="@+id/textView1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="@string/update_image"
+                            android:textColor="#3DA5E1" />
+                    </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
 
@@ -235,23 +288,25 @@
 
                 <Button
                     android:id="@+id/btnChangePassword"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:layout_margin="5dp"
                     android:layout_weight="1"
-                    android:background="#3DA5E1"
+                    android:background="@color/bg_main"
                     android:onClick="changepasswordonClick"
+                    android:padding="10dp"
                     android:text="@string/btn_change_password"
                     android:textColor="@color/white" />
 
                 <Button
                     android:id="@+id/btnUpgradeDriver"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:layout_margin="5dp"
                     android:layout_weight="1"
-                    android:background="#3DA5E1"
+                    android:background="@color/bg_main"
                     android:onClick="clickCheck"
+                    android:padding="10dp"
                     android:text="@string/btn_upgrade_driver"
                     android:textColor="@color/white" />
             </LinearLayout>

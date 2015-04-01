@@ -140,8 +140,9 @@ public class ProfileActivity extends Activity {
 				Intent i = new Intent(getApplicationContext(),
 						UpgradeProfile.class);
 				startActivity(i);
+				finish();
 				hideDialog();
-
+				
 			}
 		});
 
@@ -450,61 +451,113 @@ public class ProfileActivity extends Activity {
 		editfullname = (EditText) view.findViewById(R.id.edituserfullname);
 		editphone = (EditText) view.findViewById(R.id.edituserphone);
 		editpersonalid = (EditText) view.findViewById(R.id.edituserpersonalid);
+		Button confirmChangeProfile = (Button) view
+				.findViewById(R.id.btnConfirmChangeProfile);
+		Button cancelChangeProfile = (Button) view
+				.findViewById(R.id.btnCancelChangeProfile);
 		final String a = txtfullname.getText().toString();
 		final String b = txtphone.getText().toString();
 		final String c = txtpersonalID.getText().toString();
 		editfullname.setText(a);
 		editphone.setText(b);
 		editpersonalid.setText(c);
-
-		builder.setPositiveButton("Xác nhận", new OnClickListener() {
+		final AlertDialog dialog = builder.create();
+		confirmChangeProfile.setOnClickListener(new View.OnClickListener() {
 
 			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				savefullname = editfullname.getText().toString();
-				savephone = editphone.getText().toString();
-				savepersonalid = editpersonalid.getText().toString();
-				if (!(savefullname.equals(a)) && (savephone.equals(b))
-						&& (savepersonalid.equals(c))) {
-					editfullname();
-				} else if ((savefullname.equals(a)) && !(savephone.equals(b))
-						&& (savepersonalid.equals(c))) {
-					editPhone();
-				} else if ((savefullname.equals(a)) && (savephone.equals(b))
-						&& !(savepersonalid.equals(c))) {
-					editPersonalID();
-				} else if (!(savefullname.equals(a)) && !(savephone.equals(b))
-						&& (savepersonalid.equals(c))) {
-					editfullname();
-					editPhone();
-				} else if (!(savefullname.equals(a)) && (savephone.equals(b))
-						&& !(savepersonalid.equals(c))) {
-					editfullname();
-					editPersonalID();
-				} else if ((savefullname.equals(a)) && !(savephone.equals(b))
-						&& !(savepersonalid.equals(c))) {
-					editPhone();
-					editPersonalID();
-				} else if (!(savefullname.equals(a)) && !(savephone.equals(b))
-						&& !(savepersonalid.equals(c))) {
-					editfullname();
-					editPhone();
-					editPersonalID();
+			public void onClick(View v) {
+				savefullname = editfullname.getText().toString().trim();
+				savephone = editphone.getText().toString().trim();
+				savepersonalid = editpersonalid.getText().toString().trim();
+				if (savefullname.length() == 0 || savephone.length() == 0
+						|| savepersonalid.length() == 0){
+					Toast.makeText(getApplicationContext(),
+							getResources().getString(R.string.no_input),
+							Toast.LENGTH_LONG).show();
 				}
+				else if (!(savefullname.equals(a)) && (savephone.equals(b))
+							&& (savepersonalid.equals(c))) {
+						editfullname();
+						dialog.dismiss();
+						Toast.makeText(getApplicationContext(),
+								"Thay đổi thông tin thành công",
+								Toast.LENGTH_LONG).show();
+					} else if ((savefullname.equals(a))
+							&& !(savephone.equals(b))
+							&& (savepersonalid.equals(c))) {
+						editPhone();
+						dialog.dismiss();
+						Toast.makeText(getApplicationContext(),
+								"Thay đổi thông tin thành công",
+								Toast.LENGTH_LONG).show();
+					} else if ((savefullname.equals(a))
+							&& (savephone.equals(b))
+							&& !(savepersonalid.equals(c))) {
+						editPersonalID();
+						dialog.dismiss();
+						Toast.makeText(getApplicationContext(),
+								"Thay đổi thông tin thành công",
+								Toast.LENGTH_LONG).show();
+					} else if (!(savefullname.equals(a))
+							&& !(savephone.equals(b))
+							&& (savepersonalid.equals(c))) {
+						editfullname();
+						editPhone();
+						dialog.dismiss();
+						Toast.makeText(getApplicationContext(),
+								"Thay đổi thông tin thành công",
+								Toast.LENGTH_LONG).show();
+					} else if (!(savefullname.equals(a))
+							&& (savephone.equals(b))
+							&& !(savepersonalid.equals(c))) {
+						editfullname();
+						editPersonalID();
+						dialog.dismiss();
+						Toast.makeText(getApplicationContext(),
+								"Thay đổi thông tin thành công",
+								Toast.LENGTH_LONG).show();
+					} else if ((savefullname.equals(a))
+							&& !(savephone.equals(b))
+							&& !(savepersonalid.equals(c))) {
+						editPhone();
+						editPersonalID();
+						dialog.dismiss();
+						Toast.makeText(getApplicationContext(),
+								"Thay đổi thông tin thành công",
+								Toast.LENGTH_LONG).show();
+					} else if (!(savefullname.equals(a))
+							&& !(savephone.equals(b))
+							&& !(savepersonalid.equals(c))) {
+						editfullname();
+						editPhone();
+						editPersonalID();
+						dialog.dismiss();
+						Toast.makeText(getApplicationContext(),
+								"Thay đổi thông tin thành công",
+								Toast.LENGTH_LONG).show();
+					} else if (savefullname.equals(a) && savephone.equals(b)
+							&& savepersonalid.equals(c)) {
+
+						Toast.makeText(getApplicationContext(),
+								"Thông tin của bạn được giữ nguyên",
+								Toast.LENGTH_LONG).show();
+					}
 				txtfullname.setText(savefullname);
 				txtphone.setText(savephone);
 				txtpersonalID.setText(savepersonalid);
+
 			}
 		});
-		builder.setNeutralButton("Hủy bỏ", new OnClickListener() {
+
+		cancelChangeProfile.setOnClickListener(new View.OnClickListener() {
 
 			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				// TODO Auto-generated method stub
+			public void onClick(View v) {
+				dialog.dismiss();
 
 			}
 		});
-		AlertDialog dialog = builder.create();
+
 		dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
 		return dialog;
 	}
@@ -741,40 +794,42 @@ public class ProfileActivity extends Activity {
 		builder.setView(view);
 		newpass = (EditText) view.findViewById(R.id.newpass);
 		confirmpass = (EditText) view.findViewById(R.id.confirmpass);
-		builder.setPositiveButton("Xác nhận", new OnClickListener() {
+		Button btnconfirm = (Button) view.findViewById(R.id.btnConfirmChange);
+		Button btncancel = (Button) view.findViewById(R.id.btnCancelChange);
+		final AlertDialog dialog = builder.create();
+		btnconfirm.setOnClickListener(new View.OnClickListener() {
 
 			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				if(newpass.getText().length()==0||confirmpass.getText().length()==0){
+			public void onClick(View v) {
+				if (newpass.getText().length() == 0
+						|| confirmpass.getText().length() == 0) {
 					Toast.makeText(getApplicationContext(),
 							getResources().getString(R.string.no_input),
 							Toast.LENGTH_LONG).show();
-				}
-				else if ((newpass.getText().toString()).equals(confirmpass.getText()
-						.toString())) {
+				} else if ((newpass.getText().toString()).equals(confirmpass
+						.getText().toString())) {
 					setSavepass(newpass.getText().toString());
-					
+
 					changepassword();
 					dialog.dismiss();
 					Toast.makeText(getApplicationContext(),
-							"Thay đổi mật khẩu thành công",
-							Toast.LENGTH_LONG).show();
+							"Thay đổi mật khẩu thành công", Toast.LENGTH_LONG)
+							.show();
 				} else {
 					Toast.makeText(getApplicationContext(),
 							"Mật khẩu xác nhận không trùng nhau",
 							Toast.LENGTH_LONG).show();
 				}
-			}
 
+			}
 		});
-		builder.setNeutralButton("Hủy bỏ", new OnClickListener() {
+		btncancel.setOnClickListener(new View.OnClickListener() {
 
 			@Override
-			public void onClick(DialogInterface dialog, int which) {
+			public void onClick(View v) {
 				dialog.dismiss();
 			}
 		});
-		AlertDialog dialog = builder.create();
 		dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
 		return dialog;
 	}
@@ -896,7 +951,7 @@ public class ProfileActivity extends Activity {
 													decodeString.length);
 
 									avatar.setImageBitmap(decodeByte);
-									
+
 									// avatar.setAnimateImageBitmap(decodeByte,
 									// true);
 								}

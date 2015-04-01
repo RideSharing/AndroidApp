@@ -44,6 +44,11 @@ public class SessionManager {
 
 		Log.d(TAG, "User login session modified!");
 	}
+	
+	public void setDriver(boolean isDriver) {
+		editor.putBoolean(KEY_IS_DRIVER, isDriver);
+		
+	}
 
 	public String getAPIKey() {
 		return pref.getString(API_KEY, null);

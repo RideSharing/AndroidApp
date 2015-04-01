@@ -88,7 +88,7 @@ public class MainActivity extends ActionBarActivity implements
 	// slide menu items
 	private String[] navUserMenuTitles;
 	private String[] navDriverMenuTitles;
-	private TypedArray navMenuIcons,navMenuIconsdriver;
+	private TypedArray navMenuIcons, navMenuIconsdriver;
 
 	private ArrayList<NavDrawerItem> navDrawerItems;
 	private NavDrawerListAdapter adapter;
@@ -105,7 +105,7 @@ public class MainActivity extends ActionBarActivity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		session = new SessionManager(getApplicationContext());
-		driver=session.isDriver();
+		driver = session.isDriver();
 
 		setContentView(R.layout.activity_main);
 
@@ -118,7 +118,7 @@ public class MainActivity extends ActionBarActivity implements
 		getSupportActionBar().setHomeButtonEnabled(true);
 		View cView = getLayoutInflater().inflate(
 				R.layout.switch_role_actionbar, null);
-		
+
 		/** Set tab navigation mode */
 
 		getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
@@ -197,7 +197,7 @@ public class MainActivity extends ActionBarActivity implements
 	 * preferences Clears the user data from sqlite users table
 	 * */
 	public void logoutUser() {
-		session.setLogin(false, null,false);
+		session.setLogin(false, null, false);
 
 		// db.deleteUsers();
 		// Launching the login activity
@@ -225,8 +225,8 @@ public class MainActivity extends ActionBarActivity implements
 		navMenuIcons = getResources()
 				.obtainTypedArray(R.array.nav_drawer_icons);
 		// nav drawer icons from resources
-				navMenuIconsdriver = getResources()
-						.obtainTypedArray(R.array.nav_drawer_icons_driver);
+		navMenuIconsdriver = getResources().obtainTypedArray(
+				R.array.nav_drawer_icons_driver);
 
 		// adding nav drawer items to array
 		if (driver == true) {

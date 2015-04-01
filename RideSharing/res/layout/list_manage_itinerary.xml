@@ -47,7 +47,7 @@
             android:textSize="@dimen/address" />
 
         <TextView
-            android:id="@+id/coast"
+            android:id="@+id/cost"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/address"

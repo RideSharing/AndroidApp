@@ -51,7 +51,7 @@ public class ListManageItineraryAdapter extends BaseAdapter {
 		TextView start_address = (TextView) convertView.findViewById(R.id.start_address);
 		TextView end_address = (TextView) convertView.findViewById(R.id.end_address);
 		TextView duration = (TextView) convertView.findViewById(R.id.duration);
-		TextView cost = (TextView) convertView.findViewById(R.id.coast);
+		TextView cost = (TextView) convertView.findViewById(R.id.cost);
 		TextView leave_date = (TextView) convertView.findViewById(R.id.leave_date);
 		
 		ListManageItem m = itineraryItemManage.get(position);

@@ -5,53 +5,54 @@
     android:layout_margin="13dp"
     android:orientation="vertical" >
 
-     <TextView
+    <TextView
         android:id="@+id/tvName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="20dp"
         android:layout_margin="5dp"
-        android:text="@string/name" />
+        android:text="@string/name"
+        android:textSize="20dp" />
 
     <EditText
         android:id="@+id/name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
         android:background="@color/white"
-        android:hint="@string/hint_name" >
+        android:hint="@string/hint_name"
+        android:padding="10dp" />
+
     <TextView
         android:id="@+id/tvEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="20dp"
         android:layout_margin="5dp"
-        android:text="@string/email" />
+        android:text="@string/email"
+        android:textSize="20dp" />
 
     <EditText
         android:id="@+id/email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
         android:background="@color/white"
-        android:hint="@string/hint_email" >
+        android:hint="@string/hint_email"
+        android:padding="10dp" >
     </EditText>
 
     <TextView
         android:id="@+id/tvfeedback"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="20dp"
         android:layout_margin="5dp"
-        android:text="Phản hồi" />
+        android:text="Phản hồi"
+        android:textSize="20dp" />
 
     <EditText
         android:id="@+id/feedback"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
         android:background="@color/white"
-        android:hint="Nhận xét của bạn về ứng dụng" >
+        android:hint="Nhận xét của bạn về ứng dụng"
+        android:padding="10dp" >
     </EditText>
 
     <Button

@@ -41,6 +41,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.Request.Method;
 import com.android.volley.toolbox.StringRequest;
+import com.halley.aboutus.AboutUsActivity;
 import com.halley.app.AppConfig;
 import com.halley.app.AppController;
 import com.halley.dialog.SearchDialogFragment;
@@ -318,6 +319,9 @@ public class MainActivity extends ActionBarActivity implements
 			case 2:
 				intent = new Intent(this, ProfileActivity.class);
 				break;
+			case 5:
+				intent = new Intent(this, AboutUsActivity.class);
+				break;
 			case 6:
 				logoutUser();
 				break;
@@ -331,8 +335,8 @@ public class MainActivity extends ActionBarActivity implements
 			case 1:
 				intent = new Intent(this, ProfileActivity.class);
 				break;
-			case 2:
-
+			case 4:
+				intent = new Intent(this, AboutUsActivity.class);
 				break;
 			case 5:
 				logoutUser();

@@ -97,7 +97,8 @@
     <string name="btn_link_back_login">Đã có mật khẩu, đăng nhập ngay</string>
     <string name="btn_send_pass_to_mail">Gửi mật khẩu cho email này</string>
     <string name="title_activity_submit_itinerary">Xác nhận hành trình</string>
-    <string name="title_activity_search_advance">SearchAdvanceActivity</string>
+    <string name="title_activity_search_advance">Tìm kiếm nâng cao</string>
+    <string name="title_activity_about_us">Thông tin về chúng tôi</string>
 	<string name="update_image">Cập nhật hình ảnh</string>
 	<string name="change_profile">Chính sửa thông tin </string>
 	<string name="confirm_driver">Bạn đã đăng ký trở thành tài xế</string>

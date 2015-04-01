@@ -124,6 +124,11 @@
             android:name=".SearchAdvanceActivity"
             android:label="@string/title_activity_search_advance" >
         </activity>
+        <activity
+            android:name="com.halley.aboutus.AboutUsActivity"
+            android:label="@string/title_activity_about_us"
+            android:parentActivityName="com.halley.ridesharing.MainActivity" >
+        </activity>
     </application>
 
 </manifest>

@@ -60,22 +60,22 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="5dp"
-                    android:textSize="17dp"
-                    android:text="ridesharing@gmail.com" />
+                    android:text="ridesharing@gmail.com"
+                    android:textSize="17dp" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="5dp"
-                    android:textSize="17dp"
-                    android:text="0988888888" />
+                    android:text="0988888888"
+                    android:textSize="17dp" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="5dp"
-                    android:textSize="17dp"
-                    android:text="453 Hoang Dieu Da Nang" />
+                    android:text="453 Hoang Dieu Da Nang"
+                    android:textSize="17dp" />
             </LinearLayout>
         </LinearLayout>
 
@@ -109,32 +109,32 @@
                     android:layout_height="wrap_content"
                     android:drawableLeft="@drawable/ic_facebook_about_us"
                     android:padding="5dp"
-                    android:textSize="17dp"
-                    android:text="  facebook.com/ridesharing" />
+                    android:text="  facebook.com/ridesharing"
+                    android:textSize="17dp" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawableLeft="@drawable/ic_youtube_about_us"
                     android:padding="5dp"
-                    android:textSize="17dp"
-                    android:text="  youtube.com/ridesharing" />
+                    android:text="  youtube.com/ridesharing"
+                    android:textSize="17dp" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawableLeft="@drawable/ic_googleplus_about_us"
                     android:padding="5dp"
-                    android:textSize="17dp"
-                    android:text="  googleplus.com/ridesharing" />
+                    android:text="  googleplus.com/ridesharing"
+                    android:textSize="17dp" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawableLeft="@drawable/ic_gmail_about_us"
                     android:padding="5dp"
-                    android:textSize="17dp"
-                    android:text="  gmail.com/ridesharing" />
+                    android:text="  gmail.com/ridesharing"
+                    android:textSize="17dp" />
             </LinearLayout>
         </LinearLayout>
 
@@ -173,7 +173,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:drawableTop="@drawable/ic_author_nguyennhatcuong"
+                        android:drawableTop="@drawable/ic_author_terry"
                         android:gravity="center"
                         android:text="Trần Duy Thành"
                         android:textSize="10dp"
@@ -183,7 +183,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:drawableTop="@drawable/ic_author_nguyennhatcuong"
+                        android:drawableTop="@drawable/ic_author_cody"
                         android:gravity="center"
                         android:text="Nguyễn Nhật Cường"
                         android:textSize="10dp"
@@ -193,7 +193,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:drawableTop="@drawable/ic_author_buiquanghuy"
+                        android:drawableTop="@drawable/ic_author_harold"
                         android:gravity="center"
                         android:text="Bùi Quang Huy"
                         android:textSize="10dp"
@@ -211,7 +211,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:drawableTop="@drawable/ic_author_nguyennhatcuong"
+                        android:drawableTop="@drawable/ic_author_vidal"
                         android:gravity="center"
                         android:text="Lê Trung Vĩ"
                         android:textSize="10dp"
@@ -221,7 +221,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:drawableTop="@drawable/ic_author_nguyennhatcuong"
+                        android:drawableTop="@drawable/ic_author_hanley"
                         android:gravity="center"
                         android:text="Nguyễn Thanh Hoàng"
                         android:textSize="10dp"
@@ -231,7 +231,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:drawableTop="@drawable/ic_author_nguyennhatcuong"
+                        android:drawableTop="@drawable/ic_author_truman"
                         android:gravity="center"
                         android:text="Nguyễn Quang Trung"
                         android:textSize="10dp"
@@ -239,22 +239,25 @@
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
-         <LinearLayout
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="5dp"
             android:background="@color/white"
             android:orientation="vertical"
             android:padding="5dp" >
-             <Button android:layout_width="match_parent"
-                 android:layout_height="wrap_content"
-                 android:text="Phản hồi"
-                 android:layout_margin="5dp"
-                 android:padding="5dp"
-                 android:onClick="feedbackonClick"
-                 android:textColor="@color/white"
-                 android:background="@color/bg_main"/>
-         </LinearLayout>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="@color/bg_main"
+                android:onClick="feedbackonClick"
+                android:padding="5dp"
+                android:text="Phản hồi"
+                android:textColor="@color/white" />
+        </LinearLayout>
     </LinearLayout>
 
 </ScrollView>

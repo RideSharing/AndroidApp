@@ -47,6 +47,7 @@ public class SessionManager {
 	
 	public void setDriver(boolean isDriver) {
 		editor.putBoolean(KEY_IS_DRIVER, isDriver);
+		editor.commit();
 		
 	}
 

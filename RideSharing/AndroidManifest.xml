@@ -129,6 +129,14 @@
             android:label="@string/title_activity_about_us"
             android:parentActivityName="com.halley.ridesharing.MainActivity" >
         </activity>
+        <activity
+            android:name="com.halley.manageitinerary.ManageItineraryActivity"
+            android:label="@string/title_activity_manage_itinerary" >
+        </activity>
+        <activity
+            android:name="com.halley.manageitinerary.DetailManageItineraryActivity"
+            android:label="@string/title_activity_detail_manage_itinerary" >
+        </activity>
     </application>
 
 </manifest>

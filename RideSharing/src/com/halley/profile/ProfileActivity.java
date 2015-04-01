@@ -134,15 +134,11 @@ public class ProfileActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				pDialog.setMessage("Loading ...");
-				showDialog();
 
 				Intent i = new Intent(getApplicationContext(),
 						UpgradeProfile.class);
 				startActivity(i);
-				finish();
-				hideDialog();
-				
+
 			}
 		});
 
@@ -470,78 +466,71 @@ public class ProfileActivity extends Activity {
 				savephone = editphone.getText().toString().trim();
 				savepersonalid = editpersonalid.getText().toString().trim();
 				if (savefullname.length() == 0 || savephone.length() == 0
-						|| savepersonalid.length() == 0){
+						|| savepersonalid.length() == 0) {
 					Toast.makeText(getApplicationContext(),
 							getResources().getString(R.string.no_input),
 							Toast.LENGTH_LONG).show();
-				}
-				else if (!(savefullname.equals(a)) && (savephone.equals(b))
-							&& (savepersonalid.equals(c))) {
-						editfullname();
-						dialog.dismiss();
-						Toast.makeText(getApplicationContext(),
-								"Thay đổi thông tin thành công",
-								Toast.LENGTH_LONG).show();
-					} else if ((savefullname.equals(a))
-							&& !(savephone.equals(b))
-							&& (savepersonalid.equals(c))) {
-						editPhone();
-						dialog.dismiss();
-						Toast.makeText(getApplicationContext(),
-								"Thay đổi thông tin thành công",
-								Toast.LENGTH_LONG).show();
-					} else if ((savefullname.equals(a))
-							&& (savephone.equals(b))
-							&& !(savepersonalid.equals(c))) {
-						editPersonalID();
-						dialog.dismiss();
-						Toast.makeText(getApplicationContext(),
-								"Thay đổi thông tin thành công",
-								Toast.LENGTH_LONG).show();
-					} else if (!(savefullname.equals(a))
-							&& !(savephone.equals(b))
-							&& (savepersonalid.equals(c))) {
-						editfullname();
-						editPhone();
-						dialog.dismiss();
-						Toast.makeText(getApplicationContext(),
-								"Thay đổi thông tin thành công",
-								Toast.LENGTH_LONG).show();
-					} else if (!(savefullname.equals(a))
-							&& (savephone.equals(b))
-							&& !(savepersonalid.equals(c))) {
-						editfullname();
-						editPersonalID();
-						dialog.dismiss();
-						Toast.makeText(getApplicationContext(),
-								"Thay đổi thông tin thành công",
-								Toast.LENGTH_LONG).show();
-					} else if ((savefullname.equals(a))
-							&& !(savephone.equals(b))
-							&& !(savepersonalid.equals(c))) {
-						editPhone();
-						editPersonalID();
-						dialog.dismiss();
-						Toast.makeText(getApplicationContext(),
-								"Thay đổi thông tin thành công",
-								Toast.LENGTH_LONG).show();
-					} else if (!(savefullname.equals(a))
-							&& !(savephone.equals(b))
-							&& !(savepersonalid.equals(c))) {
-						editfullname();
-						editPhone();
-						editPersonalID();
-						dialog.dismiss();
-						Toast.makeText(getApplicationContext(),
-								"Thay đổi thông tin thành công",
-								Toast.LENGTH_LONG).show();
-					} else if (savefullname.equals(a) && savephone.equals(b)
-							&& savepersonalid.equals(c)) {
+				} else if (!(savefullname.equals(a)) && (savephone.equals(b))
+						&& (savepersonalid.equals(c))) {
+					editfullname();
+					dialog.dismiss();
+					Toast.makeText(getApplicationContext(),
+							"Thay đổi thông tin thành công", Toast.LENGTH_LONG)
+							.show();
+				} else if ((savefullname.equals(a)) && !(savephone.equals(b))
+						&& (savepersonalid.equals(c))) {
+					editPhone();
+					dialog.dismiss();
+					Toast.makeText(getApplicationContext(),
+							"Thay đổi thông tin thành công", Toast.LENGTH_LONG)
+							.show();
+				} else if ((savefullname.equals(a)) && (savephone.equals(b))
+						&& !(savepersonalid.equals(c))) {
+					editPersonalID();
+					dialog.dismiss();
+					Toast.makeText(getApplicationContext(),
+							"Thay đổi thông tin thành công", Toast.LENGTH_LONG)
+							.show();
+				} else if (!(savefullname.equals(a)) && !(savephone.equals(b))
+						&& (savepersonalid.equals(c))) {
+					editfullname();
+					editPhone();
+					dialog.dismiss();
+					Toast.makeText(getApplicationContext(),
+							"Thay đổi thông tin thành công", Toast.LENGTH_LONG)
+							.show();
+				} else if (!(savefullname.equals(a)) && (savephone.equals(b))
+						&& !(savepersonalid.equals(c))) {
+					editfullname();
+					editPersonalID();
+					dialog.dismiss();
+					Toast.makeText(getApplicationContext(),
+							"Thay đổi thông tin thành công", Toast.LENGTH_LONG)
+							.show();
+				} else if ((savefullname.equals(a)) && !(savephone.equals(b))
+						&& !(savepersonalid.equals(c))) {
+					editPhone();
+					editPersonalID();
+					dialog.dismiss();
+					Toast.makeText(getApplicationContext(),
+							"Thay đổi thông tin thành công", Toast.LENGTH_LONG)
+							.show();
+				} else if (!(savefullname.equals(a)) && !(savephone.equals(b))
+						&& !(savepersonalid.equals(c))) {
+					editfullname();
+					editPhone();
+					editPersonalID();
+					dialog.dismiss();
+					Toast.makeText(getApplicationContext(),
+							"Thay đổi thông tin thành công", Toast.LENGTH_LONG)
+							.show();
+				} else if (savefullname.equals(a) && savephone.equals(b)
+						&& savepersonalid.equals(c)) {
 
-						Toast.makeText(getApplicationContext(),
-								"Thông tin của bạn được giữ nguyên",
-								Toast.LENGTH_LONG).show();
-					}
+					Toast.makeText(getApplicationContext(),
+							"Thông tin của bạn được giữ nguyên",
+							Toast.LENGTH_LONG).show();
+				}
 				txtfullname.setText(savefullname);
 				txtphone.setText(savephone);
 				txtpersonalID.setText(savepersonalid);

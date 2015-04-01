@@ -31,12 +31,11 @@
                     android:id="@+id/titleUpgrade"
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
-                    android:background="#87CEFA"
                     android:gravity="center"
-                    android:padding="25dp"
+                    android:padding="5dp"
                     android:text="@string/driver_information"
-                    android:textSize="15dp" />
-
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
             </LinearLayout>
 
             <LinearLayout
@@ -45,14 +44,15 @@
                 android:layout_marginBottom="5dp"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="15dp"
                 android:background="@drawable/border_edittext"
                 android:orientation="vertical" >
 
                 <TextView
                     android:id="@+id/tvdriver1"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/border_bottom"
                     android:padding="4dp"
                     android:text="@string/driver_license"
                     android:textSize="17dp" />
@@ -99,9 +99,10 @@
 
                 <TextView
                     android:id="@+id/tvDriver2"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:background="@drawable/border_bottom"
                     android:text="@string/driver_license_img"
                     android:textSize="17dp" />
 
@@ -110,24 +111,28 @@
                     android:layout_height="match_parent"
                     android:layout_alignParentBottom="true"
                     android:layout_gravity="center"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginTop="15dp"
                     android:layout_weight="0.76"
                     android:orientation="vertical" >
+
+                    <com.halley.helper.ScaleImageView
+                        android:id="@+id/license_img"
+                        android:layout_width="118dp"
+                        android:layout_height="90dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true"
+                        android:onClick="zoomImage"
+                        android:scaleType="centerCrop" />
 
                     <ImageView
                         android:id="@+id/edit_personalid_img"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:layout_alignParentBottom="true"
+                        android:layout_alignParentLeft="true"
                         android:onClick="btnClick"
                         android:src="@drawable/icon_avatar" />
-
-                    <com.halley.helper.ScaleImageView
-                        android:id="@+id/license_img"
-                        android:layout_width="118dp"
-                        android:layout_height="90dp"
-                        android:adjustViewBounds="true"
-                        android:onClick="zoomImage"
-                        android:scaleType="centerCrop" />
                 </RelativeLayout>
             </LinearLayout>
 
@@ -142,7 +147,6 @@
                 android:onClick="submit"
                 android:text="@string/btn_upgrade_driver"
                 android:textColor="@color/white" />
-
         </LinearLayout>
     </ScrollView>
 

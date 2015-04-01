@@ -68,7 +68,7 @@
         <item>@drawable/ic_about_us</item>
         <item>@drawable/ic_logout</item>
     </string-array>
-     <string-array name="nav_drawer_icons_driver">
+    <string-array name="nav_drawer_icons_driver">
         <item>@drawable/ic_register_itinerary</item>
     </string-array>
 
@@ -99,17 +99,19 @@
     <string name="title_activity_submit_itinerary">Xác nhận hành trình</string>
     <string name="title_activity_search_advance">Tìm kiếm nâng cao</string>
     <string name="title_activity_about_us">Thông tin về chúng tôi</string>
-	<string name="update_image">Cập nhật hình ảnh</string>
-	<string name="change_profile">Chính sửa thông tin </string>
-	<string name="confirm_driver">Bạn đã đăng ký trở thành tài xế</string>
-	
-	 <!-- Button Title -->
+    <string name="update_image">Cập nhật hình ảnh</string>
+    <string name="change_profile">Chính sửa thông tin </string>
+    <string name="confirm_driver">Bạn đã đăng ký trở thành tài xế</string>
+
+    <!-- Button Title -->
     <string name="btn_confirm_change">Xác nhận</string>
     <string name="btn_cancel_change">Hủy bỏ</string>
-    <string name="title_activity_manage_itinerary">ManageItinerary</string>
+    <string name="title_activity_manage_itinerary">Danh sách hành trình</string>
     <string name="new_password">Mật khẩu mới</string>
     <string name="confirm_new_password">Nhập lại mật khẩu mới</string>
     <string name="submit_change">Thông tin của bạn đã được thay đổi</string>
     <string name="cancel_change">Thông tin của bạn được giữ nguyên</string>
     <string name="update_success">Cập nhật thành công</string>
+    <string name="title_activity_detail_manage_itinerary">Quản lý hành trình</string>
+
 </resources>

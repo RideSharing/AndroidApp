@@ -1,233 +1,306 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scrollview"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="5dp"
     android:orientation="vertical" >
 
-    <ScrollView
-        android:id="@+id/scrollview"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="5dp"
         android:orientation="vertical" >
 
         <LinearLayout
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_marginBottom="15dp"
-            android:orientation="vertical"
-            android:padding="4dip" >
+            android:layout_height="145dp"
+            android:layout_margin="5dp"
+            android:gravity="center"
+            android:orientation="vertical" >
 
-            <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="145dp"
-                android:orientation="vertical" >
+            <RelativeLayout
+                android:layout_width="114dp"
+                android:layout_height="84dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="5dp"
+                android:layout_weight="0.94" >
 
-                <RelativeLayout
-                    android:layout_width="114dp"
-                    android:layout_height="84dp"
-                    android:layout_gravity="center"
-                    android:layout_weight="0.94" >
-
-                    <com.halley.helper.RoundedImageView
-                        android:id="@+id/avatar"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentBottom="true"
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignParentRight="true"
-                        android:layout_alignParentTop="true"
-                        android:adjustViewBounds="true"
-                        android:scaleType="centerInside"
-                        android:theme="@drawable/avatar_2" />
-                </RelativeLayout>
-
-                <TextView
-                    android:id="@+id/fullname"
+                <com.halley.helper.RoundedImageView
+                    android:id="@+id/avatar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:textColor="#000"
-                    android:textStyle="bold" />
-            </LinearLayout>
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerInside"
+                    android:theme="@drawable/avatar_2" />
+            </RelativeLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/fullname"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical" >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="4dip"
-                    android:text="@string/hint_description"
-                    android:textSize="17dp" />
-
-                <TextView
-                    android:id="@+id/description"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="15dp"
-                    android:background="@drawable/image_border_profile"
-                    android:padding="7dip"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@color/input_login"
-                    android:textColorHint="@color/input_login_hint"
-                    android:textSize="15dp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="4dip"
-                    android:text="@string/hint_start_addess"
-                    android:textSize="17dp" />
-
-                <TextView
-                    android:id="@+id/startAddress"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="15dp"
-                    android:background="@drawable/image_border_profile"
-                    android:padding="7dip"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@color/input_login"
-                    android:textColorHint="@color/input_login_hint"
-                    android:textSize="15dp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="4dip"
-                    android:text="@string/hint_end_addess"
-                    android:textSize="17dp" />
-
-                <TextView
-                    android:id="@+id/endAddress"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="15dp"
-                    android:background="@drawable/image_border_profile"
-                    android:padding="7dip"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@color/input_login"
-                    android:textColorHint="@color/input_login_hint"
-                    android:textSize="15dp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="4dip"
-                    android:text="@string/hint_duration"
-                    android:textSize="17dp" />
-
-                <TextView
-                    android:id="@+id/duration"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="15dp"
-                    android:background="@drawable/image_border_profile"
-                    android:padding="7dip"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@color/input_login"
-                    android:textColorHint="@color/input_login_hint"
-                    android:textSize="15dp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="4dip"
-                    android:text="@string/hint_distance"
-                    android:textSize="17dp" />
-
-                <TextView
-                    android:id="@+id/distance"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="15dp"
-                    android:background="@drawable/image_border_profile"
-                    android:padding="7dip"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@color/input_login"
-                    android:textColorHint="@color/input_login_hint"
-                    android:textSize="15dp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="4dip"
-                    android:text="@string/hint_leave_date"
-                    android:textSize="17dp" />
-
-                <TextView
-                    android:id="@+id/leave_date"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="15dp"
-                    android:background="@drawable/image_border_profile"
-                    android:padding="7dip"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@color/input_login"
-                    android:textColorHint="@color/input_login_hint"
-                    android:textSize="15dp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="4dip"
-                    android:text="@string/hint_cost"
-                    android:textSize="17dp" />
-
-                <TextView
-                    android:id="@+id/cost"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="15dp"
-                    android:background="@drawable/image_border_profile"
-                    android:inputType="numberDecimal"
-                    android:padding="7dip"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@color/input_login"
-                    android:textColorHint="@color/input_login_hint"
-                    android:textSize="15dp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="4dip"
-                    android:text="@string/phone_hint"
-                    android:textSize="17dp" />
-
-                <TextView
-                    android:id="@+id/phone"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="15dp"
-                    android:background="@drawable/image_border_profile"
-                    android:inputType="phone"
-                    android:padding="7dip"
-                    android:autoLink="phone"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@color/input_login"
-                    android:textColorHint="@color/input_login_hint"
-                    android:textSize="15dp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dip" >
-
-                <Button
-                    android:id="@+id/btnSubmitItinerary"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:background="@color/bg_main"
-                    android:onClick="submitItineraryonClick"
-                    android:text="@string/btn_submit_itinerary"
-                    android:textColor="@color/white" />
-            </LinearLayout>
+                android:layout_gravity="center"
+                android:inputType="textCapCharacters"
+                android:textColor="@color/bg_login"
+                android:textSize="20dp"
+                android:textStyle="bold" />
         </LinearLayout>
-    </ScrollView>
 
-</LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:background="@color/white"
+            android:orientation="vertical"
+            android:padding="5dp" >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/border_bottom"
+                android:padding="4dip"
+                android:text="@string/hint_description"
+                android:textColor="#000"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/description"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="15dp"
+                android:padding="7dip"
+                android:textColor="@color/input_login"
+                android:textColorHint="@color/input_login_hint"
+                android:textSize="15dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:background="@color/white"
+            android:orientation="vertical"
+            android:padding="5dp" >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/border_bottom"
+                android:text="@string/hint_start_addess"
+                android:textColor="#000"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/startAddress"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="15dp"
+                android:padding="7dip"
+                android:textColor="@color/input_login"
+                android:textColorHint="@color/input_login_hint"
+                android:textSize="15dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:background="@color/white"
+            android:orientation="vertical"
+            android:padding="5dp" >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/border_bottom"
+                android:text="@string/hint_end_addess"
+                android:textColor="#000"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/endAddress"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="15dp"
+                android:padding="7dip"
+                android:textColor="@color/input_login"
+                android:textColorHint="@color/input_login_hint"
+                android:textSize="15dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:background="@color/white"
+            android:orientation="vertical"
+            android:padding="5dp" >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/border_bottom"
+                android:text="@string/hint_duration"
+                android:textColor="#000"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/duration"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="15dp"
+                android:padding="7dip"
+                android:textColor="@color/input_login"
+                android:textColorHint="@color/input_login_hint"
+                android:textSize="15dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:background="@color/white"
+            android:orientation="vertical"
+            android:padding="5dp" >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/border_bottom"
+                android:text="@string/hint_distance"
+                android:textColor="#000"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/distance"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="15dp"
+                android:padding="7dip"
+                android:textColor="@color/input_login"
+                android:textColorHint="@color/input_login_hint"
+                android:textSize="15dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:background="@color/white"
+            android:orientation="vertical"
+            android:padding="5dp" >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/border_bottom"
+                android:text="@string/hint_leave_date"
+                android:textColor="#000"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/leave_date"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="15dp"
+                android:padding="7dip"
+                android:textColor="@color/input_login"
+                android:textColorHint="@color/input_login_hint"
+                android:textSize="15dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:background="@color/white"
+            android:orientation="vertical"
+            android:padding="5dp" >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/border_bottom"
+                android:text="@string/hint_cost"
+                android:textColor="#000"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/cost"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="15dp"
+                android:inputType="numberDecimal"
+                android:padding="7dip"
+                android:textColor="@color/input_login"
+                android:textColorHint="@color/input_login_hint"
+                android:textSize="15dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:background="@color/white"
+            android:orientation="vertical"
+            android:padding="5dp" >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/border_bottom"
+                android:text="@string/phone_hint"
+                android:textColor="#000"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/phone"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="15dp"
+                android:autoLink="phone"
+                android:inputType="phone"
+                android:padding="7dip"
+                android:textColor="@color/input_login"
+                android:textColorHint="@color/input_login_hint"
+                android:textSize="15dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dip" >
+
+            <Button
+                android:id="@+id/btnSubmitItinerary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="@color/bg_main"
+                android:onClick="submitItineraryonClick"
+                android:text="@string/btn_submit_itinerary"
+                android:textColor="@color/white" />
+        </LinearLayout>
+    </LinearLayout>
+
+</ScrollView>

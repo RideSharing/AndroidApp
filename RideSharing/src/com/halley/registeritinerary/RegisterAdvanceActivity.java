@@ -48,8 +48,8 @@ public class RegisterAdvanceActivity extends ActionBarActivity {
 	private static final String TAG = RegisterActivity.class.getSimpleName();
 	private ActionBar actionBar;
 	private EditText etDescription;
-	private EditText etStartAddress;
-	private EditText etEndAddress;
+	private TextView etStartAddress;
+	private TextView etEndAddress;
 	private TextView etLeave_date;
 	private TextView etDistance;
 	private EditText etDuration;
@@ -76,8 +76,8 @@ public class RegisterAdvanceActivity extends ActionBarActivity {
 		pDialog = new ProgressDialog(context);
 		pDialog.setMessage("Đang xử lý dữ liệu...");
 		etDescription = (EditText) findViewById(R.id.description);
-		etStartAddress = (EditText) findViewById(R.id.startAddress);
-		etEndAddress = (EditText) findViewById(R.id.endAddress);
+		etStartAddress = (TextView) findViewById(R.id.startAddress);
+		etEndAddress = (TextView) findViewById(R.id.endAddress);
 		etLeave_date = (TextView) findViewById(R.id.leave_date);
 		etDuration = (EditText) findViewById(R.id.duration);
 		etCost = (EditText) findViewById(R.id.cost);

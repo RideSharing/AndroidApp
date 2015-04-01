@@ -17,6 +17,7 @@
         android:id="@+id/name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:inputType="textPersonName"
         android:background="@color/white"
         android:hint="@string/hint_name"
         android:padding="10dp" />
@@ -35,6 +36,7 @@
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:hint="@string/hint_email"
+        android:inputType="textEmailAddress"
         android:padding="10dp" >
     </EditText>
 
@@ -50,17 +52,20 @@
         android:id="@+id/feedback"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:inputType="textNoSuggestions"
         android:background="@color/white"
         android:hint="Nhận xét của bạn về ứng dụng"
         android:padding="10dp" >
     </EditText>
 
     <Button
+        android:id="@+id/btnfeedback"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:background="@color/bg_main"
         android:padding="5dp"
+        
         android:text="Gửi phản hồi"
         android:textColor="@color/white" />
 

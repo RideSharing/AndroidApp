@@ -49,6 +49,7 @@ import com.halley.dialog.SearchDialogFragment.OnDataPass;
 import com.halley.helper.DatabaseHandler;
 import com.halley.helper.SessionManager;
 import com.halley.listitinerary.adapter.TabListItineraryAdapter;
+import com.halley.manageitinerary.ManageItineraryActivity;
 import com.halley.map.GPSLocation.GPSLocation;
 import com.halley.model.slidingmenu.NavDrawerItem;
 import com.halley.model.slidingmenu.adapter.NavDrawerListAdapter;
@@ -319,6 +320,9 @@ public class MainActivity extends ActionBarActivity implements
 			case 2:
 				intent = new Intent(this, ProfileActivity.class);
 				break;
+			case 3:
+				intent = new Intent(this, ManageItineraryActivity.class);
+				break;
 			case 5:
 				intent = new Intent(this, AboutUsActivity.class);
 				break;
@@ -334,6 +338,9 @@ public class MainActivity extends ActionBarActivity implements
 				break;
 			case 1:
 				intent = new Intent(this, ProfileActivity.class);
+				break;
+			case 2:
+				intent = new Intent(this, ManageItineraryActivity.class);
 				break;
 			case 4:
 				intent = new Intent(this, AboutUsActivity.class);

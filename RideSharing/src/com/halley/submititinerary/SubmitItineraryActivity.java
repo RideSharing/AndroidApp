@@ -88,7 +88,7 @@ public class SubmitItineraryActivity extends ActionBarActivity {
 
 			imavatar.setImageBitmap(decodeByte);
 		}
-		tvfullname.setText(fullname);
+		tvfullname.setText(fullname.toUpperCase());
 		tvdescription.setText(description);
 		tvstart_address.setText(start_address);
 		tvend_address.setText(end_address);

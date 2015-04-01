@@ -52,6 +52,7 @@ import com.halley.map.GPSLocation.GPSLocation;
 import com.halley.model.slidingmenu.NavDrawerItem;
 import com.halley.model.slidingmenu.adapter.NavDrawerListAdapter;
 import com.halley.profile.ProfileActivity;
+import com.halley.registerandlogin.AboutUsActivity;
 import com.halley.registerandlogin.LoginActivity;
 import com.halley.registerandlogin.R;
 import com.halley.registerandlogin.RegisterActivity;
@@ -317,6 +318,9 @@ public class MainActivity extends ActionBarActivity implements
 				break;
 			case 2:
 				intent = new Intent(this, ProfileActivity.class);
+				break;
+			case 5:
+				intent = new Intent(this, AboutUsActivity.class);
 				break;
 			case 6:
 				logoutUser();

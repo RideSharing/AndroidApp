@@ -68,7 +68,7 @@
         <item>@drawable/ic_about_us</item>
         <item>@drawable/ic_logout</item>
     </string-array>
-     <string-array name="nav_drawer_icons_driver">
+    <string-array name="nav_drawer_icons_driver">
         <item>@drawable/ic_register_itinerary</item>
     </string-array>
 
@@ -98,5 +98,6 @@
     <string name="btn_send_pass_to_mail">Gửi mật khẩu cho email này</string>
     <string name="title_activity_submit_itinerary">Xác nhận hành trình</string>
     <string name="title_activity_search_advance">SearchAdvanceActivity</string>
+    <string name="title_activity_about_us">AboutUsActivity</string>
 
 </resources>

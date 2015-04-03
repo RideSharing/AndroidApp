@@ -49,6 +49,8 @@ public class ManageItineraryActivity extends ActionBarActivity {
 		setContentView(R.layout.activity_manage_itinerary);
 		actionBar = getSupportActionBar();
 		actionBar.setHomeButtonEnabled(true);
+		actionBar.setDisplayHomeAsUpEnabled(true);
+		actionBar.setIcon(R.drawable.ic_manage_itinerary);
 		// Enabling Up / Back navigation
 		actionBar.setDisplayHomeAsUpEnabled(true);
 		listView = (ListView) findViewById(R.id.list);

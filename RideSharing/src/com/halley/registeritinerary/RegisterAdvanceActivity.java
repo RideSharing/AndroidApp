@@ -1,9 +1,9 @@
 package com.halley.registeritinerary;
 
 import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,8 +17,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -37,7 +35,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.halley.app.AppConfig;
 import com.halley.app.AppController;
-import com.halley.dialog.SearchDialogFragment.OnDataPass;
+import com.halley.helper.NumberTextWatcher;
 import com.halley.helper.SessionManager;
 import com.halley.registerandlogin.R;
 import com.halley.registerandlogin.RegisterActivity;
@@ -63,13 +61,13 @@ public class RegisterAdvanceActivity extends ActionBarActivity {
 	private SessionManager session;
 	private ProgressDialog pDialog;
 
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_register_advance);
 		actionBar = getSupportActionBar();
 		actionBar.setHomeButtonEnabled(true);
+		actionBar.setIcon(R.drawable.ic_register_itinerary);
 		// Enabling Up / Back navigation
 		actionBar.setDisplayHomeAsUpEnabled(true);
 		session = new SessionManager(context);
@@ -98,7 +96,10 @@ public class RegisterAdvanceActivity extends ActionBarActivity {
 		etEndAddress.setText(end_address);
 		etDistance.setText(distance);
 		etDuration.setText(duration);
-
+		etCost.setHint("Gợi ý: "
+				+ transferCost(Integer.parseInt(getDigitfromDistance(distance)) * 15500 / 40)
+				);
+		etCost.addTextChangedListener(new NumberTextWatcher(etCost));
 		etLeave_date.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -116,16 +117,16 @@ public class RegisterAdvanceActivity extends ActionBarActivity {
 		str = duration.split(" ");
 		String sumMin = "";
 		if (str.length == 2) {
-			sumMin = Integer.parseInt(str[0])+" phút";
+			sumMin = Integer.parseInt(str[0]) + " phút";
 
 		} else {
 			if (!str[1].equals("day")) {
-				sumMin = Integer.parseInt(str[0])+ " giờ "
-						+ Integer.parseInt(str[2])+" phút";
+				sumMin = Integer.parseInt(str[0]) + " giờ "
+						+ Integer.parseInt(str[2]) + " phút";
 
 			} else {
-				sumMin = Integer.parseInt(str[0]) * 24+ " ngày "+
-						+ Integer.parseInt(str[2])+" giờ";
+				sumMin = Integer.parseInt(str[0]) * 24 + " ngày "
+						+ +Integer.parseInt(str[2]) + " giờ";
 
 			}
 		}
@@ -176,7 +177,9 @@ public class RegisterAdvanceActivity extends ActionBarActivity {
 		btnOK.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
+
 				Calendar c = Calendar.getInstance();
+				Date currentTime = c.getTime();
 				int year = datepicker.getYear();
 				int month = datepicker.getMonth();
 				int day = datepicker.getDayOfMonth();
@@ -184,11 +187,17 @@ public class RegisterAdvanceActivity extends ActionBarActivity {
 				int hour = timepicker.getCurrentHour();
 				int min = timepicker.getCurrentMinute();
 				c.set(year, month, day, hour, min);
-				SimpleDateFormat dateFormat = new SimpleDateFormat(
-						"yyyy-MM-dd HH:mm:ss");
-				String date = dateFormat.format(c.getTime());
-				etLeave_date.setText(date);
-				dialog.dismiss();
+				if (currentTime.after(c.getTime())) {
+					Toast.makeText(context,
+							"Không thể chọn thời gian trong quá khứ",
+							Toast.LENGTH_SHORT).show();
+				} else {
+					SimpleDateFormat dateFormat = new SimpleDateFormat(
+							"yyyy-MM-dd HH:mm:ss");
+					String date = dateFormat.format(c.getTime());
+					etLeave_date.setText(date);
+					dialog.dismiss();
+				}
 
 			}
 		});
@@ -212,7 +221,7 @@ public class RegisterAdvanceActivity extends ActionBarActivity {
 			leave_date = etLeave_date.getText().toString();
 			description = etDescription.getText().toString();
 			duration = etDuration.getText().toString();
-			cost = etCost.getText().toString();
+			cost = etCost.getText().toString().replace(",", "");
 			addItinerary(start_address, start_address_lat, start_address_long,
 					end_address, end_address_lat, end_address_long, duration,
 					distance, cost, description, leave_date);
@@ -320,23 +329,10 @@ public class RegisterAdvanceActivity extends ActionBarActivity {
 
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.register_advance, menu);
-		return true;
-	}
+	public String transferCost(Integer cost) {
+		DecimalFormat formatter = new DecimalFormat("#,###,###");
+		return formatter.format(cost.doubleValue()) + " VNĐ";
 
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
 	}
 
 	@Override

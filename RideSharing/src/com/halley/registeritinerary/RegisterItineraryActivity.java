@@ -34,13 +34,14 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnMarkerDragListener;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
@@ -52,7 +53,7 @@ import com.halley.registerandlogin.R;
 
 public class RegisterItineraryActivity extends ActionBarActivity implements
 		OnMarkerDragListener, OnDataPass {
-	private final int REQUEST_EXIT=1;
+	private final int REQUEST_EXIT = 1;
 	private GoogleMap googleMap;
 	private Geocoder geocoder;
 	private double fromLatitude, fromLongitude, toLatitude, toLongitude;
@@ -72,13 +73,13 @@ public class RegisterItineraryActivity extends ActionBarActivity implements
 	Polyline lineDirection = null;
 
 	@Override
-	
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_register_itinerary);
-		
+
 		actionBar = getSupportActionBar();
 		actionBar.setHomeButtonEnabled(true);
+		actionBar.setIcon(R.drawable.ic_register_itinerary);
 		pDialog = new ProgressDialog(this);
 		// Showing progress dialog before making http request
 		pDialog.setMessage("Đang xử lí dữ liệu...");
@@ -99,7 +100,6 @@ public class RegisterItineraryActivity extends ActionBarActivity implements
 					.getDouble("fromLongitude");
 		}
 		initilizeMap();
-		focusMap(fromLatitude, fromLongitude, 9);
 		// Add current location on Maps
 		marker_start_address = addMarkeronMaps(fromLatitude, fromLongitude,
 				getResources().getString(R.string.hint_start_addess),
@@ -108,26 +108,9 @@ public class RegisterItineraryActivity extends ActionBarActivity implements
 				fromLongitude + 0.002,
 				getResources().getString(R.string.hint_end_addess),
 				"marker_end_address", R.drawable.ic_marker_end);
+		focusMap(marker_start_address, marker_end_address);
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.register_itinerary, menu);
-		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
-	}
 
 	public void showDialogonClick(View v) {
 		switch (v.getId()) {
@@ -236,8 +219,7 @@ public class RegisterItineraryActivity extends ActionBarActivity implements
 					Toast.makeText(context, "Không thể xác định được nơi đến",
 							Toast.LENGTH_SHORT).show();
 				}
-				focusMap(marker_start_address.getPosition().latitude,
-						marker_start_address.getPosition().longitude, 7);
+				focusMap(marker_start_address, marker_end_address);
 				Toast.makeText(
 						context,
 						"Kiểm tra thông tin trên bản đồ, sau đó nhấn Nâng cao ",
@@ -258,12 +240,20 @@ public class RegisterItineraryActivity extends ActionBarActivity implements
 
 	}
 
-	private void focusMap(double fromLatitude, double fromLongitude, int zoom) {
-		CameraPosition cameraPosition = new CameraPosition.Builder()
-				.target(new LatLng(fromLatitude, fromLongitude)).zoom(zoom)
-				.build();
-		googleMap.animateCamera(CameraUpdateFactory
-				.newCameraPosition(cameraPosition));
+	private void focusMap(Marker marker_a, Marker marker_b) {
+		LatLngBounds.Builder builder = new LatLngBounds.Builder();
+		builder.include(marker_a.getPosition());
+		builder.include(marker_b.getPosition());
+		LatLngBounds bounds = builder.build();
+		int padding = 0; // offset from edges of the map in pixels
+		CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds,300,300, padding);
+		googleMap.moveCamera(cu);
+		googleMap.animateCamera(cu);
+		// CameraPosition cameraPosition = new CameraPosition.Builder()
+		// .target(new LatLng(fromLatitude, fromLongitude)).zoom(zoom)
+		// .build();
+		// googleMap.animateCamera(CameraUpdateFactory
+		// .newCameraPosition(cameraPosition));
 	}
 
 	private void initilizeMap() {
@@ -271,7 +261,7 @@ public class RegisterItineraryActivity extends ActionBarActivity implements
 		if (googleMap == null) {
 			googleMap = ((MapFragment) this.getFragmentManager()
 					.findFragmentById(R.id.mapRegister)).getMap();
-			googleMap.setMyLocationEnabled(true);
+			//googleMap.setMyLocationEnabled(true);
 
 			// Enable / Disable Compass icon
 			googleMap.getUiSettings().setCompassEnabled(true);
@@ -582,15 +572,16 @@ public class RegisterItineraryActivity extends ActionBarActivity implements
 
 	}
 
-//	@Override
-//	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//
-//	    if (requestCode == REQUEST_EXIT) {
-//	         if (resultCode == RESULT_OK) {
-//	            setResult(RESULT_OK, null);
-//	        	 this.finish();
-//	            
-//	         }
-//	     }
-//	}
+	// @Override
+	// protected void onActivityResult(int requestCode, int resultCode, Intent
+	// data) {
+	//
+	// if (requestCode == REQUEST_EXIT) {
+	// if (resultCode == RESULT_OK) {
+	// setResult(RESULT_OK, null);
+	// this.finish();
+	//
+	// }
+	// }
+	// }
 }

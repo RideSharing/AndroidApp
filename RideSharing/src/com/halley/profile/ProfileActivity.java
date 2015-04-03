@@ -4,8 +4,6 @@ import java.io.ByteArrayOutputStream;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.halley.helper.Touch;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -17,8 +15,6 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -30,13 +26,14 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.MediaStore;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
@@ -54,10 +51,11 @@ import com.halley.app.AppConfig;
 import com.halley.app.AppController;
 import com.halley.helper.RoundedImageView;
 import com.halley.helper.SessionManager;
+import com.halley.helper.Touch;
 import com.halley.helper.TouchImageView;
 import com.halley.registerandlogin.R;
 
-public class ProfileActivity extends Activity {
+public class ProfileActivity extends ActionBarActivity {
 
 	private ProgressDialog pDialog;
 	private SessionManager session;
@@ -76,7 +74,7 @@ public class ProfileActivity extends Activity {
 	private static final int SELECTED_PICTURE = 1;
 	private static final int CAM_REQUEST = 1313;
 	private TextView tv1, tv2, tv3, tv4;
-
+	private ActionBar actionBar;
 	String img_str, img_str_camera;
 
 	String savepass, savefullname, savephone, savepersonalid;
@@ -93,7 +91,10 @@ public class ProfileActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_user_profile);
+		actionBar.setHomeButtonEnabled(true);
+		actionBar.setDisplayHomeAsUpEnabled(true);
 
+		actionBar.setIcon(R.drawable.ic_register_itinerary);
 		txtfullname = (TextView) findViewById(R.id.fullname);
 		txtemail = (TextView) findViewById(R.id.email);
 		txtphone = (TextView) findViewById(R.id.phone);

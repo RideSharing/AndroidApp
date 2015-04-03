@@ -17,9 +17,9 @@
         android:id="@+id/name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="textPersonName"
         android:background="@color/white"
         android:hint="@string/hint_name"
+        android:inputType="textPersonName"
         android:padding="10dp" />
 
     <TextView
@@ -52,9 +52,9 @@
         android:id="@+id/feedback"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="textNoSuggestions"
         android:background="@color/white"
         android:hint="Nhận xét của bạn về ứng dụng"
+        android:inputType="textNoSuggestions"
         android:padding="10dp" >
     </EditText>
 
@@ -63,9 +63,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
-        android:background="@color/bg_main"
+        android:background="@drawable/flat_selector"
         android:padding="5dp"
-        
         android:text="Gửi phản hồi"
         android:textColor="@color/white" />
 

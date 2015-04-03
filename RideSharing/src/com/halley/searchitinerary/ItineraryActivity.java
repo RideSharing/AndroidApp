@@ -4,24 +4,22 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
-import android.app.ActionBar;
-import android.app.ActionBar.Tab;
-import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBar.Tab;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.halley.listitinerary.adapter.TabListItineraryAdapter;
 import com.halley.registerandlogin.R;
 
-public class ItineraryActivity extends FragmentActivity implements
+public class ItineraryActivity extends ActionBarActivity implements
 		ActionBar.TabListener {
 
 	private double fromLatitude, fromLongitude, toLatitude, toLongitude;
@@ -40,7 +38,7 @@ public class ItineraryActivity extends FragmentActivity implements
 
 		// Initilization
 		viewPager = (ViewPager) findViewById(R.id.pager);
-		actionBar = getActionBar();
+		actionBar = getSupportActionBar();
 		mAdapter = new TabListItineraryAdapter(getSupportFragmentManager(),
 				null);
 		Intent intent = this.getIntent();
@@ -91,7 +89,7 @@ public class ItineraryActivity extends FragmentActivity implements
 		});
 
 		// Enabling Back navigation on Action Bar icon
-		getActionBar().setDisplayHomeAsUpEnabled(true);
+		actionBar.setDisplayHomeAsUpEnabled(true);
 	}
 
 	public Address getLocation(String location) {
@@ -155,28 +153,34 @@ public class ItineraryActivity extends FragmentActivity implements
 		return super.onOptionsItemSelected(item);
 	}
 
-	@Override
-	public void onTabReselected(Tab arg0, FragmentTransaction arg1) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void onTabSelected(Tab tab, FragmentTransaction arg1) {
-		// TODO Auto-generated method stub
-		viewPager.setCurrentItem(tab.getPosition());
-
-	}
-
-	@Override
-	public void onTabUnselected(Tab arg0, FragmentTransaction arg1) {
-		// TODO Auto-generated method stub
-
-	}
+	
 	 @Override
 	    public void onBackPressed() {
 	            super.onBackPressed();
 	            this.finish();
 	    }
+
+	@Override
+	public void onTabReselected(Tab arg0,
+			android.support.v4.app.FragmentTransaction arg1) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onTabSelected(Tab tab,
+			android.support.v4.app.FragmentTransaction arg1) {
+		viewPager.setCurrentItem(tab.getPosition());
+		
+	}
+
+	@Override
+	public void onTabUnselected(Tab arg0,
+			android.support.v4.app.FragmentTransaction arg1) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	
 
 }

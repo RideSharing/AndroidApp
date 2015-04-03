@@ -1,24 +1,19 @@
 package com.halley.ridesharing;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import android.annotation.SuppressLint;
 import android.app.FragmentManager;
-import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
+import android.graphics.Color;
+import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -28,22 +23,19 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.SearchView;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.Request.Method;
-import com.android.volley.toolbox.StringRequest;
 import com.halley.aboutus.AboutUsActivity;
-import com.halley.app.AppConfig;
-import com.halley.app.AppController;
 import com.halley.dialog.SearchDialogFragment;
 import com.halley.dialog.SearchDialogFragment.OnDataPass;
 import com.halley.helper.DatabaseHandler;
@@ -78,7 +70,7 @@ public class MainActivity extends ActionBarActivity implements
 	private DrawerLayout mDrawerLayout;
 	private ListView mDrawerList;
 	private ActionBarDrawerToggle mDrawerToggle;
-
+	private ActionBar actionBar;
 	// nav drawer title
 	private CharSequence mDrawerTitle;
 
@@ -106,24 +98,26 @@ public class MainActivity extends ActionBarActivity implements
 		super.onCreate(savedInstanceState);
 		session = new SessionManager(getApplicationContext());
 		driver = session.isDriver();
-
+		
 		setContentView(R.layout.activity_main);
-
+		customActionBar();
+		actionBar.setStackedBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.bg_login)));
+		
 		gps = new GPSLocation(this);
 		// get current Location of user
 		currentLocation = gps.getCurrentLocation();
 
 		// enabling action bar app icon and behaving it as toggle button
-		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-		getSupportActionBar().setHomeButtonEnabled(true);
+		
 		View cView = getLayoutInflater().inflate(
 				R.layout.switch_role_actionbar, null);
 
 		/** Set tab navigation mode */
 
-		getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 		/** Getting a reference to ViewPager from the layout */
 		viewPager = (ViewPager) findViewById(R.id.pager);
+		
 		DisplayMetrics metrics = this.getResources().getDisplayMetrics();
 		viewPager.getLayoutParams().height = metrics.heightPixels / 3
 				+ metrics.heightPixels / 3;
@@ -140,10 +134,13 @@ public class MainActivity extends ActionBarActivity implements
 		viewPager.setAdapter(mAdapter);
 		// Adding Tabs
 		for (String tab_name : tabs) {
-			getSupportActionBar().addTab(
-					getSupportActionBar().newTab().setText(tab_name)
+			
+			actionBar.addTab(
+					actionBar.newTab().setText(tab_name)
 							.setTabListener(this));
+		
 		}
+		
 		/**
 		 * on swiping the viewpager make respective tab selected
 		 * */
@@ -153,7 +150,7 @@ public class MainActivity extends ActionBarActivity implements
 			public void onPageSelected(int position) {
 				// on changing the page
 				// make respected tab selected
-				getSupportActionBar().setSelectedNavigationItem(position);
+				actionBar.setSelectedNavigationItem(position);
 			}
 
 			@Override
@@ -446,7 +443,8 @@ public class MainActivity extends ActionBarActivity implements
 	public void onTabSelected(Tab tab, FragmentTransaction arg1) {
 		// TODO Auto-generated method stub
 		viewPager.setCurrentItem(tab.getPosition());
-
+		
+		
 	}
 
 	@Override
@@ -466,6 +464,39 @@ public class MainActivity extends ActionBarActivity implements
 		i.putExtra("address", address);
 		startActivity(i);
 
+	}
+	public void customActionBar() {
+		actionBar = getSupportActionBar();
+		actionBar.setElevation(0);
+		actionBar.setHomeButtonEnabled(true);
+		actionBar.setDisplayShowTitleEnabled(false);
+		                   actionBar.setBackgroundDrawable(new ColorDrawable(Color.rgb(61,165,225)));
+		// Enabling Up / Back navigation
+		actionBar.setDisplayHomeAsUpEnabled(true);
+		
+		LayoutInflater mInflater = LayoutInflater.from(this);
+
+		View mCustomView = mInflater.inflate(R.layout.custom_actionbar, null);
+		TextView mTitleTextView = (TextView) mCustomView
+				.findViewById(R.id.title_text);
+		
+		Typeface tf = Typeface.createFromAsset(getAssets(), "fonts/ANGEL.otf");
+		mTitleTextView.setTypeface(tf);
+		
+
+		ImageButton imageButton = (ImageButton) mCustomView
+				.findViewById(R.id.imageButton);
+		imageButton.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View view) {
+				Toast.makeText(getApplicationContext(), "Refresh Clicked!",
+						Toast.LENGTH_LONG).show();
+			}
+		});
+
+		actionBar.setCustomView(mCustomView);
+		actionBar.setDisplayShowCustomEnabled(true);
 	}
 
 }

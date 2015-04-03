@@ -29,10 +29,11 @@
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_margin="5dp"
-                android:background="@color/bg_login"
-                android:text="@string/search_hint"
+                android:background="@drawable/flat_selector"
                 android:onClick="searchLocationOnclick"
+                android:text="@string/search_hint"
                 android:textColor="@color/white" />
+
         </LinearLayout>
     </FrameLayout>
 

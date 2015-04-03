@@ -6,6 +6,7 @@ import com.halley.manageitinerary.ManageItineraryActivity;
 
 public class AppConfig {
 	// Server user login url
+	//54.191.137.154
 	public static String URL_LOGIN = "http://192.168.10.74/RESTFul/v1/user/login";
 
 	// Server user register url

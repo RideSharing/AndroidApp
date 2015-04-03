@@ -271,7 +271,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dip"
-                android:background="@color/bg_login"
+                android:background="@drawable/flat_selector"
                 android:onClick="registerOnclick"
                 android:text="@string/btn_register"
                 android:textColor="@color/white" />

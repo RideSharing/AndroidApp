@@ -1,7 +1,6 @@
 package com.halley.submititinerary;
 
 import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,21 +16,20 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Base64;
 import android.util.Log;
-import android.view.Menu;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request.Method;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.Request.Method;
 import com.android.volley.toolbox.StringRequest;
 import com.halley.app.AppConfig;
 import com.halley.app.AppController;
 import com.halley.helper.RoundedImageView;
 import com.halley.helper.SessionManager;
+import com.halley.manageitinerary.ManageItineraryActivity;
 import com.halley.registerandlogin.R;
-import com.halley.ridesharing.MainActivity;
 
 public class SubmitItineraryActivity extends ActionBarActivity {
 	ActionBar actionBar;
@@ -51,7 +49,7 @@ public class SubmitItineraryActivity extends ActionBarActivity {
 		actionBar = getSupportActionBar();
 		actionBar.setHomeButtonEnabled(true);
 		// Enabling Up / Back navigation
-		actionBar.setDisplayHomeAsUpEnabled(true);
+//		actionBar.setDisplayHomeAsUpEnabled(true);
 		// Progress dialog
 		pDialog = new ProgressDialog(this);
 		pDialog.setCancelable(false);
@@ -99,6 +97,7 @@ public class SubmitItineraryActivity extends ActionBarActivity {
 		tvphone.setText(phone);
 
 	}
+
 	public void submitItineraryonClick(View v){
 		submitItinerary(itinerary_id);
 	}
@@ -142,6 +141,9 @@ public class SubmitItineraryActivity extends ActionBarActivity {
 								String message = jObj.getString("message");
 								Toast.makeText(getApplicationContext(),
 										message, Toast.LENGTH_LONG).show();
+								Intent i= new Intent(getApplicationContext(),ManageItineraryActivity.class);
+								startActivity(i);
+								finish();
 
 							} else {
 								// Error in login. Get the error message

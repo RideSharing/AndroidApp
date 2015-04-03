@@ -218,7 +218,7 @@ public class MapViewOfItineraryFragment extends Fragment implements
 		if (googleMap == null) {
 			googleMap = ((MapFragment) this.getActivity().getFragmentManager()
 					.findFragmentById(R.id.map)).getMap();
-			googleMap.setMyLocationEnabled(true);
+			//googleMap.setMyLocationEnabled(true);
 
 			// Enable / Disable Compass icon
 			googleMap.getUiSettings().setCompassEnabled(true);

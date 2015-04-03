@@ -13,7 +13,7 @@
     <string name="hint_name">Nhập họ tên</string>
     <string name="hint_leave_date">Ngày đi</string>
     <string name="hint_duration">Số giờ dự đoán hoàn thành</string>
-    <string name="hint_cost">Giá tiền</string>
+    <string name="hint_cost">Giá tiền (VNĐ)</string>
     <string name="hint_description">Mô tả về hành trình</string>
     <string name="hint_distance">Khoảng cách (km)</string>
     <string name="btn_login">Đăng nhập</string>

@@ -7,27 +7,12 @@ import java.util.Map;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.Request.Method;
-import com.android.volley.toolbox.StringRequest;
-import com.halley.app.AppConfig;
-import com.halley.app.AppController;
-import com.halley.helper.SessionManager;
-import com.halley.helper.Touch;
-import com.halley.helper.TouchImageView;
-import com.halley.registerandlogin.R;
-
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -39,6 +24,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.MediaStore;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -49,11 +36,22 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class UpgradeProfile extends Activity {
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request.Method;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.halley.app.AppConfig;
+import com.halley.app.AppController;
+import com.halley.helper.SessionManager;
+import com.halley.helper.Touch;
+import com.halley.helper.TouchImageView;
+import com.halley.registerandlogin.R;
+
+public class UpgradeProfile extends ActionBarActivity {
 	private static final String TAG = ProfileActivity.class.getSimpleName();
 	private ProgressDialog pDialog;
 	private SessionManager session;
@@ -65,11 +63,14 @@ public class UpgradeProfile extends Activity {
 	private AlertDialog dialog;
 	Bitmap decodeByte;
 	private static final int SELECTED_PICTURE = 1;
-
+	private ActionBar actionBar;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.upgrade_profile);
+		actionBar = getSupportActionBar();
+		actionBar.setHomeButtonEnabled(true);
+		actionBar.setDisplayHomeAsUpEnabled(true);
 		driverLicense = (TextView) findViewById(R.id.tvDriverLicense);
 		imageLicense = (ImageView) findViewById(R.id.license_img);
 		imageLicense.setOnTouchListener(new Touch());

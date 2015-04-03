@@ -13,6 +13,7 @@ import java.util.Locale;
 
 import org.json.JSONObject;
 
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
@@ -20,6 +21,7 @@ import com.google.android.gms.maps.GoogleMap.OnMarkerDragListener;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
@@ -81,8 +83,8 @@ public class DetailManageItineraryActivity extends ActionBarActivity implements
 		// Enabling Up / Back navigation
 		actionBar.setDisplayHomeAsUpEnabled(true);
 		DisplayMetrics metrics = this.getResources().getDisplayMetrics();
-		findViewById(R.id.frame_container_4).getLayoutParams().height = (metrics.heightPixels / 2);
-		findViewById(R.id.mainLayoutManage).getLayoutParams().height = metrics.heightPixels / 2;
+		findViewById(R.id.frame_container_4).getLayoutParams().height = (metrics.heightPixels / 3);
+		findViewById(R.id.mainLayoutManage).getLayoutParams().height = (metrics.heightPixels / 3 + metrics.heightPixels / 3);
 
 		Bundle bundle = this.getIntent().getExtras().getBundle("bundle");
 		if (bundle != null) {
@@ -117,7 +119,7 @@ public class DetailManageItineraryActivity extends ActionBarActivity implements
 		tvcost.setText(cost);
 		tvphone.setText(phone);
 		initilizeMap();
-		focusMap(fromLatitude, fromLongitude, 9);
+
 		// Add current location on Maps
 
 		marker_start_address = addMarkeronMaps(fromLatitude, fromLongitude,
@@ -126,8 +128,7 @@ public class DetailManageItineraryActivity extends ActionBarActivity implements
 		marker_end_address = addMarkeronMaps(toLatitude, toLongitude,
 				getResources().getString(R.string.hint_end_addess),
 				"marker_end_address", R.drawable.ic_marker_end);
-		focusMap(marker_start_address.getPosition().latitude,
-				marker_end_address.getPosition().longitude, 7);
+		focusMap(marker_start_address, marker_end_address);
 
 		// Getting URL to the Google Directions API
 		String url = getDirectionsUrl(marker_start_address.getPosition(),
@@ -178,7 +179,7 @@ public class DetailManageItineraryActivity extends ActionBarActivity implements
 		if (googleMap == null) {
 			googleMap = ((MapFragment) this.getFragmentManager()
 					.findFragmentById(R.id.mapRegister)).getMap();
-			googleMap.setMyLocationEnabled(true);
+			//googleMap.setMyLocationEnabled(true);
 
 			// Enable / Disable Compass icon
 			googleMap.getUiSettings().setCompassEnabled(true);
@@ -361,12 +362,21 @@ public class DetailManageItineraryActivity extends ActionBarActivity implements
 		}
 	}
 
-	private void focusMap(double fromLatitude, double fromLongitude, int zoom) {
-		CameraPosition cameraPosition = new CameraPosition.Builder()
-				.target(new LatLng(fromLatitude, fromLongitude)).zoom(zoom)
-				.build();
-		googleMap.animateCamera(CameraUpdateFactory
-				.newCameraPosition(cameraPosition));
+	private void focusMap(Marker marker_a, Marker marker_b) {
+		LatLngBounds.Builder builder = new LatLngBounds.Builder();
+		builder.include(marker_a.getPosition());
+		builder.include(marker_b.getPosition());
+		LatLngBounds bounds = builder.build();
+		int padding = 0; // offset from edges of the map in pixels
+		CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, 300, 300,
+				padding);
+		googleMap.moveCamera(cu);
+		googleMap.animateCamera(cu);
+		// CameraPosition cameraPosition = new CameraPosition.Builder()
+		// .target(new LatLng(fromLatitude, fromLongitude)).zoom(zoom)
+		// .build();
+		// googleMap.animateCamera(CameraUpdateFactory
+		// .newCameraPosition(cameraPosition));
 	}
 
 	public Address getLocation(LatLng location) {

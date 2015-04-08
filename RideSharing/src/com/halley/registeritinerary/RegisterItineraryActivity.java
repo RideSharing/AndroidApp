@@ -206,34 +206,6 @@ public class RegisterItineraryActivity extends ActionBarActivity implements
 
 				/** Starting a FragmentTransaction */
 				dialog.show(fragmentManager, "advance_itinerary");
-				// Intent i = new Intent(context,
-				// RegisterAdvanceActivity.class);
-				// // Check location assist
-				// if (getLocationfromName(etEndAddress.getText().toString()) !=
-				// null
-				// && getLocationfromName(etStartAddress.getText()
-				// .toString()) != null) {
-				// i.putExtra("start_address_lat",
-				// marker_start_address.getPosition().latitude);
-				// i.putExtra("start_address_long",
-				// marker_start_address.getPosition().longitude);
-				// i.putExtra("start_address",
-				// getDetailLocation(marker_start_address));
-				// i.putExtra("end_address_lat",
-				// marker_end_address.getPosition().latitude);
-				// i.putExtra("end_address_long",
-				// marker_end_address.getPosition().longitude);
-				// i.putExtra("end_address",
-				// getDetailLocation(marker_end_address));
-				// i.putExtra("duration", duration);
-				// i.putExtra("distance", distance);
-				// startActivityForResult(i, REQUEST_EXIT);
-				// } else {
-				// Toast.makeText(
-				// context,
-				// "Thông tin điểm đi hoặc điểm đến chưa được xác định, Vui lòng kiểm tra lại",
-				// Toast.LENGTH_LONG).show();
-				// }
 
 			}
 		}, 1000);
@@ -337,13 +309,6 @@ public class RegisterItineraryActivity extends ActionBarActivity implements
 			googleMap.getUiSettings().setZoomGesturesEnabled(true);
 
 			googleMap.setOnMarkerDragListener(this);
-			// FragmentManager fmanager =
-			// getActivity().getSupportFragmentManager();
-			// Fragment fragment = fmanager.findFragmentById(R.id.map);
-			// Log.d("Fragment ", fragment.toString());
-			// SupportMapFragment supportmapfragment =
-			// (SupportMapFragment)fragment;
-			// GoogleMap supportMap = supportmapfragment.getMap();
 
 			// check if map is created successfully or not
 			if (googleMap == null) {

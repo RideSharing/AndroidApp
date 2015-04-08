@@ -6,10 +6,9 @@
 
     <!-- Framelayout to display Fragments -->
 
-    <ListView
+    <ExpandableListView
         android:id="@+id/list"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:divider="@null" />
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </RelativeLayout>

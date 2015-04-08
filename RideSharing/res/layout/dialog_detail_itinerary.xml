@@ -85,7 +85,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:layout_weight="1"
-            android:background="#3DA5E1"
+            android:background="@drawable/flat_selector"
             android:onClick="changepasswordonClick"
             android:text="@string/btn_confirm_change"
             android:textColor="@color/white" />
@@ -96,7 +96,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:layout_weight="1"
-            android:background="#3DA5E1"
+           android:background="@drawable/flat_selector"
             android:onClick="clickCheck"
             android:text="@string/btn_cancel_change"
             android:textColor="@color/white" />

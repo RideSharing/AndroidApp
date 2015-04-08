@@ -1,16 +1,18 @@
 package com.halley.profile;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Map;
-
-import com.halley.helper.Touch;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -18,19 +20,17 @@ import android.app.DialogFragment;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
+import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
+import android.os.Environment;
 import android.provider.MediaStore;
-
+import android.provider.MediaStore.MediaColumns;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Base64;
@@ -39,7 +39,6 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
@@ -57,11 +56,13 @@ import com.halley.app.AppConfig;
 import com.halley.app.AppController;
 import com.halley.helper.RoundedImageView;
 import com.halley.helper.SessionManager;
+import com.halley.helper.Touch;
 import com.halley.helper.TouchImageView;
 import com.halley.registerandlogin.R;
 
-public class ProfileActivity extends ActionBarActivity implements
-		OnClickListener {
+public class ProfileActivity extends ActionBarActivity {
+	int REQUEST_CAMERA = 0, SELECT_FILE = 1;
+	private boolean isAvatar;
 	private final int REQUEST_EXIT = 1;
 	private ActionBar actionBar;
 	private ProgressDialog pDialog;
@@ -76,12 +77,7 @@ public class ProfileActivity extends ActionBarActivity implements
 	private ImageView personalid_img, edit_personalid_img;
 	private ImageView avatar;
 	public Bitmap decodeByte2;
-	private static final int SELECTED_PICTURE = 1;
-	private static final int CAM_REQUEST = 1313;
-	private TextView tv1, tv2, tv3, tv4;
-	String avatar_base64, image_personal_base64;
 	private RoundedImageView editprofile, editavatar;
-	String img_str, img_str_camera;
 
 	String savepass, savefullname, savephone, savepersonalid;
 
@@ -106,21 +102,38 @@ public class ProfileActivity extends ActionBarActivity implements
 		txtemail = (TextView) findViewById(R.id.email);
 		txtphone = (TextView) findViewById(R.id.phone);
 		txtpersonalID = (TextView) findViewById(R.id.presionalID);
-		avatar = (ImageView) findViewById(R.id.avatar);
-		personalid_img = (ImageView) findViewById(R.id.personalid_img);
+
 		edit_personalid_img = (ImageView) findViewById(R.id.edit_personalid_img);
-		personalid_img.setOnTouchListener(new Touch());
 		upgradeDriver = (Button) findViewById(R.id.btnUpgradeDriver);
 		editavatar = (RoundedImageView) findViewById(R.id.editAvatar);
 		editprofile = (RoundedImageView) findViewById(R.id.editEmail);
-		Typeface face = Typeface.createFromAsset(getAssets(), "fonts/NorthernTerritories.ttf");
+		Typeface face = Typeface.createFromAsset(getAssets(),
+				"fonts/NorthernTerritories.ttf");
 		txtfullname.setTypeface(face);
 		session = new SessionManager(getApplicationContext());
 		pDialog = new ProgressDialog(this);
 		pDialog.setMessage("Vui lòng chờ...");
 		pDialog.setCancelable(false);
 		showProfile();
-		editavatar.setOnClickListener(new editAvatar());
+		editavatar.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				selectImage();
+				isAvatar = true;
+			}
+		});
+		avatar = (ImageView) findViewById(R.id.avatar);
+		edit_personalid_img.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				selectImage();
+				isAvatar = false;
+			}
+		});
+		personalid_img = (ImageView) findViewById(R.id.personalid_img);
+		personalid_img.setOnTouchListener(new Touch());
 		TouchImageView iv = new TouchImageView(getApplicationContext());
 		upgradeDriver.setOnClickListener(new View.OnClickListener() {
 
@@ -135,51 +148,37 @@ public class ProfileActivity extends ActionBarActivity implements
 			}
 		});
 
-		Intent intent = this.getIntent();
-		if (intent != null) {
-			if (intent.getExtras() != null) {
-				if (intent.getExtras().getString("avatar") != null) {
-					avatar_base64 = intent.getExtras().getString("avatar");
-					byte[] decodeString = Base64.decode(avatar_base64,
-							Base64.DEFAULT);
-					Bitmap decodeByte = BitmapFactory.decodeByteArray(
-							decodeString, 0, decodeString.length);
-					avatar.setImageDrawable(null);
-					avatar.setImageBitmap(decodeByte);
-					setAvatar();
-					Intent refresh = new Intent(this, ProfileActivity.class);
-					startActivity(refresh);// Start the same Activity
-					finish();
-				}
-				if (intent.getExtras().getString("personal_id_img") != null) {
-					image_personal_base64 = intent.getExtras().getString(
-							"personal_id_img");
-					byte[] decodeString2 = Base64.decode(image_personal_base64,
-							Base64.DEFAULT);
-					Bitmap decodeByte2 = BitmapFactory.decodeByteArray(
-							decodeString2, 0, decodeString2.length);
-					personalid_img.setImageDrawable(null);
-					personalid_img.setImageBitmap(decodeByte2);
-					setPersonalidImage();
-					Intent refresh = new Intent(this, ProfileActivity.class);
-					startActivity(refresh);// Start the same Activity
-					finish();
-				}
-			}
-
-		}
-
 	}
 
-	class editAvatar implements Button.OnClickListener {
+	private void selectImage() {
+		final CharSequence[] items = { "Camera", "Thư viện", "Hủy bỏ" };
 
-		@Override
-		public void onClick(View v) {
-			Intent i = new Intent(getApplicationContext(), AvatarActivity.class);
-			startActivity(i);
-			finish();
-		}
-
+		AlertDialog.Builder builder = new AlertDialog.Builder(
+				ProfileActivity.this);
+		builder.setTitle("Thêm ảnh!");
+		builder.setItems(items, new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int item) {
+				if (items[item].equals("Camera")) {
+					Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+					File f = new File(android.os.Environment
+							.getExternalStorageDirectory(), "temp.jpg");
+					intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(f));
+					startActivityForResult(intent, REQUEST_CAMERA);
+				} else if (items[item].equals("Thư viện")) {
+					Intent intent = new Intent(
+							Intent.ACTION_PICK,
+							android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+					intent.setType("image/*");
+					startActivityForResult(
+							Intent.createChooser(intent, "Chọn ảnh"),
+							SELECT_FILE);
+				} else if (items[item].equals("Hủy bỏ")) {
+					dialog.dismiss();
+				}
+			}
+		});
+		builder.show();
 	}
 
 	public void zoomImage(View view) {
@@ -191,14 +190,6 @@ public class ProfileActivity extends ActionBarActivity implements
 	public void updateProfile(View view) {
 		dialog = updateFullname();
 		dialog.show();
-	}
-
-	public void btnClick(View v) {
-		Intent i2 = new Intent(getApplicationContext(),
-				PersonalImageActivity.class);
-		startActivity(i2);
-		finish();
-
 	}
 
 	public void changepasswordonClick(View v) {
@@ -239,77 +230,7 @@ public class ProfileActivity extends ActionBarActivity implements
 
 	}
 
-	// @SuppressLint("NewApi")
-	// @Override
-	// public void onActivityResult(int requestCode, int resultCode, Intent
-	// data) {
-	// super.onActivityResult(requestCode, resultCode, data);
-	//
-	// switch (requestCode) {
-	// case SELECTED_PICTURE:
-	// if (resultCode == RESULT_OK) {
-	// Uri uri = data.getData();
-	// String[] projection = { MediaStore.Images.Media.DATA };
-	//
-	// Cursor cursor = getContentResolver().query(uri, projection,
-	// null, null, null);
-	// cursor.moveToFirst();
-	//
-	// int columnIndex = cursor.getColumnIndex(projection[0]);
-	// String filePath = cursor.getString(columnIndex);
-	// cursor.close();
-	//
-	// Bitmap bitmap = BitmapFactory.decodeFile(filePath);
-	// final Drawable d = new BitmapDrawable(bitmap);
-	//
-	// // //Transfer from Base64 String to Image
-	// ByteArrayOutputStream stream = new ByteArrayOutputStream();
-	// bitmap.compress(Bitmap.CompressFormat.JPEG, 90, stream);
-	// byte[] image = stream.toByteArray();
-	// img_str = Base64.encodeToString(image, 0);
-	// new Handler().postDelayed(new Runnable() {
-	//
-	// @Override
-	// public void run() {
-	// personalid_img.setImageDrawable(null);
-	// personalid_img.setBackground(d);
-	// setPersonalidImage();
-	// Toast.makeText(getApplicationContext(),
-	// "Thay đổi ảnh CMND thành công",
-	// Toast.LENGTH_SHORT).show();
-	//
-	// }
-	// }, 1000);
-	//
-	// }
-	// break;
-	// case CAM_REQUEST:
-	// if (resultCode == RESULT_OK) {
-	// Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
-	// ByteArrayOutputStream stream2 = new ByteArrayOutputStream();
-	// thumbnail.compress(Bitmap.CompressFormat.JPEG, 90, stream2);
-	// byte[] image2 = stream2.toByteArray();
-	// img_str_camera = Base64.encodeToString(image2, 0);
-	// final Drawable d = new BitmapDrawable(thumbnail);
-	// new Handler().postDelayed(new Runnable() {
-	//
-	// @Override
-	// public void run() {
-	// avatar.setImageDrawable(null);
-	// avatar.setBackground(d);
-	//
-	// }
-	// }, 1000);
-	//
-	// }
-	// break;
-	// default:
-	// break;
-	// }
-	//
-	// }
-
-	public void setAvatar() {
+	public void setAvatar(final String avatar) {
 		String tag_string_req = "req_avatar";
 
 		pDialog.setMessage("Đang thay đổi ...");
@@ -372,7 +293,7 @@ public class ProfileActivity extends ActionBarActivity implements
 				// Posting parameters to login url
 				Map<String, String> params = new HashMap<String, String>();
 
-				params.put("value", avatar_base64);
+				params.put("value", avatar);
 
 				return params;
 			}
@@ -383,8 +304,8 @@ public class ProfileActivity extends ActionBarActivity implements
 		AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
 	}
 
-	public void setPersonalidImage() {
-		String tag_string_req = "req_avatar";
+	public void setPersonalidImage(final String persional_img) {
+		String tag_string_req = "req_persional";
 
 		pDialog.setMessage("Đang thay đổi ...");
 		showDialog();
@@ -447,7 +368,7 @@ public class ProfileActivity extends ActionBarActivity implements
 				Map<String, String> params = new HashMap<String, String>();
 				// Toast.makeText(getApplicationContext(), img_str_camera,
 				// Toast.LENGTH_LONG).show();
-				params.put("value", image_personal_base64);
+				params.put("value", persional_img);
 
 				return params;
 			}
@@ -1058,8 +979,106 @@ public class ProfileActivity extends ActionBarActivity implements
 	}
 
 	@Override
-	public void onClick(DialogInterface dialog, int which) {
-		// TODO Auto-generated method stub
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		if (resultCode == RESULT_OK) {
+			if (requestCode == REQUEST_CAMERA) {
+				File f = new File(Environment.getExternalStorageDirectory()
+						.toString());
+				for (File temp : f.listFiles()) {
+					if (temp.getName().equals("temp.jpg")) {
+						f = temp;
+						break;
+					}
+				}
+				try {
+					Bitmap bm;
+					BitmapFactory.Options btmapOptions = new BitmapFactory.Options();
 
+					bm = BitmapFactory.decodeFile(f.getAbsolutePath(),
+							btmapOptions);
+					ExifInterface ei = new ExifInterface(f.getPath());
+					int orientation = ei.getAttributeInt(
+							ExifInterface.TAG_ORIENTATION,
+							ExifInterface.ORIENTATION_NORMAL);
+					ByteArrayOutputStream stream = new ByteArrayOutputStream();
+					switch (orientation) {
+					case ExifInterface.ORIENTATION_ROTATE_90:
+						bm.compress(Bitmap.CompressFormat.JPEG, 90, stream);
+						break;
+					case ExifInterface.ORIENTATION_ROTATE_180:
+						bm.compress(Bitmap.CompressFormat.JPEG, 180, stream);
+						break;
+					// etc.
+					}
+
+					byte[] image = stream.toByteArray();
+					String img_str_new = Base64.encodeToString(image, 0);
+
+					// bm = Bitmap.createScaledBitmap(bm, 70, 70, true);
+					if (isAvatar) {
+						avatar.setImageBitmap(bm);
+						setAvatar(img_str_new);
+					} else {
+						personalid_img.setImageBitmap(bm);
+						setPersonalidImage(img_str_new);
+					}
+
+					String path = android.os.Environment
+							.getExternalStorageDirectory()
+							+ File.separator
+							+ "Phoenix" + File.separator + "default";
+					f.delete();
+					OutputStream fOut = null;
+					File file = new File(path, String.valueOf(System
+							.currentTimeMillis()) + ".jpg");
+					try {
+						fOut = new FileOutputStream(file);
+						bm.compress(Bitmap.CompressFormat.JPEG, 85, fOut);
+						fOut.flush();
+						fOut.close();
+					} catch (FileNotFoundException e) {
+						e.printStackTrace();
+					} catch (IOException e) {
+						e.printStackTrace();
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			} else if (requestCode == SELECT_FILE) {
+				Uri selectedImageUri = data.getData();
+
+				String tempPath = getPath(selectedImageUri,
+						ProfileActivity.this);
+				Bitmap bm;
+				BitmapFactory.Options btmapOptions = new BitmapFactory.Options();
+				bm = BitmapFactory.decodeFile(tempPath, btmapOptions);
+				ByteArrayOutputStream stream = new ByteArrayOutputStream();
+				bm.compress(Bitmap.CompressFormat.JPEG, 90, stream);
+				byte[] image = stream.toByteArray();
+				String img_str_new = Base64.encodeToString(image, 0);
+				if (isAvatar) {
+					avatar.setImageBitmap(bm);
+					setAvatar(img_str_new);
+				} else {
+					personalid_img.setImageBitmap(bm);
+					setPersonalidImage(img_str_new);
+				}
+
+			}
+		}
 	}
+
+	public String getPath(Uri uri, Activity activity) {
+		String[] projection = { MediaColumns.DATA };
+		@SuppressWarnings("deprecation")
+		Cursor cursor = activity
+				.managedQuery(uri, projection, null, null, null);
+		int column_index = cursor.getColumnIndexOrThrow(MediaColumns.DATA);
+		cursor.moveToFirst();
+		return cursor.getString(column_index);
+	}
+
 }

@@ -1,6 +1,5 @@
 package com.halley.manageitinerary;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -11,10 +10,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
-import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
@@ -22,12 +22,15 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.BaseAdapter;
-import android.widget.ListView;
+import android.widget.ExpandableListAdapter;
+import android.widget.ExpandableListView;
+import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.ExpandableListView.OnChildClickListener;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.android.volley.Request.Method;
@@ -43,10 +46,15 @@ import com.halley.registerandlogin.R;
 public class ManageItineraryActivity extends ActionBarActivity {
 	private static final String TAG = ManageItineraryActivity.class
 			.getSimpleName();
+	ListManageItineraryAdapter listAdapter;
+	List<String> listDataHeader;
+	HashMap<String, List<ItineraryItem>> listDataChild;
 	private ProgressDialog pDialog;
-	public List<ItineraryItem> itineraryList;
-	ListView listView;
-	private ListManageItineraryAdapter adapter;
+	private List<ItineraryItem> itineraryList_completed;
+	private List<ItineraryItem> itineraryList_waiting_user;
+	private List<ItineraryItem> itineraryList_submit;
+	private List<ItineraryItem> itineraryList_ready;
+	ExpandableListView listView;
 	SessionManager session;
 	private Activity activity = this;
 	private ActionBar actionBar;
@@ -64,25 +72,27 @@ public class ManageItineraryActivity extends ActionBarActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_manage_itinerary);
-		actionBar = getSupportActionBar();
-		actionBar.setHomeButtonEnabled(true);
-		// Enabling Up / Back navigation
-		actionBar.setDisplayHomeAsUpEnabled(true);
-		listView = (ListView) findViewById(R.id.list);
-
-		listView.setAdapter(adapter);
+		customActionBar();
 		session = new SessionManager(getApplicationContext());
 		pDialog = new ProgressDialog(this);
+		listView = (ExpandableListView) findViewById(R.id.list);
+		getItinerary();
+		listAdapter = new ListManageItineraryAdapter(this, listDataHeader,
+				listDataChild);
+
+		// setting list adapter
+		listView.setAdapter(listAdapter);
+
 		// Showing progress dialog before making http request
 		pDialog.setMessage("Loading...");
 		pDialog.show();
-		getItinerary();
-		listView.setOnItemClickListener(new OnItemClickListener() {
+		listView.setOnChildClickListener(new OnChildClickListener() {
 
 			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1,
-					int position, long arg3) {
-				ItineraryItem m = itineraryList.get(position);
+			public boolean onChildClick(ExpandableListView parent, View v,
+					int groupPosition, int childPosition, long id) {
+				ItineraryItem m = listDataChild.get(
+						listDataHeader.get(groupPosition)).get(childPosition);
 				Intent i = new Intent(activity,
 						DetailManageItineraryActivity.class);
 				Bundle bundle = new Bundle();
@@ -107,20 +117,26 @@ public class ManageItineraryActivity extends ActionBarActivity {
 						Double.parseDouble(m.getEnd_address_long()));
 				i.putExtra("bundle", bundle);
 				startActivity(i);
-
+				return false;
 			}
 		});
-		// changing action bar color
-		// getActionBar().setBackgroundDrawable(
-		// new ColorDrawable(Color.parseColor("#1b1b1b")));
 
 	}
 
 	private void getItinerary() {
 		// Tag used to cancel the request
 		String tag_string_req = "req_get_driver_by_list";
-		itineraryList = new ArrayList<ItineraryItem>();
-
+		itineraryList_completed = new ArrayList<ItineraryItem>();
+		itineraryList_waiting_user = new ArrayList<ItineraryItem>();
+		itineraryList_ready = new ArrayList<ItineraryItem>();
+		itineraryList_submit = new ArrayList<ItineraryItem>();
+		listDataHeader = new ArrayList<String>();
+		listDataChild = new HashMap<String, List<ItineraryItem>>();
+		// Adding child data
+		listDataHeader.add("Đang đợi người đi cùng...");
+		listDataHeader.add("Đang đợi xác nhận...");
+		listDataHeader.add("Chuẩn bị đi..");
+		listDataHeader.add("Đã đi");
 		StringRequest strReq = new StringRequest(Method.GET,
 				AppConfig.URL_LIST_ITINERARY, new Response.Listener<String>() {
 
@@ -132,7 +148,7 @@ public class ManageItineraryActivity extends ActionBarActivity {
 
 							JSONObject jObj = new JSONObject(response
 									.substring(response.indexOf("{"),
-											response.lastIndexOf("}") +1 ));
+											response.lastIndexOf("}") + 1));
 							boolean error = jObj.getBoolean("error");
 							// Check for error node in json
 
@@ -170,18 +186,36 @@ public class ManageItineraryActivity extends ActionBarActivity {
 											.getString("distance"));
 									itineraryItem.setStatus(itinerary
 											.getString("status"));
-//									status = itinerary.getString("status");
+									// status = itinerary.getString("status");
 									itineraryItem.setPhone(itinerary
 											.getString("phone"));
 									itineraryItem.setItinerary_id(itinerary
 											.getString("itinerary_id"));
-									itineraryList.add(itineraryItem);
+									if (itineraryItem.getStatus().equals("1")) {
+										itineraryList_waiting_user
+												.add(itineraryItem);
+									} else if (itineraryItem.getStatus()
+											.equals("2")) {
+										itineraryList_submit.add(itineraryItem);
+									} else if (itineraryItem.getStatus()
+											.equals("3")) {
+										itineraryList_ready.add(itineraryItem);
+									} else {
+										itineraryList_completed
+												.add(itineraryItem);
+									}
+
 								}
-
-								adapter = new ListManageItineraryAdapter(
-										activity, itineraryList);
-
-								listView.setAdapter(adapter);
+								listDataChild.put(listDataHeader.get(0),
+										itineraryList_waiting_user); // Header,
+																		// Child
+																		// data
+								listDataChild.put(listDataHeader.get(1),
+										itineraryList_submit);
+								listDataChild.put(listDataHeader.get(2),
+										itineraryList_ready);
+								listDataChild.put(listDataHeader.get(3),
+										itineraryList_completed);
 
 							} else {
 								// Error in login. Get the error message
@@ -220,26 +254,40 @@ public class ManageItineraryActivity extends ActionBarActivity {
 		// Adding request to request queue
 		AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
 	}
-	
-	
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.manage_itinerary, menu);
-		return true;
-	}
+	public void customActionBar() {
+		actionBar = getSupportActionBar();
+		actionBar.setElevation(0);
+		actionBar.setHomeButtonEnabled(true);
+		actionBar.setBackgroundDrawable(new ColorDrawable(getResources()
+				.getColor(R.color.bg_login)));
+		// Enabling Up / Back navigation
+		actionBar.setDisplayHomeAsUpEnabled(true);
 
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
+		LayoutInflater mInflater = LayoutInflater.from(this);
+
+		View mCustomView = mInflater.inflate(R.layout.custom_actionbar, null);
+		TextView mTitleTextView = (TextView) mCustomView
+				.findViewById(R.id.title_text);
+
+		Typeface tf = Typeface.createFromAsset(getAssets(), "fonts/ANGEL.otf");
+		mTitleTextView.setTypeface(tf);
+
+		ImageButton imageButton = (ImageButton) mCustomView
+				.findViewById(R.id.imageButton);
+		imageButton.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View view) {
+				Dialog dialog = new Dialog(activity);
+				dialog.setContentView(R.layout.dialog_info);
+				dialog.setTitle("Thông tin về ứng dụng");
+				dialog.show();
+			}
+		});
+
+		actionBar.setCustomView(mCustomView);
+		actionBar.setDisplayShowCustomEnabled(true);
 	}
 
 	@Override

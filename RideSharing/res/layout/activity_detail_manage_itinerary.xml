@@ -267,22 +267,31 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:background="@color/white"
-                android:orientation="vertical"
                 android:padding="5dp" >
 
                 <!-- Register Button -->
 
                 <Button
                     android:id="@+id/btnEditItinerary"
-                    android:layout_width="fill_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dip"
-                    android:background="@color/bg_login"
-                    android:onClick="registerOnclick"
-                    android:text="@string/btn_register"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/flat_selector"
+                    android:text="@string/edit"
+                    android:textColor="@color/white" />
+
+                <Button
+                    android:id="@+id/btnDeleteItinerary"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/flat_selector"
+                    android:text="@string/delete"
                     android:textColor="@color/white" />
             </LinearLayout>
         </LinearLayout>

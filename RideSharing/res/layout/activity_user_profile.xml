@@ -42,7 +42,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_marginRight="40dp"
                 android:layout_marginTop="20dp"
-                android:onClick="editAvatar"
+                
                 android:src="@drawable/ic_edit_picture" />
         </RelativeLayout>
 
@@ -224,7 +224,6 @@
                             android:layout_width="20dp"
                             android:layout_height="20dp"
                             android:layout_alignParentBottom="true"
-                            android:onClick="btnClick"
                             android:src="@drawable/icon_avatar" />
                     </LinearLayout>
 

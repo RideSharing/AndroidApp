@@ -21,6 +21,11 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
 
     <!-- Required OpenGL ES 2.0. for Maps V2 -->
     <uses-feature
@@ -37,7 +42,7 @@
             android:value="@integer/google_play_services_version" />
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value=" AIzaSyAzDxQKOqEK28Fk2kondQN_kXEvYXGz41U" />
+            android:value="AIzaSyB1FZl2VFheUg-GdgjeiJ-fOTjq_EHVVS8" />
         <!--
          AIzaSyB1FZl2VFheUg-GdgjeiJ-fOTjq_EHVVS8
          AIzaSyAzDxQKOqEK28Fk2kondQN_kXEvYXGz41U
@@ -56,7 +61,7 @@
         <activity
             android:name="com.halley.ridesharing.MainActivity"
             android:label="@string/home_screen"
-            android:launchMode="singleTop" >
+            android:launchMode="singleTask" >
             <meta-data
                 android:name="android.app.default_searchable"
                 android:value=".ItineraryActivity" />
@@ -129,7 +134,8 @@
         <activity
             android:name="com.halley.manageitinerary.ManageItineraryActivity"
             android:label="@string/title_activity_manage_itinerary"
-            android:launchMode="singleTop" >
+            android:launchMode="singleTask"
+            android:parentActivityName="com.halley.ridesharing.MainActivity" >
         </activity>
         <activity
             android:name="com.halley.manageitinerary.DetailManageItineraryActivity"

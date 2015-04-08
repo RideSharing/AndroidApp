@@ -89,7 +89,7 @@ public class AvatarActivity extends Activity {
 
 				Bitmap bitmap = BitmapFactory.decodeFile(filePath);
 				final Drawable d = new BitmapDrawable(bitmap);
-
+				
 				// //Transfer from Base64 String to Image
 				ByteArrayOutputStream stream = new ByteArrayOutputStream();
 				bitmap.compress(Bitmap.CompressFormat.JPEG, 90, stream);
@@ -116,7 +116,7 @@ public class AvatarActivity extends Activity {
 			if (resultCode == RESULT_OK) {
 				Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
 				ByteArrayOutputStream stream2 = new ByteArrayOutputStream();
-				thumbnail.compress(Bitmap.CompressFormat.JPEG, 90, stream2);
+				thumbnail.compress(Bitmap.CompressFormat.JPEG,0, stream2);
 				byte[] image2 = stream2.toByteArray();
 				img_str_new = Base64.encodeToString(image2, 0);
 				final Drawable d = new BitmapDrawable(thumbnail);

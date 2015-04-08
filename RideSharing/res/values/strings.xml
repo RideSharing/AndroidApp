@@ -46,6 +46,7 @@
     <string name="str_atv_places">Địa điểm cần tìm</string>
     <string name="btn_link_to_detail_itinerary">Click vào để xem chi tiết</string>
     <string name="btn_submit_itinerary">Xác nhận hành trình</string>
+    <string name="edit">Chỉnh sửa</string>
     <!-- Nav Drawer Menu Items -->
     <string-array name="nav_drawer_items_user">
         <item>Tìm kiếm lịch trình</item>
@@ -102,7 +103,8 @@
     <string name="update_image">Cập nhật hình ảnh</string>
     <string name="change_profile">Chính sửa thông tin </string>
     <string name="confirm_driver">Bạn đã đăng ký trở thành tài xế</string>
-
+	<string name="delete">Xóa lịch trình</string>
+    
     <!-- Button Title -->
     <string name="btn_confirm_change">Xác nhận</string>
     <string name="btn_cancel_change">Hủy bỏ</string>

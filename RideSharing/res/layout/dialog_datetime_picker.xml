@@ -18,6 +18,7 @@
     <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/flat_selector"
         android:id="@+id/OK"
         android:text="OK" />
 

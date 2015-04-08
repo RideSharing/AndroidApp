@@ -10,6 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="15dp"
+        android:padding="5dp"
         android:textSize="@dimen/description"
         android:textStyle="bold" />
 
@@ -22,7 +23,8 @@
         android:layout_below="@id/rating"
         android:layout_marginTop="25dp"
         android:layout_toRightOf="@+id/avatar"
-        android:orientation="vertical" >
+        android:orientation="vertical"
+        android:padding="5dp" >
 
         <TextView
             android:id="@+id/start_address"

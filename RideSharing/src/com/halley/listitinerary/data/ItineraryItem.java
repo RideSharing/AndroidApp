@@ -13,56 +13,87 @@ public class ItineraryItem {
 	private String duration;
 	private String distance;
 	private String phone;
+	private String status;
 	private String itinerary_id;
+	private String start_address_lat, start_address_long, end_address_lat,
+			end_address_long;
+
+	
+	
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public String getStart_address_lat() {
+		return start_address_lat;
+	}
+
+	public void setStart_address_lat(String start_address_lat) {
+		this.start_address_lat = start_address_lat;
+	}
+
+	public String getStart_address_long() {
+		return start_address_long;
+	}
+
+	public void setStart_address_long(String start_address_long) {
+		this.start_address_long = start_address_long;
+	}
+
+	public String getEnd_address_lat() {
+		return end_address_lat;
+	}
+
+	public void setEnd_address_lat(String end_address_lat) {
+		this.end_address_lat = end_address_lat;
+	}
+
+	public String getEnd_address_long() {
+		return end_address_long;
+	}
+
+	public void setEnd_address_long(String end_address_long) {
+		this.end_address_long = end_address_long;
+	}
+
 	public ItineraryItem() {
 	}
 
-	
 	public String getItinerary_id() {
 		return itinerary_id;
 	}
-
 
 	public void setItinerary_id(String itinerary_id) {
 		this.itinerary_id = itinerary_id;
 	}
 
-
 	public String getPhone() {
 		return phone;
 	}
-
-
 
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
 
-
-
 	public String getDuration() {
 		return duration;
 	}
-
-
 
 	public void setDuration(String duration) {
 		this.duration = duration;
 	}
 
-
-
 	public String getDistance() {
 		return distance;
 	}
 
-
-
 	public void setDistance(String distance) {
 		this.distance = distance;
 	}
-
-
 
 	public String getDescription() {
 		return description;
@@ -83,7 +114,6 @@ public class ItineraryItem {
 	public String getLeave_date() {
 		return leave_date;
 	}
-	
 
 	public String getFullname() {
 		return fullname;

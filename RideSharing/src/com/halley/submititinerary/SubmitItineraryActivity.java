@@ -7,16 +7,23 @@ import java.util.Map;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Base64;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,24 +39,21 @@ import com.halley.manageitinerary.ManageItineraryActivity;
 import com.halley.registerandlogin.R;
 
 public class SubmitItineraryActivity extends ActionBarActivity {
-	ActionBar actionBar;
-	RoundedImageView imavatar;
-	TextView tvfullname, tvdescription, tvstart_address, tvend_address,
+	private ActionBar actionBar;
+	private RoundedImageView imavatar;
+	private TextView tvfullname, tvdescription, tvstart_address, tvend_address,
 			tvduration, tvdistance, tvcost, tvphone, tvleave_date;
-	String avatar = "", fullname = "", description = "", start_address = "",
+	private String avatar = "", fullname = "", description = "", start_address = "",
 			end_address = "", duration = "", distance = "", cost = "",
 			phone = "", leave_date, itinerary_id = "";
 	private ProgressDialog pDialog;
 	private SessionManager session;
-
+	private Context context=this;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_submit_itinerary);
-		actionBar = getSupportActionBar();
-		actionBar.setHomeButtonEnabled(true);
-		// Enabling Up / Back navigation
-//		actionBar.setDisplayHomeAsUpEnabled(true);
+		customActionBar();
 		// Progress dialog
 		pDialog = new ProgressDialog(this);
 		pDialog.setCancelable(false);
@@ -98,7 +102,42 @@ public class SubmitItineraryActivity extends ActionBarActivity {
 
 	}
 
-	public void submitItineraryonClick(View v){
+	public void customActionBar() {
+		actionBar = getSupportActionBar();
+		actionBar.setElevation(0);
+		actionBar.setHomeButtonEnabled(true);
+		actionBar.setBackgroundDrawable(new ColorDrawable(getResources()
+				.getColor(R.color.bg_login)));
+		// Enabling Up / Back navigation
+		actionBar.setDisplayHomeAsUpEnabled(true);
+
+		LayoutInflater mInflater = LayoutInflater.from(this);
+
+		View mCustomView = mInflater.inflate(R.layout.custom_actionbar, null);
+		TextView mTitleTextView = (TextView) mCustomView
+				.findViewById(R.id.title_text);
+
+		Typeface tf = Typeface.createFromAsset(getAssets(), "fonts/ANGEL.otf");
+		mTitleTextView.setTypeface(tf);
+
+		ImageButton imageButton = (ImageButton) mCustomView
+				.findViewById(R.id.imageButton);
+		imageButton.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View view) {
+				Dialog dialog =new Dialog(context);
+				dialog.setContentView(R.layout.dialog_info);
+				dialog.setTitle("Thông tin về ứng dụng");
+				dialog.show();
+			}
+		});
+
+		actionBar.setCustomView(mCustomView);
+		actionBar.setDisplayShowCustomEnabled(true);
+	}
+
+	public void submitItineraryonClick(View v) {
 		submitItinerary(itinerary_id);
 	}
 
@@ -123,11 +162,13 @@ public class SubmitItineraryActivity extends ActionBarActivity {
 		showDialog();
 
 		StringRequest strReq = new StringRequest(Method.PUT,
-				AppConfig.URL_SUBMIT_ITINERARY+"/"+itinerary_id, new Response.Listener<String>() {
+				AppConfig.URL_SUBMIT_ITINERARY + "/" + itinerary_id,
+				new Response.Listener<String>() {
 
 					@Override
 					public void onResponse(String response) {
-						Log.d( "Submit Itinerary Response: " , response.toString());
+						Log.d("Submit Itinerary Response: ",
+								response.toString());
 						hideDialog();
 
 						try {
@@ -141,7 +182,8 @@ public class SubmitItineraryActivity extends ActionBarActivity {
 								String message = jObj.getString("message");
 								Toast.makeText(getApplicationContext(),
 										message, Toast.LENGTH_LONG).show();
-								Intent i= new Intent(getApplicationContext(),ManageItineraryActivity.class);
+								Intent i = new Intent(getApplicationContext(),
+										ManageItineraryActivity.class);
 								startActivity(i);
 								finish();
 
@@ -161,16 +203,15 @@ public class SubmitItineraryActivity extends ActionBarActivity {
 
 					@Override
 					public void onErrorResponse(VolleyError error) {
-						Log.e( "Login Error: " , "");
+						Log.e("Login Error: ", "");
 						Toast.makeText(getApplicationContext(),
 								error.getMessage(), Toast.LENGTH_LONG).show();
 						hideDialog();
 					}
 				}) {
 
-			
 			@Override
-			public Map<String, String> getHeaders(){
+			public Map<String, String> getHeaders() {
 				Map<String, String> params = new HashMap<String, String>();
 				params.put("Authorization", session.getAPIKey());
 				return params;

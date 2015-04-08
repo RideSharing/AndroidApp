@@ -6,36 +6,47 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
+import java.util.zip.Inflater;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.google.android.gms.maps.CameraUpdate;
+import com.android.volley.AuthFailureError;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.Request.Method;
+import com.android.volley.toolbox.StringRequest;
+import com.google.android.gms.internal.di;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
-import com.google.android.gms.maps.GoogleMap.OnMarkerDragListener;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
+import com.halley.app.AppConfig;
+import com.halley.app.AppController;
 import com.halley.dialog.SearchDialogFragment.OnDataPass;
+import com.halley.helper.SessionManager;
+import com.halley.listitinerary.data.ItineraryItem;
 import com.halley.map.GPSLocation.GMapV2Direction;
+import com.halley.profile.ProfileActivity;
 import com.halley.registerandlogin.R;
-import com.halley.registerandlogin.R.drawable;
-import com.halley.registerandlogin.R.id;
-import com.halley.registerandlogin.R.layout;
-import com.halley.registerandlogin.R.menu;
-import com.halley.registerandlogin.R.string;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Color;
@@ -49,12 +60,19 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 public class DetailManageItineraryActivity extends ActionBarActivity implements
-		OnMarkerDragListener, OnDataPass {
-
+		OnDataPass {
+	private static final String TAG = DetailManageItineraryActivity.class
+			.getSimpleName();
 	private final int REQUEST_EXIT = 1;
 	private GoogleMap googleMap;
 	private Geocoder geocoder;
@@ -65,11 +83,19 @@ public class DetailManageItineraryActivity extends ActionBarActivity implements
 	private ProgressDialog pDialog;
 	private Context context = this;
 	private boolean isFrom;
+	private TextView tvdescription, tvstartAddress, tvendAddress, tvduration,
+			tvdistance, tvleave_date, tvcost, tvphone;
+	EditText edDescription, edDuration, edCost, edPhone;
+	TextView edLeaveDate;
 	private String description, startAddress, endAddress, txtduration,
 			txtdistance, leave_date, cost, phone;
-	private String duration, distance;
+	private String duration, distance, key, itinerary_id;
+	private SessionManager session;
+	private ItineraryItem itineraryItem;
+	String getDescription, getLeaveDate, getDuration, getCost, getPhone;
 	// Direction maps
 	Polyline lineDirection = null;
+	private AlertDialog dialog;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +103,9 @@ public class DetailManageItineraryActivity extends ActionBarActivity implements
 		setContentView(R.layout.activity_detail_manage_itinerary);
 		actionBar = getSupportActionBar();
 		actionBar.setHomeButtonEnabled(true);
+		// Enabling Up / Back navigation
+		actionBar.setDisplayHomeAsUpEnabled(true);
+		session = new SessionManager(getApplicationContext());
 		pDialog = new ProgressDialog(this);
 		// Showing progress dialog before making http request
 		pDialog.setMessage("Đang xử lí dữ liệu...");
@@ -84,7 +113,7 @@ public class DetailManageItineraryActivity extends ActionBarActivity implements
 		actionBar.setDisplayHomeAsUpEnabled(true);
 		DisplayMetrics metrics = this.getResources().getDisplayMetrics();
 		findViewById(R.id.frame_container_4).getLayoutParams().height = (metrics.heightPixels / 3);
-		findViewById(R.id.mainLayoutManage).getLayoutParams().height = (metrics.heightPixels / 3 + metrics.heightPixels / 3);
+		findViewById(R.id.mainLayoutManage).getLayoutParams().height = metrics.heightPixels / 3+(metrics.heightPixels / 3);
 
 		Bundle bundle = this.getIntent().getExtras().getBundle("bundle");
 		if (bundle != null) {
@@ -100,35 +129,37 @@ public class DetailManageItineraryActivity extends ActionBarActivity implements
 			cost = bundle.getString("cost");
 			phone = bundle.getString("phone");
 			leave_date = bundle.getString("leave_date");
-
+			itinerary_id = bundle.getString("itinerary_id");
 		}
-		TextView tvdescription = (TextView) findViewById(R.id.description);
-		TextView tvstartAddress = (TextView) findViewById(R.id.startAddress);
-		TextView tvendAddress = (TextView) findViewById(R.id.endAddress);
-		TextView tvduration = (TextView) findViewById(R.id.duration);
-		TextView tvdistance = (TextView) findViewById(R.id.distance);
-		TextView tvleave_date = (TextView) findViewById(R.id.leave_date);
-		TextView tvcost = (TextView) findViewById(R.id.cost);
-		TextView tvphone = (TextView) findViewById(R.id.phone);
+
+		tvdescription = (TextView) findViewById(R.id.description);
+		tvstartAddress = (TextView) findViewById(R.id.startAddress);
+		tvendAddress = (TextView) findViewById(R.id.endAddress);
+		tvduration = (TextView) findViewById(R.id.duration);
+		tvdistance = (TextView) findViewById(R.id.distance);
+		tvleave_date = (TextView) findViewById(R.id.leave_date);
+		tvcost = (TextView) findViewById(R.id.cost);
+		tvphone = (TextView) findViewById(R.id.phone);
+		Button btnEditItinerary = (Button) findViewById(R.id.btnEditItinerary);
 		tvdescription.setText(description);
 		tvstartAddress.setText(startAddress);
 		tvendAddress.setText(endAddress);
-		tvduration.setText(txtduration);
+		tvduration.setText(transferDuration(txtduration));
 		tvdistance.setText(txtdistance);
 		tvleave_date.setText(leave_date);
-		tvcost.setText(cost);
+		tvcost.setText(transferCost(cost));
 		tvphone.setText(phone);
 		initilizeMap();
-
 		// Add current location on Maps
 
 		marker_start_address = addMarkeronMaps(fromLatitude, fromLongitude,
-				getResources().getString(R.string.hint_start_addess),
-				"marker_start_address", R.drawable.ic_marker_start);
+				getResources().getString(R.string.hint_start_addess), " ",
+				R.drawable.ic_marker_start);
 		marker_end_address = addMarkeronMaps(toLatitude, toLongitude,
-				getResources().getString(R.string.hint_end_addess),
-				"marker_end_address", R.drawable.ic_marker_end);
-		focusMap(marker_start_address, marker_end_address);
+				getResources().getString(R.string.hint_end_addess), " ",
+				R.drawable.ic_marker_end);
+		focusMap(marker_start_address.getPosition().latitude,
+				marker_start_address.getPosition().longitude, 7);
 
 		// Getting URL to the Google Directions API
 		String url = getDirectionsUrl(marker_start_address.getPosition(),
@@ -137,6 +168,213 @@ public class DetailManageItineraryActivity extends ActionBarActivity implements
 
 		// Start downloading json data from Google Directions API
 		downloadTask.execute(url);
+		btnEditItinerary.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				dialog = updateItinerary();
+				dialog.show();
+
+			}
+		});
+
+	}
+
+	public AlertDialog updateItinerary() {
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setTitle("Cập nhật thông tin hành trình");
+		View view = View.inflate(this, R.layout.dialog_detail_itinerary, null);
+		builder.setView(view);
+		final AlertDialog dialog = builder.create();
+		edDescription = (EditText) view.findViewById(R.id.etDescription);
+		edLeaveDate = (TextView) view.findViewById(R.id.etDateStart);
+		edDuration = (EditText) view.findViewById(R.id.etDuration);
+		edCost = (EditText) view.findViewById(R.id.etCost);
+		edPhone = (EditText) view.findViewById(R.id.etPhone);
+		String a = tvdescription.getText().toString();
+		String b = tvleave_date.getText().toString();
+		String c = tvduration.getText().toString();
+		String d = tvcost.getText().toString();
+		String e = tvphone.getText().toString();
+		edDescription.setText(a);
+		edLeaveDate.setText(b);
+		edDuration.setText(c);
+		edCost.setText(d);
+		edPhone.setText(e);
+		edLeaveDate.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				DateTimePicker();
+
+			}
+		});
+		Button confirmChangeItinerary = (Button) view
+				.findViewById(R.id.btnChangeItinerary);
+		Button cancelChangeItinerary = (Button) view
+				.findViewById(R.id.btnCancelItinerary);
+		confirmChangeItinerary.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				getDescription = edDescription.getText().toString().trim();
+				getLeaveDate = edLeaveDate.getText().toString().trim();
+				getDuration = edDuration.getText().toString().trim();
+				getCost = edCost.getText().toString().trim();
+				getPhone = edPhone.getText().toString().trim();
+				if (getDescription.length() == 0 || getLeaveDate.length() == 0
+						|| getDuration.length() == 0 || getCost.length() == 0
+						|| getPhone.length() == 0) {
+					Toast.makeText(getApplicationContext(),
+							"Vui lòng điền đầy đủ thông tin",
+							Toast.LENGTH_SHORT).show();
+				} else {
+					editItinerary();
+					dialog.dismiss();
+					Toast.makeText(getApplicationContext(),
+							"Cập nhật thông tin thành công", Toast.LENGTH_SHORT)
+							.show();
+				}
+				tvdescription.setText(getDescription);
+				tvleave_date.setText(getLeaveDate);
+				tvduration.setText(getDuration);
+				tvcost.setText(getCost);
+				tvphone.setText(getPhone);
+			}
+		});
+		cancelChangeItinerary.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				dialog.dismiss();
+			}
+		});
+		return dialog;
+
+	}
+
+	public void editItinerary() {
+		// Tag used to cancel the request
+		String tag_string_req = "req_register";
+
+		pDialog.setMessage("Đang cập nhật ...");
+		showDialog();
+
+		StringRequest strReq = new StringRequest(Method.PUT,
+				AppConfig.URL_REGISTER_ITINERARY + "/" + itinerary_id,
+				new Response.Listener<String>() {
+
+					@Override
+					public void onResponse(String response) {
+						Log.d(TAG,
+								"Driver License Response: "
+										+ response.toString());
+						hideDialog();
+
+						try {
+							JSONObject jObj = new JSONObject(response);
+							boolean error = jObj.getBoolean("error");
+							if (!error) {
+
+								String message = jObj.getString("message");
+
+							} else {
+
+								// Error occurred in registration. Get the error
+								// message
+								String errorMsg = jObj.getString("error_msg");
+								// Toast.makeText(getApplicationContext(),
+								// errorMsg, Toast.LENGTH_LONG).show();
+							}
+						} catch (JSONException e) {
+							e.printStackTrace();
+						}
+
+					}
+				}, new Response.ErrorListener() {
+
+					@Override
+					public void onErrorResponse(VolleyError error) {
+						Log.e(TAG, "Registration Error: " + error.getMessage());
+						// Toast.makeText(getApplicationContext(),
+						// error.getMessage(), Toast.LENGTH_LONG).show();
+						hideDialog();
+					}
+				}) {
+
+			@Override
+			public Map<String, String> getHeaders() throws AuthFailureError {
+				// Posting parameters to login url
+				Map<String, String> params = new HashMap<String, String>();
+				key = session.getAPIKey();
+				// Toast.makeText(getApplicationContext(), "Go Go "+ key,
+				// Toast.LENGTH_LONG).show();
+				params.put("Authorization", key);
+
+				return params;
+			}
+
+			@Override
+			protected Map<String, String> getParams() {
+				// Posting params to register url
+				Map<String, String> params = new HashMap<String, String>();
+				params.put("description", getDescription);
+				params.put("leave_date", getLeaveDate);
+				params.put("duration", getDuration);
+				params.put("cost", getCost);
+				params.put("phone", getPhone);
+
+				return params;
+			}
+
+		};
+
+		// Adding request to request queue
+		AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+	}
+
+	public void DateTimePicker() {
+		final Dialog dialog = new Dialog(context);
+		dialog.setTitle("Ngày đi");
+		dialog.setContentView(R.layout.dialog_datetime_picker);
+
+		final DatePicker datepicker = (DatePicker) dialog
+				.findViewById(R.id.datePicker1);
+		final TimePicker timepicker = (TimePicker) dialog
+				.findViewById(R.id.timePicker1);
+		final Button btnOK = (Button) dialog.findViewById(R.id.OK);
+		btnOK.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				Calendar c = Calendar.getInstance();
+				int year = datepicker.getYear();
+				int month = datepicker.getMonth();
+				int day = datepicker.getDayOfMonth();
+
+				int hour = timepicker.getCurrentHour();
+				int minute = timepicker.getCurrentMinute();
+				c.set(year, month, day, hour, minute);
+				SimpleDateFormat simple = new SimpleDateFormat(
+						"yyyy-MM-dd HH:mm:ss");
+				String date = simple.format(c.getTime());
+				edLeaveDate.setText(date);
+				dialog.dismiss();
+			}
+		});
+		dialog.show();
+	}
+
+	public String transferDuration(String timeString) {
+		int time = Integer.parseInt(timeString);
+		int hour = time / 60;
+		int min = time % 60;
+		return hour + " giờ " + min + " phút";
+	}
+
+	public String transferCost(String cost) {
+		DecimalFormat formatter = new DecimalFormat("#,###,###");
+		return formatter.format(Double.parseDouble(cost)) + " VNĐ";
 
 	}
 
@@ -146,7 +384,7 @@ public class DetailManageItineraryActivity extends ActionBarActivity implements
 				.position(new LatLng(lati, longi)).title(title)
 				.snippet(snippet)
 				.icon(BitmapDescriptorFactory.fromResource(icon))
-				.draggable(true));
+				.draggable(false));
 	}
 
 	private String getDirectionsUrl(LatLng origin, LatLng dest) {
@@ -179,7 +417,7 @@ public class DetailManageItineraryActivity extends ActionBarActivity implements
 		if (googleMap == null) {
 			googleMap = ((MapFragment) this.getFragmentManager()
 					.findFragmentById(R.id.mapRegister)).getMap();
-			//googleMap.setMyLocationEnabled(true);
+			googleMap.setMyLocationEnabled(true);
 
 			// Enable / Disable Compass icon
 			googleMap.getUiSettings().setCompassEnabled(true);
@@ -190,7 +428,7 @@ public class DetailManageItineraryActivity extends ActionBarActivity implements
 			// Enable / Disable zooming functionality
 			googleMap.getUiSettings().setZoomGesturesEnabled(true);
 
-			googleMap.setOnMarkerDragListener(this);
+			// googleMap.setOnMarkerDragListener(this);
 			// FragmentManager fmanager =
 			// getActivity().getSupportFragmentManager();
 			// Fragment fragment = fmanager.findFragmentById(R.id.map);
@@ -362,21 +600,12 @@ public class DetailManageItineraryActivity extends ActionBarActivity implements
 		}
 	}
 
-	private void focusMap(Marker marker_a, Marker marker_b) {
-		LatLngBounds.Builder builder = new LatLngBounds.Builder();
-		builder.include(marker_a.getPosition());
-		builder.include(marker_b.getPosition());
-		LatLngBounds bounds = builder.build();
-		int padding = 0; // offset from edges of the map in pixels
-		CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, 300, 300,
-				padding);
-		googleMap.moveCamera(cu);
-		googleMap.animateCamera(cu);
-		// CameraPosition cameraPosition = new CameraPosition.Builder()
-		// .target(new LatLng(fromLatitude, fromLongitude)).zoom(zoom)
-		// .build();
-		// googleMap.animateCamera(CameraUpdateFactory
-		// .newCameraPosition(cameraPosition));
+	private void focusMap(double fromLatitude, double fromLongitude, int zoom) {
+		CameraPosition cameraPosition = new CameraPosition.Builder()
+				.target(new LatLng(fromLatitude, fromLongitude)).zoom(zoom)
+				.build();
+		googleMap.animateCamera(CameraUpdateFactory
+				.newCameraPosition(cameraPosition));
 	}
 
 	public Address getLocation(LatLng location) {
@@ -467,21 +696,14 @@ public class DetailManageItineraryActivity extends ActionBarActivity implements
 
 	}
 
-	@Override
-	public void onMarkerDrag(Marker arg0) {
-		// TODO Auto-generated method stub
-
+	private void showDialog() {
+		if (!pDialog.isShowing())
+			pDialog.show();
 	}
 
-	@Override
-	public void onMarkerDragEnd(Marker marker) {
-
-	}
-
-	@Override
-	public void onMarkerDragStart(Marker arg0) {
-		// TODO Auto-generated method stub
-
+	private void hideDialog() {
+		if (pDialog.isShowing())
+			pDialog.dismiss();
 	}
 
 }

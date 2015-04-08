@@ -162,7 +162,7 @@ public class MapViewOfItineraryFragment extends Fragment implements
 													.icon(BitmapDescriptorFactory
 															.fromResource(R.drawable.ic_marker_driver))
 													.draggable(false));
-									marker_driver.showInfoWindow();
+									//marker_driver.showInfoWindow();
 									marker_drivers.add(marker_driver);
 
 								}

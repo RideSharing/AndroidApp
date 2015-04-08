@@ -1,4 +1,9 @@
-package com.halley.registerandlogin;
+package com.halley.searchitinerary;
+
+import com.halley.registerandlogin.R;
+import com.halley.registerandlogin.R.id;
+import com.halley.registerandlogin.R.layout;
+import com.halley.registerandlogin.R.menu;
 
 import android.app.Activity;
 import android.os.Bundle;

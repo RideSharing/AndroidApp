@@ -95,56 +95,13 @@ public class UpgradeProfile extends ActionBarActivity {
 
 	}
 
-	public void btnClick(View v) {
-		Intent i = new Intent(Intent.ACTION_PICK,
-				android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-		startActivityForResult(i, SELECTED_PICTURE);
-	}
-
-	@SuppressLint("NewApi")
-	@Override
-	public void onActivityResult(int requestCode, int resultCode, Intent data) {
-		super.onActivityResult(requestCode, resultCode, data);
-
-		switch (requestCode) {
-		case SELECTED_PICTURE:
-			if (resultCode == RESULT_OK) {
-				Uri uri = data.getData();
-				String[] projection = { MediaStore.Images.Media.DATA };
-
-				Cursor cursor = getContentResolver().query(uri, projection,
-						null, null, null);
-				cursor.moveToFirst();
-
-				int columnIndex = cursor.getColumnIndex(projection[0]);
-				String filePath = cursor.getString(columnIndex);
-				cursor.close();
-
-				Bitmap bitmap = BitmapFactory.decodeFile(filePath);
-				final Drawable d = new BitmapDrawable(bitmap);
-
-				// //Transfer from Base64 String to Image
-				ByteArrayOutputStream stream = new ByteArrayOutputStream();
-				bitmap.compress(Bitmap.CompressFormat.JPEG, 90, stream);
-				byte[] image = stream.toByteArray();
-				img_str = Base64.encodeToString(image, 0);
-				new Handler().postDelayed(new Runnable() {
-
-					@Override
-					public void run() {
-						imageLicense.setImageDrawable(null);
-						imageLicense.setBackground(d);
-
-					}
-				}, 1000);
-
-			}
-
-		default:
-			break;
+	 public void btnClick(View v) {
+			Intent i = new Intent(getApplicationContext(),
+					DriverImageActivity.class);
+			startActivity(i);
+			finish();
 		}
 
-	}
 
 	public void submit(View view) {
 

@@ -57,7 +57,7 @@ public class GPSLocation extends Service implements LocationListener {
  
             // getting GPS status
             isGPSEnabled = locationManager
-                    .isProviderEnabled(LocationManager.GPS_PROVIDER);
+                    .isProviderEnabled(LocationManager.NETWORK_PROVIDER);
  
             // getting network status
             isNetworkEnabled = locationManager
@@ -87,13 +87,13 @@ public class GPSLocation extends Service implements LocationListener {
                 if (isGPSEnabled) {
                     if (currentLocation == null) {
                         locationManager.requestLocationUpdates(
-                                LocationManager.GPS_PROVIDER,
+                                LocationManager.NETWORK_PROVIDER,
                                 MIN_TIME_BW_UPDATES,
                                 MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
                         Log.d("GPS Enabled", "GPS Enabled");
                         if (locationManager != null) {
                         	currentLocation = locationManager
-                                    .getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                                    .getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
                             if (currentLocation != null) {
                                 latitude = currentLocation.getLatitude();
                                 longitude = currentLocation.getLongitude();

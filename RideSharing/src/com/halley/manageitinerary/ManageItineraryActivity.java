@@ -1,5 +1,6 @@
 package com.halley.manageitinerary;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -10,17 +11,23 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.BaseAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request.Method;
@@ -30,18 +37,28 @@ import com.android.volley.toolbox.StringRequest;
 import com.halley.app.AppConfig;
 import com.halley.app.AppController;
 import com.halley.helper.SessionManager;
+import com.halley.listitinerary.data.ItineraryItem;
 import com.halley.registerandlogin.R;
 
 public class ManageItineraryActivity extends ActionBarActivity {
 	private static final String TAG = ManageItineraryActivity.class
 			.getSimpleName();
 	private ProgressDialog pDialog;
-	private List<ListManageItem> itineraryList;
+	public List<ItineraryItem> itineraryList;
 	ListView listView;
 	private ListManageItineraryAdapter adapter;
 	SessionManager session;
 	private Activity activity = this;
 	private ActionBar actionBar;
+	String status;
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -49,8 +66,6 @@ public class ManageItineraryActivity extends ActionBarActivity {
 		setContentView(R.layout.activity_manage_itinerary);
 		actionBar = getSupportActionBar();
 		actionBar.setHomeButtonEnabled(true);
-		actionBar.setDisplayHomeAsUpEnabled(true);
-		actionBar.setIcon(R.drawable.ic_manage_itinerary);
 		// Enabling Up / Back navigation
 		actionBar.setDisplayHomeAsUpEnabled(true);
 		listView = (ListView) findViewById(R.id.list);
@@ -62,13 +77,12 @@ public class ManageItineraryActivity extends ActionBarActivity {
 		pDialog.setMessage("Loading...");
 		pDialog.show();
 		getItinerary();
-
 		listView.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1,
 					int position, long arg3) {
-				ListManageItem m = itineraryList.get(position);
+				ItineraryItem m = itineraryList.get(position);
 				Intent i = new Intent(activity,
 						DetailManageItineraryActivity.class);
 				Bundle bundle = new Bundle();
@@ -105,7 +119,7 @@ public class ManageItineraryActivity extends ActionBarActivity {
 	private void getItinerary() {
 		// Tag used to cancel the request
 		String tag_string_req = "req_get_driver_by_list";
-		itineraryList = new ArrayList<ListManageItem>();
+		itineraryList = new ArrayList<ItineraryItem>();
 
 		StringRequest strReq = new StringRequest(Method.GET,
 				AppConfig.URL_LIST_ITINERARY, new Response.Listener<String>() {
@@ -118,7 +132,7 @@ public class ManageItineraryActivity extends ActionBarActivity {
 
 							JSONObject jObj = new JSONObject(response
 									.substring(response.indexOf("{"),
-											response.lastIndexOf("}") + 1));
+											response.lastIndexOf("}") +1 ));
 							boolean error = jObj.getBoolean("error");
 							// Check for error node in json
 
@@ -127,7 +141,7 @@ public class ManageItineraryActivity extends ActionBarActivity {
 								itineraries = jObj.getJSONArray("itineraries");
 
 								for (int i = 0; i < itineraries.length(); i++) {
-									ListManageItem itineraryItem = new ListManageItem();
+									ItineraryItem itineraryItem = new ItineraryItem();
 									JSONObject itinerary = itineraries
 											.getJSONObject(i);
 									itineraryItem.setDescription(itinerary
@@ -154,18 +168,20 @@ public class ManageItineraryActivity extends ActionBarActivity {
 											.getString("duration"));
 									itineraryItem.setDistance(itinerary
 											.getString("distance"));
+									itineraryItem.setStatus(itinerary
+											.getString("status"));
+//									status = itinerary.getString("status");
 									itineraryItem.setPhone(itinerary
 											.getString("phone"));
 									itineraryItem.setItinerary_id(itinerary
 											.getString("itinerary_id"));
 									itineraryList.add(itineraryItem);
 								}
+
 								adapter = new ListManageItineraryAdapter(
 										activity, itineraryList);
-								listView.setAdapter(adapter);
 
-								// Toast.makeText(getActivity(),
-								// itineraries.getJSONObject(0).getString("start_address_lat"),Toast.LENGTH_LONG).show();
+								listView.setAdapter(adapter);
 
 							} else {
 								// Error in login. Get the error message
@@ -204,6 +220,8 @@ public class ManageItineraryActivity extends ActionBarActivity {
 		// Adding request to request queue
 		AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
 	}
+	
+	
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -222,6 +240,12 @@ public class ManageItineraryActivity extends ActionBarActivity {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+
+	@Override
+	public void onBackPressed() {
+		super.onBackPressed();
+		this.finish();
 	}
 
 	@Override

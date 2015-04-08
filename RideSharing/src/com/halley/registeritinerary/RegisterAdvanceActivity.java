@@ -64,7 +64,7 @@ public class RegisterAdvanceActivity extends ActionBarActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_register_advance);
+		setContentView(R.layout.dialog_register_advance);
 		actionBar = getSupportActionBar();
 		actionBar.setHomeButtonEnabled(true);
 		actionBar.setIcon(R.drawable.ic_register_itinerary);
@@ -74,8 +74,7 @@ public class RegisterAdvanceActivity extends ActionBarActivity {
 		pDialog = new ProgressDialog(context);
 		pDialog.setMessage("Đang xử lý dữ liệu...");
 		etDescription = (EditText) findViewById(R.id.description);
-		etStartAddress = (TextView) findViewById(R.id.startAddress);
-		etEndAddress = (TextView) findViewById(R.id.endAddress);
+
 		etLeave_date = (TextView) findViewById(R.id.leave_date);
 		etDuration = (EditText) findViewById(R.id.duration);
 		etCost = (EditText) findViewById(R.id.cost);
@@ -92,13 +91,11 @@ public class RegisterAdvanceActivity extends ActionBarActivity {
 			distance = bundle.getString("distance");
 			duration = transDuration(bundle.getString("duration"));
 		}
-		etStartAddress.setText(start_address);
-		etEndAddress.setText(end_address);
+
 		etDistance.setText(distance);
 		etDuration.setText(duration);
 		etCost.setHint("Gợi ý: "
-				+ transferCost(Integer.parseInt(getDigitfromDistance(distance)) * 15500 / 40)
-				);
+				+ transferCost(Integer.parseInt(getDigitfromDistance(distance)) * 15500 / 40));
 		etCost.addTextChangedListener(new NumberTextWatcher(etCost));
 		etLeave_date.setOnClickListener(new OnClickListener() {
 

@@ -61,20 +61,19 @@ public class AboutUsActivity extends ActionBarActivity {
 		actionBar = getSupportActionBar();
 		actionBar.setElevation(0);
 		actionBar.setHomeButtonEnabled(true);
-		actionBar.setDisplayShowTitleEnabled(false);
-		                   actionBar.setBackgroundDrawable(new ColorDrawable(Color.rgb(61,165,225)));
+		actionBar.setBackgroundDrawable(new ColorDrawable(getResources()
+				.getColor(R.color.bg_login)));
 		// Enabling Up / Back navigation
 		actionBar.setDisplayHomeAsUpEnabled(true);
-		
+
 		LayoutInflater mInflater = LayoutInflater.from(this);
 
 		View mCustomView = mInflater.inflate(R.layout.custom_actionbar, null);
 		TextView mTitleTextView = (TextView) mCustomView
 				.findViewById(R.id.title_text);
-		
+
 		Typeface tf = Typeface.createFromAsset(getAssets(), "fonts/ANGEL.otf");
 		mTitleTextView.setTypeface(tf);
-		
 
 		ImageButton imageButton = (ImageButton) mCustomView
 				.findViewById(R.id.imageButton);
@@ -82,8 +81,10 @@ public class AboutUsActivity extends ActionBarActivity {
 
 			@Override
 			public void onClick(View view) {
-				Toast.makeText(getApplicationContext(), "Refresh Clicked!",
-						Toast.LENGTH_LONG).show();
+				Dialog dialog = new Dialog(context);
+				dialog.setContentView(R.layout.dialog_info);
+				dialog.setTitle("Thông tin về ứng dụng");
+				dialog.show();
 			}
 		});
 

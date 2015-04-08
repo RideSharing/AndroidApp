@@ -113,5 +113,14 @@
     <string name="cancel_change">Thông tin của bạn được giữ nguyên</string>
     <string name="update_success">Cập nhật thành công</string>
     <string name="title_activity_detail_manage_itinerary">Quản lý hành trình</string>
+    <string name="title_activity_tracking">TrackingActivity</string>
+    <string name="select_image">Chọn ảnh</string>
+    <!-- TextView -->
+    <string name="phone_number_tv">Số điện thoại</string>
+    <string name="personal_id">Số chứng minh nhân dân</string>
+    <string name="personal_id_img">Hình ảnh chứng minh nhân dân</string>
+    <string name="title_activity_avatar">AvatarActivity</string>
+    <string name="title_activity_driver_image">DriverImageActivity</string>
+    <string name="title_activity_personal_image">PersonalImageActivity</string>
 
 </resources>

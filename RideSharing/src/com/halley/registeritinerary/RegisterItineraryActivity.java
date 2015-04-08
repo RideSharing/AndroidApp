@@ -13,11 +13,14 @@ import java.util.Locale;
 
 import org.json.JSONObject;
 
+import android.app.Dialog;
 import android.app.FragmentManager;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.AsyncTask;
@@ -27,10 +30,13 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -64,28 +70,23 @@ public class RegisterItineraryActivity extends ActionBarActivity implements
 	private ActionBar actionBar;
 	private ProgressDialog pDialog;
 	private Context context = this;
-	Button btnAdvance;
+	private Button btnAdvance;
 	private String distance;
 	private String duration;
 	// check onclick is From or to
 	private boolean isFrom;
 	// Direction maps
-	Polyline lineDirection = null;
+	private Polyline lineDirection = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_register_itinerary);
 
-		actionBar = getSupportActionBar();
-		actionBar.setHomeButtonEnabled(true);
-		actionBar.setIcon(R.drawable.ic_register_itinerary);
 		pDialog = new ProgressDialog(this);
 		// Showing progress dialog before making http request
 		pDialog.setMessage("Đang xử lí dữ liệu...");
-
-		// Enabling Up / Back navigation
-		actionBar.setDisplayHomeAsUpEnabled(true);
+		customActionBar();
 		etStartAddress = (TextView) findViewById(R.id.txtStartAddress);
 		etEndAddress = (TextView) findViewById(R.id.txtEndAddress);
 		btnAdvance = (Button) findViewById(R.id.btnAdvance);
@@ -111,6 +112,41 @@ public class RegisterItineraryActivity extends ActionBarActivity implements
 		focusMap(marker_start_address, marker_end_address);
 	}
 
+	public void customActionBar() {
+		actionBar = getSupportActionBar();
+		actionBar.setElevation(0);
+		actionBar.setHomeButtonEnabled(true);
+		actionBar.setDisplayShowTitleEnabled(false);
+		actionBar.setBackgroundDrawable(new ColorDrawable(getResources()
+				.getColor(R.color.bg_login)));
+		// Enabling Up / Back navigation
+		actionBar.setDisplayHomeAsUpEnabled(true);
+
+		LayoutInflater mInflater = LayoutInflater.from(this);
+
+		View mCustomView = mInflater.inflate(R.layout.custom_actionbar, null);
+		TextView mTitleTextView = (TextView) mCustomView
+				.findViewById(R.id.title_text);
+
+		Typeface tf = Typeface.createFromAsset(getAssets(), "fonts/ANGEL.otf");
+		mTitleTextView.setTypeface(tf);
+
+		ImageButton imageButton = (ImageButton) mCustomView
+				.findViewById(R.id.imageButton);
+		imageButton.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View view) {
+				Dialog dialog = new Dialog(context);
+				dialog.setContentView(R.layout.dialog_info);
+				dialog.setTitle("Thông tin về ứng dụng");
+				dialog.show();
+			}
+		});
+
+		actionBar.setCustomView(mCustomView);
+		actionBar.setDisplayShowCustomEnabled(true);
+	}
 
 	public void showDialogonClick(View v) {
 		switch (v.getId()) {
@@ -140,32 +176,64 @@ public class RegisterItineraryActivity extends ActionBarActivity implements
 			@Override
 			public void run() {
 				pDialog.dismiss();
-				Intent i = new Intent(context, RegisterAdvanceActivity.class);
-				// Check location assist
+				/**
+				 * Instantiating TimeDailogFragment, which is a DialogFragment
+				 * object
+				 */
+				RegisterAdvanceDialog dialog = new RegisterAdvanceDialog();
+				Bundle bundle = new Bundle();
 				if (getLocationfromName(etEndAddress.getText().toString()) != null
 						&& getLocationfromName(etStartAddress.getText()
 								.toString()) != null) {
-					i.putExtra("start_address_lat",
+					bundle.putString("duration", duration);
+					bundle.putString("distance", distance);
+					bundle.putDouble("start_address_lat",
 							marker_start_address.getPosition().latitude);
-					i.putExtra("start_address_long",
+					bundle.putDouble("start_address_long",
 							marker_start_address.getPosition().longitude);
-					i.putExtra("start_address",
+					bundle.putString("start_address",
 							getDetailLocation(marker_start_address));
-					i.putExtra("end_address_lat",
+					bundle.putDouble("end_address_lat",
 							marker_end_address.getPosition().latitude);
-					i.putExtra("end_address_long",
+					bundle.putDouble("end_address_long",
 							marker_end_address.getPosition().longitude);
-					i.putExtra("end_address",
+					bundle.putString("end_address",
 							getDetailLocation(marker_end_address));
-					i.putExtra("duration", duration);
-					i.putExtra("distance", distance);
-					startActivityForResult(i, REQUEST_EXIT);
-				} else {
-					Toast.makeText(
-							context,
-							"Thông tin điểm đi hoặc điểm đến chưa được xác định, Vui lòng kiểm tra lại",
-							Toast.LENGTH_LONG).show();
 				}
+				dialog.setArguments(bundle);
+				/** Getting FragmentManager object */
+				FragmentManager fragmentManager = getFragmentManager();
+
+				/** Starting a FragmentTransaction */
+				dialog.show(fragmentManager, "advance_itinerary");
+				// Intent i = new Intent(context,
+				// RegisterAdvanceActivity.class);
+				// // Check location assist
+				// if (getLocationfromName(etEndAddress.getText().toString()) !=
+				// null
+				// && getLocationfromName(etStartAddress.getText()
+				// .toString()) != null) {
+				// i.putExtra("start_address_lat",
+				// marker_start_address.getPosition().latitude);
+				// i.putExtra("start_address_long",
+				// marker_start_address.getPosition().longitude);
+				// i.putExtra("start_address",
+				// getDetailLocation(marker_start_address));
+				// i.putExtra("end_address_lat",
+				// marker_end_address.getPosition().latitude);
+				// i.putExtra("end_address_long",
+				// marker_end_address.getPosition().longitude);
+				// i.putExtra("end_address",
+				// getDetailLocation(marker_end_address));
+				// i.putExtra("duration", duration);
+				// i.putExtra("distance", distance);
+				// startActivityForResult(i, REQUEST_EXIT);
+				// } else {
+				// Toast.makeText(
+				// context,
+				// "Thông tin điểm đi hoặc điểm đến chưa được xác định, Vui lòng kiểm tra lại",
+				// Toast.LENGTH_LONG).show();
+				// }
 
 			}
 		}, 1000);
@@ -246,14 +314,10 @@ public class RegisterItineraryActivity extends ActionBarActivity implements
 		builder.include(marker_b.getPosition());
 		LatLngBounds bounds = builder.build();
 		int padding = 0; // offset from edges of the map in pixels
-		CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds,300,300, padding);
+		CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, 300, 300,
+				padding);
 		googleMap.moveCamera(cu);
 		googleMap.animateCamera(cu);
-		// CameraPosition cameraPosition = new CameraPosition.Builder()
-		// .target(new LatLng(fromLatitude, fromLongitude)).zoom(zoom)
-		// .build();
-		// googleMap.animateCamera(CameraUpdateFactory
-		// .newCameraPosition(cameraPosition));
 	}
 
 	private void initilizeMap() {
@@ -261,7 +325,7 @@ public class RegisterItineraryActivity extends ActionBarActivity implements
 		if (googleMap == null) {
 			googleMap = ((MapFragment) this.getFragmentManager()
 					.findFragmentById(R.id.mapRegister)).getMap();
-			//googleMap.setMyLocationEnabled(true);
+			// googleMap.setMyLocationEnabled(true);
 
 			// Enable / Disable Compass icon
 			googleMap.getUiSettings().setCompassEnabled(true);
@@ -572,16 +636,4 @@ public class RegisterItineraryActivity extends ActionBarActivity implements
 
 	}
 
-	// @Override
-	// protected void onActivityResult(int requestCode, int resultCode, Intent
-	// data) {
-	//
-	// if (requestCode == REQUEST_EXIT) {
-	// if (resultCode == RESULT_OK) {
-	// setResult(RESULT_OK, null);
-	// this.finish();
-	//
-	// }
-	// }
-	// }
 }

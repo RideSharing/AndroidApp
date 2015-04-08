@@ -2,7 +2,9 @@ package com.halley.ridesharing;
 
 import java.util.ArrayList;
 
+import android.app.Dialog;
 import android.app.FragmentManager;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -12,6 +14,7 @@ import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.location.Location;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
@@ -20,7 +23,6 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBar.Tab;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.widget.SearchView;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -29,12 +31,20 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.PopupWindow;
+import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.PendingResult;
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
 import com.halley.aboutus.AboutUsActivity;
 import com.halley.dialog.SearchDialogFragment;
 import com.halley.dialog.SearchDialogFragment.OnDataPass;
@@ -42,28 +52,34 @@ import com.halley.helper.DatabaseHandler;
 import com.halley.helper.SessionManager;
 import com.halley.listitinerary.adapter.TabListItineraryAdapter;
 import com.halley.manageitinerary.ManageItineraryActivity;
-import com.halley.map.GPSLocation.GPSLocation;
 import com.halley.model.slidingmenu.NavDrawerItem;
 import com.halley.model.slidingmenu.adapter.NavDrawerListAdapter;
 import com.halley.profile.ProfileActivity;
 import com.halley.registerandlogin.LoginActivity;
 import com.halley.registerandlogin.R;
-import com.halley.registerandlogin.RegisterActivity;
 import com.halley.registeritinerary.RegisterItineraryActivity;
 import com.halley.searchitinerary.ItineraryActivity;
+import com.halley.tracking.TrackingActivity;
 
 @SuppressWarnings("deprecation")
 public class MainActivity extends ActionBarActivity implements
-		SearchView.OnQueryTextListener, ActionBar.TabListener, OnDataPass {
+		ActionBar.TabListener, OnDataPass, LocationListener,
+		GoogleApiClient.ConnectionCallbacks,
+		GoogleApiClient.OnConnectionFailedListener {
 	// LogCat tag
-	private static final String TAG = RegisterActivity.class.getSimpleName();
+	private static final String TAG = MainActivity.class.getSimpleName();
+
+	private static final long INTERVAL = 1000 * 10;
+	private static final long FASTEST_INTERVAL = 1000 * 5;
+
+	LocationRequest mLocationRequest;
+	GoogleApiClient mGoogleApiClient;
+	Location mCurrentLocation;
+	String mLastUpdateTime;
+
 	private final int REQUEST_REFRESH = 10;
-	private TextView txtName;
-	private TextView txtEmail;
-	private Button btnLogout;
-	private SearchView mSearchView;
 	private boolean driver = false;
-	private Location currentLocation;
+
 	private DatabaseHandler db;
 	public SessionManager session;
 	private Fragment fragment;
@@ -85,30 +101,58 @@ public class MainActivity extends ActionBarActivity implements
 	private ArrayList<NavDrawerItem> navDrawerItems;
 	private NavDrawerListAdapter adapter;
 
-	private GPSLocation gps;
-
 	private ViewPager viewPager;
 	private TabListItineraryAdapter mAdapter;
 	private String[] tabs = { "Bản đồ", "Danh sách" };
 	private int mDrawerState;
 	final Context context = this;
+	private ProgressDialog pDialog;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		session = new SessionManager(getApplicationContext());
 		driver = session.isDriver();
-		
-		setContentView(R.layout.activity_main);
-		customActionBar();
-		actionBar.setStackedBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.bg_login)));
-		
-		gps = new GPSLocation(this);
-		// get current Location of user
-		currentLocation = gps.getCurrentLocation();
+		if (!isGooglePlayServicesAvailable()) {
+			finish();
+		}
+		createLocationRequest();
+		mGoogleApiClient = new GoogleApiClient.Builder(this)
+				.addApi(LocationServices.API).addConnectionCallbacks(this)
+				.addOnConnectionFailedListener(this).build();
 
-		// enabling action bar app icon and behaving it as toggle button
-		
+		setContentView(R.layout.activity_main);
+
+		customActionBar();
+
+		// Add Navigation Drawer
+		this.addNavDrawer(this);
+		pDialog = new ProgressDialog(this);
+		pDialog.setCancelable(false);
+		pDialog.setMessage("Khởi tạo giao diện ...");
+		showDialog();
+		new Handler().postDelayed(new Runnable() {
+
+			@Override
+			public void run() {
+
+				initTab();
+				hideDialog();
+
+			}
+		}, 3000);
+
+		if (!session.isLoggedIn()) {
+			logoutUser();
+		}
+
+	}
+
+	public void logoutOnclick(View view) {
+		logoutUser();
+	}
+
+	public void initTab() {
 		View cView = getLayoutInflater().inflate(
 				R.layout.switch_role_actionbar, null);
 
@@ -117,16 +161,15 @@ public class MainActivity extends ActionBarActivity implements
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 		/** Getting a reference to ViewPager from the layout */
 		viewPager = (ViewPager) findViewById(R.id.pager);
-		
+
 		DisplayMetrics metrics = this.getResources().getDisplayMetrics();
 		viewPager.getLayoutParams().height = metrics.heightPixels / 3
 				+ metrics.heightPixels / 3;
-
 		mAdapter = new TabListItineraryAdapter(getSupportFragmentManager(),
 				this);
-		if (currentLocation != null) {
-			mAdapter.setFrom_address(currentLocation);
-			mAdapter.setTo_address(currentLocation);
+		if (mCurrentLocation != null) {
+			mAdapter.setFrom_address(mCurrentLocation);
+			mAdapter.setTo_address(mCurrentLocation);
 			mAdapter.setIsFrom(true);
 		} else {
 			Log.d("Do not get currentLocation", "null");
@@ -134,13 +177,12 @@ public class MainActivity extends ActionBarActivity implements
 		viewPager.setAdapter(mAdapter);
 		// Adding Tabs
 		for (String tab_name : tabs) {
-			
-			actionBar.addTab(
-					actionBar.newTab().setText(tab_name)
-							.setTabListener(this));
-		
+
+			actionBar.addTab(actionBar.newTab().setText(tab_name)
+					.setTabListener(this));
+
 		}
-		
+
 		/**
 		 * on swiping the viewpager make respective tab selected
 		 * */
@@ -161,20 +203,6 @@ public class MainActivity extends ActionBarActivity implements
 			public void onPageScrollStateChanged(int arg0) {
 			}
 		});
-		// Add Navigation Drawer
-		this.addNavDrawer(this);
-		// if (savedInstanceState == null) {
-		// displayView(0);
-		// }
-
-		if (!session.isLoggedIn()) {
-			logoutUser();
-		}
-
-	}
-
-	public void logoutOnclick(View view) {
-		logoutUser();
 	}
 
 	public void searchLocationOnclick(View view) {
@@ -303,11 +331,12 @@ public class MainActivity extends ActionBarActivity implements
 			case 0:
 
 				intent = new Intent(this, RegisterItineraryActivity.class);
-				if (currentLocation != null) {
+				if (mCurrentLocation != null) {
 					intent.putExtra("fromLatitude",
-							currentLocation.getLatitude());
+							mCurrentLocation.getLatitude());
 					intent.putExtra("fromLongitude",
-							currentLocation.getLongitude());
+							mCurrentLocation.getLongitude());
+
 				}
 
 				break;
@@ -319,6 +348,16 @@ public class MainActivity extends ActionBarActivity implements
 				break;
 			case 3:
 				intent = new Intent(this, ManageItineraryActivity.class);
+				break;
+			case 4:
+				intent = new Intent(this, TrackingActivity.class);
+				if (mCurrentLocation != null) {
+					intent.putExtra("fromLatitude",
+							mCurrentLocation.getLatitude());
+					intent.putExtra("fromLongitude",
+							mCurrentLocation.getLongitude());
+
+				}
 				break;
 			case 5:
 				intent = new Intent(this, AboutUsActivity.class);
@@ -421,19 +460,6 @@ public class MainActivity extends ActionBarActivity implements
 	}
 
 	@Override
-	public boolean onQueryTextChange(String location) {
-		// Toast.makeText(this,"change "+ query,Toast.LENGTH_SHORT).show();
-
-		return false;
-	}
-
-	@Override
-	public boolean onQueryTextSubmit(String search_location) {
-
-		return false;
-	}
-
-	@Override
 	public void onTabReselected(Tab arg0, FragmentTransaction arg1) {
 		// TODO Auto-generated method stub
 
@@ -443,8 +469,7 @@ public class MainActivity extends ActionBarActivity implements
 	public void onTabSelected(Tab tab, FragmentTransaction arg1) {
 		// TODO Auto-generated method stub
 		viewPager.setCurrentItem(tab.getPosition());
-		
-		
+
 	}
 
 	@Override
@@ -457,46 +482,151 @@ public class MainActivity extends ActionBarActivity implements
 	public void onDataPass(String address, double latitude, double longitude) {
 
 		Intent i = new Intent(this, ItineraryActivity.class);
-		i.putExtra("fromLatitude", currentLocation.getLatitude());
-		i.putExtra("fromLongitude", currentLocation.getLongitude());
+		i.putExtra("fromLatitude", mCurrentLocation.getLatitude());
+		i.putExtra("fromLongitude", mCurrentLocation.getLongitude());
 		i.putExtra("toLatitude", latitude);
 		i.putExtra("toLongitude", longitude);
 		i.putExtra("address", address);
 		startActivity(i);
 
 	}
+
 	public void customActionBar() {
 		actionBar = getSupportActionBar();
 		actionBar.setElevation(0);
 		actionBar.setHomeButtonEnabled(true);
 		actionBar.setDisplayShowTitleEnabled(false);
-		                   actionBar.setBackgroundDrawable(new ColorDrawable(Color.rgb(61,165,225)));
+		actionBar.setBackgroundDrawable(new ColorDrawable(getResources()
+				.getColor(R.color.bg_login)));
+
+		actionBar.setStackedBackgroundDrawable(new ColorDrawable(Color.rgb(19,
+				143, 215)));
 		// Enabling Up / Back navigation
 		actionBar.setDisplayHomeAsUpEnabled(true);
-		
+
 		LayoutInflater mInflater = LayoutInflater.from(this);
 
 		View mCustomView = mInflater.inflate(R.layout.custom_actionbar, null);
 		TextView mTitleTextView = (TextView) mCustomView
 				.findViewById(R.id.title_text);
-		
+
 		Typeface tf = Typeface.createFromAsset(getAssets(), "fonts/ANGEL.otf");
 		mTitleTextView.setTypeface(tf);
-		
 
-		ImageButton imageButton = (ImageButton) mCustomView
+		final ImageButton imageButton = (ImageButton) mCustomView
 				.findViewById(R.id.imageButton);
 		imageButton.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View view) {
-				Toast.makeText(getApplicationContext(), "Refresh Clicked!",
-						Toast.LENGTH_LONG).show();
+				Dialog dialog =new Dialog(context);
+				dialog.setContentView(R.layout.dialog_info);
+				dialog.setTitle("Thông tin về ứng dụng");
+				dialog.show();
 			}
 		});
 
 		actionBar.setCustomView(mCustomView);
 		actionBar.setDisplayShowCustomEnabled(true);
+	}
+
+	@Override
+	public void onStart() {
+		super.onStart();
+		Log.d(TAG, "onStart fired ..............");
+		mGoogleApiClient.connect();
+	}
+
+	@Override
+	public void onStop() {
+		super.onStop();
+		Log.d(TAG, "onStop fired ..............");
+		mGoogleApiClient.disconnect();
+		Log.d(TAG,
+				"isConnected ...............: "
+						+ mGoogleApiClient.isConnected());
+	}
+
+	private boolean isGooglePlayServicesAvailable() {
+		int status = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
+		if (ConnectionResult.SUCCESS == status) {
+			return true;
+		} else {
+			GooglePlayServicesUtil.getErrorDialog(status, this, 0).show();
+			return false;
+		}
+	}
+
+	@Override
+	public void onConnected(Bundle bundle) {
+		Log.d(TAG, "onConnected - isConnected ...............: "
+				+ mGoogleApiClient.isConnected());
+		startLocationUpdates();
+	}
+
+	protected void startLocationUpdates() {
+		PendingResult<Status> pendingResult = LocationServices.FusedLocationApi
+				.requestLocationUpdates(mGoogleApiClient, mLocationRequest,
+						this);
+		Log.d(TAG, "Location update started ..............: ");
+	}
+
+	@Override
+	public void onConnectionSuspended(int i) {
+
+	}
+
+	@Override
+	public void onConnectionFailed(ConnectionResult connectionResult) {
+		Log.d(TAG, "Connection failed: " + connectionResult.toString());
+	}
+
+	@Override
+	public void onLocationChanged(Location location) {
+		Log.d(TAG,
+				"Firing onLocationChanged..............................................");
+		mCurrentLocation = location;
+		stopLocationUpdates();
+		// mLastUpdateTime = DateFormat.getTimeInstance().format(new Date());
+
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		stopLocationUpdates();
+	}
+
+	protected void stopLocationUpdates() {
+		LocationServices.FusedLocationApi.removeLocationUpdates(
+				mGoogleApiClient, this);
+		Log.d(TAG, "Location update stopped .......................");
+	}
+
+	@Override
+	public void onResume() {
+		super.onResume();
+		if (mGoogleApiClient.isConnected()) {
+			startLocationUpdates();
+			Log.d(TAG, "Location update resumed .....................");
+		}
+	}
+
+	protected void createLocationRequest() {
+		mLocationRequest = new LocationRequest();
+		mLocationRequest.setInterval(INTERVAL);
+		mLocationRequest.setFastestInterval(FASTEST_INTERVAL);
+		mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+	}
+
+	private void showDialog() {
+		if (!pDialog.isShowing())
+			pDialog.show();
+	}
+
+	private void hideDialog() {
+		if (pDialog.isShowing())
+			pDialog.dismiss();
 	}
 
 }

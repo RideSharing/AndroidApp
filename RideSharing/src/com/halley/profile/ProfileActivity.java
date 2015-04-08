@@ -4,6 +4,8 @@ import java.io.ByteArrayOutputStream;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.halley.helper.Touch;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -15,6 +17,8 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -26,6 +30,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.MediaStore;
+
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Base64;
@@ -34,6 +39,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
@@ -51,30 +57,30 @@ import com.halley.app.AppConfig;
 import com.halley.app.AppController;
 import com.halley.helper.RoundedImageView;
 import com.halley.helper.SessionManager;
-import com.halley.helper.Touch;
 import com.halley.helper.TouchImageView;
 import com.halley.registerandlogin.R;
 
-public class ProfileActivity extends ActionBarActivity {
-
+public class ProfileActivity extends ActionBarActivity implements
+		OnClickListener {
+	private final int REQUEST_EXIT = 1;
+	private ActionBar actionBar;
 	private ProgressDialog pDialog;
 	private SessionManager session;
 	private static final String TAG = ProfileActivity.class.getSimpleName();
-
 	private String key;
-
 	TextView txtfullname, txtemail, txtphone, txtpersonalID;
 	private Button upgradeDriver;
 	private AlertDialog dialog2, dialog;
 	JSONArray profile = null;
 	EditText newpass, confirmpass, editfullname, editphone, editpersonalid;
-	private ImageView editavatar, personalid_img, edit_personalid_img;
-	private RoundedImageView avatar;
+	private ImageView personalid_img, edit_personalid_img;
+	private ImageView avatar;
 	public Bitmap decodeByte2;
 	private static final int SELECTED_PICTURE = 1;
 	private static final int CAM_REQUEST = 1313;
 	private TextView tv1, tv2, tv3, tv4;
-	private ActionBar actionBar;
+	String avatar_base64, image_personal_base64;
+	private RoundedImageView editprofile, editavatar;
 	String img_str, img_str_camera;
 
 	String savepass, savefullname, savephone, savepersonalid;
@@ -91,39 +97,24 @@ public class ProfileActivity extends ActionBarActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_user_profile);
+		actionBar = getSupportActionBar();
 		actionBar.setHomeButtonEnabled(true);
+		// Enabling Up / Back navigation
 		actionBar.setDisplayHomeAsUpEnabled(true);
 
-		actionBar.setIcon(R.drawable.ic_register_itinerary);
 		txtfullname = (TextView) findViewById(R.id.fullname);
 		txtemail = (TextView) findViewById(R.id.email);
 		txtphone = (TextView) findViewById(R.id.phone);
 		txtpersonalID = (TextView) findViewById(R.id.presionalID);
-		avatar = (RoundedImageView) findViewById(R.id.avatar);
+		avatar = (ImageView) findViewById(R.id.avatar);
 		personalid_img = (ImageView) findViewById(R.id.personalid_img);
 		edit_personalid_img = (ImageView) findViewById(R.id.edit_personalid_img);
 		personalid_img.setOnTouchListener(new Touch());
 		upgradeDriver = (Button) findViewById(R.id.btnUpgradeDriver);
-		editavatar = (ImageView) findViewById(R.id.editAvatar);
-		tv1 = (TextView) findViewById(R.id.tvProfile1);
-		tv2 = (TextView) findViewById(R.id.tvProfile2);
-		tv3 = (TextView) findViewById(R.id.tvProfile3);
-		tv4 = (TextView) findViewById(R.id.tvProfile4);
-		Typeface face1 = Typeface.createFromAsset(getAssets(),
-				"fonts/DejaVuSerifCondensed-BoldItalic.ttf");
-		tv1.setTypeface(face1);
-		tv2.setTypeface(face1);
-		tv3.setTypeface(face1);
-		tv4.setTypeface(face1);
-		Typeface face2 = Typeface.createFromAsset(getAssets(),
-				"fonts/font_new.ttf");
-		txtemail.setTypeface(face2);
-		txtphone.setTypeface(face2);
-		txtpersonalID.setTypeface(face2);
-		Typeface face3 = Typeface.createFromAsset(getAssets(),
-				"fonts/NorthernTerritories.ttf");
-		txtfullname.setTypeface(face3);
-
+		editavatar = (RoundedImageView) findViewById(R.id.editAvatar);
+		editprofile = (RoundedImageView) findViewById(R.id.editEmail);
+		Typeface face = Typeface.createFromAsset(getAssets(), "fonts/NorthernTerritories.ttf");
+		txtfullname.setTypeface(face);
 		session = new SessionManager(getApplicationContext());
 		pDialog = new ProgressDialog(this);
 		pDialog.setMessage("Vui lòng chờ...");
@@ -138,10 +129,45 @@ public class ProfileActivity extends ActionBarActivity {
 
 				Intent i = new Intent(getApplicationContext(),
 						UpgradeProfile.class);
-				startActivity(i);
+
+				startActivityForResult(i, REQUEST_EXIT);
 
 			}
 		});
+
+		Intent intent = this.getIntent();
+		if (intent != null) {
+			if (intent.getExtras() != null) {
+				if (intent.getExtras().getString("avatar") != null) {
+					avatar_base64 = intent.getExtras().getString("avatar");
+					byte[] decodeString = Base64.decode(avatar_base64,
+							Base64.DEFAULT);
+					Bitmap decodeByte = BitmapFactory.decodeByteArray(
+							decodeString, 0, decodeString.length);
+					avatar.setImageDrawable(null);
+					avatar.setImageBitmap(decodeByte);
+					setAvatar();
+					Intent refresh = new Intent(this, ProfileActivity.class);
+					startActivity(refresh);// Start the same Activity
+					finish();
+				}
+				if (intent.getExtras().getString("personal_id_img") != null) {
+					image_personal_base64 = intent.getExtras().getString(
+							"personal_id_img");
+					byte[] decodeString2 = Base64.decode(image_personal_base64,
+							Base64.DEFAULT);
+					Bitmap decodeByte2 = BitmapFactory.decodeByteArray(
+							decodeString2, 0, decodeString2.length);
+					personalid_img.setImageDrawable(null);
+					personalid_img.setImageBitmap(decodeByte2);
+					setPersonalidImage();
+					Intent refresh = new Intent(this, ProfileActivity.class);
+					startActivity(refresh);// Start the same Activity
+					finish();
+				}
+			}
+
+		}
 
 	}
 
@@ -149,10 +175,9 @@ public class ProfileActivity extends ActionBarActivity {
 
 		@Override
 		public void onClick(View v) {
-			Intent cameraintent = new Intent(
-					android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-			startActivityForResult(cameraintent, CAM_REQUEST);
-
+			Intent i = new Intent(getApplicationContext(), AvatarActivity.class);
+			startActivity(i);
+			finish();
 		}
 
 	}
@@ -163,28 +188,16 @@ public class ProfileActivity extends ActionBarActivity {
 		frag.show(ft, "txn_tag");
 	}
 
-	public void uploadavatar(View v) {
-		setAvatar();
-		Toast.makeText(getApplicationContext(),
-				"Thay đổi ảnh đại diện thành công", Toast.LENGTH_LONG).show();
-	}
-
 	public void updateProfile(View view) {
 		dialog = updateFullname();
 		dialog.show();
 	}
 
-	public void uploadpersonal_img(View v) {
-		setPersonalidImage();
-		Toast.makeText(getApplicationContext(), "Thay đổi ảnh CMND thành công",
-				Toast.LENGTH_LONG).show();
-
-	}
-
 	public void btnClick(View v) {
-		Intent i = new Intent(Intent.ACTION_PICK,
-				android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-		startActivityForResult(i, SELECTED_PICTURE);
+		Intent i2 = new Intent(getApplicationContext(),
+				PersonalImageActivity.class);
+		startActivity(i2);
+		finish();
 
 	}
 
@@ -226,70 +239,75 @@ public class ProfileActivity extends ActionBarActivity {
 
 	}
 
-	@SuppressLint("NewApi")
-	@Override
-	public void onActivityResult(int requestCode, int resultCode, Intent data) {
-		super.onActivityResult(requestCode, resultCode, data);
-
-		switch (requestCode) {
-		case SELECTED_PICTURE:
-			if (resultCode == RESULT_OK) {
-				Uri uri = data.getData();
-				String[] projection = { MediaStore.Images.Media.DATA };
-
-				Cursor cursor = getContentResolver().query(uri, projection,
-						null, null, null);
-				cursor.moveToFirst();
-
-				int columnIndex = cursor.getColumnIndex(projection[0]);
-				String filePath = cursor.getString(columnIndex);
-				cursor.close();
-
-				Bitmap bitmap = BitmapFactory.decodeFile(filePath);
-				final Drawable d = new BitmapDrawable(bitmap);
-
-				// //Transfer from Base64 String to Image
-				ByteArrayOutputStream stream = new ByteArrayOutputStream();
-				bitmap.compress(Bitmap.CompressFormat.JPEG, 90, stream);
-				byte[] image = stream.toByteArray();
-				img_str = Base64.encodeToString(image, 0);
-				new Handler().postDelayed(new Runnable() {
-
-					@Override
-					public void run() {
-						personalid_img.setImageDrawable(null);
-						personalid_img.setBackground(d);
-
-					}
-				}, 1000);
-
-			}
-			break;
-		case CAM_REQUEST:
-			if (resultCode == RESULT_OK) {
-				Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
-				ByteArrayOutputStream stream2 = new ByteArrayOutputStream();
-				thumbnail.compress(Bitmap.CompressFormat.JPEG, 90, stream2);
-				byte[] image2 = stream2.toByteArray();
-				img_str_camera = Base64.encodeToString(image2, 0);
-				final Drawable d = new BitmapDrawable(thumbnail);
-				new Handler().postDelayed(new Runnable() {
-
-					@Override
-					public void run() {
-						avatar.setImageDrawable(null);
-						avatar.setBackground(d);
-
-					}
-				}, 1000);
-
-			}
-			break;
-		default:
-			break;
-		}
-
-	}
+	// @SuppressLint("NewApi")
+	// @Override
+	// public void onActivityResult(int requestCode, int resultCode, Intent
+	// data) {
+	// super.onActivityResult(requestCode, resultCode, data);
+	//
+	// switch (requestCode) {
+	// case SELECTED_PICTURE:
+	// if (resultCode == RESULT_OK) {
+	// Uri uri = data.getData();
+	// String[] projection = { MediaStore.Images.Media.DATA };
+	//
+	// Cursor cursor = getContentResolver().query(uri, projection,
+	// null, null, null);
+	// cursor.moveToFirst();
+	//
+	// int columnIndex = cursor.getColumnIndex(projection[0]);
+	// String filePath = cursor.getString(columnIndex);
+	// cursor.close();
+	//
+	// Bitmap bitmap = BitmapFactory.decodeFile(filePath);
+	// final Drawable d = new BitmapDrawable(bitmap);
+	//
+	// // //Transfer from Base64 String to Image
+	// ByteArrayOutputStream stream = new ByteArrayOutputStream();
+	// bitmap.compress(Bitmap.CompressFormat.JPEG, 90, stream);
+	// byte[] image = stream.toByteArray();
+	// img_str = Base64.encodeToString(image, 0);
+	// new Handler().postDelayed(new Runnable() {
+	//
+	// @Override
+	// public void run() {
+	// personalid_img.setImageDrawable(null);
+	// personalid_img.setBackground(d);
+	// setPersonalidImage();
+	// Toast.makeText(getApplicationContext(),
+	// "Thay đổi ảnh CMND thành công",
+	// Toast.LENGTH_SHORT).show();
+	//
+	// }
+	// }, 1000);
+	//
+	// }
+	// break;
+	// case CAM_REQUEST:
+	// if (resultCode == RESULT_OK) {
+	// Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
+	// ByteArrayOutputStream stream2 = new ByteArrayOutputStream();
+	// thumbnail.compress(Bitmap.CompressFormat.JPEG, 90, stream2);
+	// byte[] image2 = stream2.toByteArray();
+	// img_str_camera = Base64.encodeToString(image2, 0);
+	// final Drawable d = new BitmapDrawable(thumbnail);
+	// new Handler().postDelayed(new Runnable() {
+	//
+	// @Override
+	// public void run() {
+	// avatar.setImageDrawable(null);
+	// avatar.setBackground(d);
+	//
+	// }
+	// }, 1000);
+	//
+	// }
+	// break;
+	// default:
+	// break;
+	// }
+	//
+	// }
 
 	public void setAvatar() {
 		String tag_string_req = "req_avatar";
@@ -354,7 +372,7 @@ public class ProfileActivity extends ActionBarActivity {
 				// Posting parameters to login url
 				Map<String, String> params = new HashMap<String, String>();
 
-				params.put("value", img_str_camera);
+				params.put("value", avatar_base64);
 
 				return params;
 			}
@@ -429,7 +447,7 @@ public class ProfileActivity extends ActionBarActivity {
 				Map<String, String> params = new HashMap<String, String>();
 				// Toast.makeText(getApplicationContext(), img_str_camera,
 				// Toast.LENGTH_LONG).show();
-				params.put("value", img_str);
+				params.put("value", image_personal_base64);
 
 				return params;
 			}
@@ -1037,5 +1055,11 @@ public class ProfileActivity extends ActionBarActivity {
 	public void onBackPressed() {
 		super.onBackPressed();
 		this.finish();
+	}
+
+	@Override
+	public void onClick(DialogInterface dialog, int which) {
+		// TODO Auto-generated method stub
+
 	}
 }

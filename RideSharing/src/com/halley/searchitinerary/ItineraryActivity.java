@@ -40,7 +40,8 @@ public class ItineraryActivity extends ActionBarActivity implements
 	private TabListItineraryAdapter mAdapter;
 	// Tab titles
 	private String[] tabs = { "Bản đồ", "Danh sách" };
-	private Context context=this;
+	private Context context = this;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -129,7 +130,7 @@ public class ItineraryActivity extends ActionBarActivity implements
 
 			@Override
 			public void onClick(View view) {
-				Dialog dialog =new Dialog(context);
+				Dialog dialog = new Dialog(context);
 				dialog.setContentView(R.layout.dialog_info);
 				dialog.setTitle("Thông tin về ứng dụng");
 				dialog.show();
@@ -138,67 +139,6 @@ public class ItineraryActivity extends ActionBarActivity implements
 
 		actionBar.setCustomView(mCustomView);
 		actionBar.setDisplayShowCustomEnabled(true);
-	}
-
-	public Address getLocation(String location) {
-		Geocoder geocoder;
-		Address add = null;
-		List<android.location.Address> list_address = null;
-		geocoder = new Geocoder(this, Locale.getDefault());
-		try {
-			list_address = geocoder.getFromLocationName(location, 1);
-			add = list_address.get(0);
-
-			// Toast.makeText(this, "submit " + locality,
-			// Toast.LENGTH_SHORT).show();
-
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return add;
-
-	}
-
-	// @Override
-	// protected void onNewIntent(Intent intent) {
-	// setIntent(intent);
-	// handleIntent(intent);
-	// }
-	//
-	// /**
-	// * Handling intent data
-	// */
-	// private void handleIntent(Intent intent) {
-	// if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
-	// String location = intent.getStringExtra(SearchManager.QUERY);
-	//
-	// /**
-	// * Use this query to display search results like 1. Getting the data
-	// * from SQLite and showing in listview 2. Making webrequest and
-	// * displaying the data For now we just display the query only
-	// */
-	//
-	//
-	// }
-	//
-	// }
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
 	}
 
 	@Override

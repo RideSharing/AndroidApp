@@ -10,38 +10,38 @@ import java.util.Map;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.Dialog;
+import android.app.DialogFragment;
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.v7.app.ActionBar;
+import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.RelativeLayout.LayoutParams;
+import android.widget.TextView;
+import android.widget.TimePicker;
+import android.widget.Toast;
+
+import com.android.volley.Request.Method;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.Request.Method;
 import com.android.volley.toolbox.StringRequest;
 import com.halley.app.AppConfig;
 import com.halley.app.AppController;
-import com.halley.dialog.SearchDialogFragment.OnDataPass;
 import com.halley.helper.NumberTextWatcher;
 import com.halley.helper.SessionManager;
 import com.halley.registerandlogin.R;
 import com.halley.registerandlogin.RegisterActivity;
 import com.halley.ridesharing.MainActivity;
-
-import android.app.Activity;
-import android.app.Dialog;
-import android.app.DialogFragment;
-import android.app.ProgressDialog;
-import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
-import android.support.v7.app.ActionBar;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.View.OnClickListener;
-import android.widget.Button;
-import android.widget.DatePicker;
-import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.TimePicker;
-import android.widget.Toast;
 
 public class RegisterAdvanceDialog extends DialogFragment {
 	// LogCat tag
@@ -64,6 +64,7 @@ public class RegisterAdvanceDialog extends DialogFragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		/** Inflating layout for the dialog */
+		
 		View v = inflater.inflate(R.layout.dialog_register_advance, null);
 		getDialog().setTitle("Đăng kí bổ sung");
 		session = new SessionManager(getActivity());
@@ -251,8 +252,7 @@ public class RegisterAdvanceDialog extends DialogFragment {
 						hideDialog();
 
 						try {
-							JSONObject jObj = new JSONObject(
-									response);
+							JSONObject jObj = new JSONObject(response);
 							boolean error = jObj.getBoolean("error");
 							// Check for error node in json
 							if (!error) {
@@ -336,5 +336,13 @@ public class RegisterAdvanceDialog extends DialogFragment {
 	private void hideDialog() {
 		if (pDialog.isShowing())
 			pDialog.dismiss();
+	}
+	@Override
+	public void onResume() {
+		super.onResume();
+		Window window = getDialog().getWindow();
+		window.setLayout(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+		window.setGravity(Gravity.CENTER);
+		// TODO:
 	}
 }

@@ -2,6 +2,7 @@ package com.halley.ridesharing;
 
 import java.util.ArrayList;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.app.FragmentManager;
 import android.app.ProgressDialog;
@@ -13,8 +14,10 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.location.Location;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.SystemClock;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
@@ -33,13 +36,13 @@ import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.PopupWindow;
-import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
+import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
 import com.google.android.gms.common.api.PendingResult;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.LocationListener;
@@ -76,7 +79,7 @@ public class MainActivity extends ActionBarActivity implements
 	GoogleApiClient mGoogleApiClient;
 	Location mCurrentLocation;
 	String mLastUpdateTime;
-
+	private Double toLatitude = 0.0, toLongitude = 0.0;
 	private final int REQUEST_REFRESH = 10;
 	private boolean driver = false;
 
@@ -105,46 +108,43 @@ public class MainActivity extends ActionBarActivity implements
 	private TabListItineraryAdapter mAdapter;
 	private String[] tabs = { "Bản đồ", "Danh sách" };
 	private int mDrawerState;
-	final Context context = this;
+	final Activity context = this;
 	private ProgressDialog pDialog;
+	MyAsyncTask mytt;
+	private boolean isFrom = true;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		session = new SessionManager(getApplicationContext());
 		driver = session.isDriver();
-		if (!isGooglePlayServicesAvailable()) {
-			finish();
-		}
-		createLocationRequest();
-		mGoogleApiClient = new GoogleApiClient.Builder(this)
-				.addApi(LocationServices.API).addConnectionCallbacks(this)
-				.addOnConnectionFailedListener(this).build();
 
 		setContentView(R.layout.activity_main);
-
+		pDialog = new ProgressDialog(this);
+		pDialog.setCancelable(false);
+		Bundle bundle = new Bundle();
+		bundle = getIntent().getExtras();
+		if (bundle != null) {
+			isFrom = false;
+			toLatitude = bundle.getDouble("toLatitude");
+			toLongitude = bundle.getDouble("toLongitude");
+		}
 		customActionBar();
 
 		// Add Navigation Drawer
 		this.addNavDrawer(this);
-		pDialog = new ProgressDialog(this);
-		pDialog.setCancelable(false);
-		pDialog.setMessage("Khởi tạo giao diện ...");
-		showDialog();
-		new Handler().postDelayed(new Runnable() {
-
-			@Override
-			public void run() {
-
-				initTab();
-				hideDialog();
-
-			}
-		}, 3000);
+		doStart();
+		
 
 		if (!session.isLoggedIn()) {
 			logoutUser();
 		}
+
+	}
+
+	public void doStart() {
+		mytt = new MyAsyncTask();
+		mytt.execute();
 
 	}
 
@@ -169,8 +169,17 @@ public class MainActivity extends ActionBarActivity implements
 				this);
 		if (mCurrentLocation != null) {
 			mAdapter.setFrom_address(mCurrentLocation);
-			mAdapter.setTo_address(mCurrentLocation);
-			mAdapter.setIsFrom(true);
+
+			if (isFrom == true) {
+				mAdapter.setTo_address(mCurrentLocation);
+				mAdapter.setIsFrom(isFrom);
+			} else {
+				Location toLocation = new Location("");
+				toLocation.setLatitude(toLatitude);
+				toLocation.setLongitude(toLongitude);
+				mAdapter.setTo_address(toLocation);
+				mAdapter.setIsFrom(false);
+			}
 		} else {
 			Log.d("Do not get currentLocation", "null");
 		}
@@ -403,14 +412,6 @@ public class MainActivity extends ActionBarActivity implements
 	}
 
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
-		return super.onCreateOptionsMenu(menu);
-
-	}
-
-	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// toggle nav drawer on selecting action bar app icon/title
 		if (mDrawerToggle.onOptionsItemSelected(item)) {
@@ -480,14 +481,21 @@ public class MainActivity extends ActionBarActivity implements
 
 	@Override
 	public void onDataPass(String address, double latitude, double longitude) {
+		showDialog();
+		pDialog.setMessage("Đang tìm...");
+		Handler handler = new Handler();
+		final Intent i = new Intent(this, MainActivity.class);
 
-		Intent i = new Intent(this, ItineraryActivity.class);
-		i.putExtra("fromLatitude", mCurrentLocation.getLatitude());
-		i.putExtra("fromLongitude", mCurrentLocation.getLongitude());
 		i.putExtra("toLatitude", latitude);
 		i.putExtra("toLongitude", longitude);
 		i.putExtra("address", address);
-		startActivity(i);
+		handler.postDelayed(new Runnable() {
+			public void run() {
+				finish();
+				startActivity(i);
+				overridePendingTransition(0, 0);
+			}
+		}, 2000);
 
 	}
 
@@ -506,7 +514,8 @@ public class MainActivity extends ActionBarActivity implements
 
 		LayoutInflater mInflater = LayoutInflater.from(this);
 
-		View mCustomView = mInflater.inflate(R.layout.custom_actionbar, null);
+		View mCustomView = mInflater.inflate(R.layout.custom_actionbar_main,
+				null);
 		TextView mTitleTextView = (TextView) mCustomView
 				.findViewById(R.id.title_text);
 
@@ -519,10 +528,30 @@ public class MainActivity extends ActionBarActivity implements
 
 			@Override
 			public void onClick(View view) {
-				Dialog dialog =new Dialog(context);
+				Dialog dialog = new Dialog(context);
 				dialog.setContentView(R.layout.dialog_info);
 				dialog.setTitle("Thông tin về ứng dụng");
 				dialog.show();
+			}
+		});
+		final ImageButton imageButton2 = (ImageButton) mCustomView
+				.findViewById(R.id.imageButton2);
+		imageButton2.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View view) {
+				pDialog.setMessage("Refresh...");
+				showDialog();
+
+				Handler handler = new Handler();
+				handler.postDelayed(new Runnable() {
+					public void run() {
+						finish();
+						startActivity(getIntent());
+						overridePendingTransition(0, 0);
+					}
+				}, 2000);
+
 			}
 		});
 
@@ -627,6 +656,55 @@ public class MainActivity extends ActionBarActivity implements
 	private void hideDialog() {
 		if (pDialog.isShowing())
 			pDialog.dismiss();
+	}
+
+	class MyAsyncTask extends AsyncTask<Void, Void, Void> {
+		public MyAsyncTask() {
+
+		}
+
+		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+			pDialog.setMessage("Khởi tạo giao diện...");
+			showDialog();
+			if (!isGooglePlayServicesAvailable()) {
+				finish();
+			}
+			createLocationRequest();
+			mGoogleApiClient = new GoogleApiClient.Builder(context)
+					.addApi(LocationServices.API)
+					.addConnectionCallbacks((ConnectionCallbacks) context)
+					.addOnConnectionFailedListener(
+							(OnConnectionFailedListener) context).build();
+
+		}
+
+		@Override
+		protected Void doInBackground(Void... arg0) {
+			SystemClock.sleep(3000);
+			publishProgress();
+			return null;
+		}
+
+		/**
+		 * ta cập nhập giao diện trong hàm này
+		 */
+		@Override
+		protected void onProgressUpdate(Void... values) {
+			super.onProgressUpdate(values);
+			hideDialog();
+			initTab();
+		}
+
+		/**
+		 * sau khi tiến trình thực hiện xong thì hàm này sảy ra
+		 */
+		@Override
+		protected void onPostExecute(Void result) {
+
+		}
+
 	}
 
 }

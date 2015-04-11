@@ -19,6 +19,7 @@ import java.util.Map;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
@@ -27,6 +28,8 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.AsyncTask;
@@ -35,12 +38,14 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -75,6 +80,7 @@ public class DetailManageItineraryActivity extends ActionBarActivity implements
 	private static final String TAG = DetailManageItineraryActivity.class
 			.getSimpleName();
 	private final int REQUEST_EXIT = 1;
+	private static final int RESULT_DELETE = 101;
 	private GoogleMap googleMap;
 	private Geocoder geocoder;
 	private double fromLatitude, fromLongitude, toLatitude, toLongitude;
@@ -97,15 +103,13 @@ public class DetailManageItineraryActivity extends ActionBarActivity implements
 	// Direction maps
 	Polyline lineDirection = null;
 	private AlertDialog dialog;
+	private Activity activity = this;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_detail_manage_itinerary);
-		actionBar = getSupportActionBar();
-		actionBar.setHomeButtonEnabled(true);
-		// Enabling Up / Back navigation
-		actionBar.setDisplayHomeAsUpEnabled(true);
+		customActionBar();
 		session = new SessionManager(getApplicationContext());
 		pDialog = new ProgressDialog(this);
 		// Showing progress dialog before making http request
@@ -180,7 +184,7 @@ public class DetailManageItineraryActivity extends ActionBarActivity implements
 			}
 		});
 		btnDeleteItinerary.setOnClickListener(new View.OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				dialog = confirmDelelte();
@@ -189,7 +193,41 @@ public class DetailManageItineraryActivity extends ActionBarActivity implements
 		});
 
 	}
-	
+	public void customActionBar() {
+		actionBar = getSupportActionBar();
+		actionBar.setElevation(0);
+		actionBar.setHomeButtonEnabled(true);
+		actionBar.setBackgroundDrawable(new ColorDrawable(getResources()
+				.getColor(R.color.bg_login)));
+		// Enabling Up / Back navigation
+		actionBar.setDisplayHomeAsUpEnabled(true);
+
+		LayoutInflater mInflater = LayoutInflater.from(this);
+
+		View mCustomView = mInflater.inflate(R.layout.custom_actionbar, null);
+		TextView mTitleTextView = (TextView) mCustomView
+				.findViewById(R.id.title_text);
+
+		Typeface tf = Typeface.createFromAsset(getAssets(), "fonts/ANGEL.otf");
+		mTitleTextView.setTypeface(tf);
+
+		ImageButton imageButton = (ImageButton) mCustomView
+				.findViewById(R.id.imageButton);
+		imageButton.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View view) {
+				Dialog dialog = new Dialog(activity);
+				dialog.setContentView(R.layout.dialog_info);
+				dialog.setTitle("Thông tin về ứng dụng");
+				dialog.show();
+			}
+		});
+
+		actionBar.setCustomView(mCustomView);
+		actionBar.setDisplayShowCustomEnabled(true);
+	}
+
 	public AlertDialog confirmDelelte() {
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setTitle("Bạn có chắc chắn muốn xóa hành trình?");
@@ -199,25 +237,26 @@ public class DetailManageItineraryActivity extends ActionBarActivity implements
 		Button cancel = (Button) view.findViewById(R.id.btnCancelDelete);
 		final AlertDialog dialog = builder.create();
 		ok.setOnClickListener(new View.OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				deleteItinerary();
-				Intent intent = new Intent(getApplicationContext(), ManageItineraryActivity.class);
-				startActivity(intent);
-				Toast.makeText(getApplicationContext(), "Xóa thành công", Toast.LENGTH_LONG).show();
+
+				setResult(RESULT_OK);
+				Toast.makeText(getApplicationContext(), "Xóa thành công",
+						Toast.LENGTH_LONG).show();
 				finish();
 			}
 		});
 		cancel.setOnClickListener(new View.OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				dialog.dismiss();
-				
+
 			}
 		});
-		
+
 		return dialog;
 	}
 
@@ -231,7 +270,6 @@ public class DetailManageItineraryActivity extends ActionBarActivity implements
 		edLeaveDate = (TextView) view.findViewById(R.id.etDateStart);
 		edDuration = (EditText) view.findViewById(R.id.etDuration);
 		edCost = (EditText) view.findViewById(R.id.etCost);
-		edPhone = (EditText) view.findViewById(R.id.etPhone);
 		String a = tvdescription.getText().toString();
 		String b = tvleave_date.getText().toString();
 		String c = tvduration.getText().toString();
@@ -242,7 +280,6 @@ public class DetailManageItineraryActivity extends ActionBarActivity implements
 		edDuration.setText(c);
 		edCost.setText(d);
 		edCost.addTextChangedListener(new NumberTextWatcher(edCost));
-		edPhone.setText(e);
 		edLeaveDate.setOnClickListener(new View.OnClickListener() {
 
 			@Override
@@ -259,14 +296,12 @@ public class DetailManageItineraryActivity extends ActionBarActivity implements
 
 			@Override
 			public void onClick(View v) {
-				getDescription = edDescription.getText().toString().trim();
-				getLeaveDate = edLeaveDate.getText().toString().trim();
-				getDuration = edDuration.getText().toString().trim();
-				getCost = edCost.getText().toString().trim();
-				getPhone = edPhone.getText().toString().trim();
-				if (getDescription.length() == 0 || getLeaveDate.length() == 0
-						|| getDuration.length() == 0 || getCost.length() == 0
-						|| getPhone.length() == 0) {
+				getDescription = edDescription.getText().toString();
+				getLeaveDate = edLeaveDate.getText().toString();
+				getDuration = edDuration.getText().toString();
+				getCost = edCost.getText().toString().replace(",", "");
+				if (edDescription.length() == 0 || edLeaveDate.length() == 0
+						|| edDuration.length() == 0 || edCost.length() == 0) {
 					Toast.makeText(getApplicationContext(),
 							"Vui lòng điền đầy đủ thông tin",
 							Toast.LENGTH_SHORT).show();
@@ -276,12 +311,13 @@ public class DetailManageItineraryActivity extends ActionBarActivity implements
 					Toast.makeText(getApplicationContext(),
 							"Cập nhật thông tin thành công", Toast.LENGTH_SHORT)
 							.show();
+					setResult(RESULT_OK);
 				}
 				tvdescription.setText(getDescription);
 				tvleave_date.setText(getLeaveDate);
 				tvduration.setText(getDuration);
 				tvcost.setText(getCost);
-				tvphone.setText(getPhone);
+
 			}
 		});
 		cancelChangeItinerary.setOnClickListener(new View.OnClickListener() {
@@ -364,7 +400,6 @@ public class DetailManageItineraryActivity extends ActionBarActivity implements
 				params.put("leave_date", getLeaveDate);
 				params.put("duration", getDuration);
 				params.put("cost", getCost);
-				params.put("phone", getPhone);
 
 				return params;
 			}
@@ -374,74 +409,72 @@ public class DetailManageItineraryActivity extends ActionBarActivity implements
 		// Adding request to request queue
 		AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
 	}
-	
+
 	public void deleteItinerary() {
 		// Tag used to cancel the request
-				String tag_string_req = "req_register";
+		String tag_string_req = "req_register";
 
-				pDialog.setMessage("Đang xóa lịch trình ...");
-				showDialog();
+		pDialog.setMessage("Đang xóa lịch trình ...");
+		showDialog();
 
-				StringRequest strReq = new StringRequest(Method.DELETE,
-						AppConfig.URL_REGISTER_ITINERARY + "/" + itinerary_id,
-						new Response.Listener<String>() {
-
-							@Override
-							public void onResponse(String response) {
-								Log.d(TAG,
-										"Driver License Response: "
-												+ response.toString());
-								hideDialog();
-
-								try {
-									JSONObject jObj = new JSONObject(response);
-									boolean error = jObj.getBoolean("error");
-									if (!error) {
-
-										String message = jObj.getString("message");
-
-									} else {
-
-										// Error occurred in registration. Get the error
-										// message
-										String errorMsg = jObj.getString("error_msg");
-										// Toast.makeText(getApplicationContext(),
-										// errorMsg, Toast.LENGTH_LONG).show();
-									}
-								} catch (JSONException e) {
-									e.printStackTrace();
-								}
-
-							}
-						}, new Response.ErrorListener() {
-
-							@Override
-							public void onErrorResponse(VolleyError error) {
-								Log.e(TAG, "Registration Error: " + error.getMessage());
-								// Toast.makeText(getApplicationContext(),
-								// error.getMessage(), Toast.LENGTH_LONG).show();
-								hideDialog();
-							}
-						}) {
+		StringRequest strReq = new StringRequest(Method.DELETE,
+				AppConfig.URL_REGISTER_ITINERARY + "/" + itinerary_id,
+				new Response.Listener<String>() {
 
 					@Override
-					public Map<String, String> getHeaders() throws AuthFailureError {
-						// Posting parameters to login url
-						Map<String, String> params = new HashMap<String, String>();
-						key = session.getAPIKey();
-						// Toast.makeText(getApplicationContext(), "Go Go "+ key,
-						// Toast.LENGTH_LONG).show();
-						params.put("Authorization", key);
+					public void onResponse(String response) {
+						Log.d(TAG,
+								"Driver License Response: "
+										+ response.toString());
+						hideDialog();
 
-						return params;
+						try {
+							JSONObject jObj = new JSONObject(response);
+							boolean error = jObj.getBoolean("error");
+							if (!error) {
+
+								String message = jObj.getString("message");
+
+							} else {
+
+								// Error occurred in registration. Get the error
+								// message
+								String errorMsg = jObj.getString("error_msg");
+								// Toast.makeText(getApplicationContext(),
+								// errorMsg, Toast.LENGTH_LONG).show();
+							}
+						} catch (JSONException e) {
+							e.printStackTrace();
+						}
+
 					}
+				}, new Response.ErrorListener() {
 
-					
+					@Override
+					public void onErrorResponse(VolleyError error) {
+						Log.e(TAG, "Registration Error: " + error.getMessage());
+						// Toast.makeText(getApplicationContext(),
+						// error.getMessage(), Toast.LENGTH_LONG).show();
+						hideDialog();
+					}
+				}) {
 
-				};
+			@Override
+			public Map<String, String> getHeaders() throws AuthFailureError {
+				// Posting parameters to login url
+				Map<String, String> params = new HashMap<String, String>();
+				key = session.getAPIKey();
+				// Toast.makeText(getApplicationContext(), "Go Go "+ key,
+				// Toast.LENGTH_LONG).show();
+				params.put("Authorization", key);
 
-				// Adding request to request queue
-				AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+				return params;
+			}
+
+		};
+
+		// Adding request to request queue
+		AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
 	}
 
 	public void DateTimePicker() {
@@ -493,7 +526,7 @@ public class DetailManageItineraryActivity extends ActionBarActivity implements
 
 	public String transferCost(String cost) {
 		DecimalFormat formatter = new DecimalFormat("#,###,###");
-		return formatter.format(Double.parseDouble(cost)) + " VNĐ";
+		return formatter.format(Double.parseDouble(cost));
 
 	}
 
@@ -782,6 +815,7 @@ public class DetailManageItineraryActivity extends ActionBarActivity implements
 	@Override
 	public void onBackPressed() {
 		super.onBackPressed();
+
 		this.finish();
 	}
 

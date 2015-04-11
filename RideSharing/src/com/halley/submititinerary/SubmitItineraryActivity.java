@@ -24,6 +24,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageButton;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -49,6 +50,7 @@ public class SubmitItineraryActivity extends ActionBarActivity {
 	private ProgressDialog pDialog;
 	private SessionManager session;
 	private Context context=this;
+	private RatingBar rating;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -69,6 +71,7 @@ public class SubmitItineraryActivity extends ActionBarActivity {
 		tvcost = (TextView) findViewById(R.id.cost);
 		tvphone = (TextView) findViewById(R.id.phone);
 		tvleave_date = (TextView) findViewById(R.id.leave_date);
+		rating=(RatingBar)findViewById(R.id.ratingBarDriver);
 		Bundle bundle = this.getIntent().getExtras().getBundle("bundle");
 		if (bundle != null) {
 			avatar = bundle.getString("avatar");
@@ -99,7 +102,8 @@ public class SubmitItineraryActivity extends ActionBarActivity {
 		tvleave_date.setText(leave_date);
 		tvcost.setText(transferCost(cost));
 		tvphone.setText(phone);
-
+		rating.setEnabled(false);
+		rating.setRating(4.5f);
 	}
 
 	public void customActionBar() {

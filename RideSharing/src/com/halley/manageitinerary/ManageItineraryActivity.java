@@ -28,6 +28,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.ImageButton;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.ListView;
@@ -58,8 +59,9 @@ public class ManageItineraryActivity extends ActionBarActivity {
 	SessionManager session;
 	private Activity activity = this;
 	private ActionBar actionBar;
+	private ImageButton btimg_go_up;
 	String status;
-
+	private static final int REQUEST_REFRESH = 1;
 	public String getStatus() {
 		return status;
 	}
@@ -76,6 +78,7 @@ public class ManageItineraryActivity extends ActionBarActivity {
 		session = new SessionManager(getApplicationContext());
 		pDialog = new ProgressDialog(this);
 		listView = (ExpandableListView) findViewById(R.id.list);
+	
 		getItinerary();
 		listAdapter = new ListManageItineraryAdapter(this, listDataHeader,
 				listDataChild);
@@ -116,7 +119,7 @@ public class ManageItineraryActivity extends ActionBarActivity {
 				bundle.putDouble("end_address_long",
 						Double.parseDouble(m.getEnd_address_long()));
 				i.putExtra("bundle", bundle);
-				startActivity(i);
+				startActivityForResult(i, REQUEST_REFRESH);
 				return false;
 			}
 		});
@@ -204,7 +207,6 @@ public class ManageItineraryActivity extends ActionBarActivity {
 										itineraryList_completed
 												.add(itineraryItem);
 									}
-
 								}
 								listDataChild.put(listDataHeader.get(0),
 										itineraryList_waiting_user); // Header,
@@ -306,6 +308,20 @@ public class ManageItineraryActivity extends ActionBarActivity {
 		if (pDialog != null) {
 			pDialog.dismiss();
 			pDialog = null;
+		}
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		// check if the request code is same as what is passed here it is 2
+		if (requestCode == REQUEST_REFRESH) {
+			if (resultCode == RESULT_OK) {
+				finish();
+				startActivity(new Intent(this,ManageItineraryActivity.class));
+				
+			}
+
 		}
 	}
 }

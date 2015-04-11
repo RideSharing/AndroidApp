@@ -11,26 +11,27 @@
 
         <RelativeLayout
             android:layout_width="fill_parent"
-            android:layout_height="200dp" >
+            android:layout_height="wrap_content"
+            android:background="@drawable/background" >
 
             <ImageView
                 android:id="@+id/avatar"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentRight="true"
-                android:scaleType="fitXY" />
+                android:layout_alignParentRight="true" />
 
             <TextView
                 android:id="@+id/fullname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
                 android:layout_alignParentLeft="true"
                 android:layout_centerHorizontal="true"
+                android:layout_marginBottom="10dp"
                 android:layout_marginLeft="30dp"
-                android:layout_marginTop="150dp"
                 android:inputType="textMultiLine|textNoSuggestions"
-                android:textColor="#FFFFFF"
+                android:textColor="@color/bg_login"
                 android:textSize="20dp"
                 android:textStyle="bold" />
 
@@ -42,7 +43,6 @@
                 android:layout_alignParentTop="true"
                 android:layout_marginRight="40dp"
                 android:layout_marginTop="20dp"
-                
                 android:src="@drawable/ic_edit_picture" />
         </RelativeLayout>
 
@@ -61,8 +61,8 @@
                     android:id="@+id/imageView2"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:layout_marginTop="20dp"
                     android:layout_marginLeft="20dp"
+                    android:layout_marginTop="20dp"
                     android:src="@drawable/email_icon" />
 
                 <LinearLayout
@@ -79,6 +79,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="5dp"
+                        android:autoLink="email"
                         android:padding="4dip"
                         android:textColor="#000000"
                         android:textSize="15dp" />
@@ -113,8 +114,8 @@
                     android:id="@+id/imagephone"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:layout_marginTop="20dp"
                     android:layout_marginLeft="20dp"
+                    android:layout_marginTop="20dp"
                     android:src="@drawable/icon_phone" />
 
                 <LinearLayout
@@ -131,6 +132,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="5dp"
+                        android:autoLink="phone"
                         android:padding="4dip"
                         android:textColor="#000000"
                         android:textSize="15dp" />
@@ -154,8 +156,8 @@
                     android:id="@+id/imagepersonalid"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:layout_marginTop="20dp"
                     android:layout_marginLeft="20dp"
+                    android:layout_marginTop="20dp"
                     android:src="@drawable/personal_img" />
 
                 <LinearLayout
@@ -195,8 +197,8 @@
                     android:id="@+id/tvpersonalid_img"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:layout_marginTop="20dp"
                     android:layout_marginLeft="20dp"
+                    android:layout_marginTop="20dp"
                     android:src="@drawable/personal_id_img" />
 
                 <LinearLayout
@@ -221,10 +223,10 @@
 
                         <ImageView
                             android:id="@+id/edit_personalid_img"
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:layout_alignParentBottom="true"
-                            android:src="@drawable/icon_avatar" />
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_gravity="bottom"
+                            android:src="@drawable/ic_edit_picture" />
                     </LinearLayout>
 
                     <TextView
@@ -248,7 +250,7 @@
                     android:layout_height="match_parent"
                     android:layout_margin="5dp"
                     android:layout_weight="1"
-                    android:background="@color/bg_main"
+                    android:background="@drawable/flat_selector"
                     android:onClick="changepasswordonClick"
                     android:padding="10dp"
                     android:text="@string/btn_change_password"
@@ -260,7 +262,7 @@
                     android:layout_height="match_parent"
                     android:layout_margin="5dp"
                     android:layout_weight="1"
-                    android:background="@color/bg_main"
+                    android:background="@drawable/flat_selector"
                     android:onClick="clickCheck"
                     android:padding="10dp"
                     android:text="@string/btn_upgrade_driver"

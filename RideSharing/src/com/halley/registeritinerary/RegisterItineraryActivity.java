@@ -17,7 +17,6 @@ import android.app.Dialog;
 import android.app.FragmentManager;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
@@ -31,10 +30,9 @@ import android.support.v7.app.ActionBarActivity;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -110,6 +108,8 @@ public class RegisterItineraryActivity extends ActionBarActivity implements
 				getResources().getString(R.string.hint_end_addess),
 				"marker_end_address", R.drawable.ic_marker_end);
 		focusMap(marker_start_address, marker_end_address);
+		etStartAddress.setText(getDetailLocation(marker_start_address));
+		etEndAddress.setText(getDetailLocation(marker_end_address));
 	}
 
 	public void customActionBar() {
@@ -167,6 +167,7 @@ public class RegisterItineraryActivity extends ActionBarActivity implements
 
 		/** Starting a FragmentTransaction */
 		dialog.show(fragmentManager, "search_location");
+
 	}
 
 	public void AdvanceonClick(View v) {
@@ -540,7 +541,7 @@ public class RegisterItineraryActivity extends ActionBarActivity implements
 			MarkerOptions markerOptions = new MarkerOptions();
 
 			if (result.size() < 1) {
-				Toast.makeText(getBaseContext(), "No Points",
+				Toast.makeText(getBaseContext(), "Không tìm được đường",
 						Toast.LENGTH_SHORT).show();
 				return;
 			}
@@ -564,6 +565,7 @@ public class RegisterItineraryActivity extends ActionBarActivity implements
 						continue;
 					} else if (j == 1) { // Get duration from the list
 						duration = point.get("duration");
+
 						continue;
 					}
 

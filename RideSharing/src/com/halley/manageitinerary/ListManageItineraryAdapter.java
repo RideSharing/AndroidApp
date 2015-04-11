@@ -71,7 +71,7 @@ public class ListManageItineraryAdapter extends BaseExpandableListAdapter {
 		start_address.setText("Nơi đi: " + m.getStart_address());
 		end_address.setText("Nơi đến: " + m.getEnd_address());
 		duration.setText("Thời gian dự tính: " + transferDuration(m.getDuration()));
-		cost.setText("Giá tiền: " + transferCost(m.getCost()) + " VND");
+		cost.setText("Giá tiền: " + transferCost(m.getCost()));
 		leave_date.setText("Ngày đi: " + m.getLeave_date());
 		return convertView;
 	}

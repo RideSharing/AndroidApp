@@ -42,7 +42,7 @@
             android:value="@integer/google_play_services_version" />
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyB1FZl2VFheUg-GdgjeiJ-fOTjq_EHVVS8" />
+            android:value="AIzaSyAzDxQKOqEK28Fk2kondQN_kXEvYXGz41U" />
         <!--
          AIzaSyB1FZl2VFheUg-GdgjeiJ-fOTjq_EHVVS8
          AIzaSyAzDxQKOqEK28Fk2kondQN_kXEvYXGz41U
@@ -108,7 +108,8 @@
         </activity>
         <activity
             android:name="com.halley.profile.UpgradeProfile"
-            android:label="@string/title_activity_upgrade_profile" >
+            android:label="@string/title_activity_upgrade_profile"
+            android:parentActivityName="com.halley.profile.ProfileActivity" >
         </activity>
         <activity
             android:name=".ForgotPasswordActivity"
@@ -119,7 +120,8 @@
         </activity>
         <activity
             android:name="com.halley.submititinerary.SubmitItineraryActivity"
-            android:label="@string/title_activity_submit_itinerary" >
+            android:label="@string/title_activity_submit_itinerary"
+            android:parentActivityName="com.halley.ridesharing.MainActivity" >
         </activity>
         <activity
             android:name="com.halley.searchitinerary.SearchAdvanceActivity"
@@ -145,18 +147,7 @@
             android:name="com.halley.tracking.TrackingActivity"
             android:label="@string/title_activity_tracking" >
         </activity>
-        <activity
-            android:name="com.halley.profile.AvatarActivity"
-            android:label="@string/title_activity_avatar" >
-        </activity>
-        <activity
-            android:name="com.halley.profile.DriverImageActivity"
-            android:label="@string/title_activity_driver_image" >
-        </activity>
-        <activity
-            android:name="com.halley.profile.PersonalImageActivity"
-            android:label="@string/title_activity_personal_image" >
-        </activity>
+      
     </application>
 
 </manifest>

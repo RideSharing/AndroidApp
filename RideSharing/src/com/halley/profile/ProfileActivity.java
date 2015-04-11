@@ -24,7 +24,9 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
 import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Bundle;
@@ -40,8 +42,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
 import android.widget.TextView;
@@ -93,10 +97,7 @@ public class ProfileActivity extends ActionBarActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_user_profile);
-		actionBar = getSupportActionBar();
-		actionBar.setHomeButtonEnabled(true);
-		// Enabling Up / Back navigation
-		actionBar.setDisplayHomeAsUpEnabled(true);
+		customActionBar();
 
 		txtfullname = (TextView) findViewById(R.id.fullname);
 		txtemail = (TextView) findViewById(R.id.email);
@@ -405,71 +406,24 @@ public class ProfileActivity extends ActionBarActivity {
 				savefullname = editfullname.getText().toString().trim();
 				savephone = editphone.getText().toString().trim();
 				savepersonalid = editpersonalid.getText().toString().trim();
-				if (savefullname.length() == 0 || savephone.length() == 0
-						|| savepersonalid.length() == 0) {
-					Toast.makeText(getApplicationContext(),
-							getResources().getString(R.string.no_input),
-							Toast.LENGTH_LONG).show();
-				} else if (!(savefullname.equals(a)) && (savephone.equals(b))
-						&& (savepersonalid.equals(c))) {
-					editfullname();
-					dialog.dismiss();
-					Toast.makeText(getApplicationContext(),
-							"Thay đổi thông tin thành công", Toast.LENGTH_LONG)
-							.show();
-				} else if ((savefullname.equals(a)) && !(savephone.equals(b))
-						&& (savepersonalid.equals(c))) {
-					editPhone();
-					dialog.dismiss();
-					Toast.makeText(getApplicationContext(),
-							"Thay đổi thông tin thành công", Toast.LENGTH_LONG)
-							.show();
-				} else if ((savefullname.equals(a)) && (savephone.equals(b))
-						&& !(savepersonalid.equals(c))) {
-					editPersonalID();
-					dialog.dismiss();
-					Toast.makeText(getApplicationContext(),
-							"Thay đổi thông tin thành công", Toast.LENGTH_LONG)
-							.show();
-				} else if (!(savefullname.equals(a)) && !(savephone.equals(b))
-						&& (savepersonalid.equals(c))) {
-					editfullname();
-					editPhone();
-					dialog.dismiss();
-					Toast.makeText(getApplicationContext(),
-							"Thay đổi thông tin thành công", Toast.LENGTH_LONG)
-							.show();
-				} else if (!(savefullname.equals(a)) && (savephone.equals(b))
-						&& !(savepersonalid.equals(c))) {
-					editfullname();
-					editPersonalID();
-					dialog.dismiss();
-					Toast.makeText(getApplicationContext(),
-							"Thay đổi thông tin thành công", Toast.LENGTH_LONG)
-							.show();
-				} else if ((savefullname.equals(a)) && !(savephone.equals(b))
-						&& !(savepersonalid.equals(c))) {
-					editPhone();
-					editPersonalID();
-					dialog.dismiss();
-					Toast.makeText(getApplicationContext(),
-							"Thay đổi thông tin thành công", Toast.LENGTH_LONG)
-							.show();
-				} else if (!(savefullname.equals(a)) && !(savephone.equals(b))
-						&& !(savepersonalid.equals(c))) {
-					editfullname();
-					editPhone();
-					editPersonalID();
-					dialog.dismiss();
-					Toast.makeText(getApplicationContext(),
-							"Thay đổi thông tin thành công", Toast.LENGTH_LONG)
-							.show();
-				} else if (savefullname.equals(a) && savephone.equals(b)
+				if (savefullname.equals(a) && savephone.equals(b)
 						&& savepersonalid.equals(c)) {
 
 					Toast.makeText(getApplicationContext(),
 							"Thông tin của bạn được giữ nguyên",
 							Toast.LENGTH_LONG).show();
+				} else if (savefullname.length() == 0
+						|| savephone.length() == 0
+						|| savepersonalid.length() == 0) {
+					Toast.makeText(getApplicationContext(),
+							"Vui lòng điền đầy đủ thông tin",
+							Toast.LENGTH_SHORT).show();
+				} else {
+					update();
+					Toast.makeText(getApplicationContext(),
+							"Thông tin của bạn được thay đổi	",
+							Toast.LENGTH_SHORT).show();
+					dialog.dismiss();
 				}
 				txtfullname.setText(savefullname);
 				txtphone.setText(savephone);
@@ -477,7 +431,6 @@ public class ProfileActivity extends ActionBarActivity {
 
 			}
 		});
-
 		cancelChangeProfile.setOnClickListener(new View.OnClickListener() {
 
 			@Override
@@ -491,39 +444,37 @@ public class ProfileActivity extends ActionBarActivity {
 		return dialog;
 	}
 
-	public void editfullname() {
-		String tag_string_req = "req_fullname";
+	private void update() {
+		// Tag used to cancel the request
+		String tag_string_req = "req_register";
 
-		pDialog.setMessage("Đang thay đổi ...");
+		pDialog.setMessage("Đang cập nhật ...");
 		showDialog();
 
 		StringRequest strReq = new StringRequest(Method.PUT,
-				AppConfig.URL_FULLNAME, new Response.Listener<String>() {
+				AppConfig.URL_REGISTER, new Response.Listener<String>() {
 
 					@Override
 					public void onResponse(String response) {
-						Log.d(TAG, "Profile Response: " + response.toString());
+						Log.d(TAG,
+								"Driver License Response: "
+										+ response.toString());
 						hideDialog();
 
 						try {
-							JSONObject jObj = new JSONObject(
-									response.substring(response.indexOf("{"),
-											response.lastIndexOf("}") + 1));
+							JSONObject jObj = new JSONObject(response);
 							boolean error = jObj.getBoolean("error");
-
-							// Check for error node in json
 							if (!error) {
 
 								String message = jObj.getString("message");
 
 							} else {
-								// Error in login. Get the error message
+
+								// Error occurred in registration. Get the error
+								// message
 								String errorMsg = jObj.getString("error_msg");
-								Toast.makeText(getApplicationContext(),
-										errorMsg, Toast.LENGTH_LONG).show();
 							}
 						} catch (JSONException e) {
-							// JSON error
 							e.printStackTrace();
 						}
 
@@ -532,9 +483,7 @@ public class ProfileActivity extends ActionBarActivity {
 
 					@Override
 					public void onErrorResponse(VolleyError error) {
-						Log.e(TAG, "Edit Fullname Error: " + error.getMessage());
-						Toast.makeText(getApplicationContext(),
-								error.getMessage(), Toast.LENGTH_LONG).show();
+						Log.e(TAG, "Registration Error: " + error.getMessage());
 						hideDialog();
 					}
 				}) {
@@ -551,161 +500,11 @@ public class ProfileActivity extends ActionBarActivity {
 
 			@Override
 			protected Map<String, String> getParams() {
-				// Posting parameters to login url
+				// Posting params to register url
 				Map<String, String> params = new HashMap<String, String>();
-				params.put("value", savefullname);
-
-				return params;
-			}
-
-		};
-
-		// Adding request to request queue
-		AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
-	}
-
-	public void editPhone() {
-		String tag_string_req = "req_phone";
-
-		pDialog.setMessage("Đang thay đổi ...");
-		showDialog();
-
-		StringRequest strReq = new StringRequest(Method.PUT,
-				AppConfig.URL_PHONE, new Response.Listener<String>() {
-
-					@Override
-					public void onResponse(String response) {
-						Log.d(TAG, "Profile Response: " + response.toString());
-						hideDialog();
-
-						try {
-							JSONObject jObj = new JSONObject(
-									response.substring(response.indexOf("{"),
-											response.lastIndexOf("}") + 1));
-							boolean error = jObj.getBoolean("error");
-
-							// Check for error node in json
-							if (!error) {
-
-								String message = jObj.getString("message");
-
-							} else {
-								// Error in login. Get the error message
-								String errorMsg = jObj.getString("error_msg");
-								Toast.makeText(getApplicationContext(),
-										errorMsg, Toast.LENGTH_LONG).show();
-							}
-						} catch (JSONException e) {
-							// JSON error
-							e.printStackTrace();
-						}
-
-					}
-				}, new Response.ErrorListener() {
-
-					@Override
-					public void onErrorResponse(VolleyError error) {
-						Log.e(TAG, "Change Pass Error: " + error.getMessage());
-						Toast.makeText(getApplicationContext(),
-								error.getMessage(), Toast.LENGTH_LONG).show();
-						hideDialog();
-					}
-				}) {
-
-			@Override
-			public Map<String, String> getHeaders() throws AuthFailureError {
-				// Posting parameters to login url
-				Map<String, String> params = new HashMap<String, String>();
-				key = session.getAPIKey();
-				// Toast.makeText(getApplicationContext(), "Go Go "+ key,
-				// Toast.LENGTH_LONG).show();
-				params.put("Authorization", key);
-
-				return params;
-			}
-
-			@Override
-			protected Map<String, String> getParams() {
-				// Posting parameters to login url
-				Map<String, String> params = new HashMap<String, String>();
-
-				params.put("value", savephone);
-
-				return params;
-			}
-
-		};
-
-		// Adding request to request queue
-		AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
-	}
-
-	public void editPersonalID() {
-		String tag_string_req = "req_phone";
-
-		pDialog.setMessage("Đang thay đổi ...");
-		showDialog();
-
-		StringRequest strReq = new StringRequest(Method.PUT,
-				AppConfig.URL_PERSONALID, new Response.Listener<String>() {
-
-					@Override
-					public void onResponse(String response) {
-						Log.d(TAG, "Profile Response: " + response.toString());
-						hideDialog();
-
-						try {
-							JSONObject jObj = new JSONObject(
-									response.substring(response.indexOf("{"),
-											response.lastIndexOf("}") + 1));
-							boolean error = jObj.getBoolean("error");
-
-							// Check for error node in json
-							if (!error) {
-
-								String message = jObj.getString("message");
-
-							} else {
-								// Error in login. Get the error message
-								String errorMsg = jObj.getString("error_msg");
-								Toast.makeText(getApplicationContext(),
-										errorMsg, Toast.LENGTH_LONG).show();
-							}
-						} catch (JSONException e) {
-							// JSON error
-							e.printStackTrace();
-						}
-
-					}
-				}, new Response.ErrorListener() {
-
-					@Override
-					public void onErrorResponse(VolleyError error) {
-						Log.e(TAG, "Change Pass Error: " + error.getMessage());
-						Toast.makeText(getApplicationContext(),
-								error.getMessage(), Toast.LENGTH_LONG).show();
-						hideDialog();
-					}
-				}) {
-
-			@Override
-			public Map<String, String> getHeaders() throws AuthFailureError {
-				// Posting parameters to login url
-				Map<String, String> params = new HashMap<String, String>();
-				key = session.getAPIKey();
-				// Toast.makeText(getApplicationContext(), "Go Go "+ key,
-				// Toast.LENGTH_LONG).show();
-				params.put("Authorization", key);
-
-				return params;
-			}
-
-			@Override
-			protected Map<String, String> getParams() {
-				// Posting parameters to login url
-				Map<String, String> params = new HashMap<String, String>();
-
-				params.put("value", savepersonalid);
+				params.put("fullname", savefullname);
+				params.put("phone", savephone);
+				params.put("personalID", savepersonalid);
 
 				return params;
 			}
@@ -943,25 +742,6 @@ public class ProfileActivity extends ActionBarActivity {
 
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.profile, menu);
-		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
-	}
-
 	private void showDialog() {
 		if (!pDialog.isShowing())
 			pDialog.show();
@@ -992,30 +772,18 @@ public class ProfileActivity extends ActionBarActivity {
 					}
 				}
 				try {
-					Bitmap bm;
-					BitmapFactory.Options btmapOptions = new BitmapFactory.Options();
-
-					bm = BitmapFactory.decodeFile(f.getAbsolutePath(),
-							btmapOptions);
-					ExifInterface ei = new ExifInterface(f.getPath());
-					int orientation = ei.getAttributeInt(
-							ExifInterface.TAG_ORIENTATION,
-							ExifInterface.ORIENTATION_NORMAL);
+					Bitmap bm = getResizedBitmap(f.getAbsolutePath());
+					Matrix matrix = new Matrix();
+					matrix.postRotate(90);
+					bm = Bitmap.createBitmap(bm, 0, 0, bm.getWidth(),
+							bm.getHeight(), matrix, true);
 					ByteArrayOutputStream stream = new ByteArrayOutputStream();
-					switch (orientation) {
-					case ExifInterface.ORIENTATION_ROTATE_90:
-						bm.compress(Bitmap.CompressFormat.JPEG, 90, stream);
-						break;
-					case ExifInterface.ORIENTATION_ROTATE_180:
-						bm.compress(Bitmap.CompressFormat.JPEG, 180, stream);
-						break;
-					// etc.
-					}
+
+					bm.compress(Bitmap.CompressFormat.JPEG, 90, stream);
 
 					byte[] image = stream.toByteArray();
 					String img_str_new = Base64.encodeToString(image, 0);
 
-					// bm = Bitmap.createScaledBitmap(bm, 70, 70, true);
 					if (isAvatar) {
 						avatar.setImageBitmap(bm);
 						setAvatar(img_str_new);
@@ -1052,13 +820,13 @@ public class ProfileActivity extends ActionBarActivity {
 
 				String tempPath = getPath(selectedImageUri,
 						ProfileActivity.this);
-				Bitmap bm;
-				BitmapFactory.Options btmapOptions = new BitmapFactory.Options();
-				bm = BitmapFactory.decodeFile(tempPath, btmapOptions);
+				Bitmap bm = getResizedBitmap(tempPath);
 				ByteArrayOutputStream stream = new ByteArrayOutputStream();
 				bm.compress(Bitmap.CompressFormat.JPEG, 90, stream);
+				// bm=getResizedBitmap(bm,70,120);
 				byte[] image = stream.toByteArray();
 				String img_str_new = Base64.encodeToString(image, 0);
+
 				if (isAvatar) {
 					avatar.setImageBitmap(bm);
 					setAvatar(img_str_new);
@@ -1071,6 +839,30 @@ public class ProfileActivity extends ActionBarActivity {
 		}
 	}
 
+	public Bitmap getResizedBitmap(String tempPath) {
+		Bitmap bm;
+		// Decode image size
+		BitmapFactory.Options btmapOptions = new BitmapFactory.Options();
+		btmapOptions.inJustDecodeBounds = true;
+
+		bm = BitmapFactory.decodeFile(tempPath, btmapOptions);
+
+		// The new size we want to scale to
+		final int REQUIRED_SIZE = 120;
+
+		// Find the correct scale value. It should be the power of 2.
+		int scale = 1;
+		while (btmapOptions.outWidth / scale / 2 >= REQUIRED_SIZE
+				&& btmapOptions.outHeight / scale / 2 >= REQUIRED_SIZE)
+			scale *= 2;
+
+		// Decode with inSampleSize
+		BitmapFactory.Options btmapOptions2 = new BitmapFactory.Options();
+		btmapOptions2.inSampleSize = scale;
+		return BitmapFactory.decodeFile(tempPath, btmapOptions2);
+
+	}
+
 	public String getPath(Uri uri, Activity activity) {
 		String[] projection = { MediaColumns.DATA };
 		@SuppressWarnings("deprecation")
@@ -1079,6 +871,41 @@ public class ProfileActivity extends ActionBarActivity {
 		int column_index = cursor.getColumnIndexOrThrow(MediaColumns.DATA);
 		cursor.moveToFirst();
 		return cursor.getString(column_index);
+	}
+
+	public void customActionBar() {
+		actionBar = getSupportActionBar();
+		actionBar.setElevation(0);
+		actionBar.setHomeButtonEnabled(true);
+		actionBar.setBackgroundDrawable(new ColorDrawable(getResources()
+				.getColor(R.color.bg_login)));
+		// Enabling Up / Back navigation
+		actionBar.setDisplayHomeAsUpEnabled(true);
+
+		LayoutInflater mInflater = LayoutInflater.from(this);
+
+		View mCustomView = mInflater.inflate(R.layout.custom_actionbar, null);
+		TextView mTitleTextView = (TextView) mCustomView
+				.findViewById(R.id.title_text);
+
+		Typeface tf = Typeface.createFromAsset(getAssets(), "fonts/ANGEL.otf");
+		mTitleTextView.setTypeface(tf);
+
+		ImageButton imageButton = (ImageButton) mCustomView
+				.findViewById(R.id.imageButton);
+		imageButton.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View view) {
+				Dialog dialog = new Dialog(getApplicationContext());
+				dialog.setContentView(R.layout.dialog_info);
+				dialog.setTitle("Thông tin về ứng dụng");
+				dialog.show();
+			}
+		});
+
+		actionBar.setCustomView(mCustomView);
+		actionBar.setDisplayShowCustomEnabled(true);
 	}
 
 }

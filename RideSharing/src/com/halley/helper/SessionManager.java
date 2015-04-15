@@ -26,6 +26,10 @@ public class SessionManager {
 	private static final String API_KEY = "apiKey";
 	
 	private static final String KEY_IS_DRIVER = "isDriver";
+	
+	private static final String AVATAR="link_avatar";
+	
+	private static final String FULL_NAME="fullname";
 
 	public SessionManager(Context context) {
 		this._context = context;
@@ -34,11 +38,13 @@ public class SessionManager {
 	}
 	
 
-	public void setLogin(boolean isLoggedIn, String value,boolean isDriver) {
+	public void setLogin(boolean isLoggedIn, String value,boolean isDriver,String avatar,String fullname) {
 
 		editor.putBoolean(KEY_IS_LOGGEDIN, isLoggedIn);
 		editor.putString(API_KEY, value);
 		editor.putBoolean(KEY_IS_DRIVER, isDriver);
+		editor.putString(AVATAR, avatar);
+		editor.putString(FULL_NAME, fullname);
 		// commit changes
 		editor.commit();
 
@@ -47,12 +53,25 @@ public class SessionManager {
 	
 	public void setDriver(boolean isDriver) {
 		editor.putBoolean(KEY_IS_DRIVER, isDriver);
+		editor.commit();	
+	}
+	public void setAvatar(String avatar) {
+		editor.putString(AVATAR, avatar);
 		editor.commit();
-		
+	}
+	public void setFullname(String fullname) {
+		editor.putString(AVATAR, fullname);
+		editor.commit();
 	}
 
 	public String getAPIKey() {
 		return pref.getString(API_KEY, null);
+	}
+	public String getAvatar() {
+		return pref.getString(AVATAR, null);
+	}
+	public String getFullname() {
+		return pref.getString(FULL_NAME, null);
 	}
 
 	public boolean isLoggedIn() {

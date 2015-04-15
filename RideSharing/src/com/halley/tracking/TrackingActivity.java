@@ -10,6 +10,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import microsoft.aspnet.signalr.client.Action;
+import microsoft.aspnet.signalr.client.ErrorCallback;
+import microsoft.aspnet.signalr.client.LogLevel;
+import microsoft.aspnet.signalr.client.Logger;
+import microsoft.aspnet.signalr.client.Platform;
+import microsoft.aspnet.signalr.client.http.android.AndroidPlatformComponent;
+import microsoft.aspnet.signalr.client.hubs.HubConnection;
+import microsoft.aspnet.signalr.client.hubs.HubProxy;
+
 import org.json.JSONObject;
 
 import android.app.AlertDialog;
@@ -23,6 +32,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.Settings;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
@@ -35,10 +45,6 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.firebase.client.DataSnapshot;
-import com.firebase.client.Firebase;
-import com.firebase.client.FirebaseError;
-import com.firebase.client.ValueEventListener;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -76,7 +82,6 @@ public class TrackingActivity extends ActionBarActivity implements
 
 	private ActionBar actionBar;
 	private GoogleMap googleMap;
-	private Firebase myFirebaseRef;
 	private LocationListener locationListener;
 	// Direction maps
 	private Polyline lineDirection = null;
@@ -86,20 +91,79 @@ public class TrackingActivity extends ActionBarActivity implements
 	private Double fromLatitude, fromLongitude;
 	private Context context = this;
 
+	Logger logger;
+	HubConnection conn;
+	HubProxy proxy;
+	Handler mHandler = new Handler();
+
+	final MyRunnable mUpdateResults = new MyRunnable() {
+		public void run() {
+			test(mUpdateResults.data);
+		}
+	};
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		if (!isGooglePlayServicesAvailable()) {
 			finish();
 		}
+		Platform.loadPlatformComponent(new AndroidPlatformComponent());
+
+		// Create a new console logger
+		logger = new Logger() {
+
+			@Override
+			public void log(String message, LogLevel level) {
+				// TODO Auto-generated method stub
+
+			}
+		};
+
+		// Connect to the server
+		conn = new HubConnection("http://52.11.206.209:8080", "", true, logger);
+
+		// Create the hub proxy
+		proxy = conn.createHubProxy("ChatHub");
+
+		// Subscribe to the error event
+		conn.error(new ErrorCallback() {
+			@Override
+			public void onError(Throwable error) {
+				// error.printStackTrace();
+			}
+		});
+
+		// Subscribe to the connected event
+		conn.connected(new Runnable() {
+			@Override
+			public void run() {
+				System.out.println("CONNECTED");
+			}
+		});
+
+		// Subscribe to the closed event
+		conn.closed(new Runnable() {
+			@Override
+			public void run() {
+				System.out.println("DISCONNECTED");
+			}
+		});
+
+		// Start the connection
+		conn.start().done(new Action<Void>() {
+			@Override
+			public void run(Void obj) throws Exception {
+				System.out.println("Done Connecting!");
+			}
+		});
+
 		createLocationRequest();
 		mGoogleApiClient = new GoogleApiClient.Builder(this)
 				.addApi(LocationServices.API).addConnectionCallbacks(this)
 				.addOnConnectionFailedListener(this).build();
 		setContentView(R.layout.activity_tracking);
 		customActionBar();
-		Firebase.setAndroidContext(this);
-		myFirebaseRef = new Firebase("https://ride-sharing.firebaseio.com/");
 		DisplayMetrics metrics = this.getResources().getDisplayMetrics();
 		findViewById(R.id.frame_container_4).getLayoutParams().height = (metrics.heightPixels / 3)
 				+ (metrics.heightPixels / 3);
@@ -124,36 +188,27 @@ public class TrackingActivity extends ActionBarActivity implements
 	}
 
 	public void trackingOnclick(View v) {
-
-		// Map<String, String> user = new HashMap<String, String>();
-		// user.put("11", fromLatitude + "," + fromLongitude);
-		// myFirebaseRef.setValue(user);
-		myFirebaseRef = myFirebaseRef.child("11");
-
-		myFirebaseRef.addValueEventListener(new ValueEventListener() {
-
-			@Override
-			public void onDataChange(DataSnapshot location) {
-				// Toast.makeText(getApplicationContext(), location.toString(),
-				// Toast.LENGTH_SHORT).show();
-				if (location.getValue() != null) {
-					String[] str = location.getValue().toString().split(",");
-					double lat = Double.parseDouble(str[0]);
-					double longi = Double.parseDouble(str[1]);
-					if (marker_driver != null) {
-						marker_driver.remove();
-					}
-					marker_driver = addMarkeronMaps(lat, longi, "driver",
-							"marker_diver", R.drawable.ic_marker_driver);
-					focusMap(marker_user, marker_driver);
+		proxy.subscribe(new Object() {
+			@SuppressWarnings("unused")
+			public void BroadcastMessage(String name, String message) {
+				if (name.equals("java")) {
+				mUpdateResults.setData(message);
+				mHandler.post(mUpdateResults);
 				}
 			}
-
-			@Override
-			public void onCancelled(FirebaseError arg0) {
-				// TODO Auto-generated method stub
-			}
 		});
+	}
+
+	public void test(String latlng) {
+		String[] str = latlng.toString().split(",");
+		double lat = Double.parseDouble(str[0]);
+		double longi = Double.parseDouble(str[1]);
+		if (marker_driver != null) {
+			marker_driver.remove();
+		}
+		marker_driver = addMarkeronMaps(lat, longi, "driver", "marker_diver",
+				R.drawable.ic_marker_driver);
+		focusMap(marker_user, marker_driver);
 	}
 
 	public void customActionBar() {
@@ -459,7 +514,7 @@ public class TrackingActivity extends ActionBarActivity implements
 			startLocationUpdates();
 		} else {
 			showSettingsGPSAlert();
-			
+
 		}
 	}
 
@@ -491,7 +546,13 @@ public class TrackingActivity extends ActionBarActivity implements
 		String latlng = String.format("%.6f", location.getLatitude()) + ","
 				+ String.format("%.6f", location.getLongitude());
 
-		// myFirebaseRef.setValue(latlng);
+		proxy.invoke("send", "java1", latlng).done(new Action<Void>() {
+
+			@Override
+			public void run(Void obj) throws Exception {
+				System.out.println("SENT!");
+			}
+		});
 
 	}
 
@@ -513,7 +574,7 @@ public class TrackingActivity extends ActionBarActivity implements
 		if (mGoogleApiClient.isConnected()) {
 			startLocationUpdates();
 			Log.d(TAG, "Location update resumed .....................");
-		} 
+		}
 	}
 
 	protected void createLocationRequest() {

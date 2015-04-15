@@ -1,8 +1,14 @@
 package com.halley.ridesharing;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.FragmentManager;
 import android.app.ProgressDialog;
@@ -10,6 +16,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
@@ -26,6 +34,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBar.Tab;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.util.Base64;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -34,10 +43,17 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request.Method;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -49,9 +65,12 @@ import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.halley.aboutus.AboutUsActivity;
+import com.halley.app.AppConfig;
+import com.halley.app.AppController;
 import com.halley.dialog.SearchDialogFragment;
 import com.halley.dialog.SearchDialogFragment.OnDataPass;
 import com.halley.helper.DatabaseHandler;
+import com.halley.helper.RoundedImageView;
 import com.halley.helper.SessionManager;
 import com.halley.listitinerary.adapter.TabListItineraryAdapter;
 import com.halley.manageitinerary.ManageItineraryActivity;
@@ -61,7 +80,6 @@ import com.halley.profile.ProfileActivity;
 import com.halley.registerandlogin.LoginActivity;
 import com.halley.registerandlogin.R;
 import com.halley.registeritinerary.RegisterItineraryActivity;
-import com.halley.searchitinerary.ItineraryActivity;
 import com.halley.tracking.TrackingActivity;
 
 @SuppressWarnings("deprecation")
@@ -82,7 +100,8 @@ public class MainActivity extends ActionBarActivity implements
 	private Double toLatitude = 0.0, toLongitude = 0.0;
 	private final int REQUEST_REFRESH = 10;
 	private boolean driver = false;
-
+	AlertDialog dialog;
+	String key;
 	private DatabaseHandler db;
 	public SessionManager session;
 	private Fragment fragment;
@@ -112,11 +131,13 @@ public class MainActivity extends ActionBarActivity implements
 	private ProgressDialog pDialog;
 	MyAsyncTask mytt;
 	private boolean isFrom = true;
+	private String avatar = "";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		session = new SessionManager(getApplicationContext());
+
 		driver = session.isDriver();
 
 		setContentView(R.layout.activity_main);
@@ -130,12 +151,9 @@ public class MainActivity extends ActionBarActivity implements
 			toLongitude = bundle.getDouble("toLongitude");
 		}
 		customActionBar();
-
-		// Add Navigation Drawer
-		this.addNavDrawer(this);
 		doStart();
-		
-
+		// Add Navigation Drawer
+		addNavDrawer(this);
 		if (!session.isLoggedIn()) {
 			logoutUser();
 		}
@@ -150,6 +168,112 @@ public class MainActivity extends ActionBarActivity implements
 
 	public void logoutOnclick(View view) {
 		logoutUser();
+	}
+
+	public void checkProfile() {
+		String tag_string_req = "req_profile";
+
+		pDialog.setMessage("Đang tải...");
+		showDialog();
+
+		StringRequest strReq = new StringRequest(Method.GET,
+				AppConfig.URL_REGISTER, new Response.Listener<String>() {
+
+					@Override
+					public void onResponse(String response) {
+						Log.d(TAG, "Profile Response: " + response.toString());
+						hideDialog();
+
+						try {
+							JSONObject jObj = new JSONObject(response);
+							boolean error = jObj.getBoolean("error");
+							if (!error) {
+								String email = jObj.getString("email");
+								String apiKey = jObj.getString("apiKey");
+								String fullname = jObj.getString("fullname");
+								String phone = jObj.getString("phone");
+								String personalid = jObj
+										.getString("personalID");
+								String personalid_img = jObj
+										.getString("personalID_img");
+								String link_avatar = jObj
+										.getString("link_avatar");
+								String created_at = jObj
+										.getString("created_at");
+								String status = jObj.getString("status");
+								if (email.length() == 0
+										|| fullname.length() == 0
+										|| phone.length() == 0
+										|| personalid.length() == 0
+										|| personalid_img.length() == 0
+										|| link_avatar.length() == 0) {
+									dialog = check();
+									dialog.show();
+								}
+
+							} else {
+								// Error in login. Get the error message
+								String errorMsg = jObj.getString("error_msg");
+								Toast.makeText(getApplicationContext(),
+										errorMsg, Toast.LENGTH_LONG).show();
+							}
+						} catch (JSONException e) {
+							// JSON error
+							e.printStackTrace();
+						}
+
+					}
+				}, new Response.ErrorListener() {
+
+					@Override
+					public void onErrorResponse(VolleyError error) {
+						Log.e(TAG, "Profile Error: " + error.getMessage());
+						Toast.makeText(getApplicationContext(),
+								error.getMessage(), Toast.LENGTH_LONG).show();
+						hideDialog();
+					}
+				}) {
+
+			@Override
+			public Map<String, String> getHeaders() throws AuthFailureError {
+				// Posting parameters to login url
+				Map<String, String> params = new HashMap<String, String>();
+				key = session.getAPIKey();
+				params.put("Authorization", key);
+
+				return params;
+			}
+
+		};
+		AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+	}
+
+	public AlertDialog check() {
+		final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setTitle("Bạn nên cập nhật thông tin để trải nghiệm tối đa ứng dụng");
+		View view = View.inflate(this, R.layout.confirm_dialog, null);
+		builder.setView(view);
+		Button ok = (Button) view.findViewById(R.id.btnOkDelete);
+		Button cancel = (Button) view.findViewById(R.id.btnCancelDelete);
+		final AlertDialog dialog = builder.create();
+		ok.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				Intent i = new Intent(getApplicationContext(),
+						ProfileActivity.class);
+				startActivity(i);
+			}
+		});
+		cancel.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				dialog.dismiss();
+			}
+		});
+		dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
+		return dialog;
 	}
 
 	public void initTab() {
@@ -231,20 +355,61 @@ public class MainActivity extends ActionBarActivity implements
 	 * preferences Clears the user data from sqlite users table
 	 * */
 	public void logoutUser() {
-		session.setLogin(false, null, false);
+		final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setTitle("Bạn muốn thoát khỏi ứng dụng?");
+		View view = View.inflate(this, R.layout.confirm_dialog, null);
+		builder.setView(view);
+		Button ok = (Button) view.findViewById(R.id.btnOkDelete);
+		Button cancel = (Button) view.findViewById(R.id.btnCancelDelete);
+		final AlertDialog dialog = builder.create();
+		ok.setOnClickListener(new View.OnClickListener() {
 
-		// db.deleteUsers();
-		// Launching the login activity
-		Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-		startActivity(intent);
-		finish();
+			@Override
+			public void onClick(View v) {
+				session.setLogin(false, null, false, null, null);
+
+				// db.deleteUsers();
+				// Launching the login activity
+				Intent intent = new Intent(MainActivity.this,
+						LoginActivity.class);
+				startActivity(intent);
+				finish();
+			}
+		});
+		cancel.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				dialog.dismiss();
+			}
+		});
+		dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
+		dialog.show();
+
 	}
 
 	private void addNavDrawer(Context context) {
 		mTitle = mDrawerTitle = getTitle();
 		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 		mDrawerList = (ListView) findViewById(R.id.list_slidermenu);
+		View header = getLayoutInflater().inflate(R.layout.header, null);
+		RoundedImageView img_avatar = (RoundedImageView) header
+				.findViewById(R.id.avatar);
+		TextView tv_fullname = (TextView) header.findViewById(R.id.fullname);
+		if (session.getFullname().trim().toString().length() > 0) {
+			tv_fullname.setText(session.getFullname());
+		}
+		if (session.getAvatar().trim().toString().length() > 0) {
+			// Toast.makeText(getApplicationContext(), session.getAvatar(),
+			// Toast.LENGTH_LONG).show();
+			byte[] decodeString = Base64.decode(session.getAvatar(),
+					Base64.DEFAULT);
+			Bitmap decodeByte = BitmapFactory.decodeByteArray(decodeString, 0,
+					decodeString.length);
 
+			img_avatar.setImageBitmap(decodeByte);
+		}
+		mDrawerList.addHeaderView(header);
 		navDrawerItems = new ArrayList<NavDrawerItem>();
 
 		// load slide menu user's items
@@ -274,10 +439,6 @@ public class MainActivity extends ActionBarActivity implements
 			navDrawerItems.add(new NavDrawerItem(navUserMenuTitles[k],
 					navMenuIcons.getResourceId(k, -1)));
 		}
-
-		// What's hot, We will add a counter here
-		// navDrawerItems.add(new NavDrawerItem(navMenuTitles[5], navMenuIcons
-		// .getResourceId(5, -1), true, "50+"));
 
 		// Recycle the typed array
 		navMenuIcons.recycle();
@@ -337,7 +498,7 @@ public class MainActivity extends ActionBarActivity implements
 		Intent intent = null;
 		if (driver) {
 			switch (position) {
-			case 0:
+			case 1:
 
 				intent = new Intent(this, RegisterItineraryActivity.class);
 				if (mCurrentLocation != null) {
@@ -349,16 +510,16 @@ public class MainActivity extends ActionBarActivity implements
 				}
 
 				break;
-			case 1:
+			case 2:
 
 				break;
-			case 2:
+			case 3:
 				intent = new Intent(this, ProfileActivity.class);
 				break;
-			case 3:
+			case 4:
 				intent = new Intent(this, ManageItineraryActivity.class);
 				break;
-			case 4:
+			case 5:
 				intent = new Intent(this, TrackingActivity.class);
 				if (mCurrentLocation != null) {
 					intent.putExtra("fromLatitude",
@@ -368,10 +529,10 @@ public class MainActivity extends ActionBarActivity implements
 
 				}
 				break;
-			case 5:
+			case 6:
 				intent = new Intent(this, AboutUsActivity.class);
 				break;
-			case 6:
+			case 7:
 				logoutUser();
 				break;
 			default:
@@ -379,18 +540,18 @@ public class MainActivity extends ActionBarActivity implements
 			}
 		} else {
 			switch (position) {
-			case 0:
-				break;
 			case 1:
-				intent = new Intent(this, ProfileActivity.class);
 				break;
 			case 2:
+				intent = new Intent(this, ProfileActivity.class);
+				break;
+			case 3:
 				intent = new Intent(this, ManageItineraryActivity.class);
 				break;
-			case 4:
+			case 5:
 				intent = new Intent(this, AboutUsActivity.class);
 				break;
-			case 5:
+			case 6:
 				logoutUser();
 				break;
 			default:
@@ -695,6 +856,8 @@ public class MainActivity extends ActionBarActivity implements
 			super.onProgressUpdate(values);
 			hideDialog();
 			initTab();
+			checkProfile();
+
 		}
 
 		/**
@@ -705,6 +868,33 @@ public class MainActivity extends ActionBarActivity implements
 
 		}
 
+	}
+
+	@Override
+	public void onBackPressed() {
+		final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setTitle("Bạn muốn thoát khỏi ứng dụng?");
+		View view = View.inflate(this, R.layout.confirm_dialog, null);
+		builder.setView(view);
+		Button ok = (Button) view.findViewById(R.id.btnOkDelete);
+		Button cancel = (Button) view.findViewById(R.id.btnCancelDelete);
+		final AlertDialog dialog = builder.create();
+		ok.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				finish();
+			}
+		});
+		cancel.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				dialog.cancel();
+			}
+		});
+		dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
+		dialog.show();
 	}
 
 }

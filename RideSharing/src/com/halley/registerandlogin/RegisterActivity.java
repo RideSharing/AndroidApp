@@ -41,7 +41,6 @@ public class RegisterActivity extends Activity {
 	private EditText inputPassword;
 	private ProgressDialog pDialog;
 	private SessionManager session;
-	public static int i=1;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -109,7 +108,7 @@ public class RegisterActivity extends Activity {
 		showDialog();
 
 		StringRequest strReq = new StringRequest(Method.POST,
-				AppConfig.URL_REGISTER+"?x=555", new Response.Listener<String>() {
+				AppConfig.URL_REGISTER, new Response.Listener<String>() {
 
 					@Override
 					public void onResponse(String response) {
@@ -123,7 +122,7 @@ public class RegisterActivity extends Activity {
 							boolean error = jObj.getBoolean("error");
 							if (!error) {
 								String message = jObj.getString("message");
-								Toast.makeText(getApplicationContext(), ""+i++, Toast.LENGTH_LONG).show();
+
 								Toast.makeText(getApplicationContext(),
 										message, Toast.LENGTH_LONG).show();
 
@@ -138,7 +137,7 @@ public class RegisterActivity extends Activity {
 
 								// Error occurred in registration. Get the error
 								// message
-								Toast.makeText(getApplicationContext(), ""+i++, Toast.LENGTH_LONG).show();
+
 								String message = jObj.getString("message");
 								Toast.makeText(getApplicationContext(),
 										message, Toast.LENGTH_LONG).show();

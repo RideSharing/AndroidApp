@@ -8,11 +8,10 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Map;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -50,7 +49,6 @@ import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request.Method;
 import com.android.volley.Response;
@@ -253,9 +251,10 @@ public class ProfileActivity extends ActionBarActivity {
 
 							// Check for error node in json
 							if (!error) {
-
+								session.setAvatar(avatar);
 								String message = jObj.getString("message");
-
+								Toast.makeText(getApplicationContext(),
+										message, Toast.LENGTH_SHORT).show();
 							} else {
 								// Error in login. Get the error message
 								String errorMsg = jObj.getString("error_msg");
@@ -332,7 +331,7 @@ public class ProfileActivity extends ActionBarActivity {
 
 							} else {
 								// Error in login. Get the error message
-								String errorMsg = jObj.getString("error_msg");
+								String errorMsg = jObj.getString("message");
 								Toast.makeText(getApplicationContext(),
 										errorMsg, Toast.LENGTH_LONG).show();
 							}
@@ -419,10 +418,8 @@ public class ProfileActivity extends ActionBarActivity {
 							"Vui lòng điền đầy đủ thông tin",
 							Toast.LENGTH_SHORT).show();
 				} else {
-					update();
-					Toast.makeText(getApplicationContext(),
-							"Thông tin của bạn được thay đổi	",
-							Toast.LENGTH_SHORT).show();
+					update(savefullname, savephone, savepersonalid);
+
 					dialog.dismiss();
 				}
 				txtfullname.setText(savefullname);
@@ -444,7 +441,8 @@ public class ProfileActivity extends ActionBarActivity {
 		return dialog;
 	}
 
-	private void update() {
+	private void update(final String savefullname, final String savephone,
+			final String savepersonalid) {
 		// Tag used to cancel the request
 		String tag_string_req = "req_register";
 
@@ -467,7 +465,9 @@ public class ProfileActivity extends ActionBarActivity {
 							if (!error) {
 
 								String message = jObj.getString("message");
-
+								Toast.makeText(getApplicationContext(),
+										message, Toast.LENGTH_SHORT).show();
+								session.setFullname(savefullname);
 							} else {
 
 								// Error occurred in registration. Get the error
@@ -647,6 +647,7 @@ public class ProfileActivity extends ActionBarActivity {
 		StringRequest strReq = new StringRequest(Method.GET,
 				AppConfig.URL_REGISTER, new Response.Listener<String>() {
 
+					@SuppressLint("NewApi")
 					@Override
 					public void onResponse(String response) {
 						Log.d(TAG, "Profile Response: " + response.toString());
@@ -677,7 +678,7 @@ public class ProfileActivity extends ActionBarActivity {
 									Bitmap decodeByte = BitmapFactory
 											.decodeByteArray(decodeString, 0,
 													decodeString.length);
-
+									avatar.setBackground(null);
 									avatar.setImageBitmap(decodeByte);
 
 									// avatar.setAnimateImageBitmap(decodeByte,
@@ -690,13 +691,11 @@ public class ProfileActivity extends ActionBarActivity {
 											.decodeByteArray(decodeString2, 0,
 													decodeString2.length);
 									ProfileActivity.this.personalid_img
+									.setBackground(null);
+									ProfileActivity.this.personalid_img
 											.setImageBitmap(decodeByte2);
 
-									TouchImageView iv = new TouchImageView(
-											getApplicationContext());
-									iv.setImageBitmap(decodeByte2);
-
-									iv.setScaleType(ScaleType.MATRIX);
+									
 								}
 								txtfullname.setText(fullname);
 								txtemail.setText(email);
@@ -758,6 +757,7 @@ public class ProfileActivity extends ActionBarActivity {
 		this.finish();
 	}
 
+	@SuppressLint("NewApi")
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
@@ -785,9 +785,12 @@ public class ProfileActivity extends ActionBarActivity {
 					String img_str_new = Base64.encodeToString(image, 0);
 
 					if (isAvatar) {
+						avatar.setBackground(null);
 						avatar.setImageBitmap(bm);
 						setAvatar(img_str_new);
+
 					} else {
+						personalid_img.setBackground(null);
 						personalid_img.setImageBitmap(bm);
 						setPersonalidImage(img_str_new);
 					}
@@ -828,9 +831,12 @@ public class ProfileActivity extends ActionBarActivity {
 				String img_str_new = Base64.encodeToString(image, 0);
 
 				if (isAvatar) {
+					avatar.setBackground(null);
 					avatar.setImageBitmap(bm);
 					setAvatar(img_str_new);
+
 				} else {
+					personalid_img.setBackground(null);
 					personalid_img.setImageBitmap(bm);
 					setPersonalidImage(img_str_new);
 				}

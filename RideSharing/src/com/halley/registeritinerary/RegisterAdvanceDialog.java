@@ -64,7 +64,7 @@ public class RegisterAdvanceDialog extends DialogFragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		/** Inflating layout for the dialog */
-		
+
 		View v = inflater.inflate(R.layout.dialog_register_advance, null);
 		getDialog().setTitle("Đăng kí bổ sung");
 		session = new SessionManager(getActivity());
@@ -140,50 +140,65 @@ public class RegisterAdvanceDialog extends DialogFragment {
 
 	private String transDuration(String duration) {
 		String[] str;
-		str = duration.split(" ");
-		String sumMin = "";
-		if (str.length == 2) {
-			sumMin = Integer.parseInt(str[0]) + " phút";
+		String sumMin = "0";
+		try {
+			str = duration.split(" ");
 
-		} else {
-			if (!str[1].equals("day")) {
-				sumMin = Integer.parseInt(str[0]) + " giờ "
-						+ Integer.parseInt(str[2]) + " phút";
+			if (str.length == 2) {
+				sumMin = Integer.parseInt(str[0]) + " phút";
 
 			} else {
-				sumMin = Integer.parseInt(str[0]) * 24 + " ngày "
-						+ +Integer.parseInt(str[2]) + " giờ";
+				if (!str[1].equals("day")) {
+					sumMin = Integer.parseInt(str[0]) + " giờ "
+							+ Integer.parseInt(str[2]) + " phút";
 
+				} else {
+					sumMin = Integer.parseInt(str[0]) * 24 + " ngày "
+							+ +Integer.parseInt(str[2]) + " giờ";
+
+				}
 			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		// Toast.makeText(this, "" + sumMin, Toast.LENGTH_LONG).show();
 		return String.valueOf(sumMin);
 	}
 
 	private String getDigitfromDistance(String distance) {
-		String[] str;
-		str = distance.split(" ");
-		// Toast.makeText(this, str[0], Toast.LENGTH_LONG).show();
-		return str[0];
+		String[] str = null;
+		String sumKm = "0";
+		try {
+			str = distance.split(" ");
+			sumKm = str[0];
+			// Toast.makeText(this, str[0], Toast.LENGTH_LONG).show();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return sumKm;
 	}
 
 	private String getDigitfromDuration(String duration) {
 		String[] str;
-		str = duration.split(" ");
 		int sumMin = 0;
-		if (str.length == 2) {
-			sumMin = Integer.parseInt(str[0]);
-
-		} else {
-			if (!str[1].equals("ngày")) {
-				sumMin = Integer.parseInt(str[0]) * 60
-						+ Integer.parseInt(str[2]);
+		try {
+			str = duration.split(" ");
+			if (str.length == 2) {
+				sumMin = Integer.parseInt(str[0]);
 
 			} else {
-				sumMin = Integer.parseInt(str[0]) * 60 * 24
-						+ Integer.parseInt(str[2]) * 60;
+				if (!str[1].equals("ngày")) {
+					sumMin = Integer.parseInt(str[0]) * 60
+							+ Integer.parseInt(str[2]);
 
+				} else {
+					sumMin = Integer.parseInt(str[0]) * 60 * 24
+							+ Integer.parseInt(str[2]) * 60;
+
+				}
 			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		// Toast.makeText(this, "" + sumMin, Toast.LENGTH_LONG).show();
 		return String.valueOf(sumMin);
@@ -337,6 +352,7 @@ public class RegisterAdvanceDialog extends DialogFragment {
 		if (pDialog.isShowing())
 			pDialog.dismiss();
 	}
+
 	@Override
 	public void onResume() {
 		super.onResume();

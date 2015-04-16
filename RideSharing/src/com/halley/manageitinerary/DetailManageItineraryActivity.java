@@ -24,9 +24,6 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
@@ -46,6 +43,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -120,7 +118,10 @@ public class DetailManageItineraryActivity extends ActionBarActivity implements
 		findViewById(R.id.frame_container_4).getLayoutParams().height = (metrics.heightPixels / 3);
 		findViewById(R.id.mainLayoutManage).getLayoutParams().height = metrics.heightPixels
 				/ 3 + (metrics.heightPixels / 3);
-
+		LinearLayout layout_control = (LinearLayout) findViewById(R.id.controlLayout);
+		if (!session.isDriver()) {
+			layout_control.setVisibility(View.INVISIBLE);
+		}
 		Bundle bundle = this.getIntent().getExtras().getBundle("bundle");
 		if (bundle != null) {
 			fromLatitude = bundle.getDouble("start_address_lat");
@@ -193,6 +194,7 @@ public class DetailManageItineraryActivity extends ActionBarActivity implements
 		});
 
 	}
+
 	public void customActionBar() {
 		actionBar = getSupportActionBar();
 		actionBar.setElevation(0);
@@ -308,9 +310,6 @@ public class DetailManageItineraryActivity extends ActionBarActivity implements
 				} else {
 					editItinerary();
 					dialog.dismiss();
-					Toast.makeText(getApplicationContext(),
-							"Cập nhật thông tin thành công", Toast.LENGTH_SHORT)
-							.show();
 					setResult(RESULT_OK);
 				}
 				tvdescription.setText(getDescription);
@@ -355,14 +354,15 @@ public class DetailManageItineraryActivity extends ActionBarActivity implements
 							if (!error) {
 
 								String message = jObj.getString("message");
-
+								Toast.makeText(getApplicationContext(),
+										message, Toast.LENGTH_LONG).show();
 							} else {
 
 								// Error occurred in registration. Get the error
 								// message
-								String errorMsg = jObj.getString("error_msg");
-								// Toast.makeText(getApplicationContext(),
-								// errorMsg, Toast.LENGTH_LONG).show();
+								String message = jObj.getString("message");
+								Toast.makeText(getApplicationContext(),
+										message, Toast.LENGTH_LONG).show();
 							}
 						} catch (JSONException e) {
 							e.printStackTrace();
@@ -434,14 +434,14 @@ public class DetailManageItineraryActivity extends ActionBarActivity implements
 							if (!error) {
 
 								String message = jObj.getString("message");
+								Toast.makeText(getApplicationContext(),
+										message, Toast.LENGTH_LONG).show();
 
 							} else {
 
-								// Error occurred in registration. Get the error
-								// message
-								String errorMsg = jObj.getString("error_msg");
-								// Toast.makeText(getApplicationContext(),
-								// errorMsg, Toast.LENGTH_LONG).show();
+								String message = jObj.getString("message");
+								Toast.makeText(getApplicationContext(),
+										message, Toast.LENGTH_LONG).show();
 							}
 						} catch (JSONException e) {
 							e.printStackTrace();

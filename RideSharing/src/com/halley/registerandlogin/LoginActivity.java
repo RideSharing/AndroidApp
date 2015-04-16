@@ -145,8 +145,8 @@ public class LoginActivity extends Activity {
 
 								// user successfully logged in
 								String apiKey = jObj.getString("apiKey");
-								String avatar = jObj.getString("link_avatar");
-								String fullname = jObj.getString("fullname");
+								String avatar = (jObj.getString("link_avatar").equals("null"))?null:jObj.getString("link_avatar");							
+								String fullname =(jObj.getString("fullname").equals("null"))?null:jObj.getString("fullname");	
 								boolean driver=jObj.getBoolean("driver");
 								// Create login session
 								session.setLogin(true, apiKey,driver,avatar,fullname);

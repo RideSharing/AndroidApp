@@ -657,12 +657,11 @@ public class ProfileActivity extends ActionBarActivity {
 							JSONObject jObj = new JSONObject(response);
 							boolean error = jObj.getBoolean("error");
 							if (!error) {
-								String email = jObj.getString("email");
 								String apiKey = jObj.getString("apiKey");
-								String fullname = jObj.getString("fullname");
-								String phone = jObj.getString("phone");
-								String personalid = jObj
-										.getString("personalID");
+								txtfullname.setText(jObj.getString("fullname").equals("null") ? "" : jObj.getString("fullname"));
+								txtemail.setText(jObj.getString("email").equals("null") ? "" : jObj.getString("email"));
+								txtphone.setText(jObj.getString("phone").equals("null") ? "" : jObj.getString("phone"));
+								txtpersonalID.setText(jObj.getString("personalID").equals("null") ? "" : jObj.getString("personalID"));
 								String personalid_img = jObj
 										.getString("personalID_img");
 								String link_avatar = jObj
@@ -697,10 +696,7 @@ public class ProfileActivity extends ActionBarActivity {
 
 									
 								}
-								txtfullname.setText(fullname);
-								txtemail.setText(email);
-								txtphone.setText(phone);
-								txtpersonalID.setText(personalid);
+								
 							} else {
 								// Error in login. Get the error message
 								String errorMsg = jObj.getString("error_msg");

@@ -201,15 +201,17 @@ public class MainActivity extends ActionBarActivity implements
 								String created_at = jObj
 										.getString("created_at");
 								String status = jObj.getString("status");
-								if (email.length() == 0
-										|| fullname.length() == 0
-										|| phone.length() == 0
-										|| personalid.length() == 0
-										|| personalid_img.length() == 0
-										|| link_avatar.length() == 0) {
+								if (email.equals("null")
+										|| fullname.equals("null")
+										|| phone.equals("null")
+										|| personalid.equals("null")
+										|| personalid_img.equals("null")
+										|| link_avatar.equals("null")) {
 									dialog = check();
 									dialog.show();
 								}
+								// Toast.makeText(getApplicationContext(),
+								// link_avatar, Toast.LENGTH_LONG).show();
 
 							} else {
 								// Error in login. Get the error message
@@ -396,10 +398,12 @@ public class MainActivity extends ActionBarActivity implements
 		RoundedImageView img_avatar = (RoundedImageView) header
 				.findViewById(R.id.avatar);
 		TextView tv_fullname = (TextView) header.findViewById(R.id.fullname);
-		if (session.getFullname().trim().toString().length() > 0) {
+		// Toast.makeText(getApplicationContext(), session.getFullname(),
+		// Toast.LENGTH_LONG).show();
+		if (session.getFullname()!=null) {
 			tv_fullname.setText(session.getFullname());
 		}
-		if (session.getAvatar().trim().toString().length() > 0) {
+		if (session.getAvatar()!=null) {
 			// Toast.makeText(getApplicationContext(), session.getAvatar(),
 			// Toast.LENGTH_LONG).show();
 			byte[] decodeString = Base64.decode(session.getAvatar(),
@@ -856,7 +860,6 @@ public class MainActivity extends ActionBarActivity implements
 			super.onProgressUpdate(values);
 			hideDialog();
 			initTab();
-			checkProfile();
 
 		}
 
@@ -865,7 +868,7 @@ public class MainActivity extends ActionBarActivity implements
 		 */
 		@Override
 		protected void onPostExecute(Void result) {
-
+			checkProfile();
 		}
 
 	}

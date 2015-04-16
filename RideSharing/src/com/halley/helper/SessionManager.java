@@ -38,10 +38,10 @@ public class SessionManager {
 	}
 	
 
-	public void setLogin(boolean isLoggedIn, String value,boolean isDriver,String avatar,String fullname) {
+	public void setLogin(boolean isLoggedIn, String api_key,boolean isDriver,String avatar,String fullname) {
 
 		editor.putBoolean(KEY_IS_LOGGEDIN, isLoggedIn);
-		editor.putString(API_KEY, value);
+		editor.putString(API_KEY, api_key);
 		editor.putBoolean(KEY_IS_DRIVER, isDriver);
 		editor.putString(AVATAR, avatar);
 		editor.putString(FULL_NAME, fullname);
@@ -60,7 +60,7 @@ public class SessionManager {
 		editor.commit();
 	}
 	public void setFullname(String fullname) {
-		editor.putString(AVATAR, fullname);
+		editor.putString(FULL_NAME, fullname);
 		editor.commit();
 	}
 

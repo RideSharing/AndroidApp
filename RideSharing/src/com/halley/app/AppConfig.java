@@ -6,7 +6,7 @@ import com.halley.manageitinerary.ManageItineraryActivity;
 
 public class AppConfig {
 	// Server user login url
-	// 54.191.137.154
+	
 	public static String URL_LOGIN = "http://52.11.206.209/RESTFul/v1/user/login";
 
 	// Server user register url
@@ -48,4 +48,7 @@ public class AppConfig {
 
 	// Show list itinerary for user
 	public static String URL_LIST_ITINERARY = "http://52.11.206.209/RESTFul/v1/itineraries/driver/itinerary_status";
+	
+	// Show list itinerary for customer
+		public static String URL_CUSTOMER_ITINERARY = "http://52.11.206.209/RESTFul/v1/itineraries/customer/status";
 }

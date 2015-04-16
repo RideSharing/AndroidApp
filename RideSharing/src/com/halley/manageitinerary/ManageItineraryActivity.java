@@ -62,6 +62,7 @@ public class ManageItineraryActivity extends ActionBarActivity {
 	private ImageButton btimg_go_up;
 	String status;
 	private static final int REQUEST_REFRESH = 1;
+
 	public String getStatus() {
 		return status;
 	}
@@ -78,8 +79,11 @@ public class ManageItineraryActivity extends ActionBarActivity {
 		session = new SessionManager(getApplicationContext());
 		pDialog = new ProgressDialog(this);
 		listView = (ExpandableListView) findViewById(R.id.list);
-	
-		getItinerary();
+		if (!session.isDriver()) {
+			getCustomerItinerary();
+		} else {
+			getItinerary();
+		}
 		listAdapter = new ListManageItineraryAdapter(this, listDataHeader,
 				listDataChild);
 
@@ -124,6 +128,138 @@ public class ManageItineraryActivity extends ActionBarActivity {
 			}
 		});
 
+	}
+
+	private void getCustomerItinerary() {
+		// Tag used to cancel the request
+		String tag_string_req = "req_get_customer_itinerary_by_list";
+		itineraryList_completed = new ArrayList<ItineraryItem>();
+		itineraryList_waiting_user = new ArrayList<ItineraryItem>();
+		itineraryList_ready = new ArrayList<ItineraryItem>();
+		itineraryList_submit = new ArrayList<ItineraryItem>();
+		listDataHeader = new ArrayList<String>();
+		listDataChild = new HashMap<String, List<ItineraryItem>>();
+		// Adding child data
+		listDataHeader.add("Đang đợi người đi cùng...");
+		listDataHeader.add("Đang đợi xác nhận...");
+		listDataHeader.add("Chuẩn bị đi..");
+		listDataHeader.add("Đã đi");
+		StringRequest strReq = new StringRequest(Method.GET,
+				AppConfig.URL_CUSTOMER_ITINERARY,
+				new Response.Listener<String>() {
+
+					@Override
+					public void onResponse(String response) {
+						// Log.d("Login Response: ", response.toString());
+						hidePDialog();
+						try {
+
+							JSONObject jObj = new JSONObject(response
+									.substring(response.indexOf("{"),
+											response.lastIndexOf("}") + 1));
+							boolean error = jObj.getBoolean("error");
+							// Check for error node in json
+
+							if (!error) {
+								JSONArray itineraries;
+								itineraries = jObj.getJSONArray("itineraries");
+
+								for (int i = 0; i < itineraries.length(); i++) {
+									ItineraryItem itineraryItem = new ItineraryItem();
+									JSONObject itinerary = itineraries
+											.getJSONObject(i);
+									itineraryItem.setDescription(itinerary
+											.getString("description"));
+									itineraryItem.setStart_address(itinerary
+											.getString("start_address"));
+									itineraryItem.setEnd_address(itinerary
+											.getString("end_address"));
+									itineraryItem.setStart_address_lat(itinerary
+											.getString("start_address_lat"));
+									itineraryItem.setStart_address_long(itinerary
+											.getString("start_address_long"));
+									itineraryItem.setEnd_address_lat(itinerary
+											.getString("end_address_lat"));
+									itineraryItem.setEnd_address_long(itinerary
+											.getString("end_address_long"));
+									itineraryItem.setLeave_date(itinerary
+											.getString("leave_date"));
+									itineraryItem.setCost(itinerary
+											.getString("cost"));
+									itineraryItem.setFullname(itinerary
+											.getString("fullname"));
+									itineraryItem.setDuration(itinerary
+											.getString("duration"));
+									itineraryItem.setDistance(itinerary
+											.getString("distance"));
+									itineraryItem.setStatus(itinerary
+											.getString("status"));
+									// status = itinerary.getString("status");
+									itineraryItem.setPhone(itinerary
+											.getString("phone"));
+									itineraryItem.setItinerary_id(itinerary
+											.getString("itinerary_id"));
+									if (itineraryItem.getStatus().equals("1")) {
+										itineraryList_waiting_user
+												.add(itineraryItem);
+									} else if (itineraryItem.getStatus()
+											.equals("2")) {
+										itineraryList_submit.add(itineraryItem);
+									} else if (itineraryItem.getStatus()
+											.equals("3")) {
+										itineraryList_ready.add(itineraryItem);
+									} else {
+										itineraryList_completed
+												.add(itineraryItem);
+									}
+								}
+								listDataChild.put(listDataHeader.get(0),
+										itineraryList_waiting_user); // Header,
+																		// Child
+																		// data
+								listDataChild.put(listDataHeader.get(1),
+										itineraryList_submit);
+								listDataChild.put(listDataHeader.get(2),
+										itineraryList_ready);
+								listDataChild.put(listDataHeader.get(3),
+										itineraryList_completed);
+
+							} else {
+								// Error in login. Get the error message
+								String message = jObj.getString("message");
+								Toast.makeText(activity, message,
+										Toast.LENGTH_LONG).show();
+							}
+						} catch (JSONException e) {
+							// JSON error
+							e.printStackTrace();
+						}
+
+					}
+				}, new Response.ErrorListener() {
+
+					@Override
+					public void onErrorResponse(VolleyError error) {
+
+						Toast.makeText(activity,
+								"Không thể kết nối đến server",
+								Toast.LENGTH_LONG).show();
+
+					}
+				}) {
+
+			@Override
+			public Map<String, String> getHeaders() {
+				// Posting parameters to login url
+				Map<String, String> params = new HashMap<String, String>();
+				params.put("Authorization", session.getAPIKey());
+				return params;
+			}
+
+		};
+
+		// Adding request to request queue
+		AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
 	}
 
 	private void getItinerary() {
@@ -318,8 +454,8 @@ public class ManageItineraryActivity extends ActionBarActivity {
 		if (requestCode == REQUEST_REFRESH) {
 			if (resultCode == RESULT_OK) {
 				finish();
-				startActivity(new Intent(this,ManageItineraryActivity.class));
-				
+				startActivity(new Intent(this, ManageItineraryActivity.class));
+
 			}
 
 		}

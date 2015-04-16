@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">RideSharing</string>
+    <string name="app_menu">Menu</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_login">Đăng nhập</string>
+    <string name="title_activity_register">Đăng kí</string>
+    <string name="title_activity_upgrade_profile">UpgradeProfile</string>
+    <string name="title_activity_forgot_password">ForgotPasswordActivity</string>
+    <string name="hint_email">Nhập email</string>
+    <string name="hint_driver">Tài xế</string>
+    <string name="hint_password">Nhập mật khẩu</string>
+    <string name="hint_name">Nhập họ tên</string>
+    <string name="hint_leave_date">Ngày đi</string>
+    <string name="hint_duration">Số giờ dự đoán hoàn thành</string>
+    <string name="hint_cost">Giá tiền (VNĐ)</string>
+    <string name="hint_description">Mô tả về hành trình</string>
+    <string name="hint_distance">Khoảng cách (km)</string>
+    <string name="btn_login">Đăng nhập</string>
+    <string name="btn_change_password">Thay đổi mật khẩu</string>
+    <string name="btn_upgrade_driver">Nâng cấp</string>
+    <string name="btn_register">Đăng kí</string>
+    <string name="no_input">Vui lòng điền đầy đủ thông tin</string>
+    <string name="incorrect_password">Email hoặc mật khẩu không đúng</string>
+    <string name="btn_link_to_forgot_password">Quên mật khẩu.</string>
+    <string name="btn_link_to_login">Màn hình đăng nhập.</string>
+    <string name="persionalID">CMND</string>
+    <string name="imagePersionalID">Ảnh CMND</string>
+    <string name="hint_start_addess">Nơi bắt đầu</string>
+    <string name="hint_end_addess">Nơi đến</string>
+    <string name="email">Email</string>
+    <string name="welcome">Welcome</string>
+    <string name="btn_logout">Đăng xuất</string>
+    <string name="btn_submit">Xác nhận</string>
+    <string name="btn_submitAdvance">Nâng cao</string>
+    <string name="name">Họ tên</string>
+    <string name="drawer_open">Slider Menu Opened</string>
+    <string name="drawer_close">Slider Menu Closed</string>
+    <string name="desc_list_item_icon">Item Icon</string>
+    <string name="search_hint">Tìm địa điểm cần đến</string>
+    <string name="phone_hint">Số điện thoại</string>
+    <string name="phone">Số điện thoại</string>
+    <string name="persionalID_hint">Số chứng minh nhân dân</string>
+    <string name="email_hint">Nhập email</string>
+    <string name="home_screen">Trang chủ</string>
+    <string name="str_atv_places">Địa điểm cần tìm</string>
+    <string name="btn_link_to_detail_itinerary">Click vào để xem chi tiết</string>
+    <string name="btn_submit_itinerary">Xác nhận hành trình</string>
+    <string name="edit">Chỉnh sửa</string>
+    <!-- Nav Drawer Menu Items -->
+    <string-array name="nav_drawer_items_user">
+        <item>Tìm kiếm lịch trình</item>
+        <item>Thông tin cá nhân</item>
+        <item>Quản lý lịch trình</item>
+        <item>Thống kê</item>
+        <item>Thông tin ứng dụng</item>
+        <item>Đăng xuất</item>
+    </string-array>
+    <string-array name="nav_drawer_items_driver">
+        <item>Đặt lịch trình</item>
+    </string-array>
+    <!-- Nav Drawer List Item Icons -->
+    <!-- Keep them in order as the titles are in -->
+    <string-array name="nav_drawer_icons">
+        <item>@drawable/ic_search_itinerary</item>
+        <item>@drawable/ic_profile</item>
+        <item>@drawable/ic_manage_itinerary</item>
+        <item>@drawable/ic_statistic</item>
+        <item>@drawable/ic_about_us</item>
+        <item>@drawable/ic_logout</item>
+    </string-array>
+    <string-array name="nav_drawer_icons_driver">
+        <item>@drawable/ic_register_itinerary</item>
+    </string-array>
+
+    <string name="title_activity_itinerary">Tìm kiếm hành trình</string>
+    <string name="title_item_list">Items</string>
+    <string name="title_item_detail">Item Detail</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_user_profile">Thông tin cá nhân</string>
+    <string name="title_activity_register_itinerary">Đăng kí hành trình</string>
+    <string name="title_activity_register_advance">Đăng kí bổ sung</string>
+    <string name="title_activity_popup_itinerary">PopupItineraryActivity</string>
+    <string name="driver_information">Cập nhật thông tin lái xe</string>
+    <string name="dialog_field_fullname">Điền tên đầy đủ</string>
+    <string name="dialog_field_phone">Điền số điện thoại</string>
+    <string name="dialog_field_personalid">Điền số CMND</string>
+    <string name="dialog_text">Điền vào đây</string>
+    <string name="driver_license">Số bằng lái xe</string>
+    <string name="driver_license_img">Hình ảnh bằng lái xe</string>
+    <string name="phone_number">Số điện thoại</string>
+    <string name="personalid">Số CMND</string>
+    <string name="personalid_img">Hình ảnh CMND</string>
+    <string name="opendialog">Open Dialog</string>
+    <string name="dismiss">Dismiss</string>
+    <string name="title_activity_google_maps">Bản đồ</string>
+    <string name="btn_link_to_register">Không phải thành viên? Đăng ký ngay</string>
+    <string name="btn_link_back_login">Đã có mật khẩu, đăng nhập ngay</string>
+    <string name="btn_send_pass_to_mail">Gửi mật khẩu cho email này</string>
+    <string name="title_activity_submit_itinerary">Xác nhận hành trình</string>
+    <string name="title_activity_search_advance">Tìm kiếm nâng cao</string>
+    <string name="title_activity_about_us">Thông tin về chúng tôi</string>
+    <string name="update_image">Cập nhật hình ảnh</string>
+    <string name="change_profile">Chính sửa thông tin </string>
+    <string name="confirm_driver">Bạn đã đăng ký trở thành tài xế</string>
+	<string name="delete">Xóa lịch trình</string>
+    
+    <!-- Button Title -->
+    <string name="btn_confirm_change">Xác nhận</string>
+    <string name="btn_cancel_change">Hủy bỏ</string>
+    <string name="title_activity_manage_itinerary">Danh sách hành trình</string>
+    <string name="new_password">Mật khẩu mới</string>
+    <string name="confirm_new_password">Nhập lại mật khẩu mới</string>
+    <string name="submit_change">Thông tin của bạn đã được thay đổi</string>
+    <string name="cancel_change">Thông tin của bạn được giữ nguyên</string>
+    <string name="update_success">Cập nhật thành công</string>
+    <string name="title_activity_detail_manage_itinerary">Quản lý hành trình</string>
+    <string name="title_activity_tracking">TrackingActivity</string>
+    <string name="select_image">Chọn ảnh</string>
+    <!-- TextView -->
+    <string name="phone_number_tv">Số điện thoại</string>
+    <string name="personal_id">Số chứng minh nhân dân</string>
+    <string name="personal_id_img">Hình ảnh chứng minh nhân dân</string>
+    <string name="title_activity_avatar">AvatarActivity</string>
+    <string name="title_activity_driver_image">DriverImageActivity</string>
+    <string name="title_activity_personal_image">PersonalImageActivity</string>
+
+</resources>

@@ -67,14 +67,15 @@ public class UpgradeProfile extends ActionBarActivity {
 	private ProgressDialog pDialog;
 	private SessionManager session;
 	int REQUEST_CAMERA = 0, SELECT_FILE = 1;
-	private String key;
+	private String key,img_str="";
 	TextView driverLicense, titleUpgrade;
-	String saveLicense, img_str, a;
+
 	private ImageView imageLicense, confirmImage;
 	private TextView tvDriver1, tvDriver2, tvDriverLicense;
 	private AlertDialog dialog;
 	Bitmap decodeByte;
 	private ActionBar actionBar;
+	Button btnUpgradeDriver;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -85,14 +86,18 @@ public class UpgradeProfile extends ActionBarActivity {
 		imageLicense = (ImageView) findViewById(R.id.license_img);
 		imageLicense.setOnTouchListener(new Touch());
 		tvDriverLicense = (TextView) findViewById(R.id.tvDriverLicense);
-
+		btnUpgradeDriver = (Button) findViewById(R.id.btnUpgradeDriver);
 		session = new SessionManager(getApplicationContext());
+		if (session.isDriver()) {
+			btnUpgradeDriver.setText("Cập nhật thông tin");
+		}
+
 		// Progress dialog
 		pDialog = new ProgressDialog(this);
 		pDialog.setCancelable(false);
 
 		showLicense();
-
+		
 	}
 
 	public void customActionBar() {
@@ -135,19 +140,15 @@ public class UpgradeProfile extends ActionBarActivity {
 	}
 
 	public void submit(View view) {
-
+		
 		if (!session.isDriver()) {
-			session.setDriver(true);
 
-			registerDriver();
-			Toast.makeText(getApplicationContext(), R.string.confirm_driver,
-					Toast.LENGTH_SHORT).show();
+			registerDriver(driverLicense.getText().toString().trim(),
+					img_str);
 
+		} else {
+			updateDriver(driverLicense.getText().toString().trim(), img_str);
 		}
-
-		updateDriver();
-		Toast.makeText(getApplicationContext(), R.string.update_success,
-				Toast.LENGTH_SHORT).show();
 	}
 
 	public void updateDriverLicense(View v) {
@@ -162,32 +163,27 @@ public class UpgradeProfile extends ActionBarActivity {
 		builder.setView(view);
 		final EditText editDriverLicense = (EditText) view
 				.findViewById(R.id.editDriverLicense);
+
 		Button confirmChangeDriver = (Button) view
 				.findViewById(R.id.btnChangeDriverLicense);
 		Button cancelChangeDriver = (Button) view
 				.findViewById(R.id.btnCancelDriverLicense);
 		final AlertDialog dialog = builder.create();
-		a = driverLicense.getText().toString();
 		editDriverLicense.setText(driverLicense.getText().toString());
 		confirmChangeDriver.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
 
-				saveLicense = editDriverLicense.getText().toString().trim();
-				if (saveLicense.length() == 0) {
+				String driveLicense_dialog = editDriverLicense.getText()
+						.toString().trim();
+				if (driveLicense_dialog.length() == 0) {
 					Toast.makeText(getApplicationContext(),
 							getResources().getString(R.string.no_input),
 							Toast.LENGTH_LONG).show();
-				} else if (!saveLicense.equals(a)) {
-					driverLicense.setText(saveLicense);
-
-					dialog.dismiss();
-					Toast.makeText(getApplicationContext(),
-							R.string.submit_change, Toast.LENGTH_LONG).show();
 				} else {
-					Toast.makeText(getApplicationContext(),
-							R.string.cancel_change, Toast.LENGTH_LONG).show();
+					driverLicense.setText(driveLicense_dialog);
+					dialog.dismiss();
 				}
 			}
 		});
@@ -202,147 +198,6 @@ public class UpgradeProfile extends ActionBarActivity {
 		dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
 		return dialog;
 
-	}
-
-	public void updateDriverImage(final String img_str_new) {
-		// Tag used to cancel the request
-		String tag_string_req = "req_register";
-
-		pDialog.setMessage("Changing ...");
-		showDialog();
-
-		StringRequest strReq = new StringRequest(Method.PUT,
-				AppConfig.URL_DRIVER_LICENSE_IMG,
-				new Response.Listener<String>() {
-
-					@Override
-					public void onResponse(String response) {
-						Log.d(TAG,
-								"Driver License Response: "
-										+ response.toString());
-						hideDialog();
-
-						try {
-							JSONObject jObj = new JSONObject(
-									response.substring(response.indexOf("{"),
-											response.lastIndexOf("}") + 1));
-							boolean error = jObj.getBoolean("error");
-							if (!error) {
-
-								String message = jObj.getString("message");
-
-							} else {
-
-								String errorMsg = jObj.getString("error_msg");
-							}
-						} catch (JSONException e) {
-							e.printStackTrace();
-						}
-
-					}
-				}, new Response.ErrorListener() {
-
-					@Override
-					public void onErrorResponse(VolleyError error) {
-						Log.e(TAG, "Registration Error: " + error.getMessage());
-						hideDialog();
-					}
-				}) {
-
-			@Override
-			public Map<String, String> getHeaders() throws AuthFailureError {
-				// Posting parameters to login url
-				Map<String, String> params = new HashMap<String, String>();
-				key = session.getAPIKey();
-				params.put("Authorization", key);
-
-				return params;
-			}
-
-			@Override
-			protected Map<String, String> getParams() {
-				// Posting params to register url
-				Map<String, String> params = new HashMap<String, String>();
-				params.put("value", img_str_new);
-
-				return params;
-			}
-
-		};
-
-		// Adding request to request queue
-		AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
-	}
-
-	public void updateDriver() {
-		// Tag used to cancel the request
-		String tag_string_req = "req_register";
-
-		pDialog.setMessage("Changing ...");
-		showDialog();
-
-		StringRequest strReq = new StringRequest(Method.PUT,
-				AppConfig.URL_DRIVER_LICENSE, new Response.Listener<String>() {
-
-					@Override
-					public void onResponse(String response) {
-						Log.d(TAG,
-								"Driver License Response: "
-										+ response.toString());
-						hideDialog();
-
-						try {
-							JSONObject jObj = new JSONObject(
-									response.substring(response.indexOf("{"),
-											response.lastIndexOf("}") + 1));
-							boolean error = jObj.getBoolean("error");
-							if (!error) {
-								String message = jObj.getString("message");
-
-							} else {
-
-								// Error occurred in registration. Get the error
-								// message
-								String errorMsg = jObj.getString("error_msg");
-								Toast.makeText(getApplicationContext(),
-										errorMsg, Toast.LENGTH_LONG).show();
-							}
-						} catch (JSONException e) {
-							e.printStackTrace();
-						}
-
-					}
-				}, new Response.ErrorListener() {
-
-					@Override
-					public void onErrorResponse(VolleyError error) {
-						Log.e(TAG, "Registration Error: " + error.getMessage());
-						hideDialog();
-					}
-				}) {
-
-			@Override
-			public Map<String, String> getHeaders() throws AuthFailureError {
-				// Posting parameters to login url
-				Map<String, String> params = new HashMap<String, String>();
-				key = session.getAPIKey();
-				params.put("Authorization", key);
-
-				return params;
-			}
-
-			@Override
-			protected Map<String, String> getParams() {
-				Map<String, String> params = new HashMap<String, String>();
-				params.put("value", saveLicense);
-
-				return params;
-			}
-
-		};
-
-		// Adding request to request queue
-		AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
 	}
 
 	public void showLicense() {
@@ -368,33 +223,31 @@ public class UpgradeProfile extends ActionBarActivity {
 											response.lastIndexOf("}") + 1));
 							boolean error = jObj.getBoolean("error");
 							if (!error) {
-								// String message = jObj.getString("message");
-								String driver_license = jObj
-										.getString("driver_license");
+
+								driverLicense.setText(jObj.getString(
+										"driver_license").equals("null") ? ""
+										: jObj.getString("driver_license"));
 								String driver_license_img = jObj
 										.getString("driver_license_img");
-
-								driverLicense.setText(driver_license);
-
-								byte[] decodeString = Base64.decode(
-										driver_license_img, Base64.DEFAULT);
-								decodeByte = BitmapFactory.decodeByteArray(
-										decodeString, 0, decodeString.length);
-
-								TouchImageView iv = new TouchImageView(
-										getApplicationContext());
-								iv.setImageBitmap(decodeByte);
-
-								UpgradeProfile.this.imageLicense
-										.setImageBitmap(decodeByte);
+								
+								if (!driver_license_img.equals("null")) {
+									byte[] decodeString = Base64.decode(
+											driver_license_img, Base64.DEFAULT);
+									decodeByte = BitmapFactory.decodeByteArray(
+											decodeString, 0,
+											decodeString.length);
+									UpgradeProfile.this.imageLicense
+											.setImageBitmap(decodeByte);
+									img_str=driver_license_img;
+								}
 
 							} else {
 
 								// Error occurred in registration. Get the error
 								// message
-								String errorMsg = jObj.getString("error_msg");
+								String message = jObj.getString("message");
 								Toast.makeText(getApplicationContext(),
-										errorMsg, Toast.LENGTH_LONG).show();
+										message, Toast.LENGTH_LONG).show();
 							}
 						} catch (JSONException e) {
 							e.printStackTrace();
@@ -428,7 +281,8 @@ public class UpgradeProfile extends ActionBarActivity {
 		AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
 	}
 
-	public void registerDriver() {
+	public void registerDriver(final String driver_license,
+			final String driver_license_img) {
 		// Tag used to cancel the request
 		String tag_string_req = "req_register";
 
@@ -449,16 +303,20 @@ public class UpgradeProfile extends ActionBarActivity {
 											response.lastIndexOf("}") + 1));
 							boolean error = jObj.getBoolean("error");
 							if (!error) {
-
 								String message = jObj.getString("message");
 
+								Toast.makeText(getApplicationContext(),
+										R.string.confirm_driver,
+										Toast.LENGTH_SHORT).show();
+								session.setDriver(true);
+								btnUpgradeDriver.setText("Cập nhật thông tin");
 							} else {
-
 								// Error occurred in registration. Get the error
 								// message
-								String errorMsg = jObj.getString("error_msg");
+								String message = jObj.getString("message");
 								Toast.makeText(getApplicationContext(),
-										errorMsg, Toast.LENGTH_LONG).show();
+										message, Toast.LENGTH_LONG).show();
+
 							}
 						} catch (JSONException e) {
 							e.printStackTrace();
@@ -487,8 +345,82 @@ public class UpgradeProfile extends ActionBarActivity {
 			protected Map<String, String> getParams() {
 				// Posting params to register url
 				Map<String, String> params = new HashMap<String, String>();
-				params.put("driver_license", saveLicense);
-				params.put("driver_license_img", img_str);
+				if (!driver_license.equals("")) {
+					params.put("driver_license", driver_license);
+				}
+				if (!driver_license_img.equals("")) {
+					params.put("driver_license_img", driver_license_img);
+				}
+				return params;
+			}
+
+		};
+
+		// Adding request to request queue
+		AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+	}
+
+	public void updateDriver(final String driver_license,
+			final String driver_license_img) {
+		// Tag used to cancel the request
+		String tag_string_req = "req_register";
+
+		pDialog.setMessage("Changing ...");
+		showDialog();
+
+		StringRequest strReq = new StringRequest(Method.PUT,
+				AppConfig.URL_DRIVER, new Response.Listener<String>() {
+
+					@Override
+					public void onResponse(String response) {
+						Log.d(TAG, "Driver Response: " + response.toString());
+						hideDialog();
+
+						try {
+							JSONObject jObj = new JSONObject(
+									response.substring(response.indexOf("{"),
+											response.lastIndexOf("}") + 1));
+							boolean error = jObj.getBoolean("error");
+							if (!error) {
+								String message = jObj.getString("message");
+								Toast.makeText(getApplicationContext(),
+										message, Toast.LENGTH_SHORT).show();
+							} else {
+								// Error occurred in registration. Get the error
+								// message
+								String message = jObj.getString("message");
+								Toast.makeText(getApplicationContext(),
+										message, Toast.LENGTH_LONG).show();
+							}
+						} catch (JSONException e) {
+							e.printStackTrace();
+						}
+
+					}
+				}, new Response.ErrorListener() {
+
+					@Override
+					public void onErrorResponse(VolleyError error) {
+						Log.e(TAG, "Registration Error: " + error.getMessage());
+					}
+				}) {
+
+			@Override
+			public Map<String, String> getHeaders() throws AuthFailureError {
+				// Posting parameters to login url
+				Map<String, String> params = new HashMap<String, String>();
+				key = session.getAPIKey();
+				params.put("Authorization", key);
+
+				return params;
+			}
+
+			@Override
+			protected Map<String, String> getParams() {
+				// Posting params to register url
+				Map<String, String> params = new HashMap<String, String>();
+				params.put("driver_license", driver_license);
+				params.put("driver_license_img", driver_license_img);
 
 				return params;
 			}
@@ -556,8 +488,7 @@ public class UpgradeProfile extends ActionBarActivity {
 					byte[] image = stream.toByteArray();
 					String img_str_new = Base64.encodeToString(image, 0);
 					imageLicense.setImageBitmap(bm);
-					updateDriverImage(img_str_new);
-
+					img_str=img_str_new;
 					String path = android.os.Environment
 							.getExternalStorageDirectory()
 							+ File.separator
@@ -591,8 +522,8 @@ public class UpgradeProfile extends ActionBarActivity {
 				// bm=getResizedBitmap(bm,70,120);
 				byte[] image = stream.toByteArray();
 				String img_str_new = Base64.encodeToString(image, 0);
+				img_str=img_str_new;
 				imageLicense.setImageBitmap(bm);
-				updateDriverImage(img_str_new);
 
 			}
 		}

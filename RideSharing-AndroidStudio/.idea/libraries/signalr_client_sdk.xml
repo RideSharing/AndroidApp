@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="signalr-client-sdk">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/signalr-client-sdk/signalr-client-sdk.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

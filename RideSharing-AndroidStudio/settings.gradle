@@ -1,0 +1,2 @@
+include ':signalr-client-sdk-android', ':signalr-client-sdk', ':gson-2.2.2', ':volley'
+include ':RideSharing'

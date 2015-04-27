@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">RideSharing </string>
+    <string name="app_menu">Menu </string>
+    <string name="action_settings">Settings </string>
+    <!--general-->
+    <string name="refresh">Refresh... </string>
+    <string name="process_data">Process data...</string>
+    <string name="logout">Sign out</string>
+    <string name="finish_app">Do you want to log out? </string>
+    <string name="day">day </string>
+    <string name="hour">hour </string>
+    <string name="min">min </string>
+    <string name="change_info">Update Info </string>
+    <string name="hint">Hint </string>
+    <string name="list">List</string>
+
+    <string name="hint_email">Enter your email </string>
+
+    <string name="hint_password">Enter your password </string>
+    <string name="cost">Cost (VNĐ) </string>
+    <string name="btn_login">Sign in </string>
+    <string name="btn_change_password">Change Password </string>
+    <string name="btn_upgrade_driver">Upgrade </string>
+    <string name="btn_register">Sign up </string>
+    <string name="no_input">Please enter complete infomation </string>
+    <string name="incorrect_password">Wrong Email or Password</string>
+    <string name="btn_link_to_forgot_password">Forgot Password </string>
+    <string name="btn_link_to_login">Sign in Screen </string>
+    <string name="persionalID">PersionalID </string>
+    <string name="imagePersionalID">PersionalID Image </string>
+    <string name="start_addess">Start Address </string>
+    <string name="email">Email </string>
+    <string name="welcome">Welcome </string>
+    <string name="btn_logout">Sign out </string>
+    <string name="btn_submitAdvance">Advance </string>
+    <string name="name">Full name </string>
+    <string name="drawer_open">Slider Menu Opened </string>
+    <string name="drawer_close">Slider Menu Closed </string>
+    <string name="desc_list_item_icon">Item Icon </string>
+    <string name="search_hint">Search area </string>
+    <string name="email_hint">Enter your email </string>
+    <string name="home_screen">Home Screen </string>
+    <string name="str_atv_places">Search area </string>
+    <string name="btn_link_to_detail_itinerary">Click to see detail </string>
+    <string name="btn_submit_itinerary">Submit Itinerary </string>
+    <string name="edit">Edit </string>
+    <!-- Nav Drawer Menu Items -->
+    <string-array name="nav_drawer_items_user">
+        <item>Search Itinerary </item>
+        <item>Profile Info </item>
+        <item>Manage Itinerary </item>
+        <item>Statistic </item>
+        <item>About Us </item>
+        <item>Logout </item>
+    </string-array>
+    <string-array name="nav_drawer_items_driver">
+        <item>Register Itinerary </item>
+    </string-array>
+    <!-- Nav Drawer List Item Icons -->
+    <!-- Keep them in order as the titles are in -->
+    <string-array name="nav_drawer_icons">
+        <item>@drawable/ic_search_itinerary </item>
+        <item>@drawable/ic_profile </item>
+        <item>@drawable/ic_manage_itinerary </item>
+        <item>@drawable/ic_statistic </item>
+        <item>@drawable/ic_about_us </item>
+        <item>@drawable/ic_logout </item>
+    </string-array>
+    <string-array name="nav_drawer_icons_driver">
+        <item>@drawable/ic_register_itinerary </item>
+    </string-array>
+
+    <string name="title_activity_itinerary">Search Itinerary </string>
+    <string name="title_item_list">Items </string>
+    <string name="title_item_detail">Item Detail </string>
+    <string name="update_itinerary">Update infomation of itinerary </string>
+    <string name="title_activity_popup_itinerary">PopupItineraryActivity </string>
+
+    <string name="dialog_field_fullname">Enter your fullname </string>
+    <string name="dialog_field_phone">Enter your phone </string>
+    <string name="dialog_field_personalid">Enter your Persional_ID </string>
+    <string name="driver_license">Driver License </string>
+    <string name="driver_license_img">Image Driver License </string>
+    <string name="opendialog">Open Dialog </string>
+    <string name="dismiss">Dismiss </string>
+    <string name="title_activity_google_maps">Map </string>
+    <string name="btn_link_to_register">Not a member? Sign up now! </string>
+    <string name="btn_link_back_login">Already have password, Login now! </string>
+    <string name="btn_send_pass_to_mail">Password has reset and sent your email. Please check your mail. </string>
+    <string name="title_activity_about_us">About Us </string>
+    <string name="update_image">Update Image </string>
+    <string name="change_profile">Edit Info </string>
+    <string name="confirm_driver">You have registered to become driver </string>
+	<string name="delete_itinerary">Delete Itinerary </string>
+    
+    <!-- Button Title -->
+    <string name="btn_confirm_change">Submit </string>
+    <string name="btn_cancel_change">Cancel </string>
+    <string name="title_activity_manage_itinerary">List of itinerary </string>
+    <string name="new_password">New Password </string>
+    <string name="confirm_new_password">Confirm New Password </string>
+    <string name="submit_change">Your infomation have changed </string>
+    <string name="cancel_change">Your infomation not changed </string>
+    <string name="update_success">Update completed </string>
+    <string name="title_activity_detail_manage_itinerary">Mangage Itinerary </string>
+    <string name="title_activity_tracking">Tracking </string>
+    <string name="select_image">Select Image </string>
+    <string name="change_pasword">Change Password </string>
+    <!-- TextView -->
+
+
+
+    <!--List-->
+    <string name="rating">Rating </string>
+    <string name="comment">Comment </string>
+
+    <!--Maps-->
+    <string name="not_found_area">Not found area </string>
+    <string name="current_address">Current Address </string>
+    <string name="driver">Driver </string>
+    <!--About Us-->
+    <string name="feedback">Feedback </string>
+
+    <!--Dialog-->
+    <string name="ok">OK </string>
+    <string name="cancel">Cancel </string>
+
+    <!--Get image-->
+    <string name="camera">Camera </string>
+    <string name="gallery">Library </string>
+    <string name="about_app"> About App </string>
+    <string name="btn_submit">Submit </string>
+    <string name="date_picker">You have not choose this time </string>int
+    <string name="description">Description about Itinerary </string>
+    <string name="distance">Distance (km) </string>
+    <string name="driver_information">Update infor driver </string>
+    <string name="duration">Except Time (hour) </string>
+    <string name="end_addess">End Address </string>
+    <string name="extra_info_itinerary">Check info in map, then click "Advance" </string>
+
+    <string name="init">Init layout...</string>
+    <string name="input_address">Enter your area </string>
+    <string name="leave_date">Leave date </string>
+    <string name="map">Map </string>
+    <string name="no_directions">Cannot be determind the road. </string>
+    <string name="no_load_map">Sorry! Not load the map </string>
+    <string name="not_connect">Cannot connected to server </string>
+    <string name="password_not_match">Password not match </string>
+    <string name="personal_id">PersionalID </string>
+    <string name="personal_id_img">PersionalID Image </string>
+    <string name="personalid">PersionalID </string>
+    <string name="personalid_img">PersionalID Image </string>
+
+    <string name="phone">Phone</string>
+    <string name="require_update_info_profile">You should update infomation to experience the full application </string>
+    <string name="title_activity_forgot_password">Forgot Password </string>
+    <string name="update_driver_information">Update info Drive r</string>
+    <string name="you_sure">Are you sure? </string>
+    <string name="hint_name">Enter your full name </string>
+    <string name="title_activity_user_profile">User Profile </string>
+    <string name="title_activity_register_itinerary">Register Itinerary </string>
+    <string name="title_activity_upgrade_profile">Upgrade Profile </string>
+    <string name="title_activity_submit_itinerary">Submit Itinerary </string>
+    <string name="title_activity_search_advance">Search Advance </string>
+    <string name="title_activity_register_advance">Register Advance </string>
+    <string name="slogan">Son of the bitches </string>
+    <string name="info_basic">Infomation Contact </string>
+    <string name="contact_us">Contact Us </string>
+    <string name="author">Authors </string>
+    <string name="driver_created">Created Itineraries </string>
+    <string name="driver_waiting">Waiting customer accept </string>
+    <string name="driver_waiting_detail">This sections contain itineraries that customer asked to join, and he/she waiting for you to "Accept" or "Deny" </string>
+    <string name="driver_accepted">On Going </string>
+    <string name="driver_accept_detail">This sections contain itineraries that both Driver and Customer agreed </string>
+    <string name="driver_created_detail">This sections contain itineraries you created but no one has asked to join yet </string>
+    <string name="choose_role">Choose role: </string>
+    <string name="customer">Customer</string>
+
+</resources>

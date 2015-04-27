@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:id="@+id/accept"
+        android:onClick="acceptOnclick"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/list_itinerary_row_selector"
+
+        android:padding="8dp" >
+        <!-- Thumbnail Image -->
+        <ImageView
+            android:id="@+id/avatar1"
+            android:layout_width="80dp"
+            android:layout_height="120dp"
+            android:layout_alignParentLeft="true"
+            android:src="@drawable/ic_logo"
+            android:layout_marginRight="8dp" />
+        <!-- Itinerary Title -->
+        <TextView
+            android:id="@+id/description1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/avatar1"
+            android:layout_toRightOf="@+id/avatar1"
+            android:textSize="@dimen/description"
+            android:text="@string/driver_accepted"
+            android:textStyle="bold" />
+        <!-- Start - End  Address -->
+        <LinearLayout
+            android:id="@+id/address1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/description1"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@+id/avatar1"
+            android:orientation="vertical" >
+            <TextView
+                android:id="@+id/start_address1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/address"
+                android:textSize="@dimen/address"
+                android:text="@string/driver_accept_detail"/>
+        </LinearLayout>
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/waiting"
+        android:onClick="waitingOnclick"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/list_itinerary_row_selector"
+        android:padding="8dp" >
+        <!-- Thumbnail Image -->
+        <ImageView
+            android:id="@+id/avatar2"
+            android:layout_width="80dp"
+            android:layout_height="120dp"
+            android:layout_alignParentLeft="true"
+            android:src="@drawable/ic_logo"
+            android:layout_marginRight="8dp" />
+        <!-- Itinerary Title -->
+        <TextView
+            android:id="@+id/description2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/avatar2"
+            android:layout_toRightOf="@+id/avatar2"
+            android:textSize="@dimen/description"
+            android:text="@string/driver_waiting"
+            android:textStyle="bold" />
+        <!-- Start - End  Address -->
+        <LinearLayout
+            android:id="@+id/address2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/description2"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@+id/avatar2"
+            android:orientation="vertical" >
+            <TextView
+                android:id="@+id/start_address2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/address"
+                android:textSize="@dimen/address"
+                android:text="@string/driver_waiting_detail"/>
+        </LinearLayout>
+    </RelativeLayout>
+
+
+</LinearLayout><!-- From: file:/media/enclaveit/DATA/RideSharing-AndroidStudio/RideSharing/res/layout/fragment_categories_manage_itinerary_customer.xml -->

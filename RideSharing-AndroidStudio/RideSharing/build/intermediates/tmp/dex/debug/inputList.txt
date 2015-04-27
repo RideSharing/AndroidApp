@@ -1,0 +1,15 @@
+/media/enclaveit/DATA/RideSharing-AndroidStudio/RideSharing/build/intermediates/classes/debug
+/media/enclaveit/DATA/RideSharing-AndroidStudio/RideSharing/build/intermediates/pre-dexed/debug/support-annotations-21.0.3-570e4dc7f6de96ab0f886663fba4440bfe046dfb.jar
+/media/enclaveit/DATA/RideSharing-AndroidStudio/RideSharing/build/intermediates/pre-dexed/debug/classes-9074857da6b05f91d0a5fdcdc61efff7f93f8517.jar
+/media/enclaveit/DATA/RideSharing-AndroidStudio/RideSharing/build/intermediates/pre-dexed/debug/classes-892ee0ea48262015c502e08fbeedd759fb2c523f.jar
+/media/enclaveit/DATA/RideSharing-AndroidStudio/RideSharing/build/intermediates/pre-dexed/debug/classes-3402c4bd1d55fe6741cfc81138edd083f4293a63.jar
+/media/enclaveit/DATA/RideSharing-AndroidStudio/RideSharing/build/intermediates/pre-dexed/debug/classes-588dd1d78740d9b83a41162285f6e54aa5938bb3.jar
+/media/enclaveit/DATA/RideSharing-AndroidStudio/RideSharing/build/intermediates/pre-dexed/debug/classes-f0ee51de191a3fc0ed60f769976b82975b6d4518.jar
+/media/enclaveit/DATA/RideSharing-AndroidStudio/RideSharing/build/intermediates/pre-dexed/debug/volley-aae3c0c99851136ec656228fa467b2fe9ba4564d.jar
+/media/enclaveit/DATA/RideSharing-AndroidStudio/RideSharing/build/intermediates/pre-dexed/debug/signalr-client-sdk-android-c8e24ebcf497b5f3bb33a23c340d0bef140d1322.jar
+/media/enclaveit/DATA/RideSharing-AndroidStudio/RideSharing/build/intermediates/pre-dexed/debug/gson-2.2.2-034631fdd94118381050e4d6f8b9694d2edd87e9.jar
+/media/enclaveit/DATA/RideSharing-AndroidStudio/RideSharing/build/intermediates/pre-dexed/debug/internal_impl-21.0.3-2b21d34c67860a1bd7979269e5dd76352039880d.jar
+/media/enclaveit/DATA/RideSharing-AndroidStudio/RideSharing/build/intermediates/pre-dexed/debug/classes-6cda7fe8ea1337be37ff2c8a9ea341e97167fa10.jar
+/media/enclaveit/DATA/RideSharing-AndroidStudio/RideSharing/build/intermediates/pre-dexed/debug/classes-8c6dedcbe79dacf199bf5ba098ee8c7ac98c42c8.jar
+/media/enclaveit/DATA/RideSharing-AndroidStudio/RideSharing/build/intermediates/pre-dexed/debug/signalr-client-sdk-0e1018a0339c55634f920dd66200fa288346d932.jar
+/media/enclaveit/DATA/RideSharing-AndroidStudio/RideSharing/build/intermediates/pre-dexed/debug/classes-9f5bad6cd65c609f5495e87771efb3ae91966353.jar

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/RideSharing/RideSharing.iml" filepath="$PROJECT_DIR$/RideSharing/RideSharing.iml" />
+      <module fileurl="file://$PROJECT_DIR$/RideSharing-AndroidStudio.iml" filepath="$PROJECT_DIR$/RideSharing-AndroidStudio.iml" />
+      <module fileurl="file://$PROJECT_DIR$/gson-2.2.2/gson-2.2.2.iml" filepath="$PROJECT_DIR$/gson-2.2.2/gson-2.2.2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/signalr-client-sdk/signalr-client-sdk.iml" filepath="$PROJECT_DIR$/signalr-client-sdk/signalr-client-sdk.iml" />
+      <module fileurl="file://$PROJECT_DIR$/signalr-client-sdk-android/signalr-client-sdk-android.iml" filepath="$PROJECT_DIR$/signalr-client-sdk-android/signalr-client-sdk-android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/volley/volley.iml" filepath="$PROJECT_DIR$/volley/volley.iml" />
+      <module fileurl="file://$PROJECT_DIR$/workspace.iml" filepath="$PROJECT_DIR$/workspace.iml" />
+    </modules>
+  </component>
+</project>
+

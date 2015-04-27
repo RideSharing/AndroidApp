@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="15dp"
+    android:background="@drawable/border_listview"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+         >
+
+        <TextView
+            android:id="@+id/description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:gravity="center"
+            android:padding="5dp"
+            android:textSize="@dimen/description"
+            android:textStyle="bold" />
+
+        <!-- Start - End  Address -->
+
+        <LinearLayout
+            android:id="@+id/address"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/rating"
+            android:layout_marginTop="25dp"
+            android:layout_toRightOf="@+id/avatar"
+            android:orientation="vertical"
+            android:padding="5dp" >
+
+            <TextView
+                android:id="@+id/start_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/address"
+                android:textSize="@dimen/address" />
+
+            <TextView
+                android:id="@+id/end_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/start_address"
+                android:textColor="@color/address"
+                android:textSize="@dimen/address" />
+
+            <TextView
+                android:id="@+id/duration"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/address"
+                android:textSize="@dimen/address" />
+
+            <TextView
+                android:id="@+id/cost"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/address"
+                android:textSize="@dimen/address" />
+        </LinearLayout>
+
+        <!-- Leave Date -->
+
+        <TextView
+            android:id="@+id/leave_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/address"
+            android:textColor="#FF7F50"
+            android:textSize="@dimen/leave_date" />
+    </RelativeLayout>
+
+</LinearLayout>

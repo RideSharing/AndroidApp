@@ -1,0 +1,47 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:coolswitch="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.halley.manageitinerary.ManageItinerary">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="5dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/choose_role"/>
+        <Switch
+            android:defaultValue="true"
+            android:id="@+id/switchrole"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/role"/>
+        </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/enabled_view_foo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"/>
+
+
+
+
+
+
+    <!--&lt;!&ndash; Framelayout to display Fragments &ndash;&gt;-->
+
+    <!--<ExpandableListView-->
+        <!--android:id="@+id/list"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent" />-->
+
+</LinearLayout><!-- From: file:/media/enclaveit/DATA/RideSharing-AndroidStudio/RideSharing/res/layout/activity_manage_itinerary.xml -->

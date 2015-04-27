@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle" >
+
+    <solid android:color="#EEEEEE" />
+
+    <stroke
+        android:width="0dp"
+        android:color="#EEEEEE" />
+
+    <padding
+        android:bottom="5dp"
+        android:left="15dp"
+        android:right="15dp"
+        android:top="5dp" />
+
+    <corners android:radius="0dp" />
+
+</shape><!-- From: file:/media/enclaveit/DATA/RideSharing-AndroidStudio/RideSharing/res/drawable/border_textview.xml -->

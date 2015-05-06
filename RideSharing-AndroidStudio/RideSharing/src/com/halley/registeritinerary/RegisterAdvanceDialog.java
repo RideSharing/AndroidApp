@@ -93,7 +93,7 @@ public class RegisterAdvanceDialog extends DialogFragment {
 		}
 		etDistance.setText(distance);
 		etDuration.setText(duration);
-		etCost.setHint(R.string.hint
+		etCost.setHint(getResources().getString(R.string.hint)+" "
 				+ transferCost(Double
 						.parseDouble(getDigitfromDistance(distance)) * 15500 / 40));
 		etCost.addTextChangedListener(new NumberTextWatcher(etCost));
@@ -121,7 +121,7 @@ public class RegisterAdvanceDialog extends DialogFragment {
 				} else {
 					leave_date = etLeave_date.getText().toString();
 					description = etDescription.getText().toString();
-					duration = etDuration.getText().toString();
+					duration =etDuration.getText().toString();
 					cost = etCost.getText().toString().replace(",", "");
 					addItinerary(start_address, start_address_lat,
 							start_address_long, end_address, end_address_lat,
@@ -137,7 +137,7 @@ public class RegisterAdvanceDialog extends DialogFragment {
 
 	public String transferCost(Double cost) {
 		DecimalFormat formatter = new DecimalFormat("#,###,###");
-		return formatter.format(cost.doubleValue()) + " VNĐ";
+		return formatter.format(cost.doubleValue());
 
 	}
 
@@ -148,16 +148,16 @@ public class RegisterAdvanceDialog extends DialogFragment {
 			str = duration.split(" ");
 
 			if (str.length == 2) {
-				sumMin = Integer.parseInt(str[0]) + " "+R.string.min;
+				sumMin = Integer.parseInt(str[0]) + " "+getResources().getString(R.string.min);
 
 			} else {
 				if (!str[1].equals("day")) {
-					sumMin = Integer.parseInt(str[0]) + " "+R.string.hour
-							+ Integer.parseInt(str[2]) + " "+R.string.min;
+					sumMin = Integer.parseInt(str[0]) + " "+getResources().getString(R.string.hour)
+							+" "+Integer.parseInt(str[2]) + " "+getResources().getString(R.string.min);
 
 				} else {
-					sumMin = Integer.parseInt(str[0]) * 24 + " "+R.string.day
-							+ +Integer.parseInt(str[2]) + " "+R.string.hour;
+					sumMin = Integer.parseInt(str[0]) * 24 + " "+getResources().getString(R.string.day)
+							+ +Integer.parseInt(str[2]) + " "+getResources().getString(R.string.hour);
 
 				}
 			}
@@ -203,7 +203,7 @@ public class RegisterAdvanceDialog extends DialogFragment {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		// Toast.makeText(this, "" + sumMin, Toast.LENGTH_LONG).show();
+		 Toast.makeText(getActivity(), "" + sumMin, Toast.LENGTH_LONG).show();
 		return String.valueOf(sumMin);
 	}
 

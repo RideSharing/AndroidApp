@@ -120,7 +120,7 @@ public class SubmitItineraryActivity extends ActionBarActivity {
 		int time = Integer.parseInt(timeString);
 		int hour = time / 60;
 		int min = time % 60;
-		return hour + " "+R.string.hour + min + " "+R.string.min;
+		return hour + " "+getResources().getString(R.string.hour)+ " " + min + " "+getResources().getString(R.string.min);
 	}
 
 	public String transferCost(String cost) {

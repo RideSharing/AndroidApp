@@ -15,9 +15,7 @@ import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,7 +23,6 @@ import android.widget.Toast;
 import com.android.volley.Request.Method;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.StringRequest;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -59,7 +56,6 @@ public class MapViewOfItineraryFragment extends Fragment implements
 	private List<Marker> marker_drivers = new ArrayList<Marker>();
 	private List<ItineraryItem> itineraryItems;
 	private Marker marker_user;
-	ImageLoader imageLoader;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -76,6 +72,7 @@ public class MapViewOfItineraryFragment extends Fragment implements
 			toLocation = bundle.getString("toLocation");
             fromLocation = bundle.getString("fromLocation");
             isFrom = this.getArguments().getBoolean("isFrom");
+
 			getDriver();
 			initilizeMap();
 
@@ -92,23 +89,24 @@ public class MapViewOfItineraryFragment extends Fragment implements
 		}
 		return view;
 	}
-    private String standardlizeString(String toLocation){
-        toLocation= toLocation.substring(0,toLocation.length());
-        //Toast.makeText(getActivity(),toLocation.replaceAll(" ","+"),Toast.LENGTH_LONG).show();
-        return toLocation.replace(" ","+");
-    }
 
 	private void getDriver() {
 		// Tag used to cancel the request
 		String tag_string_req = "req_get_driver";
 		itineraryItems = new ArrayList<ItineraryItem>();
-		StringRequest strReq = new StringRequest(Method.GET,
-				AppConfig.URL_GET_ALL_ITINERARY+"&start_address="+(fromLocation!=null?standardlizeString(fromLocation):"")+"&end_address="+(toLocation!=null?standardlizeString(toLocation):""),
-				new Response.Listener<String>() {
+        String url="";
+        if(isFrom)
+            url=AppConfig.URL_GET_ALL_ITINERARY+"&start_address_lat="+fromLatitude+"&start_address_long="+fromLongitude;
+
+        else url=AppConfig.URL_GET_ALL_ITINERARY+"&start_address_lat="+fromLatitude+"&start_address_long="+fromLongitude+"&end_address_lat="+toLatitude+"&end_address_long="+toLongitude;
+        System.out.println("Map: "+url);
+        StringRequest strReq = new StringRequest(Method.GET,url
+                ,
+                new Response.Listener<String>() {
 
 					@Override
 					public void onResponse(String response) {
-						Log.d("Login Response: ", response.toString());
+						Log.d("MapView Response: ", response.toString());
 
 						try {
 
@@ -117,8 +115,8 @@ public class MapViewOfItineraryFragment extends Fragment implements
 											response.lastIndexOf("}") + 1));
 							boolean error = jObj.getBoolean("error");
 							// Check for error node in json
-                            String a=AppConfig.URL_GET_ALL_ITINERARY+"?start_address="+(fromLocation!=null?standardlizeString(fromLocation):"")+"&end_address="+(toLocation!=null?standardlizeString(toLocation):"");
-                            System.out.println(a);
+                            //String a=AppConfig.URL_GET_ALL_ITINERARY+"?start_address_lat="+fromLatitude+"&start_address_long="+fromLongitude+"&end_address_lat="+toLatitude+"&end_address_long="+toLongitude;
+
 							if (!error) {
 								JSONArray itineraries;
 								itineraries = jObj.getJSONArray("itineraries");
@@ -164,7 +162,7 @@ public class MapViewOfItineraryFragment extends Fragment implements
 															new LatLng(
 																	latitude,
 																	longitude))
-													.title(getResources().getString(R.id.driver))
+													.title(getResources().getString(R.string.driver))
 													.snippet(
 															"marker_driver_"
 																	+ i)
@@ -302,11 +300,11 @@ public class MapViewOfItineraryFragment extends Fragment implements
 			// m.getStart_address(),Toast.LENGTH_LONG).show();
 			// rating
 			// start_address
-			tvstart_address.setText(R.string.start_addess + m.getStart_address());
+			tvstart_address.setText(getResources().getString(R.string.start_addess) + " " + m.getStart_address());
 			// end_address
-			tvend_address.setText(R.string.end_addess + m.getEnd_address());
+			tvend_address.setText(getResources().getString(R.string.end_addess) + " " + m.getEnd_address());
 			// leave_date
-			tvleave_date.setText(R.string.leave_date + m.getLeave_date());
+			tvleave_date.setText(getResources().getString(R.string.leave_date) + " " + m.getLeave_date());
 			// Toast.makeText(getActivity(),
 			// itineraryItems.get(marker_id-1).getStart_address(),
 			// Toast.LENGTH_LONG).show();

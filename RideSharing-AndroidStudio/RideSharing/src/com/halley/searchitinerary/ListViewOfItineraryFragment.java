@@ -1,27 +1,21 @@
 package com.halley.searchitinerary;
 
-import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
+
 import java.util.Map;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.location.Address;
-import android.location.Geocoder;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.v4.app.Fragment;
-import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,22 +28,15 @@ import android.widget.Toast;
 import com.android.volley.Request.Method;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.VolleyLog;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.baoyz.widget.PullRefreshLayout;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
+
 import com.halley.app.AppConfig;
 import com.halley.app.AppController;
-import com.halley.helper.CustomNetworkImageView;
 import com.halley.helper.SessionManager;
 import com.halley.listitinerary.adapter.ItineraryListAdapter;
 import com.halley.listitinerary.data.ItineraryItem;
 import com.halley.registerandlogin.R;
-import com.halley.ridesharing.MainActivity;
 import com.halley.submititinerary.SubmitItineraryActivity;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
@@ -59,10 +46,9 @@ public class ListViewOfItineraryFragment extends Fragment {
 	private ItineraryListAdapter listAdapter;
 	private List<ItineraryItem> itineraryItems;
 	private SweetAlertDialog pDialog;
-	private Geocoder geocoder;
 	private double toLatitude, toLongitude, fromLatitude, fromLongitude;
 	private boolean isFrom;
-    String toLocation;
+    String fromLocation, toLocation;
 	SessionManager session;
     private PullRefreshLayout mSwipeRefreshLayout;
     private MyAsyncTask task;
@@ -87,6 +73,7 @@ public class ListViewOfItineraryFragment extends Fragment {
             toLatitude = bundle.getDouble("toLatitude");
             toLongitude = bundle.getDouble("toLongitude");
             toLocation = bundle.getString("toLocation");
+            fromLocation = bundle.getString("fromLocation");
             isFrom = this.getArguments().getBoolean("isFrom");
 		}
 		getDriver();
@@ -121,33 +108,30 @@ public class ListViewOfItineraryFragment extends Fragment {
 //                        ,Toast.LENGTH_LONG).show();
                 task=new MyAsyncTask();
                 task.execute();
-
-
-
             }
         });
 
         mSwipeRefreshLayout.setRefreshStyle(PullRefreshLayout.STYLE_MATERIAL);
 		return rootView;
 	}
-    private String standardlizeString(String toLocation){
-        toLocation= toLocation.substring(0,toLocation.length()-1);
-        //Toast.makeText(getActivity(),toLocation.replaceAll(" ","+"),Toast.LENGTH_LONG).show();
-        return toLocation.replace(" ","+");
-    }
 
 	private void getDriver() {
 		// Tag used to cancel the request
 		String tag_string_req = "req_get_driver_by_list";
 		itineraryItems = new ArrayList<ItineraryItem>();
-
-		StringRequest strReq = new StringRequest(Method.GET,
-				AppConfig.URL_GET_ALL_ITINERARY+"&end_address="+(toLocation!=null?standardlizeString(toLocation):""),
-				new Response.Listener<String>() {
+        String url="";
+        if(isFrom){
+            url=AppConfig.URL_GET_ALL_ITINERARY+"&start_address_lat="+fromLatitude+"&start_address_long="+fromLongitude;
+        }
+        else url=AppConfig.URL_GET_ALL_ITINERARY+"&start_address_lat="+fromLatitude+"&start_address_long="+fromLongitude+"&end_address_lat="+toLatitude+"&end_address_long="+toLongitude;
+        System.out.println("List: "+url);
+        StringRequest strReq = new StringRequest(Method.GET,url
+                ,
+                new Response.Listener<String>() {
 
 					@Override
 					public void onResponse(String response) {
-						// Log.d("Login Response: ", response.toString());
+						Log.d("List Response: ", response.toString());
 						hidePDialog();
 						try {
 

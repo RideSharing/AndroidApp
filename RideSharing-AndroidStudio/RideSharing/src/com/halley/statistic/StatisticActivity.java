@@ -53,7 +53,7 @@ public class StatisticActivity extends ActionBarActivity implements OnSeekBarCha
             "Một", "Hai", "Ba", "Bốn", "Năm", "Sáu", "Bảy", "Tám", "Chín", "Mười", "Mười một", "Mười hai"
     };
     private String[] mYears =new String[]{
-            String.valueOf(year-3),String.valueOf(year-2),String.valueOf(year-1),String.valueOf(year)+" (*)",String.valueOf(year+1),String.valueOf(year+2),String.valueOf(year+3)
+            String.valueOf(year-3),String.valueOf(year-2),String.valueOf(year-1),String.valueOf(year)+" (*)"
     };
     private String[] orderby;
     private HorizontalBarChart mChart;
@@ -88,33 +88,34 @@ public class StatisticActivity extends ActionBarActivity implements OnSeekBarCha
         mSeekBarX = (SeekBar) findViewById(R.id.seekBar1);
         mChart = (HorizontalBarChart) findViewById(R.id.chart1);
         initChart();
-        ArrayAdapter<String> adapter1=new ArrayAdapter<String>
-                (
-                        this,
-                        android.R.layout.simple_spinner_item,
-                        orderby
-                );
-        //phải gọi lệnh này để hiển thị danh sách cho Spinner
-        adapter1.setDropDownViewResource
-                (android.R.layout.simple_list_item_single_choice);
-        //Thiết lập adapter cho Spinner
-        spin.setAdapter(adapter1);
-        //thiết lập sự kiện chọn phần tử cho Spinner
-        spin.setOnItemSelectedListener(new MyProcessEvent());
+        initSpinner(spin);
+        initSpinner(subSpin);
+    }
 
-        ArrayAdapter<String> adapter2=new ArrayAdapter<String>
-                (
-                        this,
-                        android.R.layout.simple_spinner_item,
-                        mYears
-                );
-        //phải gọi lệnh này để hiển thị danh sách cho Spinner
-        adapter2.setDropDownViewResource
+    public void initSpinner(Spinner sp){
+        ArrayAdapter<String> adapter=null;
+        if(sp.getId()==R.id.spOrderBy){
+             adapter=new ArrayAdapter<String>
+                    (
+                            this,
+                            android.R.layout.simple_spinner_item,
+                            orderby
+                    );
+
+        }else if(sp.getId()==R.id.spOrderByYear){
+            adapter=new ArrayAdapter<String>
+                    (
+                            this,
+                            android.R.layout.simple_spinner_item,
+                            mYears
+                    );
+
+        }
+        adapter.setDropDownViewResource
                 (android.R.layout.simple_list_item_single_choice);
-        //Thiết lập adapter cho Spinner
-        subSpin.setAdapter(adapter2);
-        //thiết lập sự kiện chọn phần tử cho Spinner
-        subSpin.setOnItemSelectedListener(new MyProcessEvent());
+        sp.setAdapter(adapter);
+        sp.setOnItemSelectedListener(new MyProcessEvent());
+
     }
 
 
@@ -291,7 +292,7 @@ public class StatisticActivity extends ActionBarActivity implements OnSeekBarCha
 
 
         }
-        //Nếu không chọn gì cả
+
         public void onNothingSelected(AdapterView<?> arg0) {
 
         }

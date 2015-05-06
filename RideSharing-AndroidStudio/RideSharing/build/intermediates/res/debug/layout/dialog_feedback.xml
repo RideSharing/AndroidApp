@@ -68,4 +68,4 @@
         android:text="@string/ok"
         android:textColor="@color/white" />
 
-</LinearLayout><!-- From: file:/media/enclaveit/DATA/RideSharing-AndroidStudio/RideSharing/res/layout/dialog_feedback.xml -->
+</LinearLayout><!-- From: file:/media/enclaveit/DATA/RideSharingGIT/AndroidApp/RideSharing-AndroidStudio/RideSharing/res/layout/dialog_feedback.xml -->

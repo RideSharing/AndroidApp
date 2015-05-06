@@ -16,4 +16,4 @@
        	android:onClick="roleOnclick"
         android:text="@string/driver" />
 
-</LinearLayout><!-- From: file:/media/enclaveit/DATA/RideSharing-AndroidStudio/RideSharing/res/layout/switch_role_actionbar.xml -->
+</LinearLayout><!-- From: file:/media/enclaveit/DATA/RideSharingGIT/AndroidApp/RideSharing-AndroidStudio/RideSharing/res/layout/switch_role_actionbar.xml -->

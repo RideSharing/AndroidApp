@@ -4,7 +4,7 @@
     <string name="app_name">RideSharing </string>
     <string name="app_menu">Menu </string>
     <string name="action_settings">Settings </string>
-    <!--general-->
+    <!-- general -->
     <string name="refresh">Refresh... </string>
     <string name="process_data">Process data...</string>
     <string name="logout">Sign out</string>
@@ -15,9 +15,7 @@
     <string name="change_info">Update Info </string>
     <string name="hint">Hint </string>
     <string name="list">List</string>
-
     <string name="hint_email">Enter your email </string>
-
     <string name="hint_password">Enter your password </string>
     <string name="cost">Cost (VNĐ) </string>
     <string name="btn_login">Sign in </string>
@@ -77,7 +75,6 @@
     <string name="title_item_detail">Item Detail </string>
     <string name="update_itinerary">Update infomation of itinerary </string>
     <string name="title_activity_popup_itinerary">PopupItineraryActivity </string>
-
     <string name="dialog_field_fullname">Enter your fullname </string>
     <string name="dialog_field_phone">Enter your phone </string>
     <string name="dialog_field_personalid">Enter your Persional_ID </string>
@@ -93,8 +90,8 @@
     <string name="update_image">Update Image </string>
     <string name="change_profile">Edit Info </string>
     <string name="confirm_driver">You have registered to become driver </string>
-	<string name="delete_itinerary">Delete Itinerary </string>
-    
+    <string name="delete_itinerary">Delete Itinerary </string>
+
     <!-- Button Title -->
     <string name="btn_confirm_change">Submit </string>
     <string name="btn_cancel_change">Cancel </string>
@@ -111,35 +108,33 @@
     <!-- TextView -->
 
 
-
-    <!--List-->
+    <!-- List -->
     <string name="rating">Rating </string>
     <string name="comment">Comment </string>
 
-    <!--Maps-->
+    <!-- Maps -->
     <string name="not_found_area">Not found area </string>
     <string name="current_address">Current Address </string>
     <string name="driver">Driver </string>
-    <!--About Us-->
+    <!-- About Us -->
     <string name="feedback">Feedback </string>
 
-    <!--Dialog-->
+    <!-- Dialog -->
     <string name="ok">OK </string>
     <string name="cancel">Cancel </string>
 
-    <!--Get image-->
+    <!-- Get image -->
     <string name="camera">Camera </string>
     <string name="gallery">Library </string>
     <string name="about_app"> About App </string>
     <string name="btn_submit">Submit </string>
-    <string name="date_picker">You have not choose this time </string>int
-    <string name="description">Description about Itinerary </string>
+    <string name="date_picker">You have not choose this time </string>
+int    <string name="description">Description about Itinerary </string>
     <string name="distance">Distance (km) </string>
     <string name="driver_information">Update infor driver </string>
     <string name="duration">Except Time (hour) </string>
     <string name="end_addess">End Address </string>
     <string name="extra_info_itinerary">Check info in map, then click "Advance" </string>
-
     <string name="init">Init layout...</string>
     <string name="input_address">Enter your area </string>
     <string name="leave_date">Leave date </string>
@@ -152,7 +147,6 @@
     <string name="personal_id_img">PersionalID Image </string>
     <string name="personalid">PersionalID </string>
     <string name="personalid_img">PersionalID Image </string>
-
     <string name="phone">Phone</string>
     <string name="require_update_info_profile">You should update infomation to experience the full application </string>
     <string name="title_activity_forgot_password">Forgot Password </string>
@@ -177,5 +171,10 @@
     <string name="driver_created_detail">This sections contain itineraries you created but no one has asked to join yet </string>
     <string name="choose_role">Choose role: </string>
     <string name="customer">Customer</string>
+    <string name="title_activity_statistic">StatisticActivity</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="order_by">Order By:</string>
+    <string name="year">Year</string>
+    <string name="month">Month</string>
 
 </resources>

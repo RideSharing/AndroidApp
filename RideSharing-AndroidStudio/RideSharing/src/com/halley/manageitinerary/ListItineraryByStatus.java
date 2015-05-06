@@ -26,10 +26,7 @@ import com.halley.helper.SessionManager;
 import com.halley.listitinerary.adapter.ItineraryListAdapter;
 import com.halley.listitinerary.data.ItineraryItem;
 import com.halley.registerandlogin.R;
-import com.halley.ridesharing.MainActivity;
-import com.halley.submititinerary.SubmitItineraryActivity;
-import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout;
-import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
+
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -48,7 +45,8 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
  * Created by enclaveit on 4/23/15.
  */
 public class ListItineraryByStatus extends Fragment{
-    private static final String TAG = MainActivity.class.getSimpleName();
+    private static final String DRIVER_ROLE="driver";
+    private static final String CUSTOMER_ROLE="customer";
 
     private ListView listView;
     private ItineraryListAdapter listAdapter;
@@ -77,13 +75,31 @@ public class ListItineraryByStatus extends Fragment{
             status=bundle.getString("status");
             role=bundle.getString("role");
 
-            if(role.equals("driver")){
+            if(role.equals(DRIVER_ROLE)){
+                showDialog();
                 getItineraries(AppConfig.URL_DRIVER_ITINERARY,status);
             }
             else{
+                showDialog();
                 getItineraries(AppConfig.URL_CUSTOMER_ITINERARY,status);
             }
         }
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+                @Override
+                public void onItemClick(AdapterView<?> arg0, View arg1, int position,
+                                        long arg3) {
+                    ItineraryItem m = itineraryItems.get(position);
+                    Intent i=new Intent(getActivity(),DetailManageItineraryActivity.class);
+                    Bundle bundle=new Bundle();
+                    bundle.putString("itinerary_id", m.getItinerary_id());
+                    i.putExtra("bundle", bundle);
+                    startActivity(i);
+
+                }
+            });
+
+
 
         mSwipeRefreshLayout.setOnRefreshListener(new PullRefreshLayout.OnRefreshListener() {
             @Override
@@ -107,7 +123,7 @@ public class ListItineraryByStatus extends Fragment{
         // Tag used to cancel the request
         String tag_string_req = "req_get_driver_by_list";
         itineraryItems = new ArrayList<ItineraryItem>();
-        pDialog.show();
+
         StringRequest strReq = new StringRequest(Request.Method.GET,
                 url,
                 new Response.Listener<String>() {
@@ -216,6 +232,10 @@ public class ListItineraryByStatus extends Fragment{
         hidePDialog();
     }
 
+    private void showDialog() {
+        if (!pDialog.isShowing())
+            pDialog.show();
+    }
     private void hidePDialog() {
         if (pDialog != null) {
             pDialog.dismiss();
@@ -230,8 +250,12 @@ public class ListItineraryByStatus extends Fragment{
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-
-           Toast.makeText(getActivity(),"OK", Toast.LENGTH_LONG).show();
+            if(role.equals(DRIVER_ROLE)){
+                getItineraries(AppConfig.URL_DRIVER_ITINERARY,status);
+            }
+            else{
+                getItineraries(AppConfig.URL_CUSTOMER_ITINERARY,status);
+            }
 
         }
 
@@ -260,15 +284,6 @@ public class ListItineraryByStatus extends Fragment{
 
         }
 
-    }
-    private void showDialog() {
-        if (!pDialog.isShowing())
-            pDialog.show();
-    }
-
-    private void hideDialog() {
-        if (pDialog.isShowing())
-            pDialog.dismiss();
     }
 
 

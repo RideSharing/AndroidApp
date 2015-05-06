@@ -36,4 +36,6 @@
     <color name="blue_pressed">@android:color/holo_blue_dark</color>
     <color name="blue_normal">@android:color/holo_blue_light</color>
 
+
+
 </resources>

@@ -18,6 +18,9 @@ public class AppConfig {
 	// Server driver get all itinerary url
 	public static String URL_GET_ALL_ITINERARY = "http://192.168.10.132/RESTFul/v1/itineraries?lang="+lang;
 
+    // Server driver get itinerary by id url
+    public static String URL_GET_ITINERARY = "http://192.168.10.132/RESTFul/v1/itinerary";
+
 	// Server driver register itinerary url
 	public static String URL_REGISTER_ITINERARY = "http://192.168.10.132/RESTFul/v1/itinerary";
 

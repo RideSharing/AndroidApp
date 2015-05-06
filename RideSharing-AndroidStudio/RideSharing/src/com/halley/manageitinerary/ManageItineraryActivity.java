@@ -16,9 +16,11 @@ import android.widget.CompoundButton;
 
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.halley.custom_theme.CustomActionBar;
+import com.halley.helper.SessionManager;
 import com.halley.registerandlogin.R;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
@@ -28,54 +30,63 @@ public class ManageItineraryActivity extends ActionBarActivity {
     private static final int REQUEST_REFRESH = 1;
 
     private Switch switchrole;
-    TextView tvrole;
     private ActionBar actionBar;
     private CustomActionBar custom_actionbar;
     private SweetAlertDialog pDialog;
+    private SessionManager session;
     FragmentManager fragmentManager;
     FragmentTransaction fragmentTransaction;
     private static final String ITINERARY_STATUS_CREATED ="1";
     private static final String ITINERARY_STATUS_CUSTOMER_ACCEPTED ="2";
     private static final String ITINERARY_STATUS_DRIVER_ACCEPTED ="3";
-    private static final String CUSTOMER ="customer";
-    private static final String DRIVER ="driver";
+    private static final String CUSTOMER ="customer";//true is customer
+    private static final String DRIVER ="driver";// false is driver
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manage_itinerary);
         custom_actionbar=new CustomActionBar(this,actionBar,pDialog,2);
         actionBar=custom_actionbar.getActionBar();
+        session=new SessionManager(getApplicationContext());
         switchrole = (Switch) findViewById(R.id.switchrole);
-        tvrole=(TextView) findViewById(R.id.role);
-        switchrole.setChecked(true);
-        switchrole.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    tvrole.setText(getResources().getString(R.string.customer));
-                    fragmentManager = getFragmentManager();
-                    fragmentManager.popBackStackImmediate();
-                    fragmentTransaction = fragmentManager
-                            .beginTransaction();
-                    ManageItineraryCustomerFragment fragmentS1 = new ManageItineraryCustomerFragment();
-                    fragmentTransaction.replace(R.id.enabled_view_foo, fragmentS1);
-                    fragmentTransaction.commit();
 
-                } else {
-                    tvrole.setText(getResources().getString(R.string.driver));
-                    fragmentManager = getFragmentManager();
-                    fragmentManager.popBackStackImmediate();
-                    fragmentTransaction = fragmentManager
-                            .beginTransaction();
-                    ManageItineraryDriverFragment fragmentS1 = new ManageItineraryDriverFragment();
-                    fragmentTransaction.replace(R.id.enabled_view_foo, fragmentS1);
-                    fragmentTransaction.commit();
+        if(!session.isDriver()){
+            switchrole.setEnabled(false);
+            switchrole.setChecked(true);
+
+            //Toast.makeText(this,"asd",Toast.LENGTH_LONG).show();
+        }
+        else {
+            switchrole.setChecked(false);
+            switchrole.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if (isChecked) {
+
+                        fragmentManager = getFragmentManager();
+                        fragmentManager.popBackStackImmediate();
+                        fragmentTransaction = fragmentManager
+                                .beginTransaction();
+                        ManageItineraryCustomerFragment fragmentS1 = new ManageItineraryCustomerFragment();
+                        fragmentTransaction.replace(R.id.enabled_view_foo, fragmentS1);
+                        fragmentTransaction.commit();
+
+                    } else {
+
+                        fragmentManager = getFragmentManager();
+                        fragmentManager.popBackStackImmediate();
+                        fragmentTransaction = fragmentManager
+                                .beginTransaction();
+                        ManageItineraryDriverFragment fragmentS1 = new ManageItineraryDriverFragment();
+                        fragmentTransaction.replace(R.id.enabled_view_foo, fragmentS1);
+                        fragmentTransaction.commit();
+                    }
+
                 }
-
-            }
-        });
+            });
+        }
         if(switchrole.isChecked()){
-            tvrole.setText(getResources().getString(R.string.customer));
+
             //check the current state before we display the screen
             fragmentManager = getFragmentManager();
             fragmentManager.popBackStackImmediate();
@@ -87,7 +98,7 @@ public class ManageItineraryActivity extends ActionBarActivity {
             fragmentTransaction.commit();
         }
         else{
-            tvrole.setText(getResources().getString(R.string.driver));
+
             //check the current state before we display the screen
             fragmentManager = getFragmentManager();
             fragmentManager.popBackStackImmediate();

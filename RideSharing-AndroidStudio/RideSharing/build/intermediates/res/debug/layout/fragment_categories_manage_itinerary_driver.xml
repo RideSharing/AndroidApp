@@ -7,14 +7,19 @@
         android:layout_height="wrap_content"
         android:background="@drawable/list_itinerary_row_selector"
         android:onClick="createdOnclick"
+        android:layout_margin="5dp"
         android:padding="8dp" >
         <!-- Thumbnail Image -->
-        <ImageView
+        <TextView
             android:id="@+id/avatar1"
-            android:layout_width="80dp"
-            android:layout_height="120dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:layout_alignParentLeft="true"
-            android:src="@drawable/ic_author_nguyennhatcuong"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:background="@color/bg_login"
+            android:text="@string/driver_created"
             android:layout_marginRight="8dp" />
         <!-- Itinerary Title -->
         <TextView
@@ -49,14 +54,19 @@
         android:layout_height="wrap_content"
         android:background="@drawable/list_itinerary_row_selector"
         android:onClick="waitingUserOnclick"
+        android:layout_margin="5dp"
         android:padding="8dp" >
         <!-- Thumbnail Image -->
-        <ImageView
+        <TextView
             android:id="@+id/avatar2"
-            android:layout_width="80dp"
-            android:layout_height="120dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:layout_alignParentLeft="true"
-            android:src="@drawable/ic_logo"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:background="@color/bg_login"
+            android:text="@string/driver_waiting"
             android:layout_marginRight="8dp" />
         <!-- Itinerary Title -->
         <TextView
@@ -91,14 +101,19 @@
         android:layout_height="wrap_content"
         android:background="@drawable/list_itinerary_row_selector"
         android:onClick="acceptedUserOnclick"
+        android:layout_margin="5dp"
         android:padding="8dp" >
         <!-- Thumbnail Image -->
-        <ImageView
+        <TextView
             android:id="@+id/avatar"
-            android:layout_width="80dp"
-            android:layout_height="120dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:layout_alignParentLeft="true"
-            android:src="@drawable/ic_logo"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:background="@color/bg_login"
+            android:text="@string/driver_accepted"
             android:layout_marginRight="8dp" />
         <!-- Itinerary Title -->
         <TextView
@@ -129,4 +144,4 @@
         </LinearLayout>
     </RelativeLayout>
 
-</LinearLayout><!-- From: file:/media/enclaveit/DATA/RideSharing-AndroidStudio/RideSharing/res/layout/fragment_categories_manage_itinerary_driver.xml -->
+</LinearLayout><!-- From: file:/media/enclaveit/DATA/RideSharingGIT/AndroidApp/RideSharing-AndroidStudio/RideSharing/res/layout/fragment_categories_manage_itinerary_driver.xml -->

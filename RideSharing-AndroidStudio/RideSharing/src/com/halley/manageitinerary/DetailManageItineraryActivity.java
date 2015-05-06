@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -25,12 +26,10 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.Typeface;
-import android.graphics.drawable.ColorDrawable;
-import android.location.Address;
-import android.location.Geocoder;
+
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.util.DisplayMetrics;
@@ -70,6 +69,7 @@ import com.halley.custom_theme.CustomActionBar;
 import com.halley.dialog.SearchDialogFragment.OnDataPass;
 import com.halley.helper.NumberTextWatcher;
 import com.halley.helper.SessionManager;
+import com.halley.listitinerary.adapter.ItineraryListAdapter;
 import com.halley.listitinerary.data.ItineraryItem;
 import com.halley.map.GPSLocation.GMapV2Direction;
 import com.halley.registerandlogin.R;
@@ -80,23 +80,16 @@ public class DetailManageItineraryActivity extends ActionBarActivity implements
 		OnDataPass {
 	private static final String TAG = DetailManageItineraryActivity.class
 			.getSimpleName();
-	private final int REQUEST_EXIT = 1;
-	private static final int RESULT_DELETE = 101;
 	private GoogleMap googleMap;
-	private Geocoder geocoder;
-	private double fromLatitude, fromLongitude, toLatitude, toLongitude;
 	private Marker marker_start_address;
 	private Marker marker_end_address;
 	private ActionBar actionBar;
 	private SweetAlertDialog pDialog;
 	private Context context = this;
-	private boolean isFrom;
 	private TextView tvdescription, tvstartAddress, tvendAddress, tvduration,
 			tvdistance, tvleave_date, tvcost, tvphone;
 	EditText edDescription, edDuration, edCost, edPhone;
 	TextView edLeaveDate;
-	private String description, startAddress, endAddress, txtduration,
-			txtdistance, leave_date, cost, phone;
 	private String duration, distance, key, itinerary_id;
 	private SessionManager session;
 	private ItineraryItem itineraryItem;
@@ -113,6 +106,16 @@ public class DetailManageItineraryActivity extends ActionBarActivity implements
 		session = new SessionManager(getApplicationContext());
         // Progress dialog
         pDialog = new SweetAlertDialog(this,SweetAlertDialog.PROGRESS_TYPE);
+        tvdescription = (TextView) findViewById(R.id.description);
+        tvstartAddress = (TextView) findViewById(R.id.startAddress);
+        tvendAddress = (TextView) findViewById(R.id.endAddress);
+        tvduration = (TextView) findViewById(R.id.duration);
+        tvdistance = (TextView) findViewById(R.id.distance);
+        tvleave_date = (TextView) findViewById(R.id.leave_date);
+        tvcost = (TextView) findViewById(R.id.cost);
+        tvphone = (TextView) findViewById(R.id.phone);
+        Button btnEditItinerary = (Button) findViewById(R.id.btnEditItinerary);
+        Button btnDeleteItinerary = (Button) findViewById(R.id.btnDeleteItinerary);
         pDialog.setCancelable(false);
         custom_actionbar=new CustomActionBar(this,actionBar,pDialog,2);
         actionBar=custom_actionbar.getActionBar();
@@ -126,57 +129,12 @@ public class DetailManageItineraryActivity extends ActionBarActivity implements
 		}
 		Bundle bundle = this.getIntent().getExtras().getBundle("bundle");
 		if (bundle != null) {
-			fromLatitude = bundle.getDouble("start_address_lat");
-			fromLongitude = bundle.getDouble("start_address_long");
-			toLatitude = bundle.getDouble("end_address_lat");
-			toLongitude = bundle.getDouble("end_address_long");
-			description = bundle.getString("description");
-			startAddress = bundle.getString("start_address");
-			endAddress = bundle.getString("end_address");
-			txtduration = bundle.getString("duration");
-			txtdistance = bundle.getString("distance");
-			cost = bundle.getString("cost");
-			phone = bundle.getString("phone");
-			leave_date = bundle.getString("leave_date");
 			itinerary_id = bundle.getString("itinerary_id");
+
+            getItinerary(itinerary_id);
+
 		}
 
-		tvdescription = (TextView) findViewById(R.id.description);
-		tvstartAddress = (TextView) findViewById(R.id.startAddress);
-		tvendAddress = (TextView) findViewById(R.id.endAddress);
-		tvduration = (TextView) findViewById(R.id.duration);
-		tvdistance = (TextView) findViewById(R.id.distance);
-		tvleave_date = (TextView) findViewById(R.id.leave_date);
-		tvcost = (TextView) findViewById(R.id.cost);
-		tvphone = (TextView) findViewById(R.id.phone);
-		Button btnEditItinerary = (Button) findViewById(R.id.btnEditItinerary);
-		Button btnDeleteItinerary = (Button) findViewById(R.id.btnDeleteItinerary);
-		tvdescription.setText(description);
-		tvstartAddress.setText(startAddress);
-		tvendAddress.setText(endAddress);
-		tvduration.setText(transferDuration(txtduration));
-		tvdistance.setText(txtdistance);
-		tvleave_date.setText(leave_date);
-		tvcost.setText(transferCost(cost));
-		tvphone.setText(phone);
-		initilizeMap();
-		// Add current location on Maps
-
-		marker_start_address = addMarkeronMaps(fromLatitude, fromLongitude,
-				getResources().getString(R.string.start_addess), " ",
-				R.drawable.ic_marker_start);
-		marker_end_address = addMarkeronMaps(toLatitude, toLongitude,
-				getResources().getString(R.string.end_addess), " ",
-				R.drawable.ic_marker_end);
-		focusMap(marker_start_address, marker_end_address);
-
-		// Getting URL to the Google Directions API
-		String url = getDirectionsUrl(marker_start_address.getPosition(),
-				marker_end_address.getPosition());
-		DownloadTask downloadTask = new DownloadTask();
-
-		// Start downloading json data from Google Directions API
-		downloadTask.execute(url);
 		btnEditItinerary.setOnClickListener(new View.OnClickListener() {
 
 			@Override
@@ -274,10 +232,7 @@ public class DetailManageItineraryActivity extends ActionBarActivity implements
 					dialog.dismiss();
 					setResult(RESULT_OK);
 				}
-				tvdescription.setText(getDescription);
-				tvleave_date.setText(getLeaveDate);
-				tvduration.setText(getDuration);
-				tvcost.setText(getCost);
+
 
 			}
 		});
@@ -314,7 +269,10 @@ public class DetailManageItineraryActivity extends ActionBarActivity implements
 							JSONObject jObj = new JSONObject(response);
 							boolean error = jObj.getBoolean("error");
 							if (!error) {
-
+                                tvdescription.setText(getDescription);
+                                tvleave_date.setText(getLeaveDate);
+                                tvduration.setText(getDuration);
+                                tvcost.setText(getCost);
 								String message = jObj.getString("message");
 								Toast.makeText(getApplicationContext(),
 										message, Toast.LENGTH_LONG).show();
@@ -371,6 +329,113 @@ public class DetailManageItineraryActivity extends ActionBarActivity implements
 		// Adding request to request queue
 		AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
 	}
+    private void getItinerary(final String id) {
+        // Tag used to cancel the request
+        String tag_string_req = "req_get_itinerary_by_id";
+        Toast.makeText(this,id,Toast.LENGTH_LONG).show();
+        StringRequest strReq = new StringRequest(Method.GET,
+                AppConfig.URL_GET_ITINERARY+"/"+id+"?lang="+Locale.getDefault().getLanguage(),
+                new Response.Listener<String>() {
+
+                    @Override
+                    public void onResponse(String response) {
+                        // Log.d("Login Response: ", response.toString());
+                        try {
+
+                            JSONObject jObj = new JSONObject(response
+                                    .substring(response.indexOf("{"),
+                                            response.lastIndexOf("}") + 1));
+                            boolean error = jObj.getBoolean("error");
+                            // Check for error node in json
+
+                            if (!error) {
+                                itineraryItem = new ItineraryItem();
+                                    itineraryItem.setStart_address_lat(jObj
+                                            .getString("start_address_lat"));
+                                    itineraryItem.setStart_address_long(jObj
+                                            .getString("start_address_long"));
+                                    itineraryItem.setEnd_address_lat(jObj
+                                            .getString("end_address_lat"));
+                                    itineraryItem.setEnd_address_long(jObj
+                                            .getString("end_address_long"));
+                                    itineraryItem.setDescription(jObj
+                                            .getString("description"));
+                                    itineraryItem.setStart_address(jObj
+                                            .getString("start_address"));
+                                    itineraryItem.setEnd_address(jObj
+                                            .getString("end_address"));
+                                    itineraryItem.setRating(4.8);
+                                    itineraryItem.setLeave_date(jObj
+                                            .getString("leave_date"));
+                                    itineraryItem.setCost(jObj
+                                            .getString("cost"));
+                                    itineraryItem.setDuration(jObj
+                                            .getString("duration"));
+                                    itineraryItem.setDistance(jObj
+                                            .getString("distance"));
+                                tvdescription.setText(itineraryItem.getDescription());
+                                tvstartAddress.setText(itineraryItem.getStart_address());
+                                tvendAddress.setText(itineraryItem.getEnd_address());
+                                tvduration.setText(transferDuration(itineraryItem.getDuration()));
+                                tvdistance.setText(itineraryItem.getDistance());
+                                tvleave_date.setText(itineraryItem.getLeave_date());
+                                tvcost.setText(transferCost(itineraryItem.getCost()));
+                                tvphone.setText(itineraryItem.getPhone());
+                                initilizeMap();
+                                // Add current location on Maps
+                                marker_start_address = addMarkeronMaps(Double.parseDouble(itineraryItem.getStart_address_lat()), Double.parseDouble(itineraryItem.getStart_address_long()),
+                                        getResources().getString(R.string.start_addess), " ",
+                                        R.drawable.ic_marker_start);
+                                marker_end_address = addMarkeronMaps(Double.parseDouble(itineraryItem.getEnd_address_lat()),Double.parseDouble(itineraryItem.getEnd_address_long()),
+                                        getResources().getString(R.string.end_addess), " ",
+                                        R.drawable.ic_marker_end);
+                                focusMap(marker_start_address, marker_end_address);
+
+                                // Getting URL to the Google Directions API
+                                String url = getDirectionsUrl(marker_start_address.getPosition(),
+                                        marker_end_address.getPosition());
+                                DownloadTask downloadTask = new DownloadTask();
+
+                                // Start downloading json data from Google Directions API
+                                downloadTask.execute(url);
+
+                            } else {
+                                // Error in login. Get the error message
+                                String message = jObj.getString("message");
+                                Toast.makeText(getApplicationContext(), message,
+                                        Toast.LENGTH_LONG).show();
+                            }
+                        } catch (JSONException e) {
+                            // JSON error
+                            e.printStackTrace();
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                Toast.makeText(getApplicationContext(),
+                        R.string.not_connect,
+                        Toast.LENGTH_LONG).show();
+
+            }
+        }) {
+
+            @Override
+            public Map<String, String> getHeaders() {
+                // Posting parameters to login url
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Authorization", session.getAPIKey());
+                return params;
+            }
+
+        };
+
+        // Adding request to request queue
+        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+    }
 
 	public void deleteItinerary() {
 		// Tag used to cancel the request
@@ -483,7 +548,7 @@ public class DetailManageItineraryActivity extends ActionBarActivity implements
 		int time = Integer.parseInt(timeString);
 		int hour = time / 60;
 		int min = time % 60;
-		return hour + " "+R.string.hour + min + " "+R.string.min;
+		return hour + " "+getResources().getString(R.string.hour)+" " + min + " "+getResources().getString(R.string.min);
 	}
 
 	public String transferCost(String cost) {
@@ -717,61 +782,6 @@ public class DetailManageItineraryActivity extends ActionBarActivity implements
 		googleMap.animateCamera(cu);
 	}
 
-	public Address getLocation(LatLng location) {
-		Address add = null;
-		List<android.location.Address> list_address = null;
-		geocoder = new Geocoder(this, Locale.getDefault());
-
-		try {
-			list_address = geocoder.getFromLocation(location.latitude,
-					location.longitude, 1);
-			if (!list_address.isEmpty()) {
-				add = list_address.get(0);
-			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return add;
-
-	}
-
-	public Address getLocationfromName(String location) {
-		Address add = null;
-		List<android.location.Address> list_address = null;
-		geocoder = new Geocoder(this, Locale.getDefault());
-
-		try {
-			list_address = geocoder.getFromLocationName(location, 1);
-			if (!list_address.isEmpty()) {
-				add = list_address.get(0);
-			}
-			// Toast.makeText(this, "submit " + locality,
-			// Toast.LENGTH_SHORT).show();
-
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		return add;
-	}
-
-	public String getDetailLocation(Marker marker) {
-		String address = "";
-		Address position = null;
-		position = getLocation(marker.getPosition());
-		if (position != null) {
-			for (int i = 0; i < 4; i++) {
-
-				if (position.getAddressLine(i) != null) {
-					address += position.getAddressLine(i) + " ";
-				}
-
-			}
-		}
-		return address;
-	}
 
 	@Override
 	public void onBackPressed() {
@@ -814,5 +824,6 @@ public class DetailManageItineraryActivity extends ActionBarActivity implements
 		if (pDialog.isShowing())
 			pDialog.dismiss();
 	}
+
 
 }

@@ -4,4 +4,4 @@
     <stroke android:color="@color/warning_stroke_color" android:width="@dimen/common_circle_width" />
 </shape>
 
-<!-- From: file:/F:/as-projects/sweet-alert-dialog/library/src/main/res/drawable/warning_circle.xml --><!-- From: file:/media/enclaveit/DATA/RideSharing-AndroidStudio/RideSharing/build/intermediates/exploded-aar/cn.pedant.sweetalert/library/1.3/res/drawable/warning_circle.xml -->
+<!-- From: file:/F:/as-projects/sweet-alert-dialog/library/src/main/res/drawable/warning_circle.xml --><!-- From: file:/media/enclaveit/DATA/RideSharingGIT/AndroidApp/RideSharing-AndroidStudio/RideSharing/build/intermediates/exploded-aar/cn.pedant.sweetalert/library/1.3/res/drawable/warning_circle.xml -->

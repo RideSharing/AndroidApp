@@ -89,12 +89,12 @@ public class ItineraryListAdapter extends BaseAdapter {
 		description.setText(m.getDescription());
 
 		// rating
-		rating.setText(activity.getResources().getString(R.string.rating)+ ":" + String.valueOf(m.getRating())
-				+ ". "+activity.getResources().getString(R.string.cost)+ ":" + m.getCost() + ":");
+		rating.setText(activity.getResources().getString(R.string.rating)+ ": " + String.valueOf(m.getRating())
+				+ ". "+activity.getResources().getString(R.string.cost)+ ": " + m.getCost());
 		// start_address
-		start_address.setText(activity.getResources().getString(R.string.start_addess) + m.getStart_address());
+		start_address.setText(activity.getResources().getString(R.string.start_addess) + ": " + m.getStart_address());
 		// end_address
-		end_address.setText(activity.getResources().getString(R.string.end_addess)+ m.getEnd_address());
+		end_address.setText(activity.getResources().getString(R.string.end_addess) + ": " +  m.getEnd_address());
 		// // genre
 		// String genreStr = "";
 		// for (String str : m.getGenre()) {
@@ -105,7 +105,7 @@ public class ItineraryListAdapter extends BaseAdapter {
 		// genre.setText(genreStr);
 
 		// release year
-		leave_date.setText(activity.getResources().getString(R.string.leave_date) + m.getLeave_date());
+		leave_date.setText(activity.getResources().getString(R.string.leave_date)+ ": "  + m.getLeave_date());
 
 		return convertView;
 	}

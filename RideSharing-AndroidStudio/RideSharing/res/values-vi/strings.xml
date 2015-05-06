@@ -163,5 +163,10 @@
     <string name="driver_waiting_detail">Nơi liệt kê danh sách những hành trình đã được người dùng đăng kí và đợi xác nhận "Đồng ý" hay "Từ chối" từ tài xế</string>
     <string name="driver_created_detail">Nơi liệt kê danh sách những hành trình đã đăng và chưa có người dùng đăng kí đi cùng</string>
     <string name="choose_role">Chọn vai trò: </string>
+    <string name="customer">Người đi cùng</string>
+    <string name="order_by">Thống kê theo:</string>
+    <string name="title_activity_statistic">Thống kê</string>
+    <string name="year">Năm</string>
+    <string name="month">Tháng</string>
 
 </resources>

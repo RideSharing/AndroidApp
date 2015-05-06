@@ -5,4 +5,4 @@
       android:startColor="@color/list_row_start_color"
       android:endColor="@color/list_row_end_color"
       android:angle="270" />
-</shape><!-- From: file:/media/enclaveit/DATA/RideSharing-AndroidStudio/RideSharing/res/drawable/list_itinerary_row_bg.xml -->
+</shape><!-- From: file:/media/enclaveit/DATA/RideSharingGIT/AndroidApp/RideSharing-AndroidStudio/RideSharing/res/drawable/list_itinerary_row_bg.xml -->

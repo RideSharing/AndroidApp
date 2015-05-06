@@ -55,7 +55,6 @@ import com.halley.submititinerary.SubmitItineraryActivity;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class ListViewOfItineraryFragment extends Fragment {
-	private static final String TAG = MainActivity.class.getSimpleName();
 	private ListView listView;
 	private ItineraryListAdapter listAdapter;
 	private List<ItineraryItem> itineraryItems;
@@ -235,37 +234,6 @@ public class ListViewOfItineraryFragment extends Fragment {
 		// Adding request to request queue
 		AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
 	}
-    public String getDetailLocation(double latitude, double longitude) {
-        Address address = null;
-        List<android.location.Address> list_address = null;
-        geocoder = new Geocoder(this.getActivity(), Locale.getDefault());
-        String detail_address = null;
-        try {
-            list_address = geocoder.getFromLocation(latitude, longitude, 1);
-            address = list_address.get(0);
-
-            // Toast.makeText(this, "submit " + locality,
-            // Toast.LENGTH_SHORT).show();
-
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        if (address != null) {
-            detail_address = (address.getAddressLine(0) == null ? "" : address
-                    .getAddressLine(0))
-                    + " "
-                    + (address.getAddressLine(0) == null ? "" : address
-                    .getAddressLine(1))
-                    + " "
-                    + (address.getAddressLine(0) == null ? "" : address
-                    .getAddressLine(2))
-                    + " "
-                    + (address.getAddressLine(0) == null ? "" : address
-                    .getAddressLine(3));
-        }
-        return detail_address;
-    }
     class MyAsyncTask extends AsyncTask<Void, Void, Void> {
         public MyAsyncTask() {
 
@@ -275,7 +243,7 @@ public class ListViewOfItineraryFragment extends Fragment {
         protected void onPreExecute() {
             super.onPreExecute();
 
-            Toast.makeText(getActivity(),"OK", Toast.LENGTH_LONG).show();
+           getDriver();
 
         }
 

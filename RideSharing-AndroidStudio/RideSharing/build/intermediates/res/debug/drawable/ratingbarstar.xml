@@ -11,4 +11,4 @@ android:drawable="@drawable/ic_star_half_left"/>
 <item
 android:id="@android:id/progress"
 android:drawable="@drawable/ic_star_full"/>
-</layer-list><!-- From: file:/media/enclaveit/DATA/RideSharing-AndroidStudio/RideSharing/res/drawable/ratingbarstar.xml -->
+</layer-list><!-- From: file:/media/enclaveit/DATA/RideSharingGIT/AndroidApp/RideSharing-AndroidStudio/RideSharing/res/drawable/ratingbarstar.xml -->

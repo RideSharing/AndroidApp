@@ -76,4 +76,4 @@
         android:textColor="@color/leave_date"
         android:textSize="@dimen/leave_date" />
 
-</RelativeLayout><!-- From: file:/media/enclaveit/DATA/RideSharing-AndroidStudio/RideSharing/res/layout/itinerary_item.xml -->
+</RelativeLayout><!-- From: file:/media/enclaveit/DATA/RideSharingGIT/AndroidApp/RideSharing-AndroidStudio/RideSharing/res/layout/itinerary_item.xml -->

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- From: file:/media/enclaveit/DATA/RideSharing-AndroidStudio/RideSharing/build/intermediates/exploded-aar/com.github.baoyongzhang/android-PullRefreshLayout/2774ad800e/res/values-v21/values.xml -->
+    <!-- From: file:/media/enclaveit/DATA/RideSharingGIT/AndroidApp/RideSharing-AndroidStudio/RideSharing/build/intermediates/exploded-aar/com.github.baoyongzhang/android-PullRefreshLayout/2774ad800e/res/values-v21/values.xml -->
     <eat-comment/>
     <style name="AppTheme" parent="android:Theme.Material.Light">
     </style>
-    <!-- From: file:/media/enclaveit/DATA/RideSharing-AndroidStudio/RideSharing/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values-v21/values.xml -->
+    <!-- From: file:/media/enclaveit/DATA/RideSharingGIT/AndroidApp/RideSharing-AndroidStudio/RideSharing/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values-v21/values.xml -->
     <eat-comment/>
     <style name="Base.TextAppearance.AppCompat" parent="android:TextAppearance.Material"/>
     <style name="Base.TextAppearance.AppCompat.Body1" parent="android:TextAppearance.Material.Body1"/>

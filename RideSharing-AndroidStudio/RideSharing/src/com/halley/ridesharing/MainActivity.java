@@ -82,6 +82,7 @@ import com.halley.profile.ProfileActivity;
 import com.halley.registerandlogin.LoginActivity;
 import com.halley.registerandlogin.R;
 import com.halley.registeritinerary.RegisterItineraryActivity;
+import com.halley.statistic.StatisticActivity;
 import com.halley.tracking.TrackingActivity;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
@@ -127,7 +128,7 @@ public class MainActivity extends ActionBarActivity implements
 
 	private ViewPager viewPager;
 	private TabListItineraryAdapter mAdapter;
-	private String[] tabs = {"Map","List"  };//getResources().getString(R.string.map), getResources().getString(R.string.list)
+	private String[] tabs ;
 	private int mDrawerState;
 	final Activity context = this;
 	private SweetAlertDialog pDialog;
@@ -147,6 +148,7 @@ public class MainActivity extends ActionBarActivity implements
 		driver = session.isDriver();
 
 		setContentView(R.layout.activity_main);
+        tabs =new String[] {getResources().getString(R.string.map),getResources().getString(R.string.list) };
 		pDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
 		pDialog.setCancelable(false);
         custom_actionbar=new CustomActionBar(this,actionBar,pDialog,1);
@@ -498,7 +500,7 @@ public class MainActivity extends ActionBarActivity implements
 				intent = new Intent(this, ManageItineraryActivity.class);
 				break;
 			case 5:
-				intent = new Intent(this, TrackingActivity.class);
+				intent = new Intent(this, StatisticActivity.class);
 				if (mCurrentLocation != null) {
 					intent.putExtra("fromLatitude",
 							mCurrentLocation.getLatitude());

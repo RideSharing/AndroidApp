@@ -11,7 +11,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
@@ -26,7 +25,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -43,13 +41,13 @@ import android.view.MenuItem;
 import android.view.View;
 
 import android.widget.AdapterView;
-import android.widget.Button;
 
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
 import com.android.volley.Request.Method;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -81,9 +79,9 @@ import com.halley.model.slidingmenu.adapter.NavDrawerListAdapter;
 import com.halley.profile.ProfileActivity;
 import com.halley.registerandlogin.LoginActivity;
 import com.halley.registerandlogin.R;
-import com.halley.registeritinerary.RegisterItineraryActivity;
+import com.halley.searchitinerary.SearchAdvanceActivity;
 import com.halley.statistic.StatisticActivity;
-import com.halley.tracking.TrackingActivity;
+import com.halley.vehicle.ManageVehicle;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
@@ -98,15 +96,15 @@ public class MainActivity extends ActionBarActivity implements
 
 	private static final long INTERVAL = 1000 * 10;
 	private static final long FASTEST_INTERVAL = 1000 * 5;
-
+    private static final String STATUS_DRIVER_VERIFY="2";
+    private static final String STATUS_DRIVER_HAS_VEHICLE="2";
 	LocationRequest mLocationRequest;
 	GoogleApiClient mGoogleApiClient;
 	Location mCurrentLocation;
-	private Double toLatitude = 0.0, toLongitude = 0.0;
-	private final int REQUEST_REFRESH = 10;
+	private Double fromLatitude = 0.0, fromLongitude = 0.0,toLatitude = 0.0, toLongitude = 0.0;
+	private final int REQUEST_REFRESH = 1;
 	private boolean driver = false;
-	AlertDialog dialog;
-	String key,toLocation,fromLocation;
+	String key,toLocation,fromLocation, cost, leave_date;
 	public SessionManager session;
 	private DrawerLayout mDrawerLayout;
 	private ListView mDrawerList;
@@ -133,7 +131,7 @@ public class MainActivity extends ActionBarActivity implements
 	final Activity context = this;
 	private SweetAlertDialog pDialog;
 	MyAsyncTask mytt;
-	private boolean isFrom = true;
+	private boolean isFrom = true,isSearchAdvance=false;
     private CustomActionBar custom_actionbar;
 
     public MainActivity() {
@@ -156,10 +154,25 @@ public class MainActivity extends ActionBarActivity implements
         //Toast.makeText(this,Locale.getDefault().getLanguage(),Toast.LENGTH_LONG).show();
 		Bundle bundle = getIntent().getExtras();
 		if (bundle != null) {
-			isFrom = false;
-			toLatitude = bundle.getDouble("toLatitude");
-			toLongitude = bundle.getDouble("toLongitude");
-            toLocation=bundle.getString("address");
+            if(bundle.getBundle("search_advance")!=null){
+                Bundle b=bundle.getBundle("search_advance");
+                isSearchAdvance=true;
+                isFrom = true;
+                fromLatitude = b.getDouble("fromLatitude");
+                fromLongitude = b.getDouble("fromLongitude");
+                fromLocation=b.getString("toLocation");
+                toLatitude = b.getDouble("toLatitude");
+                toLongitude = b.getDouble("toLongitude");
+                toLocation=b.getString("toLocation");
+                cost=b.getString("cost");
+                leave_date=b.getString("leave_date");
+            }
+            else {
+                isFrom = false;
+                toLatitude = bundle.getDouble("toLatitude");
+                toLongitude = bundle.getDouble("toLongitude");
+                toLocation = bundle.getString("address");
+            }
 		}
 
 		doStart();
@@ -214,7 +227,7 @@ public class MainActivity extends ActionBarActivity implements
 
 							} else {
 								// Error in login. Get the error message
-								String errorMsg = jObj.getString("error_msg");
+								String errorMsg = jObj.getString("message");
 								Toast.makeText(getApplicationContext(),
 										errorMsg, Toast.LENGTH_LONG).show();
 							}
@@ -252,9 +265,7 @@ public class MainActivity extends ActionBarActivity implements
         new SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
                 .setTitleText(getResources().getString(R.string.change_info))
                 .setContentText(getResources().getString(R.string.require_update_info_profile))
-                .setCancelText(getResources().getString(R.string.cancel))
                 .setConfirmText(getResources().getString(R.string.ok))
-                .showCancelButton(true)
                 .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
                     @Override
                     public void onClick(SweetAlertDialog sDialog) {
@@ -288,11 +299,28 @@ public class MainActivity extends ActionBarActivity implements
 				+ metrics.heightPixels / 3;
 		mAdapter = new TabListItineraryAdapter(getSupportFragmentManager(),
 				this);
-		if (mCurrentLocation != null) {
+        if(isSearchAdvance){
+
+            Location from_Location = new Location("");
+            from_Location.setLatitude(fromLatitude);
+            from_Location.setLongitude(fromLongitude);
+            mAdapter.setFrom_address(from_Location);
+            mAdapter.setFrom_address_detail(fromLocation);
+
+            Location to_Location = new Location("");
+            to_Location.setLatitude(toLatitude);
+            to_Location.setLongitude(toLongitude);
+            mAdapter.setTo_address(to_Location);
+            mAdapter.setTo_address_detail(toLocation);
+            mAdapter.setCost(cost);
+            mAdapter.setLeave_date(leave_date);
+            mAdapter.setIsFrom(false);
+        }
+		else if (mCurrentLocation != null) {
 			mAdapter.setFrom_address(mCurrentLocation);
             mAdapter.setFrom_address_detail(fromLocation);
 
-			if (isFrom == true) {
+			if (isFrom) {
 
 				mAdapter.setTo_address(mCurrentLocation);
                 mAdapter.setTo_address_detail(toLocation);
@@ -342,7 +370,6 @@ public class MainActivity extends ActionBarActivity implements
 	public void searchLocationOnclick(View view) {
 		/** Instantiating TimeDailogFragment, which is a DialogFragment object */
 		SearchDialogFragment dialog = new SearchDialogFragment();
-
 		/** Getting FragmentManager object */
 		FragmentManager fragmentManager = getFragmentManager();
 
@@ -408,7 +435,7 @@ public class MainActivity extends ActionBarActivity implements
 				R.array.nav_drawer_icons_driver);
 
 		// adding nav drawer items to array
-		if (driver == true) {
+		if (driver) {
 			for (int i = navDrawerItems.size(); i < navDriverMenuTitles.length; i++) {
 				navDrawerItems.add(new NavDrawerItem(navDriverMenuTitles[i],
 						navMenuIconsdriver.getResourceId(i, -1)));
@@ -480,26 +507,31 @@ public class MainActivity extends ActionBarActivity implements
 			switch (position) {
 			case 1:
 
-				intent = new Intent(this, RegisterItineraryActivity.class);
-				if (mCurrentLocation != null) {
-					intent.putExtra("fromLatitude",
-							mCurrentLocation.getLatitude());
-					intent.putExtra("fromLongitude",
-							mCurrentLocation.getLongitude());
-
-				}
+                checkVerifyDriver();
 
 				break;
-			case 2:
+            case 2:
 
-				break;
+                intent = new Intent(this, ManageVehicle.class);
+
+                break;
 			case 3:
-				intent = new Intent(this, ProfileActivity.class);
+                intent = new Intent(this, SearchAdvanceActivity.class);
+                if (mCurrentLocation != null) {
+                    intent.putExtra("fromLatitude",
+                            mCurrentLocation.getLatitude());
+                    intent.putExtra("fromLongitude",
+                            mCurrentLocation.getLongitude());
+
+                }
 				break;
 			case 4:
-				intent = new Intent(this, ManageItineraryActivity.class);
+				intent = new Intent(this, ProfileActivity.class);
 				break;
 			case 5:
+				intent = new Intent(this, ManageItineraryActivity.class);
+				break;
+			case 6:
 				intent = new Intent(this, StatisticActivity.class);
 				if (mCurrentLocation != null) {
 					intent.putExtra("fromLatitude",
@@ -509,10 +541,10 @@ public class MainActivity extends ActionBarActivity implements
 
 				}
 				break;
-			case 6:
+			case 7:
 				intent = new Intent(this, AboutUsActivity.class);
 				break;
-			case 7:
+			case 8:
 				logoutUser();
 				break;
 			default:
@@ -521,9 +553,10 @@ public class MainActivity extends ActionBarActivity implements
 		} else {
 			switch (position) {
 			case 1:
-				break;
+                intent = new Intent(this, SearchAdvanceActivity.class);
+                break;
 			case 2:
-				intent = new Intent(this, ProfileActivity.class);
+                checkVerifyDriver();
 				break;
 			case 3:
 				intent = new Intent(this, ManageItineraryActivity.class);
@@ -541,9 +574,6 @@ public class MainActivity extends ActionBarActivity implements
 
 		if (intent != null) {
 			startActivityForResult(intent, REQUEST_REFRESH);
-			// // update selected item and title, then close the drawer
-			// mDrawerList.setItemChecked(position, true);
-			// mDrawerList.setSelection(position);
 
 			mDrawerLayout.closeDrawer(mDrawerList);
 		} else {
@@ -622,18 +652,18 @@ public class MainActivity extends ActionBarActivity implements
 
 	@Override
 	public void onDataPass(String address, double latitude, double longitude) {
-        showDialog();
-
 		Handler handler = new Handler();
 		final Intent i = new Intent(this, MainActivity.class);
 		i.putExtra("toLatitude", latitude);
 		i.putExtra("toLongitude", longitude);
 		i.putExtra("address", address);
-
+        pDialog.setTitleText(getResources().getString(R.string.searching));
+        showDialog();
 		handler.postDelayed(new Runnable() {
             public void run() {
+                hideDialog();
                 finish();
-                startActivity(i);
+                startActivityForResult(i, REQUEST_REFRESH);
                 overridePendingTransition(0, 0);
             }
         }, 2000);
@@ -827,6 +857,81 @@ public class MainActivity extends ActionBarActivity implements
         }
         return address;
     }
+    public void checkVerifyDriver() {
+        String tag_string_req = "req_profile";
+        StringRequest strReq = new StringRequest(Request.Method.GET,
+                AppConfig.URL_DRIVER+"/status"+"?lang="+Locale.getDefault().getLanguage(), new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+                Log.d("", "Verify Driver Response: " + response.toString());
+
+
+                try {
+                    JSONObject jObj = new JSONObject(response);
+                    boolean error = jObj.getBoolean("error");
+                    if (!error) {
+                        String status=jObj.getString("status");
+                        if(status.equals(STATUS_DRIVER_VERIFY)) {
+                            Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
+                            if (mCurrentLocation != null) {
+                                intent.putExtra("fromLatitude",
+                                        mCurrentLocation.getLatitude());
+                                intent.putExtra("fromLongitude",
+                                        mCurrentLocation.getLongitude());
+                            }
+                            startActivityForResult(intent, REQUEST_REFRESH);
+                        }
+                        else{
+                            new SweetAlertDialog(context, SweetAlertDialog.WARNING_TYPE)
+                                    .setTitleText(getResources().getString(R.string.announce))
+                                    .setContentText(getResources().getString(R.string.not_verify_driver))
+                                    .setConfirmText(getResources().getString(R.string.ok))
+                                    .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                        @Override
+                                        public void onClick(SweetAlertDialog sDialog) {
+                                            sDialog.cancel();
+                                        }
+                                    })
+                                    .show();
+                        }
+
+                    } else {
+                        // Error in login. Get the error message
+                        String message = jObj.getString("message");
+                        Toast.makeText(getApplicationContext(),
+                                message, Toast.LENGTH_LONG).show();
+
+                    }
+                } catch (JSONException e) {
+                    // JSON error
+                    e.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("", "Profile Error: " + error.getMessage());
+                Toast.makeText(getApplicationContext(),
+                        error.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        }) {
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                // Posting parameters to login url
+                Map<String, String> params = new HashMap<String, String>();
+
+                params.put("Authorization", session.getAPIKey());
+
+                return params;
+            }
+
+        };
+        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+    }
 
 	@Override
 	public void onBackPressed() {
@@ -850,5 +955,27 @@ public class MainActivity extends ActionBarActivity implements
                 })
                 .show();
 	}
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Handler handler = new Handler();
+        if (requestCode == REQUEST_REFRESH) {
+            if (resultCode == RESULT_OK) {
+
+                final Intent i = new Intent(this, MainActivity.class);
+                i.putExtra("search_advance",data.getBundleExtra("search_advance"));
+                pDialog.setTitleText(getResources().getString(R.string.searching));
+                showDialog();
+                handler.postDelayed(new Runnable() {
+                    public void run() {
+                        hideDialog();
+                        finish();
+                        startActivityForResult(i, REQUEST_REFRESH);
+                        overridePendingTransition(0, 0);
+                    }
+                }, 2000);
+
+            }
+        }
+    }
 
 }

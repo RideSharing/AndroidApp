@@ -1,5 +1,4 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
@@ -14,20 +13,27 @@
 
         <com.halley.helper.RoundedImageView
             android:id="@+id/avatar"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:adjustViewBounds="true"
             android:scaleType="centerInside"
-            android:src="@drawable/ic_author_cody"
+            android:src="@drawable/ic_avatar_default"
             android:theme="@drawable/avatar_2" />
+        <TextView
+            android:id="@+id/review"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:gravity="center_horizontal"
+            android:text="@string/review_user"
+            />
 
         <RatingBar
             android:id="@+id/ratingBar1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="28dp"
+
+            android:layout_marginTop="18dp"
             android:numStars="5"
             android:progressDrawable="@drawable/ratingbarstar" />
 
@@ -35,8 +41,7 @@
             android:id="@+id/rating"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/ratingBar1"
-            android:layout_below="@+id/ratingBar1" />
+             />
     </LinearLayout>
 
     <LinearLayout
@@ -63,6 +68,7 @@
             android:background="@drawable/flat_selector"
             android:padding="5dp"
             android:text="@string/feedback"
+            android:onClick=""
             android:textColor="@color/white" />
     </LinearLayout>
 

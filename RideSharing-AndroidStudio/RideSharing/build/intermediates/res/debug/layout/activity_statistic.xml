@@ -1,76 +1,146 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:orientation="vertical"
     android:layout_height="match_parent" >
-
-    <com.github.mikephil.charting.charts.HorizontalBarChart
-        android:id="@+id/chart1"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/lnOrderby" />
-
-
     <LinearLayout
-        android:id="@+id/lnOrderby"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_above="@+id/lnOrderby2"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginLeft="15dp"
-        android:layout_alignParentLeft="true">
+        android:id="@+id/layoutCustomer"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:background="@color/white"
+        android:layout_margin="5dp"
+        android:layout_weight=".8">
         <TextView
-            android:id="@+id/tvOrderBy"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/order_by"
-            android:paddingBottom="12dp"
-            />
-
-        <Spinner
-            android:id="@+id/spOrderBy"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-             />
-        <Spinner
-            android:id="@+id/spOrderByYear"
-            android:layout_width="150dp"
-            android:layout_marginLeft="10dp"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            />
+            android:layout_margin="3dp"
+            android:gravity="center"
+            android:text="@string/statistic_customer"/>
+        <com.github.mikephil.charting.charts.HorizontalBarChart
+            android:id="@+id/chartCustomer"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight=".9"/>
     </LinearLayout>
-
     <LinearLayout
-        android:id="@+id/lnOrderby2"
+        android:id="@+id/layoutDriver"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:background="@color/white"
+        android:layout_margin="5dp"
+        android:layout_weight=".8">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:lines="2"
+            android:layout_margin="3dp"
+            android:gravity="center"
+
+            android:text="@string/statistic_driver"/>
+        <com.github.mikephil.charting.charts.HorizontalBarChart
+            android:id="@+id/chartDriver"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight=".8"/>
+        </LinearLayout>
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_margin="8dp"
-        android:layout_marginRight="5dp"
+        android:background="@color/white"
+        android:layout_margin="5dp"
         >
-        <SeekBar
-            android:id="@+id/seekBar1"
-            android:layout_width="260dp"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight=".50"
+        android:orientation="vertical"
+        android:layout_marginTop="5dp">
+        <LinearLayout
+            android:id="@+id/layout_SwitchRole"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:layout_margin="8dp"
+            android:orientation="horizontal"
+            android:layout_margin="5dp"
+            android:layout_marginLeft="15dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/choose_role"/>
+            <Switch
+                android:defaultValue="true"
+                android:id="@+id/statistic_role"
+                android:textOn="@string/customer"
+                android:textOff="@string/driver"
+                android:textAllCaps="true"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                />
+
+            </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="5dp"
+            android:layout_marginLeft="15dp"
+            >
+            <TextView
+                android:id="@+id/tvOrderBy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/order_by"
+                android:paddingBottom="12dp"
+                />
+
+            <Spinner
+                android:id="@+id/spOrderBy"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                />
+            <Spinner
+                android:id="@+id/spOrderByYear"
+                android:layout_width="80dp"
+                android:layout_marginLeft="5dp"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                />
+            <Spinner
+                android:id="@+id/spOrderByType"
+                android:layout_width="120dp"
+                android:layout_marginLeft="5dp"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="5dp"
             android:layout_marginRight="5dp"
-            android:max="12" />
-        <TextView
-            android:id="@+id/tvXMax"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="12"
-            android:layout_margin="8dp"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            >
+            <SeekBar
+                android:id="@+id/seekBar1"
+                android:layout_width="260dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:max="12" />
+            <TextView
+                android:id="@+id/tvXMax"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="12"
+                android:layout_marginLeft="8dp"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
         </LinearLayout>
 
+        </LinearLayout>
+    </ScrollView>
 
-</RelativeLayout>
+
+
+</LinearLayout>
 <!-- From: file:/media/enclaveit/DATA/RideSharingGIT/AndroidApp/RideSharing-AndroidStudio/RideSharing/res/layout/activity_statistic.xml -->

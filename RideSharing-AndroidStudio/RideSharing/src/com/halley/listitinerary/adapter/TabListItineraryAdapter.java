@@ -24,6 +24,23 @@ public class TabListItineraryAdapter extends FragmentPagerAdapter {
 	// check from address or to address
 	Boolean isFrom;
 	ActionBarActivity context;
+    String cost="",leave_date="";
+
+    public String getCost() {
+        return cost;
+    }
+
+    public void setCost(String cost) {
+        this.cost = cost;
+    }
+
+    public String getLeave_date() {
+        return leave_date;
+    }
+
+    public void setLeave_date(String leave_date) {
+        this.leave_date = leave_date;
+    }
 
     public String getFrom_address_detail() {
         return from_address_detail;
@@ -84,6 +101,8 @@ public class TabListItineraryAdapter extends FragmentPagerAdapter {
 			bundle.putDouble("toLongitude", to_address.getLongitude());
             bundle.putString("toLocation", getTo_address_detail());
             bundle.putString("fromLocation", getFrom_address_detail());
+            bundle.putString("cost",getCost());
+            bundle.putString("leave_date",getLeave_date());
 			bundle.putBoolean("isFrom", this.getIsFrom());
 			
 		} else {

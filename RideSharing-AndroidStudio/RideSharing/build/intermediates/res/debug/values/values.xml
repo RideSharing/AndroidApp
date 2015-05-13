@@ -20,9 +20,11 @@
     </string-array>
     <string-array name="nav_drawer_icons_driver">
         <item>@drawable/ic_register_itinerary </item>
+        <item>@drawable/ic_manage_vehicle </item>
     </string-array>
     <string-array name="nav_drawer_items_driver">
         <item>Register Itinerary </item>
+        <item>Manage Vehicle </item>
     </string-array>
     <string-array name="nav_drawer_items_user">
         <item>Search Itinerary </item>
@@ -261,6 +263,8 @@
     <declare-styleable name="AdsAttrs"><attr format="string" name="adSize"/><attr format="string" name="adSizes"/><attr format="string" name="adUnitId"/></declare-styleable>
     <declare-styleable name="CompatTextView"><attr format="reference|boolean" name="textAllCaps"/></declare-styleable>
     <declare-styleable name="DrawerArrowToggle"><attr format="color" name="color"/><attr format="boolean" name="spinBars"/><attr format="dimension" name="drawableSize"/><attr format="dimension" name="gapBetweenBars"/><attr format="dimension" name="topBottomBarArrowSize"/><attr format="dimension" name="middleBarArrowSize"/><attr format="dimension" name="barSize"/><attr format="dimension" name="thickness"/></declare-styleable>
+    <declare-styleable name="FloatingActionButton"><attr format="color" name="fab_colorNormal"/><attr format="color" name="fab_colorPressed"/><attr format="color" name="fab_colorRipple"/><attr format="boolean" name="fab_showShadow"/><attr format="color" name="fab_shadowColor"/><attr format="dimension" name="fab_shadowRadius"/><attr format="dimension" name="fab_shadowXOffset"/><attr format="dimension" name="fab_shadowYOffset"/><attr format="enum" name="fab_size"><enum name="normal" value="0"/><enum name="mini" value="1"/></attr><attr format="reference" name="fab_showAnimation"/><attr format="reference" name="fab_hideAnimation"/><attr format="string" name="fab_label"/><attr format="dimension" name="fab_elevationCompat"/></declare-styleable>
+    <declare-styleable name="FloatingActionMenu"><attr format="boolean" name="menu_showShadow"/><attr format="dimension" name="menu_buttonSpacing"/><attr format="dimension" name="menu_labels_margin"/><attr format="reference" name="menu_labels_showAnimation"/><attr format="reference" name="menu_labels_hideAnimation"/><attr format="dimension" name="menu_labels_paddingTop"/><attr format="dimension" name="menu_labels_paddingLeft"/><attr format="dimension" name="menu_labels_paddingRight"/><attr format="dimension" name="menu_labels_paddingBottom"/><attr format="dimension" name="menu_labels_padding"/><attr format="color" name="menu_labels_textColor"/><attr format="dimension" name="menu_labels_textSize"/><attr format="dimension" name="menu_labels_cornerRadius"/><attr format="boolean" name="menu_labels_showShadow"/><attr format="color" name="menu_labels_colorNormal"/><attr format="color" name="menu_labels_colorPressed"/><attr format="color" name="menu_labels_colorRipple"/><attr format="reference" name="menu_icon"/><attr format="integer" name="menu_animationDelayPerItem"/><attr format="reference" name="menu_buttonToggleAnimation"/><attr format="boolean" name="menu_labels_singleLine"/><attr format="enum" name="menu_labels_ellipsize"><enum name="none" value="0"/><enum name="start" value="1"/><enum name="middle" value="2"/><enum name="end" value="3"/><enum name="marquee" value="4"/></attr><attr format="integer" name="menu_labels_maxLines"/><attr format="enum" name="menu_fab_size"><enum name="normal" value="0"/><enum name="mini" value="1"/></attr><attr format="reference" name="menu_labels_style"/><attr format="color" name="menu_shadowColor"/><attr format="dimension" name="menu_shadowRadius"/><attr format="dimension" name="menu_shadowXOffset"/><attr format="dimension" name="menu_shadowYOffset"/><attr format="color" name="menu_colorNormal"/><attr format="color" name="menu_colorPressed"/><attr format="color" name="menu_colorRipple"/></declare-styleable>
     <declare-styleable name="LinearLayoutCompat"><attr name="android:orientation"/><attr name="android:gravity"/><attr name="android:baselineAligned"/><attr name="android:baselineAlignedChildIndex"/><attr name="android:weightSum"/><attr format="boolean" name="measureWithLargestChild"/><attr name="divider"/><attr name="showDividers"><flag name="none" value="0"/><flag name="beginning" value="1"/><flag name="middle" value="2"/><flag name="end" value="4"/></attr><attr format="dimension" name="dividerPadding"/></declare-styleable>
     <declare-styleable name="LinearLayoutCompat_Layout"><attr name="android:layout_width"/><attr name="android:layout_height"/><attr name="android:layout_weight"/><attr name="android:layout_gravity"/></declare-styleable>
     <declare-styleable name="ListPopupWindow"><attr name="android:dropDownVerticalOffset"/><attr name="android:dropDownHorizontalOffset"/></declare-styleable>
@@ -344,6 +348,11 @@
     <item name="dialog_fixed_width_minor" type="dimen">320dp</item>
     <item format="float" name="disabled_alpha_material_dark" type="dimen">0.30</item>
     <item format="float" name="disabled_alpha_material_light" type="dimen">0.26</item>
+    <!-- From: file:/media/enclaveit/DATA/RideSharingGIT/AndroidApp/RideSharing-AndroidStudio/RideSharing/build/intermediates/exploded-aar/com.github.clans/fab/1.4.0/res/values/values.xml -->
+    <eat-comment/>
+    <dimen name="fab_size_mini">40dp</dimen>
+    <dimen name="fab_size_normal">56dp</dimen>
+    <dimen name="labels_text_size">14sp</dimen>
     <!-- From: file:/media/enclaveit/DATA/RideSharingGIT/AndroidApp/RideSharing-AndroidStudio/RideSharing/res/values/dimens.xml -->
     <eat-comment/>
     <dimen name="layer_padding">3dp</dimen>
@@ -360,6 +369,11 @@
     <item name="action_bar_spinner" type="id"/>
     <item name="action_menu_divider" type="id"/>
     <item name="action_menu_presenter" type="id"/>
+    <!-- From: file:/media/enclaveit/DATA/RideSharingGIT/AndroidApp/RideSharing-AndroidStudio/RideSharing/build/intermediates/exploded-aar/com.github.clans/fab/1.4.0/res/values/values.xml -->
+    <eat-comment/>
+    <item name="fab_label" type="id"/>
+    <!-- From: file:/media/enclaveit/DATA/RideSharingGIT/AndroidApp/RideSharing-AndroidStudio/RideSharing/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
+    <eat-comment/>
     <item name="home" type="id"/>
     <item name="progress_circular" type="id"/>
     <item name="progress_horizontal" type="id"/>
@@ -393,12 +407,9 @@
     <!-- From: file:/media/enclaveit/DATA/RideSharingGIT/AndroidApp/RideSharing-AndroidStudio/RideSharing/res/values/strings.xml -->
     <eat-comment/>
     <string name="about_app"> About App </string>
-    <!-- From: file:/media/enclaveit/DATA/RideSharingGIT/AndroidApp/RideSharing-AndroidStudio/RideSharing/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/admob_strings.xml -->
-    <eat-comment/>
     <string name="accept">Accept</string>
-    <!-- From: file:/media/enclaveit/DATA/RideSharingGIT/AndroidApp/RideSharing-AndroidStudio/RideSharing/res/values/strings.xml -->
-    <eat-comment/>
     <string name="action_settings">Settings </string>
+    <string name="announce">Announce</string>
     <string name="app_menu">Menu </string>
     <string name="app_name">RideSharing </string>
     <string name="author">Authors </string>
@@ -413,6 +424,7 @@
     <string name="btn_login">Sign in </string>
     <string name="btn_logout">Sign out </string>
     <string name="btn_register">Sign up </string>
+    <string name="btn_search">Search Itineraries</string>
     <string name="btn_send_pass_to_mail">Password has reset and sent your email. Please check your mail. </string>
     <string name="btn_submit">Submit </string>
     <string name="btn_submitAdvance">Advance </string>
@@ -470,6 +482,8 @@
     <eat-comment/>
     <string name="current_address">Current Address </string>
     <string name="customer">Customer</string>
+    <string name="customer_profile">Customer Profile</string>
+    <string name="customer_reject_itinerary">You have registered this itinerary and waiting for driver response. So, do you want to reject this itinerary?</string>
     <string name="date_picker">You have not choose this time </string>
     <string name="day">day </string>
     <!-- From: file:/media/enclaveit/DATA/RideSharingGIT/AndroidApp/RideSharing-AndroidStudio/RideSharing/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/admob_strings.xml -->
@@ -478,6 +492,8 @@
     <!-- From: file:/media/enclaveit/DATA/RideSharingGIT/AndroidApp/RideSharing-AndroidStudio/RideSharing/res/values/strings.xml -->
     <eat-comment/>
     <string name="delete_itinerary">Delete Itinerary </string>
+    <string name="delete_vehicle">Delete Vehicle</string>
+    <string name="deny">Deny</string>
     <string name="desc_list_item_icon">Item Icon </string>
     <string name="description">Description about Itinerary </string>
     <!-- From: file:/media/enclaveit/DATA/RideSharingGIT/AndroidApp/RideSharing-AndroidStudio/RideSharing/build/intermediates/exploded-aar/cn.pedant.sweetalert/library/1.3/res/values/values.xml -->
@@ -499,6 +515,7 @@
     <string name="drawer_close">Slider Menu Closed </string>
     <string name="drawer_open">Slider Menu Opened </string>
     <string name="driver">Driver </string>
+    <string name="driver_accept_customer">Do you accept Customer join in Itinerary?</string>
     <string name="driver_accept_detail">This sections contain itineraries that both Driver and Customer agreed </string>
     <string name="driver_accepted">On Going </string>
     <string name="driver_created">Created Itineraries </string>
@@ -513,11 +530,16 @@
     <string name="email">Email </string>
     <string name="email_hint">Enter your email </string>
     <string name="end_addess">End Address </string>
+    <string name="end_itinerary">End Itinerary</string>
     <string name="extra_info_itinerary">Check info in map, then click "Advance" </string>
     <string name="feedback">Feedback </string>
+    <string name="field_license_plate">License Plate</string>
+    <string name="field_reg_certificate">Registration Certificate</string>
+    <string name="field_type_vehicle">Type of vehicle</string>
     <string name="finish_app">Do you want to log out? </string>
+    <string name="finish_itinerary">Itinerary finished</string>
+    <string name="finish_itinerary_detail">This sections contain itineraries you finished</string>
     <string name="gallery">Library </string>
-    <string name="hello_world">Hello world!</string>
     <string name="hint">Hint </string>
     <string name="hint_email">Enter your email </string>
     <string name="hint_name">Enter your full name </string>
@@ -529,12 +551,16 @@
     <string name="info_basic">Infomation Contact </string>
     <string name="init">Init layout...</string>
     <string name="input_address">Enter your area </string>
+    <string name="join_in_itinerary">want to join in your itinerary</string>
     <string name="leave_date">Leave date </string>
+    <string name="license_plate">License Plate</string>
+    <string name="license_plate_image">License Plate Image</string>
     <string name="list">List</string>
     <string name="logout">Sign out</string>
     <string name="map">Map </string>
     <string name="min">min </string>
     <string name="month">Month</string>
+    <string name="moto_insurance_img">Moto Insurance Image</string>
     <string name="name">Full name </string>
     <string name="new_password">New Password </string>
     <string name="no_directions">Cannot be determind the road. </string>
@@ -542,7 +568,10 @@
     <string name="no_load_map">Sorry! Not load the map </string>
     <string name="not_connect">Cannot connected to server </string>
     <string name="not_found_area">Not found area </string>
+    <string name="not_verify_driver">You do not have role to submit this itinerary, because you still be verified driver. Waiting for us to check your infomation</string>
+    <string name="not_verify_user">You do not have role to submit this itinerary, because you still be verified user. Waiting for us to check your infomation</string>
     <string name="ok">OK </string>
+    <string name="on_going">On Going</string>
     <string name="opendialog">Open Dialog </string>
     <string name="order_by">Order By:</string>
     <string name="password_not_match">Password not match </string>
@@ -555,11 +584,24 @@
     <string name="process_data">Process data...</string>
     <string name="rating">Rating </string>
     <string name="refresh">Refresh... </string>
+    <string name="reg_certificate">Registration Certificate</string>
+    <string name="register_vehicle">Register</string>
+    <string name="reject_itinerary_menu">Reject Itinerary</string>
     <string name="require_update_info_profile">You should update infomation to experience the full application </string>
+    <string name="review_app">Rating and comment for our app</string>
+    <string name="review_user">Rating and comment for driver/user when you finished this itinerary.</string>
     <string name="search_hint">Search area </string>
+    <string name="searching">Searching...</string>
+    <string name="see_customer_profile">See customer</string>
+    <string name="see_itinerary">See itinerary</string>
     <string name="select_image">Select Image </string>
-    <string name="slogan">Son of the bitches </string>
+    <string name="slogan">....</string>
     <string name="start_addess">Start Address </string>
+    <string name="start_itinerary">Start Itinerary</string>
+    <string name="statistic_customer">This is a chart show all itinerary you had joined.</string>
+    <string name="statistic_driver">This is a chart show all itinerary you had created and gone.</string>
+    <string name="statistic_itinerary">Itinerary</string>
+    <string name="statistic_money">Money</string>
     <!-- From: file:/media/enclaveit/DATA/RideSharingGIT/AndroidApp/RideSharing-AndroidStudio/RideSharing/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/admob_strings.xml -->
     <eat-comment/>
     <string name="store_picture_message">"Allow Ad to store image in Picture gallery?"</string>
@@ -570,9 +612,11 @@
     <string name="submit_change">Your infomation have changed </string>
     <string name="title_activity_about_us">About Us </string>
     <string name="title_activity_detail_manage_itinerary">Mangage Itinerary </string>
+    <string name="title_activity_detail_vehicle">DetailVehicleActivity</string>
     <string name="title_activity_forgot_password">Forgot Password </string>
     <string name="title_activity_google_maps">Map </string>
     <string name="title_activity_itinerary">Search Itinerary </string>
+    <string name="title_activity_list_vehicle">ListVehicle</string>
     <string name="title_activity_manage_itinerary">List of itinerary </string>
     <string name="title_activity_popup_itinerary">PopupItineraryActivity </string>
     <string name="title_activity_register_advance">Register Advance </string>
@@ -583,12 +627,17 @@
     <string name="title_activity_tracking">Tracking </string>
     <string name="title_activity_upgrade_profile">Upgrade Profile </string>
     <string name="title_activity_user_profile">User Profile </string>
+    <string name="title_activity_vehicle">VehicleActivity</string>
     <string name="title_item_detail">Item Detail </string>
     <string name="title_item_list">Items </string>
+    <string name="type_vehicle">Type of vehicle</string>
+    <string name="update">Update</string>
     <string name="update_driver_information">Update info Drive r</string>
     <string name="update_image">Update Image </string>
     <string name="update_itinerary">Update infomation of itinerary </string>
     <string name="update_success">Update completed </string>
+    <string name="vehicle_image">Vehicle Image</string>
+    <string name="vehicle_page">Driver Vehicle</string>
     <!-- From: file:/media/enclaveit/DATA/RideSharingGIT/AndroidApp/RideSharing-AndroidStudio/RideSharing/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/wallet_strings.xml -->
     <eat-comment/>
     <string name="wallet_buy_button_place_holder" translation_description="Text on a button that allows a user to make a payment with Google Wallet [CHAR LIMIT=30]">Buy with Google</string>

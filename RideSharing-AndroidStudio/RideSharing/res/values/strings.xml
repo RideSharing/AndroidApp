@@ -55,6 +55,7 @@
     </string-array>
     <string-array name="nav_drawer_items_driver">
         <item>Register Itinerary </item>
+        <item>Manage Vehicle </item>
     </string-array>
     <!-- Nav Drawer List Item Icons -->
     <!-- Keep them in order as the titles are in -->
@@ -68,6 +69,7 @@
     </string-array>
     <string-array name="nav_drawer_icons_driver">
         <item>@drawable/ic_register_itinerary </item>
+        <item>@drawable/ic_manage_vehicle </item>
     </string-array>
 
     <string name="title_activity_itinerary">Search Itinerary </string>
@@ -159,7 +161,7 @@ int    <string name="description">Description about Itinerary </string>
     <string name="title_activity_submit_itinerary">Submit Itinerary </string>
     <string name="title_activity_search_advance">Search Advance </string>
     <string name="title_activity_register_advance">Register Advance </string>
-    <string name="slogan">Son of the bitches </string>
+    <string name="slogan">....</string>
     <string name="info_basic">Infomation Contact </string>
     <string name="contact_us">Contact Us </string>
     <string name="author">Authors </string>
@@ -172,9 +174,50 @@ int    <string name="description">Description about Itinerary </string>
     <string name="choose_role">Choose role: </string>
     <string name="customer">Customer</string>
     <string name="title_activity_statistic">StatisticActivity</string>
-    <string name="hello_world">Hello world!</string>
     <string name="order_by">Order By:</string>
     <string name="year">Year</string>
     <string name="month">Month</string>
+    <string name="searching">Searching...</string>
+    <string name="statistic_customer">This is a chart show all itinerary you had joined.</string>
+    <string name="statistic_driver">This is a chart show all itinerary you had created and gone.</string>
+    <string name="statistic_itinerary">Itinerary</string>
+    <string name="statistic_money">Money</string>
+    <string name="driver_accept_customer">Do you accept Customer join in Itinerary?</string>
+    <string name="customer_reject_itinerary">You have registered this itinerary and waiting for driver response. So, do you want to reject this itinerary?</string>
+    <string name="deny">Deny</string>
+    <string name="accept">Accept</string>
+    <string name="join_in_itinerary">want to join in your itinerary</string>
+    <string name="customer_profile">Customer Profile</string>
+    <string name="btn_search">Search Itineraries</string>
+    <string name="not_verify_driver">You do not have role to submit this itinerary, because you still be verified driver. Waiting for us to check your infomation</string>
+    <string name="announce">Announce</string>
+    <string name="review_app">Rating and comment for our app</string>
+    <string name="review_user">Rating and comment for driver/user when you finished this itinerary.</string>
+    <string name="start_itinerary">Start Itinerary</string>
+    <string name="on_going">On Going</string>
+    <string name="end_itinerary">End Itinerary</string>
+    <string name="finish_itinerary">Itinerary finished</string>
+    <string name="finish_itinerary_detail">This sections contain itineraries you finished</string>
+    <string name="see_itinerary">See itinerary</string>
+    <string name="reject_itinerary_menu">Reject Itinerary</string>
+    <string name="see_customer_profile">See customer</string>
+    <string name="not_verify_user">You do not have role to submit this itinerary, because you still be verified user. Waiting for us to check your infomation</string>
+
+    <string name="title_activity_vehicle">VehicleActivity</string>
+    <string name="vehicle_page">Driver Vehicle</string>
+    <string name="license_plate">License Plate</string>
+    <string name="reg_certificate">Registration Certificate</string>
+    <string name="license_plate_image">License Plate Image</string>
+    <string name="vehicle_image">Vehicle Image</string>
+    <string name="moto_insurance_img">Moto Insurance Image</string>
+    <string name="update">Update</string>
+    <string name="title_activity_list_vehicle">ListVehicle</string>
+    <string name="type_vehicle">Type of vehicle</string>
+    <string name="field_type_vehicle">Type of vehicle</string>
+    <string name="field_license_plate">License Plate</string>
+    <string name="field_reg_certificate">Registration Certificate</string>
+    <string name="title_activity_detail_vehicle">DetailVehicleActivity</string>
+    <string name="register_vehicle">Register</string>
+    <string name="delete_vehicle">Delete Vehicle</string>
 
 </resources>

@@ -48,7 +48,7 @@ public class ListViewOfItineraryFragment extends Fragment {
 	private SweetAlertDialog pDialog;
 	private double toLatitude, toLongitude, fromLatitude, fromLongitude;
 	private boolean isFrom;
-    String fromLocation, toLocation;
+    String fromLocation, toLocation,cost,leave_date;
 	SessionManager session;
     private PullRefreshLayout mSwipeRefreshLayout;
     private MyAsyncTask task;
@@ -74,9 +74,11 @@ public class ListViewOfItineraryFragment extends Fragment {
             toLongitude = bundle.getDouble("toLongitude");
             toLocation = bundle.getString("toLocation");
             fromLocation = bundle.getString("fromLocation");
+            cost=bundle.getString("cost");
+            leave_date=bundle.getString("leave_date");
             isFrom = this.getArguments().getBoolean("isFrom");
 		}
-		getDriver();
+		getItineraries();
 		listView.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
@@ -115,7 +117,7 @@ public class ListViewOfItineraryFragment extends Fragment {
 		return rootView;
 	}
 
-	private void getDriver() {
+	private void getItineraries() {
 		// Tag used to cancel the request
 		String tag_string_req = "req_get_driver_by_list";
 		itineraryItems = new ArrayList<ItineraryItem>();
@@ -123,7 +125,7 @@ public class ListViewOfItineraryFragment extends Fragment {
         if(isFrom){
             url=AppConfig.URL_GET_ALL_ITINERARY+"&start_address_lat="+fromLatitude+"&start_address_long="+fromLongitude;
         }
-        else url=AppConfig.URL_GET_ALL_ITINERARY+"&start_address_lat="+fromLatitude+"&start_address_long="+fromLongitude+"&end_address_lat="+toLatitude+"&end_address_long="+toLongitude;
+        else url=AppConfig.URL_GET_ALL_ITINERARY+"&start_address_lat="+fromLatitude+"&start_address_long="+fromLongitude+"&end_address_lat="+toLatitude+"&end_address_long="+toLongitude+"&cost="+cost+"&leave_date="+leave_date;;
         System.out.println("List: "+url);
         StringRequest strReq = new StringRequest(Method.GET,url
                 ,
@@ -157,7 +159,7 @@ public class ListViewOfItineraryFragment extends Fragment {
 											.getString("end_address"));
 									itineraryItem.setAvatarlUrl(itinerary
 											.getString("link_avatar"));
-									itineraryItem.setRating(4.8);
+									itineraryItem.setRating(Float.parseFloat(itinerary.getString("rating")));
 									itineraryItem.setLeave_date(itinerary
 											.getString("leave_date"));
 									itineraryItem.setCost(itinerary
@@ -227,7 +229,7 @@ public class ListViewOfItineraryFragment extends Fragment {
         protected void onPreExecute() {
             super.onPreExecute();
 
-           getDriver();
+           getItineraries();
 
         }
 

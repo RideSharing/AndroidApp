@@ -1,12 +1,14 @@
 package com.halley.aboutus;
 
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Dialog;
+import android.app.FragmentManager;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Color;
@@ -32,6 +34,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.halley.app.AppConfig;
 import com.halley.app.AppController;
 import com.halley.custom_theme.CustomActionBar;
+import com.halley.dialog.RatingandCommentDialogFragment;
 import com.halley.helper.SessionManager;
 import com.halley.registerandlogin.R;
 import com.halley.registerandlogin.RegisterActivity;
@@ -97,6 +100,18 @@ public class AboutUsActivity extends ActionBarActivity {
 		});
 		dialog.show();
 
+//        /** Instantiating TimeDailogFragment, which is a DialogFragment object */
+//        RatingandCommentDialogFragment dialog = new RatingandCommentDialogFragment();
+//
+//        Bundle b=new Bundle();
+//        b.putString("rating_user","11");
+//        dialog.setArguments(b);
+//        /** Getting FragmentManager object */
+//        FragmentManager fragmentManager = getFragmentManager();
+//
+//        /** Starting a FragmentTransaction */
+//        dialog.show(fragmentManager, "rating");
+
 	}
 
 	private void getUser(final String apiKey) {
@@ -104,7 +119,7 @@ public class AboutUsActivity extends ActionBarActivity {
 		String tag_string_req = "req_get_user";
 
 		StringRequest strReq = new StringRequest(Method.GET,
-				AppConfig.URL_GET_USER, new Response.Listener<String>() {
+				AppConfig.URL_GET_USER+"?lang="+ Locale.getDefault().getLanguage(), new Response.Listener<String>() {
 
 					@Override
 					public void onResponse(String response) {

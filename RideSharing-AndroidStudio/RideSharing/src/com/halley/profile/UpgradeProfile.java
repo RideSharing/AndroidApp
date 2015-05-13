@@ -7,6 +7,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import org.json.JSONException;
@@ -329,7 +330,7 @@ public class UpgradeProfile extends ActionBarActivity {
 		showDialog();
 
 		StringRequest strReq = new StringRequest(Method.PUT,
-				AppConfig.URL_DRIVER, new Response.Listener<String>() {
+				AppConfig.URL_DRIVER+"?lang="+Locale.getDefault().getLanguage(), new Response.Listener<String>() {
 
 					@Override
 					public void onResponse(String response) {

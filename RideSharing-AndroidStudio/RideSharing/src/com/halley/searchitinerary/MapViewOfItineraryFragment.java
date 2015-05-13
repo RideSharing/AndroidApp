@@ -51,7 +51,7 @@ public class MapViewOfItineraryFragment extends Fragment implements
 	private GoogleMap googleMap;
 	Double fromLatitude, fromLongitude, toLatitude, toLongitude;
 	private boolean isFrom;
-    private String fromLocation, toLocation;
+    private String fromLocation="", toLocation="",cost="",leave_date="";
 	private SessionManager session;
 	private List<Marker> marker_drivers = new ArrayList<Marker>();
 	private List<ItineraryItem> itineraryItems;
@@ -71,9 +71,11 @@ public class MapViewOfItineraryFragment extends Fragment implements
 			toLongitude = bundle.getDouble("toLongitude");
 			toLocation = bundle.getString("toLocation");
             fromLocation = bundle.getString("fromLocation");
+            cost=bundle.getString("cost");
+            leave_date=bundle.getString("leave_date");
             isFrom = this.getArguments().getBoolean("isFrom");
 
-			getDriver();
+			getItineraries();
 			initilizeMap();
 
 			// adding marker
@@ -90,7 +92,7 @@ public class MapViewOfItineraryFragment extends Fragment implements
 		return view;
 	}
 
-	private void getDriver() {
+	private void getItineraries() {
 		// Tag used to cancel the request
 		String tag_string_req = "req_get_driver";
 		itineraryItems = new ArrayList<ItineraryItem>();
@@ -98,7 +100,7 @@ public class MapViewOfItineraryFragment extends Fragment implements
         if(isFrom)
             url=AppConfig.URL_GET_ALL_ITINERARY+"&start_address_lat="+fromLatitude+"&start_address_long="+fromLongitude;
 
-        else url=AppConfig.URL_GET_ALL_ITINERARY+"&start_address_lat="+fromLatitude+"&start_address_long="+fromLongitude+"&end_address_lat="+toLatitude+"&end_address_long="+toLongitude;
+        else url=AppConfig.URL_GET_ALL_ITINERARY+"&start_address_lat="+fromLatitude+"&start_address_long="+fromLongitude+"&end_address_lat="+toLatitude+"&end_address_long="+toLongitude+"&cost="+cost+"&leave_date="+leave_date;
         System.out.println("Map: "+url);
         StringRequest strReq = new StringRequest(Method.GET,url
                 ,
@@ -144,17 +146,10 @@ public class MapViewOfItineraryFragment extends Fragment implements
 									itineraryItems.add(itineraryItem);
 									double latitude;
 									double longitude;
-									if (isFrom) {
-										latitude = Double.parseDouble(itinerary
-												.getString("start_address_lat"));
-										longitude = Double.parseDouble(itinerary
-												.getString("start_address_long"));
-									} else {
-										latitude = Double.parseDouble(itinerary
-												.getString("end_address_lat"));
-										longitude = Double.parseDouble(itinerary
-												.getString("end_address_long"));
-									}
+                                    latitude = Double.parseDouble(itinerary
+                                            .getString("start_address_lat"));
+                                    longitude = Double.parseDouble(itinerary
+                                            .getString("start_address_long"));
 
 									Marker marker_driver = googleMap
 											.addMarker(new MarkerOptions()
@@ -215,6 +210,7 @@ public class MapViewOfItineraryFragment extends Fragment implements
 		AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
 	}
 
+
 	@Override
 	public void onSaveInstanceState(Bundle outState) {
 		// No call for super(). Bug on API Level > 11.
@@ -236,7 +232,7 @@ public class MapViewOfItineraryFragment extends Fragment implements
 			// Enable / Disable zooming functionality
 			googleMap.getUiSettings().setZoomGesturesEnabled(true);
 			CameraPosition cameraPosition = new CameraPosition.Builder()
-					.target(new LatLng(toLatitude, toLongitude)).zoom(12)
+					.target(new LatLng(fromLatitude, fromLongitude)).zoom(12)
 					.build();
 			googleMap.animateCamera(CameraUpdateFactory
 					.newCameraPosition(cameraPosition));

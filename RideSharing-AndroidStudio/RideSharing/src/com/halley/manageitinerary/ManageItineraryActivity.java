@@ -39,6 +39,7 @@ public class ManageItineraryActivity extends ActionBarActivity {
     private static final String ITINERARY_STATUS_CREATED ="1";
     private static final String ITINERARY_STATUS_CUSTOMER_ACCEPTED ="2";
     private static final String ITINERARY_STATUS_DRIVER_ACCEPTED ="3";
+    private static final String ITINERARY_STATUS_FINISH ="4";
     private static final String CUSTOMER ="customer";//true is customer
     private static final String DRIVER ="driver";// false is driver
     @Override
@@ -130,6 +131,13 @@ public class ManageItineraryActivity extends ActionBarActivity {
     public void acceptedUserOnclick(View v) {
         displaylistItineraryFragment(DRIVER, ITINERARY_STATUS_DRIVER_ACCEPTED);
     }
+    public void finishCustomerOnclick(View v){
+        displaylistItineraryFragment(CUSTOMER, ITINERARY_STATUS_FINISH);
+    }
+    public void finishDriverOnclick(View v){
+        displaylistItineraryFragment(DRIVER, ITINERARY_STATUS_FINISH);
+    }
+
 
 
     public void displaylistItineraryFragment(String role, String status) {
@@ -188,18 +196,5 @@ public class ManageItineraryActivity extends ActionBarActivity {
 
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        // check if the request code is same as what is passed here it is 2
-        if (requestCode == REQUEST_REFRESH) {
-            if (resultCode == RESULT_OK) {
-                finish();
-                startActivity(new Intent(this, ManageItineraryActivity.class));
-
-            }
-
-        }
-    }
 }
 

@@ -2,6 +2,7 @@ package com.halley.submititinerary;
 
 import java.text.DecimalFormat;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import org.json.JSONException;
@@ -28,6 +29,8 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
 import com.android.volley.Request.Method;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -38,11 +41,13 @@ import com.halley.custom_theme.CustomActionBar;
 import com.halley.helper.RoundedImageView;
 import com.halley.helper.SessionManager;
 import com.halley.manageitinerary.ManageItineraryActivity;
+import com.halley.profile.ProfileActivity;
 import com.halley.registerandlogin.R;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class SubmitItineraryActivity extends ActionBarActivity {
+    private final String STATUS_USER_VERIFY_COMPLETED="4";
 	private ActionBar actionBar;
 	private RoundedImageView imavatar;
 	private TextView tvfullname, tvdescription, tvstart_address, tvend_address,
@@ -113,7 +118,7 @@ public class SubmitItineraryActivity extends ActionBarActivity {
 	}
 
 	public void submitItineraryonClick(View v) {
-		submitItinerary(itinerary_id);
+        checkVerifyUser();
 	}
 
 	public String transferDuration(String timeString) {
@@ -129,6 +134,75 @@ public class SubmitItineraryActivity extends ActionBarActivity {
 
 	}
 
+    public void checkVerifyUser() {
+        String tag_string_req = "req_profile";
+        StringRequest strReq = new StringRequest(Request.Method.GET,
+                AppConfig.URL_DRIVER+"/status"+"?lang="+Locale.getDefault().getLanguage(), new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+                Log.d("", "Verify Driver Response: " + response.toString());
+
+
+                try {
+                    JSONObject jObj = new JSONObject(response);
+                    boolean error = jObj.getBoolean("error");
+                    if (!error) {
+                        String status=jObj.getString("status");
+                        if(status.equals(STATUS_USER_VERIFY_COMPLETED)) {
+                            submitItinerary(itinerary_id);
+                        }
+                        else{
+                            new SweetAlertDialog(context, SweetAlertDialog.WARNING_TYPE)
+                                    .setTitleText(getResources().getString(R.string.announce))
+                                    .setContentText(getResources().getString(R.string.not_verify_user))
+                                    .setConfirmText(getResources().getString(R.string.ok))
+                                    .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                        @Override
+                                        public void onClick(SweetAlertDialog sDialog) {
+                                            sDialog.cancel();
+                                        }
+                                    })
+                                    .show();
+                        }
+
+                    } else {
+                        // Error in login. Get the error message
+                        String message = jObj.getString("message");
+                        Toast.makeText(getApplicationContext(),
+                                message, Toast.LENGTH_LONG).show();
+
+                    }
+                } catch (JSONException e) {
+                    // JSON error
+                    e.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("", "Profile Error: " + error.getMessage());
+                Toast.makeText(getApplicationContext(),
+                        error.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        }) {
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                // Posting parameters to login url
+                Map<String, String> params = new HashMap<String, String>();
+
+                params.put("Authorization", session.getAPIKey());
+
+                return params;
+            }
+
+        };
+        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+    }
+
 	private void submitItinerary(final String itinerary_id) {
 		// Tag used to cancel the request
 		String tag_string_req = "req_submit_itinerary";
@@ -137,7 +211,7 @@ public class SubmitItineraryActivity extends ActionBarActivity {
 		showDialog();
 
 		StringRequest strReq = new StringRequest(Method.PUT,
-				AppConfig.URL_SUBMIT_ITINERARY + "/" + itinerary_id,
+				AppConfig.URL_SUBMIT_ITINERARY + "/" + itinerary_id+"?lang="+ Locale.getDefault().getLanguage(),
 				new Response.Listener<String>() {
 
 					@Override

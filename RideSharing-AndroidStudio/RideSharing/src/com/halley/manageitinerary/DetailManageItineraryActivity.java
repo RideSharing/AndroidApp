@@ -77,27 +77,34 @@ import com.halley.registerandlogin.R;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class DetailManageItineraryActivity extends ActionBarActivity implements
-		OnDataPass {
+		OnDataPass,View.OnClickListener {
 	private static final String TAG = DetailManageItineraryActivity.class
 			.getSimpleName();
+    private static final String DRIVER_ROLE="driver";
+    private static final String ITINERARY_STATUS_CREATED ="1";
+    private static final String ITINERARY_STATUS_CUSTOMER_ACCEPTED ="2";
+    private static final String ITINERARY_STATUS_DRIVER_ACCEPTED ="3";
+    private static final String ITINERARY_STATUS_FINISH ="4";
 	private GoogleMap googleMap;
 	private Marker marker_start_address;
 	private Marker marker_end_address;
 	private ActionBar actionBar;
+    private Button btnEditItinerary, btnDeleteItinerary,btnOngoing;
 	private SweetAlertDialog pDialog;
 	private Context context = this;
 	private TextView tvdescription, tvstartAddress, tvendAddress, tvduration,
-			tvdistance, tvleave_date, tvcost, tvphone;
-	EditText edDescription, edDuration, edCost, edPhone;
+			tvdistance, tvleave_date, tvcost, tvvehicle_type,tvphone;
+	EditText edDescription, edDuration, edCost;
 	TextView edLeaveDate;
-	private String duration, distance, key, itinerary_id;
+	private String duration, distance, key, itinerary_id, role, status;
 	private SessionManager session;
 	private ItineraryItem itineraryItem;
-	String getDescription, getLeaveDate, getDuration, getCost, getPhone;
+	String getDescription, getLeaveDate, getDuration, getCost;
 	// Direction maps
 	Polyline lineDirection = null;
 	private Activity activity = this;
     private CustomActionBar custom_actionbar;
+    private LinearLayout controlLayout, onGoingLayout;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -106,6 +113,8 @@ public class DetailManageItineraryActivity extends ActionBarActivity implements
 		session = new SessionManager(getApplicationContext());
         // Progress dialog
         pDialog = new SweetAlertDialog(this,SweetAlertDialog.PROGRESS_TYPE);
+        controlLayout= (LinearLayout) findViewById(R.id.controlLayout);
+        onGoingLayout= (LinearLayout) findViewById(R.id.onGoingLayout);
         tvdescription = (TextView) findViewById(R.id.description);
         tvstartAddress = (TextView) findViewById(R.id.startAddress);
         tvendAddress = (TextView) findViewById(R.id.endAddress);
@@ -114,46 +123,65 @@ public class DetailManageItineraryActivity extends ActionBarActivity implements
         tvleave_date = (TextView) findViewById(R.id.leave_date);
         tvcost = (TextView) findViewById(R.id.cost);
         tvphone = (TextView) findViewById(R.id.phone);
-        Button btnEditItinerary = (Button) findViewById(R.id.btnEditItinerary);
-        Button btnDeleteItinerary = (Button) findViewById(R.id.btnDeleteItinerary);
+        tvvehicle_type = (TextView) findViewById(R.id.vehicle_type);
+        btnEditItinerary = (Button) findViewById(R.id.btnEditItinerary);
+        btnDeleteItinerary = (Button) findViewById(R.id.btnDeleteItinerary);
+
+        btnOngoing = (Button) findViewById(R.id.btnOngoing);
         pDialog.setCancelable(false);
         custom_actionbar=new CustomActionBar(this,actionBar,pDialog,2);
         actionBar=custom_actionbar.getActionBar();
-		DisplayMetrics metrics = this.getResources().getDisplayMetrics();
-		findViewById(R.id.frame_container_4).getLayoutParams().height = (metrics.heightPixels / 3);
-		findViewById(R.id.mainLayoutManage).getLayoutParams().height = metrics.heightPixels
-				/ 3 + (metrics.heightPixels / 3);
-		LinearLayout layout_control = (LinearLayout) findViewById(R.id.controlLayout);
-		if (!session.isDriver()) {
-			layout_control.setVisibility(View.INVISIBLE);
-		}
 		Bundle bundle = this.getIntent().getExtras().getBundle("bundle");
 		if (bundle != null) {
 			itinerary_id = bundle.getString("itinerary_id");
+            role= bundle.getString("role");
+            status= bundle.getString("status");
+            // if driver created itinerary, set hide button ON GOING
+            if(status.equals(ITINERARY_STATUS_CREATED)){
+                controlLayout.setVisibility(View.VISIBLE);
+                onGoingLayout.setVisibility(View.GONE);
+            }
+            else if(status.equals(ITINERARY_STATUS_DRIVER_ACCEPTED)){
+                controlLayout.setVisibility(View.GONE);
+                onGoingLayout.setVisibility(View.VISIBLE);
+            }
+            else if(status.equals(ITINERARY_STATUS_FINISH)||status.equals(ITINERARY_STATUS_CUSTOMER_ACCEPTED)){
+                controlLayout.setVisibility(View.GONE);
+                onGoingLayout.setVisibility(View.GONE);
+            }
 
+            if(role.equals(DRIVER_ROLE)){}
+            else{}
             getItinerary(itinerary_id);
 
 		}
-
-		btnEditItinerary.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				updateItinerary();
-
-
-			}
-		});
-		btnDeleteItinerary.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				confirmDelelte();
-
-			}
-		});
-
+        btnOngoing.setOnClickListener(this);
+		btnEditItinerary.setOnClickListener(this);
+		btnDeleteItinerary.setOnClickListener(this);
 	}
+    @Override
+    public void onClick(View v) {
+        if(v.getId()==R.id.btnDeleteItinerary){
+            confirmDelelte();
+        } else if(v.getId()==R.id.btnEditItinerary){
+            updateItinerary();
+        } else if(v.getId()==R.id.btnOngoing){
+            checkStatusItinerary(itinerary_id);
+        }
+    }
+    public void checkStatusItinerary(String status){
+        if(!role.equals(DRIVER_ROLE)) btnOngoing.setEnabled(false);
+        //Ready for going
+        if(status.equals(ITINERARY_STATUS_DRIVER_ACCEPTED)){
+            //change status from ready to on going
+            btnOngoing.setText(R.string.on_going);
+        }
+//        else if(status.equals(ITINERARY_STATUS_ON_GOING)){
+//            //change status from on going to finish
+//            btnOngoing.setText(R.string.end_addess);
+//        }
+
+    }
 
 
 	public void confirmDelelte() {
@@ -162,8 +190,8 @@ public class DetailManageItineraryActivity extends ActionBarActivity implements
 
             dialog.setTitleText(getResources().getString(R.string.delete_itinerary))
             .setContentText(getResources().getString(R.string.you_sure))
-            .setCancelText(getResources().getString(R.string.ok))
-            .setConfirmText(getResources().getString(R.string.cancel))
+            .setCancelText(getResources().getString(R.string.cancel))
+            .setConfirmText(getResources().getString(R.string.ok))
             .showCancelButton(true)
             .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
                 @Override
@@ -175,7 +203,7 @@ public class DetailManageItineraryActivity extends ActionBarActivity implements
                 @Override
                 public void onClick(SweetAlertDialog sweetAlertDialog) {
                     deleteItinerary();
-                    setResult(RESULT_OK);
+
                     finish();
                 }
             }).show();
@@ -196,7 +224,6 @@ public class DetailManageItineraryActivity extends ActionBarActivity implements
 		String b = tvleave_date.getText().toString();
 		String c = tvduration.getText().toString();
 		String d = tvcost.getText().toString();
-		String e = tvphone.getText().toString();
 		edDescription.setText(a);
 		edLeaveDate.setText(b);
 		edDuration.setText(c);
@@ -230,7 +257,7 @@ public class DetailManageItineraryActivity extends ActionBarActivity implements
 				} else {
 					editItinerary();
 					dialog.dismiss();
-					setResult(RESULT_OK);
+
 				}
 
 
@@ -373,6 +400,10 @@ public class DetailManageItineraryActivity extends ActionBarActivity implements
                                             .getString("duration"));
                                     itineraryItem.setDistance(jObj
                                             .getString("distance"));
+                                itineraryItem.setPhone(jObj
+                                        .getString("phone"));
+                                itineraryItem.setVehicle_id(jObj.getString("vehicle_id"));
+                                itineraryItem.setVehicle_type(jObj.getString("vehicle_type"));
                                 tvdescription.setText(itineraryItem.getDescription());
                                 tvstartAddress.setText(itineraryItem.getStart_address());
                                 tvendAddress.setText(itineraryItem.getEnd_address());
@@ -380,7 +411,7 @@ public class DetailManageItineraryActivity extends ActionBarActivity implements
                                 tvdistance.setText(itineraryItem.getDistance());
                                 tvleave_date.setText(itineraryItem.getLeave_date());
                                 tvcost.setText(transferCost(itineraryItem.getCost()));
-                                tvphone.setText(itineraryItem.getPhone());
+                                tvvehicle_type.setText(itineraryItem.getVehicle_type());
                                 initilizeMap();
                                 // Add current location on Maps
                                 marker_start_address = addMarkeronMaps(Double.parseDouble(itineraryItem.getStart_address_lat()), Double.parseDouble(itineraryItem.getStart_address_long()),
@@ -463,6 +494,7 @@ public class DetailManageItineraryActivity extends ActionBarActivity implements
 								String message = jObj.getString("message");
 								Toast.makeText(getApplicationContext(),
 										message, Toast.LENGTH_LONG).show();
+                                finish();
 
 							} else {
 
@@ -655,7 +687,9 @@ public class DetailManageItineraryActivity extends ActionBarActivity implements
 		return data;
 	}
 
-	// Fetches data from url passed
+
+
+    // Fetches data from url passed
 	private class DownloadTask extends AsyncTask<String, Void, String> {
 
 		// Downloading data in non-ui thread

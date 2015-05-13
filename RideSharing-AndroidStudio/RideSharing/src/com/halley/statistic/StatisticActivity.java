@@ -12,11 +12,15 @@ import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.animation.Animation;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CompoundButton;
+import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.HorizontalBarChart;
@@ -55,28 +59,39 @@ public class StatisticActivity extends ActionBarActivity implements OnSeekBarCha
     private String[] mYears =new String[]{
             String.valueOf(year-3),String.valueOf(year-2),String.valueOf(year-1),String.valueOf(year)+" (*)"
     };
+    private String[] mType;
     private String[] orderby;
-    private HorizontalBarChart mChart;
+    private HorizontalBarChart mChartCustomer,mChartDriver;
     private SeekBar mSeekBarX;
     private TextView tvX;
-
+    private LinearLayout lnDriver,lnCustomer,lnSwitchRole;
     private Typeface tf;
     ActionBar actionBar;
     private CustomActionBar custom_actionbar;
     private SessionManager session;
     private SweetAlertDialog pDialog;
-    private Spinner spin,subSpin;
+    private Spinner spin,spinbyYear,spinbyType;
+    Switch swStatistic_role;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_statistic);
         orderby= new String[] {
                 getResources().getString(R.string.month).toString(),
                 getResources().getString(R.string.year).toString()};
+        mType= new String[] {
+                getResources().getString(R.string.statistic_itinerary).toString(),
+                getResources().getString(R.string.statistic_money).toString()};
+        lnDriver=(LinearLayout)findViewById(R.id.layoutDriver);
+        lnCustomer=(LinearLayout)findViewById(R.id.layoutCustomer);
+        lnSwitchRole=(LinearLayout)findViewById(R.id.layout_SwitchRole);
+        swStatistic_role=(Switch)findViewById(R.id.statistic_role);
+        swStatistic_role.setChecked(true);
+        mChartCustomer = (HorizontalBarChart) findViewById(R.id.chartCustomer);
+        mChartDriver = (HorizontalBarChart) findViewById(R.id.chartDriver);
         spin=(Spinner) findViewById(R.id.spOrderBy);
-        subSpin=(Spinner) findViewById(R.id.spOrderByYear);
+        spinbyYear=(Spinner) findViewById(R.id.spOrderByYear);
+        spinbyType=(Spinner) findViewById(R.id.spOrderByType);
         // Progress dialog
         pDialog = new SweetAlertDialog(this,SweetAlertDialog.PROGRESS_TYPE);
         pDialog.setCancelable(false);
@@ -86,10 +101,50 @@ public class StatisticActivity extends ActionBarActivity implements OnSeekBarCha
         session = new SessionManager(getApplicationContext());
         tvX = (TextView) findViewById(R.id.tvXMax);
         mSeekBarX = (SeekBar) findViewById(R.id.seekBar1);
-        mChart = (HorizontalBarChart) findViewById(R.id.chart1);
-        initChart();
+        initChart(mChartCustomer);
+        initChart(mChartDriver);
+        if(!session.isDriver()){
+            lnSwitchRole.setVisibility(View.GONE);
+            lnDriver.setVisibility(View.GONE);
+        }
+        else {
+            if (swStatistic_role.isChecked()) {
+                setData(12, 200f, 1, mChartCustomer);
+                lnDriver.setVisibility(View.GONE);
+                lnCustomer.setVisibility(View.VISIBLE);
+
+            } else {
+                setData(12, 200f, 1, mChartDriver);
+                lnDriver.setVisibility(View.VISIBLE);
+                lnCustomer.setVisibility(View.GONE);
+            }
+        }
+
         initSpinner(spin);
-        initSpinner(subSpin);
+        initSpinner(spinbyYear);
+        initSpinner(spinbyType);
+        swStatistic_role.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+                if(isChecked) {
+                    setData(12, 200f, 1, mChartCustomer);
+                    lnDriver.setVisibility(View.GONE);
+                    lnCustomer.setVisibility(View.VISIBLE);
+
+                }
+                else {
+                    setData(12, 200f, 1, mChartDriver);
+                    lnDriver.setVisibility(View.VISIBLE);
+                    lnCustomer.setVisibility(View.GONE);
+                }
+                spin.setSelection(0);
+                spinbyYear.setSelection(0);
+                spinbyType.setSelection(0);
+                mSeekBarX.setMax(12);
+                mSeekBarX.setProgress(12);
+            }
+        });
     }
 
     public void initSpinner(Spinner sp){
@@ -111,6 +166,14 @@ public class StatisticActivity extends ActionBarActivity implements OnSeekBarCha
                     );
 
         }
+        else if(sp.getId()==R.id.spOrderByType){
+            adapter=new ArrayAdapter<String>
+                    (
+                            this,
+                            android.R.layout.simple_spinner_item,
+                            mType
+                    );
+        }
         adapter.setDropDownViewResource
                 (android.R.layout.simple_list_item_single_choice);
         sp.setAdapter(adapter);
@@ -119,14 +182,12 @@ public class StatisticActivity extends ActionBarActivity implements OnSeekBarCha
     }
 
 
-    public void initChart(){
+    public void initChart(HorizontalBarChart mChart){
         mChart.setOnChartValueSelectedListener(this);
         // mChart.setHighlightEnabled(false);
-
         mChart.setDrawBarShadow(false);
 
         mChart.setDrawValueAboveBar(true);
-
         mChart.setDescription("");
 
         // if more than 60 entries are displayed in the chart, no values will be
@@ -167,9 +228,10 @@ public class StatisticActivity extends ActionBarActivity implements OnSeekBarCha
         yr.setDrawGridLines(false);
 //        yr.setInverted(true);
 
-        //setData(12, 50,1);
+        setData(12, 50,1,mChart);
         mChart.animateY(2500);
         // setting data
+        mSeekBarX.setMax(12);
         mSeekBarX.setProgress(12);
         mSeekBarX.setOnSeekBarChangeListener(this);
         Legend l = mChart.getLegend();
@@ -177,21 +239,25 @@ public class StatisticActivity extends ActionBarActivity implements OnSeekBarCha
         l.setFormSize(8f);
         l.setXEntrySpace(4f);
         // mChart.setDrawLegend(false);
+
     }
+
+
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
 
-
-
         if(seekBar.getMax()==12) {
             tvX.setText("" + ((mSeekBarX.getProgress()<12)?mSeekBarX.getProgress() +1:mSeekBarX.getProgress()));
-            setData((mSeekBarX.getProgress() < 12) ? mSeekBarX.getProgress() + 1 : mSeekBarX.getProgress(), 200f, 1);
+            setData((mSeekBarX.getProgress() < 12) ? mSeekBarX.getProgress() + 1 : mSeekBarX.getProgress(), 200f, 1,(swStatistic_role.isChecked())?mChartCustomer:mChartDriver);
         }
         else{
-            tvX.setText("" + ((mSeekBarX.getProgress()<7)?mSeekBarX.getProgress() +1:mSeekBarX.getProgress()));
-            setData((mSeekBarX.getProgress() < 7) ? mSeekBarX.getProgress() + 1 : mSeekBarX.getProgress(), 200f, 2);
+            tvX.setText("" + ((mSeekBarX.getProgress()<4)?mSeekBarX.getProgress() +1:mSeekBarX.getProgress()));
+            setData((mSeekBarX.getProgress() < 4) ? mSeekBarX.getProgress() + 1 : mSeekBarX.getProgress(), 200f, 2,(swStatistic_role.isChecked())?mChartCustomer:mChartDriver);
         }
-        mChart.invalidate();
+        if(swStatistic_role.isChecked())
+            mChartCustomer.invalidate();
+        else
+            mChartDriver.invalidate();
     }
 
     @Override
@@ -206,7 +272,7 @@ public class StatisticActivity extends ActionBarActivity implements OnSeekBarCha
 
     }
 
-    private void setData(int count,float range,int orderby) {
+    private void setData(int count,float range,int orderby,HorizontalBarChart mChart) {
 
         ArrayList<String> xVals = new ArrayList<String>();
         for (int i = 0; i < count; i++) {
@@ -214,7 +280,7 @@ public class StatisticActivity extends ActionBarActivity implements OnSeekBarCha
                 xVals.add((Locale.getDefault().getLanguage().equals("en")) ? mMonths_en[i % 12] : mMonths_vi[i % 12]);
             }
             else{
-                xVals.add(mYears[i%7]);
+                xVals.add(mYears[i%4]);
             }
         }
 
@@ -226,7 +292,7 @@ public class StatisticActivity extends ActionBarActivity implements OnSeekBarCha
             yVals1.add(new BarEntry(val, i));
         }
 
-        BarDataSet set1 = new BarDataSet(yVals1, "DataSet2");
+        BarDataSet set1 = new BarDataSet(yVals1, getResources().getString(R.string.statistic_itinerary)+"/"+getResources().getString(R.string.statistic_money));
         set1.setBarSpacePercent(35f);
 
         ArrayList<BarDataSet> dataSets = new ArrayList<BarDataSet>();
@@ -235,7 +301,6 @@ public class StatisticActivity extends ActionBarActivity implements OnSeekBarCha
         BarData data = new BarData(xVals, dataSets);
         data.setValueTextSize(10f);
         data.setValueTypeface(tf);
-
         mChart.setData(data);
     }
 
@@ -246,9 +311,11 @@ public class StatisticActivity extends ActionBarActivity implements OnSeekBarCha
         if (e == null)
             return;
 
-        RectF bounds = mChart.getBarBounds((BarEntry) e);
-        PointF position = mChart.getPosition(e, mChart.getData().getDataSetByIndex(dataSetIndex)
+        RectF bounds = mChartCustomer.getBarBounds((BarEntry) e);
+        PointF position = mChartCustomer.getPosition(e, mChartCustomer.getData().getDataSetByIndex(dataSetIndex)
                 .getAxisDependency());
+
+
 
         Log.i("bounds", bounds.toString());
         Log.i("position", position.toString());
@@ -271,18 +338,18 @@ public class StatisticActivity extends ActionBarActivity implements OnSeekBarCha
             if(spinner.getId() == R.id.spOrderBy)
             {
                 if(arg2==0){
-                    subSpin.setEnabled(true);
-                    subSpin.setClickable(true);
+                    spinbyYear.setEnabled(true);
+                    spinbyYear.setClickable(true);
                     mSeekBarX.setMax(12);
                     mSeekBarX.setProgress(12);
-                    setData(12,200f,1);
+                    setData(12,200f,1,(swStatistic_role.isChecked())?mChartCustomer:mChartDriver);
                 }
                 else{
-                    subSpin.setEnabled(false);
-                    subSpin.setClickable(false);
-                    mSeekBarX.setMax(7);
-                    mSeekBarX.setProgress(7);
-                    setData(7,200f,2);
+                    spinbyYear.setEnabled(false);
+                    spinbyYear.setClickable(false);
+                    mSeekBarX.setMax(4);
+                    mSeekBarX.setProgress(4);
+                    setData(4,200f,2,(swStatistic_role.isChecked())?mChartCustomer:mChartDriver);
                 }
             }
             else if(spinner.getId() == R.id.spOrderByYear)

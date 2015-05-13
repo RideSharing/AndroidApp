@@ -105,11 +105,13 @@
         </activity>
         <activity
             android:name="com.halley.searchitinerary.SearchAdvanceActivity"
-            android:label="@string/title_activity_search_advance" >
+            android:label="@string/title_activity_search_advance"
+            android:parentActivityName="com.halley.ridesharing.MainActivity" >
         </activity>
         <activity
             android:name="com.halley.aboutus.AboutUsActivity"
             android:label="@string/title_activity_about_us"
+            android:launchMode="singleTop"
             android:logo="@drawable/ic_about_us"
             android:parentActivityName="com.halley.ridesharing.MainActivity" >
         </activity>
@@ -129,7 +131,23 @@
         </activity>
         <activity
             android:name="com.halley.statistic.StatisticActivity"
-            android:label="@string/title_activity_statistic" >
+            android:label="@string/title_activity_statistic"
+            android:parentActivityName="com.halley.ridesharing.MainActivity" >
+        </activity>
+        <activity
+            android:name="com.halley.vehicle.VehicleActivity"
+            android:label="@string/title_activity_vehicle"
+            android:parentActivityName="com.halley.vehicle.ManageVehicle" >
+        </activity>
+        <activity
+            android:name="com.halley.vehicle.ManageVehicle"
+            android:label="@string/title_activity_vehicle"
+            android:parentActivityName="com.halley.ridesharing.MainActivity" >
+        </activity>
+        <activity
+            android:name="com.halley.vehicle.DetailVehicleActivity"
+            android:label="@string/title_activity_detail_vehicle"
+            android:parentActivityName="com.halley.vehicle.ManageVehicle" >
         </activity>
     </application>
 

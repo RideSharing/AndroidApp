@@ -17,10 +17,34 @@ public class ItineraryItem {
 	private String itinerary_id;
 	private String start_address_lat, start_address_long, end_address_lat,
 			end_address_long;
+    private String customer_id;
+    private String vehicle_id, vehicle_type;
 
-	
-	
-	public String getStatus() {
+    public String getVehicle_id() {
+        return vehicle_id;
+    }
+
+    public void setVehicle_id(String vehicle_id) {
+        this.vehicle_id = vehicle_id;
+    }
+
+    public String getVehicle_type() {
+        return vehicle_type;
+    }
+
+    public void setVehicle_type(String vehicle_type) {
+        this.vehicle_type = vehicle_type;
+    }
+
+    public String getCustomer_id() {
+        return customer_id;
+    }
+
+    public void setCustomer_id(String customer_id) {
+        this.customer_id = customer_id;
+    }
+
+    public String getStatus() {
 		return status;
 	}
 

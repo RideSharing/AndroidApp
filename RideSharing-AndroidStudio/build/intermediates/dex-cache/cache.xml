@@ -30,6 +30,13 @@
         <dex dex="/media/enclaveit/DATA/RideSharingGIT/AndroidApp/RideSharing-AndroidStudio/RideSharing/build/intermediates/pre-dexed/debug/classes-18a44c79d7abad9a56dedd4f70b62f623e2bbc2c.jar" />
     </item>
     <item
+        jar="/media/enclaveit/DATA/RideSharingGIT/AndroidApp/RideSharing-AndroidStudio/RideSharing/build/intermediates/exploded-aar/com.github.clans/fab/1.4.0/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="594127e64b096f8e54e148680c3404e3e9c68542">
+        <dex dex="/media/enclaveit/DATA/RideSharingGIT/AndroidApp/RideSharing-AndroidStudio/RideSharing/build/intermediates/pre-dexed/debug/classes-71e633ddf7e8d50494b89526529b1972e8483b1b.jar" />
+    </item>
+    <item
         jar="/media/enclaveit/DATA/RideSharingGIT/AndroidApp/RideSharing-AndroidStudio/RideSharing/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/classes.jar"
         jumboMode="false"
         revision="21.1.2"

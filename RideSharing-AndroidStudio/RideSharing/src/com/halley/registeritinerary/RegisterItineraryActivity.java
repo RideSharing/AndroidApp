@@ -96,9 +96,6 @@ public class RegisterItineraryActivity extends ActionBarActivity implements
 		etEndAddress = (TextView) findViewById(R.id.txtEndAddress);
 		btnAdvance = (Button) findViewById(R.id.btnAdvance);
 		btnAdvance.setVisibility(View.INVISIBLE);
-		DisplayMetrics metrics = this.getResources().getDisplayMetrics();
-		findViewById(R.id.frame_container_3).getLayoutParams().height = (metrics.heightPixels / 2);
-		findViewById(R.id.mainLayout).getLayoutParams().height = metrics.heightPixels / 2;
 		if (this.getIntent().getExtras() != null) {
 			fromLatitude = this.getIntent().getExtras()
 					.getDouble("fromLatitude");
@@ -209,7 +206,7 @@ public class RegisterItineraryActivity extends ActionBarActivity implements
 					// show on googlemap
 					onMarkerDragEnd(marker_start_address);
 				} else {
-					Toast.makeText(context, "Không thể xác định được nơi đi",
+					Toast.makeText(context, R.string.not_found_area,
 							Toast.LENGTH_SHORT).show();
 				}
 				if (getLocationfromName(etEndAddress.getText().toString()) != null) {

@@ -8,7 +8,6 @@
       <module fileurl="file://$PROJECT_DIR$/signalr-client-sdk/signalr-client-sdk.iml" filepath="$PROJECT_DIR$/signalr-client-sdk/signalr-client-sdk.iml" />
       <module fileurl="file://$PROJECT_DIR$/signalr-client-sdk-android/signalr-client-sdk-android.iml" filepath="$PROJECT_DIR$/signalr-client-sdk-android/signalr-client-sdk-android.iml" />
       <module fileurl="file://$PROJECT_DIR$/volley/volley.iml" filepath="$PROJECT_DIR$/volley/volley.iml" />
-      <module fileurl="file://$PROJECT_DIR$/workspace.iml" filepath="$PROJECT_DIR$/workspace.iml" />
     </modules>
   </component>
 </project>

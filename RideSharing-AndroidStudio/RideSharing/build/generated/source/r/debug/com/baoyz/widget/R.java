@@ -11,8 +11,8 @@ public final class R {
 		public static final int google_colors = 0x7f070000;
 	}
 	public static final class attr {
-		public static final int colors = 0x7f010052;
-		public static final int type = 0x7f010051;
+		public static final int colors = 0x7f01007f;
+		public static final int type = 0x7f01007e;
 	}
 	public static final class color {
 		public static final int blue = 0x7f09000e;
@@ -21,19 +21,19 @@ public final class R {
 		public static final int yellow = 0x7f09007f;
 	}
 	public static final class drawable {
-		public static final int ic_launcher = 0x7f020079;
+		public static final int ic_launcher = 0x7f02007a;
 	}
 	public static final class id {
-		public static final int circles = 0x7f0b0020;
-		public static final int material = 0x7f0b0021;
-		public static final int ring = 0x7f0b0022;
-		public static final int water_drop = 0x7f0b0023;
+		public static final int circles = 0x7f0b0024;
+		public static final int material = 0x7f0b0025;
+		public static final int ring = 0x7f0b0026;
+		public static final int water_drop = 0x7f0b0027;
 	}
 	public static final class style {
 		public static final int AppTheme = 0x7f0e0001;
 	}
 	public static final class styleable {
-		public static final int[] PullRefreshLayout = { 0x7f010051, 0x7f010052 };
+		public static final int[] PullRefreshLayout = { 0x7f01007e, 0x7f01007f };
 		public static final int PullRefreshLayout_colors = 1;
 		public static final int PullRefreshLayout_type = 0;
 	}

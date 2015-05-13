@@ -4,22 +4,19 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <FrameLayout
-        android:id="@+id/frame_container_4"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" >
 
-        <fragment
-            android:id="@+id/mapRegister"
-            android:name="com.google.android.gms.maps.MapFragment"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </FrameLayout>
+    <fragment
+        android:id="@+id/mapRegister"
+        android:name="com.google.android.gms.maps.MapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.4"/>
 
     <ScrollView
         android:id="@+id/scrollview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.6"
         android:orientation="vertical" >
 
         <LinearLayout
@@ -233,7 +230,6 @@
                     android:textColorHint="@color/input_login_hint"
                     android:textSize="15dp" />
             </LinearLayout>
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -266,12 +262,42 @@
             </LinearLayout>
 
             <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:padding="5dp" >
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:background="@drawable/border_bottom"
+                    android:text="@string/type_vehicle"
+                    android:textColor="#000"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/vehicle_type"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="15dp"
+                    android:padding="7dip"
+                    android:textColor="@color/input_login"
+                    android:textColorHint="@color/input_login_hint"
+                    android:textSize="15dp" />
+            </LinearLayout>
+
+            <LinearLayout
                 android:id="@+id/controlLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:background="@color/white"
-                android:padding="5dp" >
+                android:padding="5dp"
+                android:orientation="horizontal">
 
                 <!-- Register Button -->
 
@@ -293,6 +319,24 @@
                     android:layout_weight="1"
                     android:background="@drawable/flat_selector"
                     android:text="@string/delete_itinerary"
+                    android:textColor="@color/white" />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/onGoingLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="@color/white"
+                android:padding="5dp"
+                android:orientation="vertical">
+                <Button
+                    android:id="@+id/btnOngoing"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/flat_selector"
+                    android:text="@string/start_addess"
                     android:textColor="@color/white" />
             </LinearLayout>
         </LinearLayout>

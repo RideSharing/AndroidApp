@@ -2,11 +2,13 @@ package com.halley.registeritinerary;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -27,10 +29,12 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RelativeLayout.LayoutParams;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.android.volley.Request;
 import com.android.volley.Request.Method;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -60,7 +64,7 @@ public class RegisterAdvanceDialog extends DialogFragment {
 			end_address_long;
 	private SessionManager session;
 	private SweetAlertDialog pDialog;
-
+    private Spinner vehicles_type;
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -203,7 +207,7 @@ public class RegisterAdvanceDialog extends DialogFragment {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		 Toast.makeText(getActivity(), "" + sumMin, Toast.LENGTH_LONG).show();
+//		 Toast.makeText(getActivity(), "" + sumMin, Toast.LENGTH_LONG).show();
 		return String.valueOf(sumMin);
 	}
 
@@ -345,6 +349,8 @@ public class RegisterAdvanceDialog extends DialogFragment {
 		AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
 
 	}
+
+
 
 	private void showDialog() {
 		if (!pDialog.isShowing())

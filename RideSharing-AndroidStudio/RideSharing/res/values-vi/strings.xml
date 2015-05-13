@@ -48,6 +48,7 @@
     </string-array>
     <string-array name="nav_drawer_items_driver">
         <item>Đặt lịch trình </item>
+        <item>Quản lý phương tiện </item>
     </string-array>
     <!-- Nav Drawer List Item Icons -->
     <!-- Keep them in order as the titles are in -->
@@ -61,6 +62,7 @@
     </string-array>
     <string-array name="nav_drawer_icons_driver">
         <item>@drawable/ic_register_itinerary </item>
+        <item>@drawable/ic_manage_vehicle </item>
     </string-array>
 
     <string name="title_item_list">Items </string>
@@ -152,7 +154,7 @@
     <string name="title_activity_upgrade_profile">Nâng cấp </string>
     <string name="title_activity_user_profile">Thông tin cá nhân </string>
     <string name="title_activity_register_advance">Đăng kí bổ sung </string>
-    <string name="slogan">Thông nhau mà sướng </string>
+    <string name="slogan">....</string>
     <string name="info_basic">Thông tin cơ bản </string>
     <string name="contact_us">Thông tin về chúng tôi </string>
     <string name="author">Nhóm tác giả </string>
@@ -168,5 +170,47 @@
     <string name="title_activity_statistic">Thống kê</string>
     <string name="year">Năm</string>
     <string name="month">Tháng</string>
+    <string name="searching">Đang tìm...</string>
+    <string name="statistic_customer">Đây là biểu đồ thể hiện toàn bộ các hành trình bạn đã tham gia</string>
+    <string name="statistic_driver">Đây là biểu đồ thể hiện toàn bộ các hành trình bạn đã tạo và đi</string>
+    <string name="statistic_itinerary">Hành trình</string>
+    <string name="statistic_money">Số tiền</string>
+    <string name="driver_accept_customer">Bạn có chập nhận cho người này đi cùng không?</string>
+    <string name="customer_reject_itinerary">Bạn đã đăng kí hành trình này và đang đợi phản hồi từ tài xế. Bây giờ bạn muốn hùy hành trình này?</string>
+    <string name="deny">Từ chối</string>
+    <string name="accept">Chấp nhận</string>
+    <string name="join_in_itinerary">muốn đăng kí đi cùng hành trình này.</string>
+    <string name="customer_profile">Thông tin người đăng kí</string>
+    <string name="btn_search">Tìm hành trình</string>
+    <string name="not_verify_driver">Bạn vẫn chưa được xác minh thông tin về tài xế. Chúng tôi vẫn đang trong quá trình xác minh và sẽ phản hồi sớm.</string>
+    <string name="announce">Thông báo</string>
+    <string name="review_app">Đánh giá và nhận xét cho ứng dụng</string>
+    <string name="review_user">Đánh giá và nhận xét cho tài xế/người đi cùng khi bạn kết thúc hành trình này</string>
+    <string name="start_itinerary">Bắt đầu hành trình</string>
+    <string name="on_going">Đang đi</string>
+    <string name="end_itinerary">Kết thúc hành trình</string>
+    <string name="finish_itinerary">Hành trình đã đi</string>
+    <string name="finish_itinerary_detail">Đây là nơi liệt kê các hành trình bạn đã đi</string>
+    <string name="see_itinerary">Xem hành trình</string>
+    <string name="reject_itinerary_menu">Hủy đăng kí</string>
+    <string name="see_customer_profile">Xem người đi cùng</string>
+    <string name="not_verify_user">Bạn không có quyền đăng kí hành trình này, bởi vì bạn vẫn chưa được xác minh thông tin tài khoản tài xế. Chúng tôi vẫn đang xác minh thông tin và sẽ phản hồi sớm.</string>
+
+    <string name="title_activity_vehicle">Phương tiện </string>
+    <string name="license_plate">Biển số xe</string>
+    <string name="reg_certificate">Giấy chứng nhận đăng ký phương tiện</string>
+    <string name="license_plate_image">Hình ảnh biển số xe</string>
+    <string name="moto_insurance_img">Hình ảnh bảo hiểm xe máy</string>
+    <string name="vehicle_image">Hình ảnh phương tiện</string>
+    <string name="update">Cập nhật</string>
+    <string name="hello_world">Chào</string>
+    <string name="type_vehicle">Loại xe máy</string>
+    <string name="vehicle_page">Phương tiện giao thông</string>
+    <string name="title_activity_list_vehicle">Danh sách phương tiện</string>
+    <string name="field_type_vehicle">Loại xe</string>
+    <string name="field_license_plate">Biển số xe</string>
+    <string name="field_reg_certificate">Giấy phép đăng ký lái xe</string>
+    <string name="register_vehicle">Đăng ký</string>
+    <string name="delete_vehicle">Xóa phương tiện</string>
 
 </resources>

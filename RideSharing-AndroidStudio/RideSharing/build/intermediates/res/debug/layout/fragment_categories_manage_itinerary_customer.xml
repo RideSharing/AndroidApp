@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android" >
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
     <RelativeLayout
         android:layout_margin="5dp"
@@ -100,5 +105,52 @@
         </LinearLayout>
     </RelativeLayout>
 
-
-</LinearLayout><!-- From: file:/media/enclaveit/DATA/RideSharingGIT/AndroidApp/RideSharing-AndroidStudio/RideSharing/res/layout/fragment_categories_manage_itinerary_customer.xml -->
+    <RelativeLayout
+        android:id="@+id/finish"
+        android:onClick="finishCustomerOnclick"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/list_itinerary_row_selector"
+        android:layout_margin="5dp"
+        android:padding="8dp" >
+        <!-- Thumbnail Image -->
+        <TextView
+            android:id="@+id/avatar3"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_alignParentLeft="true"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:background="@color/bg_login"
+            android:text="@string/finish_itinerary"
+            android:layout_marginRight="8dp" />
+        <!-- Itinerary Title -->
+        <TextView
+            android:id="@+id/description3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/avatar3"
+            android:layout_toRightOf="@+id/avatar3"
+            android:textSize="@dimen/description"
+            android:text="@string/finish_itinerary"
+            android:textStyle="bold" />
+        <!-- Start - End  Address -->
+        <LinearLayout
+            android:id="@+id/address3"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/description3"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@+id/avatar3"
+            android:orientation="vertical" >
+            <TextView
+                android:id="@+id/start_address3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/address"
+                android:textSize="@dimen/address"
+                android:text="@string/finish_itinerary_detail"/>
+        </LinearLayout>
+    </RelativeLayout>
+</LinearLayout></ScrollView><!-- From: file:/media/enclaveit/DATA/RideSharingGIT/AndroidApp/RideSharing-AndroidStudio/RideSharing/res/layout/fragment_categories_manage_itinerary_customer.xml -->

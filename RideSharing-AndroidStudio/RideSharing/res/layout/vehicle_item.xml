@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <!-- Thumbnail Image -->
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@drawable/list_itinerary_row_selector"
+        android:layout_margin="5dp">
+
+        <com.halley.helper.CustomNetworkImageView
+            android:id="@+id/img_VehicleImage"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginRight="8dp" />
+
+        <TextView
+            android:id="@+id/lvType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/img_VehicleImage"
+            android:layout_toRightOf="@+id/img_VehicleImage"
+            android:textSize="@dimen/description"
+            android:textStyle="bold"
+            android:textColor="#000000" />
+
+        <TextView
+            android:id="@+id/lvLicensePlate"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/lvType"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@+id/img_VehicleImage"
+            android:textSize="@dimen/rating"
+            android:textColor="#000000" />
+
+        <TextView
+            android:id="@+id/lvRegCertificate"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/lvLicensePlate"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@+id/img_VehicleImage"
+            android:textColor="#000000" />
+    </RelativeLayout>
+
+    <!-- Itinerary Title -->
+
+    <!-- Rating -->
+
+    <!-- Start - End  Address -->
+
+
+</RelativeLayout>

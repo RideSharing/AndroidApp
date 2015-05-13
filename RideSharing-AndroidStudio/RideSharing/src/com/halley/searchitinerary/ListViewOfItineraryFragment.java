@@ -48,7 +48,7 @@ public class ListViewOfItineraryFragment extends Fragment {
 	private SweetAlertDialog pDialog;
 	private double toLatitude, toLongitude, fromLatitude, fromLongitude;
 	private boolean isFrom;
-    String fromLocation, toLocation,cost,leave_date;
+    String fromLocation, toLocation,cost="",leave_date="";
 	SessionManager session;
     private PullRefreshLayout mSwipeRefreshLayout;
     private MyAsyncTask task;

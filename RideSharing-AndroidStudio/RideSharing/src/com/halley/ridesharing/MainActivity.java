@@ -79,6 +79,7 @@ import com.halley.model.slidingmenu.adapter.NavDrawerListAdapter;
 import com.halley.profile.ProfileActivity;
 import com.halley.registerandlogin.LoginActivity;
 import com.halley.registerandlogin.R;
+import com.halley.registeritinerary.RegisterItineraryActivity;
 import com.halley.searchitinerary.SearchAdvanceActivity;
 import com.halley.statistic.StatisticActivity;
 import com.halley.vehicle.ManageVehicle;
@@ -506,7 +507,6 @@ public class MainActivity extends ActionBarActivity implements
 		if (driver) {
 			switch (position) {
 			case 1:
-
                 checkVerifyDriver();
 
 				break;
@@ -873,7 +873,7 @@ public class MainActivity extends ActionBarActivity implements
                     if (!error) {
                         String status=jObj.getString("status");
                         if(status.equals(STATUS_DRIVER_VERIFY)) {
-                            Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
+                            Intent intent = new Intent(getApplicationContext(), RegisterItineraryActivity.class);
                             if (mCurrentLocation != null) {
                                 intent.putExtra("fromLatitude",
                                         mCurrentLocation.getLatitude());

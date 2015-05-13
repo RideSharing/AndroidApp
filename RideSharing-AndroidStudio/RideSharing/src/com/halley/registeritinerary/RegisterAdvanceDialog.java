@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import org.json.JSONArray;
@@ -25,6 +27,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -46,6 +50,7 @@ import com.halley.helper.SessionManager;
 import com.halley.registerandlogin.R;
 import com.halley.registerandlogin.RegisterActivity;
 import com.halley.ridesharing.MainActivity;
+import com.halley.vehicle.VehicleItem;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
@@ -59,12 +64,13 @@ public class RegisterAdvanceDialog extends DialogFragment {
 	private EditText etCost;
 	private Button btnRegister;
 	private String start_address = "", end_address = "", leave_date = "",
-			duration = "", cost = "", description = "", distance = "";
+			duration = "", cost = "", description = "", distance = "", vehicle_id;
 	private Double start_address_lat, start_address_long, end_address_lat,
 			end_address_long;
 	private SessionManager session;
 	private SweetAlertDialog pDialog;
-    private Spinner vehicles_type;
+    private Spinner spvehicle_type;
+    private List<VehicleItem> vehicleItems;
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -77,12 +83,15 @@ public class RegisterAdvanceDialog extends DialogFragment {
 		pDialog = new SweetAlertDialog(getActivity(),SweetAlertDialog.PROGRESS_TYPE);
         pDialog.setTitleText(getResources().getString(R.string.process_data));
         pDialog.setCancelable(false);
+
 		btnRegister = (Button) v.findViewById(R.id.btnRegister);
 		etDescription = (EditText) v.findViewById(R.id.description);
 		etLeave_date = (TextView) v.findViewById(R.id.leave_date);
 		etDuration = (EditText) v.findViewById(R.id.duration);
 		etCost = (EditText) v.findViewById(R.id.cost);
 		etDistance = (TextView) v.findViewById(R.id.distance);
+        spvehicle_type= (Spinner) v.findViewById(R.id.vehicle);
+        getAllItinerary();
 		Bundle bundle = this.getArguments();
 		if (bundle != null) {
 
@@ -253,6 +262,76 @@ public class RegisterAdvanceDialog extends DialogFragment {
 		dialog.show();
 	}
 
+    private void getAllItinerary() {
+        // Tag used to cancel the request
+        String tag_string_req = "req_get_itinerary_by_id";
+        vehicleItems= new ArrayList<VehicleItem>();
+        StringRequest strReq = new StringRequest(Method.GET,
+                AppConfig.URL_GET_ALL_VEHICLE,
+                new Response.Listener<String>() {
+
+                    @Override
+                    public void onResponse(String response) {
+                        // Log.d("Login Response: ", response.toString());
+                        try {
+
+                            JSONObject jObj = new JSONObject(response
+                                    .substring(response.indexOf("{"),
+                                            response.lastIndexOf("}") + 1));
+                            boolean error = jObj.getBoolean("error");
+                            // Check for error node in json
+
+                            if (!error) {
+                               JSONArray vehicles=jObj.getJSONArray("vehicles");
+                                for(int i=0;i<vehicles.length();i++){
+                                    VehicleItem vehicleItem=new VehicleItem();
+                                    JSONObject vehicle = vehicles.getJSONObject(i);
+                                    vehicleItem.setVehicle_id(vehicle.getString("vehicle_id"));
+                                    vehicleItem.setType(vehicle.getString("type"));
+                                    vehicleItems.add(vehicleItem);
+                                }
+                                VehicleAdapter adapter=new VehicleAdapter(vehicleItems,getActivity());
+                                spvehicle_type.setAdapter(adapter);
+                                spvehicle_type.setOnItemSelectedListener(new MyProcessEvent());
+
+                            } else {
+                                // Error in login. Get the error message
+                                String message = jObj.getString("message");
+                                Toast.makeText(getActivity(), message,
+                                        Toast.LENGTH_LONG).show();
+                            }
+                        } catch (JSONException e) {
+                            // JSON error
+                            e.printStackTrace();
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                Toast.makeText(getActivity(),
+                        R.string.not_connect,
+                        Toast.LENGTH_LONG).show();
+
+            }
+        }) {
+
+            @Override
+            public Map<String, String> getHeaders() {
+                // Posting parameters to login url
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Authorization", session.getAPIKey());
+                return params;
+            }
+
+        };
+
+        // Adding request to request queue
+        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+    }
+
 	private void addItinerary(final String start_address,
 			final Double start_address_lat, final Double start_address_long,
 			final String end_address, final Double end_address_lat,
@@ -369,4 +448,18 @@ public class RegisterAdvanceDialog extends DialogFragment {
 		window.setLayout(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
 		window.setGravity(Gravity.CENTER);
 	}
+    private class MyProcessEvent implements
+            AdapterView.OnItemSelectedListener {
+
+        public void onItemSelected(AdapterView<?> parent, View arg1, int arg2, long arg3) {
+            Spinner spinner = (Spinner) parent;
+            vehicle_id=vehicleItems.get(arg2).getVehicle_id();
+
+
+        }
+
+        public void onNothingSelected(AdapterView<?> arg0) {
+
+        }
+    }
 }

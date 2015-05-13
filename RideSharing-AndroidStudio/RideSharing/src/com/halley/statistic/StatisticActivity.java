@@ -175,7 +175,7 @@ public class StatisticActivity extends ActionBarActivity implements OnSeekBarCha
                     );
         }
         adapter.setDropDownViewResource
-                (android.R.layout.simple_list_item_single_choice);
+                (android.R.layout.simple_spinner_dropdown_item);
         sp.setAdapter(adapter);
         sp.setOnItemSelectedListener(new MyProcessEvent());
 

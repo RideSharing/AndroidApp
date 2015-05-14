@@ -31,6 +31,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -55,6 +56,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.halley.custom_theme.CustomActionBar;
+import com.halley.helper.SessionManager;
 import com.halley.map.GPSLocation.GMapV2Direction;
 import com.halley.registerandlogin.R;
 
@@ -73,22 +75,30 @@ public class TrackingActivity extends ActionBarActivity implements
 		GoogleApiClient.OnConnectionFailedListener {
 	// LogCat tag
 	private static final String TAG = TrackingActivity.class.getSimpleName();
+    private static final String URL_TRACKING="http://52.11.206.209:8080";
+    private static final String CUSTOMER_ROLE="customer";
+    private static final String DRIVER_ROLE="driver";
+    private static final int START_ITINERARY=1;
+    private static final int START_WAITING=2;
+    private static final int END_ITINERARY=3;
 	private static final long INTERVAL = 1000;
 	private static final long FASTEST_INTERVAL = 5000;
 	private LocationRequest mLocationRequest;
 	private GoogleApiClient mGoogleApiClient;
 
-
+    String role,customer_id,driver_id;
 	private ActionBar actionBar;
 	private GoogleMap googleMap;
 	// Direction maps
 	private Location mCurrentLocation;
 	private Marker marker_user;
 	private Marker marker_driver;
+    private SessionManager session;
 	private Double fromLatitude, fromLongitude;
 	private Context context = this;
     private CustomActionBar custom_actionbar;
     private SweetAlertDialog pDialog;
+    private Button btn;
 	Logger logger;
 	HubConnection conn;
 	HubProxy proxy;
@@ -106,6 +116,74 @@ public class TrackingActivity extends ActionBarActivity implements
 		if (!isGooglePlayServicesAvailable()) {
 			finish();
 		}
+        createLocationRequest();
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .addApi(LocationServices.API).addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this).build();
+        setContentView(R.layout.activity_tracking);
+        session = new SessionManager(getApplicationContext());
+
+        // Progress dialog
+        pDialog = new SweetAlertDialog(this,SweetAlertDialog.PROGRESS_TYPE);
+        pDialog.setCancelable(false);
+        custom_actionbar=new CustomActionBar(this,actionBar,pDialog,2);
+        actionBar=custom_actionbar.getActionBar();
+        Bundle bundle=getIntent().getExtras();
+        if(bundle!=null){
+            role=bundle.getString("role");
+            customer_id=bundle.getString("customer_id");
+            driver_id=bundle.getString("driver_id");
+            Toast.makeText(this,role+" "+customer_id+" "+driver_id,Toast.LENGTH_LONG).show();
+        }
+        btn = (Button) findViewById(R.id.btnTracking);
+        if(role.equals(DRIVER_ROLE)){
+            if(session.getWaitingCustomer()==START_ITINERARY){
+                btn.setText("Start itinerary");
+            }
+            else if(session.getWaitingCustomer()==START_WAITING){
+                btn.setText("Start waiting");
+            }
+            else if(session.getWaitingCustomer()==END_ITINERARY){
+                btn.setText("End itinerary");
+            }
+        }
+        else if(role.equals(CUSTOMER_ROLE)){
+            btn.setText("End itinerary");
+        }
+        btn.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(role.equals(DRIVER_ROLE)){
+                    if (session.getWaitingCustomer()==START_ITINERARY) {
+                        btn.setText("Start waiting");
+                        session.setWaitingCustomer(START_WAITING);
+
+                        // Add current location on Maps
+                        proxy.invoke("setItineraryStatus", driver_id, "Start itinerary").done(new Action<Void>() {
+                            @Override
+                            public void run(Void obj) throws Exception {
+                                System.out.println("SENT!");
+                            }
+                        });
+                    } else if (session.getWaitingCustomer()==START_WAITING) {
+                        btn.setText("End itinerary");
+                        session.setWaitingCustomer(END_ITINERARY);
+                        // Add current location on Maps
+                        proxy.invoke("setItineraryStatus", driver_id, "Start waiting").done(new Action<Void>() {
+                            @Override
+                            public void run(Void obj) throws Exception {
+                                System.out.println("SENT!");
+                            }
+                        });
+                    } else if(session.getWaitingCustomer()==END_ITINERARY){
+                        Toast.makeText(getApplicationContext(),"OK",Toast.LENGTH_LONG).show();
+                    }
+                }
+                else if(role.equals(CUSTOMER_ROLE)){
+                    Toast.makeText(getApplicationContext(),"OK",Toast.LENGTH_LONG).show();
+                }
+            }
+        });
 		Platform.loadPlatformComponent(new AndroidPlatformComponent());
 
 		// Create a new console logger
@@ -119,7 +197,7 @@ public class TrackingActivity extends ActionBarActivity implements
 		};
 
 		// Connect to the server
-		conn = new HubConnection("http://ridesharing.tk:8080", "", true, logger);
+		conn = new HubConnection(URL_TRACKING, "", true, logger);
 
 		// Create the hub proxy
 		proxy = conn.createHubProxy("MyHub");
@@ -153,71 +231,60 @@ public class TrackingActivity extends ActionBarActivity implements
 			@Override
 			public void run(Void obj) throws Exception {
 				System.out.println("Done Connecting!");
+                // Add current location on Maps
+                proxy.invoke("connect", (role.equals(DRIVER_ROLE))?driver_id:customer_id).done(new Action<Void>() {
+
+                    @Override
+                    public void run(Void obj) throws Exception {
+                        System.out.println("SENT!");
+                    }
+                });
+
+                proxy.subscribe(new Object() {
+                    @SuppressWarnings("unused")
+                    public void getPos(String driver_id, String pos) {
+                        mUpdateResults.setData(pos);
+                        mHandler.post(mUpdateResults);
+                    }
+                });
+
+                proxy.subscribe(new Object() {
+                    @SuppressWarnings("unused")
+                    public void getItineraryStatus(String pos) {
+                        mUpdateResults.setData(pos);
+                        mHandler.post(mUpdateResults);
+                    }
+                });
 			}
 		});
 
-		createLocationRequest();
-		mGoogleApiClient = new GoogleApiClient.Builder(this)
-				.addApi(LocationServices.API).addConnectionCallbacks(this)
-				.addOnConnectionFailedListener(this).build();
-		setContentView(R.layout.activity_tracking);
-        // Progress dialog
-        pDialog = new SweetAlertDialog(this,SweetAlertDialog.PROGRESS_TYPE);
-        pDialog.setCancelable(false);
-        custom_actionbar=new CustomActionBar(this,actionBar,pDialog,2);
-        actionBar=custom_actionbar.getActionBar();
-		DisplayMetrics metrics = this.getResources().getDisplayMetrics();
-		findViewById(R.id.frame_container_4).getLayoutParams().height = (metrics.heightPixels / 3)
-				+ (metrics.heightPixels / 3);
 
 		// findViewById(R.id.trackingLayout).getLayoutParams().height =
 		// (metrics.heightPixels / 3);
-		if (this.getIntent().getExtras() != null) {
-			fromLatitude = this.getIntent().getExtras()
-					.getDouble("fromLatitude");
-			fromLongitude = this.getIntent().getExtras()
-					.getDouble("fromLongitude");
-		}
+
 		initilizeMap();
-		// Add current location on Maps
-		marker_user = addMarkeronMaps(fromLatitude, fromLongitude,
-				getResources().getString(R.string.start_addess),
-				"marker_user", R.drawable.ic_marker_start);
-		marker_driver = addMarkeronMaps(fromLatitude + 0.102, fromLongitude,
-				getResources().getString(R.string.end_addess),
-				"marker_driver", R.drawable.ic_marker_driver);
-		focusMap(marker_user, marker_driver);
+
+
 	}
 
-	public void trackingOnclick(View v) {
-        proxy.invoke("connect", "14").done(new Action<Void>() {
 
-            @Override
-            public void run(Void obj) throws Exception {
-                System.out.println("SENT!");
-            }
-        });
-
-		proxy.subscribe(new Object() {
-			@SuppressWarnings("unused")
-			public void getPos(String pos) {
-				mUpdateResults.setData(pos);
-				mHandler.post(mUpdateResults);
-			}
-		});
-	}
 
 	public void test(String latlng) {
-        Toast.makeText(this,latlng,Toast.LENGTH_LONG).show();
-		String[] str = latlng.toString().split(",");
-		double lat = Double.parseDouble(str[0]);
-		double longi = Double.parseDouble(str[1]);
-		if (marker_driver != null) {
-			marker_driver.remove();
-		}
-		marker_driver = addMarkeronMaps(lat, longi, "driver", "marker_diver",
-				R.drawable.ic_marker_driver);
-		focusMap(marker_user, marker_driver);
+        if ("Start itinerary".equals(latlng)) {
+            Toast.makeText(this,latlng,Toast.LENGTH_LONG).show();
+        } else if ("Start waitting".equals(latlng)) {
+            Toast.makeText(this,latlng,Toast.LENGTH_LONG).show();
+        } else {
+            String[] str = latlng.toString().split(",");
+            double lat = Double.parseDouble(str[0]);
+            double longi = Double.parseDouble(str[1]);
+            if (marker_driver != null) {
+                marker_driver.remove();
+            }
+            marker_driver = addMarkeronMaps(lat, longi, "driver", "marker_diver",
+                    R.drawable.ic_marker_driver);
+            focusMap(marker_user, marker_driver);
+        }
 	}
 
 	private void focusMap(Marker marker_a, Marker marker_b) {
@@ -334,13 +401,20 @@ public class TrackingActivity extends ActionBarActivity implements
 		Log.d(TAG,
 				"Firing onLocationChanged..............................................");
 		mCurrentLocation = location;
+        if (marker_user != null) {
+            marker_user.remove();
+        }
+        marker_user = addMarkeronMaps(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude(),
+                getResources().getString(R.string.start_addess),
+                "marker_user", R.drawable.ic_marker_start);
+
 		// Toast.makeText(getApplicationContext(), location.toString(),
 		// Toast.LENGTH_LONG).show();
 		// mLastUpdateTime = DateFormat.getTimeInstance().format(new Date());
 		String latlng = String.format("%.6f", location.getLatitude()) + ","
 				+ String.format("%.6f", location.getLongitude());
 
-		proxy.invoke("sendPos", "11", latlng).done(new Action<Void>() {
+		proxy.invoke("sendPos", (role.equals(DRIVER_ROLE))?driver_id:customer_id, (!role.equals(DRIVER_ROLE))?driver_id:customer_id, latlng).done(new Action<Void>() {
 
 			@Override
 			public void run(Void obj) throws Exception {

@@ -259,7 +259,7 @@ public class DetailVehicleActivity extends ActionBarActivity {
 
 
     public void editVehicle(final String saveType, final String saveLicensePlate, final String saveCertificate,
-                            final String saveMotor_insurance_img, final String saveVehicle_img, final String saveLicense_plate_img) {
+                            final String  saveLicense_plate_img, final String saveVehicle_img, final String saveMotor_insurance_img) {
         String tag_string_req = "edit_vehicle";
         StringRequest strReq = new StringRequest(Request.Method.PUT,
                 AppConfig.URL_GET_VEHICLE + "/" + vehicle_id + "?lang=" + Locale.getDefault().getLanguage(), new Response.Listener<String>() {

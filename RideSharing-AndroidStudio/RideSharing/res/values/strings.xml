@@ -219,5 +219,7 @@ int    <string name="description">Description about Itinerary </string>
     <string name="title_activity_detail_vehicle">DetailVehicleActivity</string>
     <string name="register_vehicle">Register</string>
     <string name="delete_vehicle">Delete Vehicle</string>
+    <string name="not_go_itinerary">You cannot go because ...</string>
+    <string name="add_image">Add Image</string>
 
 </resources>

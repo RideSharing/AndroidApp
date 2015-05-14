@@ -152,7 +152,7 @@ public class ManageVehicle extends ActionBarActivity {
         // Adding request to request queue
         AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
     }
-
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         if (requestCode == REFRESH) {

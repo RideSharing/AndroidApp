@@ -19,6 +19,15 @@ public class ItineraryItem {
 			end_address_long;
     private String customer_id;
     private String vehicle_id, vehicle_type;
+    private String driver_id;
+
+    public String getDriver_id() {
+        return driver_id;
+    }
+
+    public void setDriver_id(String driver_id) {
+        this.driver_id = driver_id;
+    }
 
     public String getVehicle_id() {
         return vehicle_id;

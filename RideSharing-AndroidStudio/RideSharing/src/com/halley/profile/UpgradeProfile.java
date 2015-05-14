@@ -24,6 +24,7 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -392,36 +393,36 @@ public class UpgradeProfile extends ActionBarActivity {
 		AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
 	}
 
-	private void selectImage() {
-		final CharSequence[] items = { getResources().getString(R.string.camera), getResources().getString(R.string.gallery), getResources().getString(R.string.cancel) };
+    private void selectImage() {
+        final CharSequence[] items = { "Camera",getResources().getString(R.string.gallery), getResources().getString(R.string.cancel) };
 
-		AlertDialog.Builder builder = new AlertDialog.Builder(
-				UpgradeProfile.this);
-		builder.setTitle(R.string.select_image);
-		builder.setItems(items, new DialogInterface.OnClickListener() {
-			@Override
-			public void onClick(DialogInterface dialog, int item) {
-				if (items[item].equals(getResources().getString(R.string.camera))) {
-					Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-					File f = new File(android.os.Environment
-							.getExternalStorageDirectory(), "temp.jpg");
-					intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(f));
-					startActivityForResult(intent, REQUEST_CAMERA);
-				} else if (items[item].equals(getResources().getString(R.string.gallery))) {
-					Intent intent = new Intent(
-							Intent.ACTION_PICK,
-							android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-					intent.setType("image/*");
-					startActivityForResult(
-							Intent.createChooser(intent, getResources().getString(R.string.select_image)),
-							SELECT_FILE);
-				} else if (items[item].equals(getResources().getString(R.string.cancel))) {
-					dialog.dismiss();
-				}
-			}
-		});
-		builder.show();
-	}
+        AlertDialog.Builder builder = new AlertDialog.Builder(
+                UpgradeProfile.this);
+        builder.setTitle(getResources().getString(R.string.add_image));
+        builder.setItems(items, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int item) {
+                if (items[item].equals("Camera")) {
+                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    File f = new File(android.os.Environment
+                            .getExternalStorageDirectory(), "temp.jpg");
+                    intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(f));
+                    startActivityForResult(intent, REQUEST_CAMERA);
+                } else if (items[item].equals(getResources().getString(R.string.gallery))) {
+                    Intent intent = new Intent(
+                            Intent.ACTION_PICK,
+                            android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    intent.setType("image/*");
+                    startActivityForResult(
+                            Intent.createChooser(intent, getResources().getString(R.string.select_image)),
+                            SELECT_FILE);
+                } else if (items[item].equals(getResources().getString(R.string.cancel))) {
+                    dialog.dismiss();
+                }
+            }
+        });
+        builder.show();
+    }
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -546,7 +547,8 @@ public class UpgradeProfile extends ActionBarActivity {
 					false);
 			ImageView new_image = (ImageView) root
 					.findViewById(R.id.imageView1);
-			new_image.setImageBitmap(decodeByte);
+            Drawable d = imageLicense.getDrawable();
+			new_image.setImageDrawable(d);
 			return root;
 		}
 

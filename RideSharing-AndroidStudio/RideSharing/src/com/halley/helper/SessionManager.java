@@ -31,6 +31,8 @@ public class SessionManager {
 	
 	private static final String FULL_NAME="fullname";
 
+    private static final String WAITING_CUSTOMER="Start waiting";
+
 	public SessionManager(Context context) {
 		this._context = context;
 		pref = _context.getSharedPreferences(PREF_NAME, PRIVATE_MODE);
@@ -63,8 +65,16 @@ public class SessionManager {
 		editor.putString(FULL_NAME, fullname);
 		editor.commit();
 	}
+    public void setWaitingCustomer(int waitingCustomer ){
+        editor.putInt(WAITING_CUSTOMER, waitingCustomer);
+        editor.commit();
+    }
 
-	public String getAPIKey() {
+    public int getWaitingCustomer() {
+        return pref.getInt(WAITING_CUSTOMER,1);
+    }
+
+    public String getAPIKey() {
 		return pref.getString(API_KEY, null);
 	}
 	public String getAvatar() {

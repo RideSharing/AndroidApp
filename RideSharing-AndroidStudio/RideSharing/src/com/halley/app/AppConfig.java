@@ -72,4 +72,9 @@ public class AppConfig {
     public static String URL_GET_ALL_VEHICLE = "http://192.168.10.132/RESTFul/v1/vehicles?lang="+lang;
 
     public static String URL_GET_VEHICLE = "http://192.168.10.132/RESTFul/v1/vehicle";
+
+    public static String URL_GET_STATISTIC_DRIVER = "http://192.168.10.132/RESTFul/v1/statistic_driver";
+
+    public static String URL_GET_STATISTIC_CUSTOMER = "http://192.168.10.132/RESTFul/v1/statistic_customer";
+
 }

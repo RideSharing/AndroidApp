@@ -568,6 +568,7 @@
     <string name="no_load_map">Sorry! Not load the map </string>
     <string name="not_connect">Cannot connected to server </string>
     <string name="not_found_area">Not found area </string>
+    <string name="not_go_itinerary">You cannot go because ...</string>
     <string name="not_verify_driver">You do not have role to submit this itinerary, because you still be verified driver. Waiting for us to check your infomation</string>
     <string name="not_verify_user">You do not have role to submit this itinerary, because you still be verified user. Waiting for us to check your infomation</string>
     <string name="ok">OK </string>

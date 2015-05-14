@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.DecimalFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -25,6 +26,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 
 import android.os.AsyncTask;
@@ -73,6 +75,7 @@ import com.halley.listitinerary.adapter.ItineraryListAdapter;
 import com.halley.listitinerary.data.ItineraryItem;
 import com.halley.map.GPSLocation.GMapV2Direction;
 import com.halley.registerandlogin.R;
+import com.halley.tracking.TrackingActivity;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
@@ -80,6 +83,7 @@ public class DetailManageItineraryActivity extends ActionBarActivity implements
 		OnDataPass,View.OnClickListener {
 	private static final String TAG = DetailManageItineraryActivity.class
 			.getSimpleName();
+    private static final int REQUEST_OK= 1;
     private static final String DRIVER_ROLE="driver";
     private static final String ITINERARY_STATUS_CREATED ="1";
     private static final String ITINERARY_STATUS_CUSTOMER_ACCEPTED ="2";
@@ -96,7 +100,7 @@ public class DetailManageItineraryActivity extends ActionBarActivity implements
 			tvdistance, tvleave_date, tvcost, tvvehicle_type,tvphone;
 	EditText edDescription, edDuration, edCost;
 	TextView edLeaveDate;
-	private String duration, distance, key, itinerary_id, role, status;
+	private String duration, distance, key, itinerary_id, role, status, customer_id, driver_id;
 	private SessionManager session;
 	private ItineraryItem itineraryItem;
 	String getDescription, getLeaveDate, getDuration, getCost;
@@ -105,12 +109,14 @@ public class DetailManageItineraryActivity extends ActionBarActivity implements
 	private Activity activity = this;
     private CustomActionBar custom_actionbar;
     private LinearLayout controlLayout, onGoingLayout;
+    private MyAsyncTask mytt;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_detail_manage_itinerary);
 
 		session = new SessionManager(getApplicationContext());
+        mytt=new MyAsyncTask();
         // Progress dialog
         pDialog = new SweetAlertDialog(this,SweetAlertDialog.PROGRESS_TYPE);
         controlLayout= (LinearLayout) findViewById(R.id.controlLayout);
@@ -137,24 +143,9 @@ public class DetailManageItineraryActivity extends ActionBarActivity implements
             role= bundle.getString("role");
             status= bundle.getString("status");
             // if driver created itinerary, set hide button ON GOING
-            if(status.equals(ITINERARY_STATUS_CREATED)){
-                controlLayout.setVisibility(View.VISIBLE);
-                onGoingLayout.setVisibility(View.GONE);
-            }
-            else if(status.equals(ITINERARY_STATUS_DRIVER_ACCEPTED)){
-                controlLayout.setVisibility(View.GONE);
-                onGoingLayout.setVisibility(View.VISIBLE);
-            }
-            else if(status.equals(ITINERARY_STATUS_FINISH)||status.equals(ITINERARY_STATUS_CUSTOMER_ACCEPTED)){
-                controlLayout.setVisibility(View.GONE);
-                onGoingLayout.setVisibility(View.GONE);
-            }
-
-            if(role.equals(DRIVER_ROLE)){}
-            else{}
-            getItinerary(itinerary_id);
 
 		}
+        mytt.execute();
         btnOngoing.setOnClickListener(this);
 		btnEditItinerary.setOnClickListener(this);
 		btnDeleteItinerary.setOnClickListener(this);
@@ -166,16 +157,49 @@ public class DetailManageItineraryActivity extends ActionBarActivity implements
         } else if(v.getId()==R.id.btnEditItinerary){
             updateItinerary();
         } else if(v.getId()==R.id.btnOngoing){
+
             checkStatusItinerary(itinerary_id);
         }
     }
-    public void checkStatusItinerary(String status){
-        if(!role.equals(DRIVER_ROLE)) btnOngoing.setEnabled(false);
-        //Ready for going
-        if(status.equals(ITINERARY_STATUS_DRIVER_ACCEPTED)){
-            //change status from ready to on going
-            btnOngoing.setText(R.string.on_going);
+    public boolean checkTime(String leave_date) throws ParseException {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date current=Calendar.getInstance().getTime();
+
+        Date d_leave_date=sdf.parse(leave_date);
+        long diffDay=Math.abs(current.getTime()-d_leave_date.getTime())/(24*60*60*1000);
+        if(d_leave_date.before(current)&&diffDay<=1){
+            return true;
         }
+
+        return false;
+    }
+    public void checkStatusItinerary(String status){
+        if(!role.equals(DRIVER_ROLE)){
+
+        }
+        //Ready for going
+
+            //change status from ready to on going
+            String leave_date=tvleave_date.getText().toString();
+            try {
+                if(checkTime(leave_date)){
+                    //ok
+                    Intent i=new Intent(this, TrackingActivity.class);
+                    i.putExtra("driver_id",driver_id);
+                    i.putExtra("customer_id",customer_id);
+                    i.putExtra("role",role);
+                    startActivityForResult(i,REQUEST_OK);
+
+                }
+                else{
+                    Toast.makeText(getApplicationContext(),R.string.not_go_itinerary, Toast.LENGTH_LONG).show();
+                }
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+
+
 //        else if(status.equals(ITINERARY_STATUS_ON_GOING)){
 //            //change status from on going to finish
 //            btnOngoing.setText(R.string.end_addess);
@@ -391,7 +415,6 @@ public class DetailManageItineraryActivity extends ActionBarActivity implements
                                             .getString("start_address"));
                                     itineraryItem.setEnd_address(jObj
                                             .getString("end_address"));
-                                    itineraryItem.setRating(4.8);
                                     itineraryItem.setLeave_date(jObj
                                             .getString("leave_date"));
                                     itineraryItem.setCost(jObj
@@ -402,8 +425,13 @@ public class DetailManageItineraryActivity extends ActionBarActivity implements
                                             .getString("distance"));
                                 itineraryItem.setPhone(jObj
                                         .getString("phone"));
+
                                 itineraryItem.setVehicle_id(jObj.getString("vehicle_id"));
                                 itineraryItem.setVehicle_type(jObj.getString("vehicle_type"));
+                                itineraryItem.setCustomer_id(jObj
+                                        .getString("customer_id"));
+                                itineraryItem.setDriver_id(jObj
+                                        .getString("driver_id"));
                                 tvdescription.setText(itineraryItem.getDescription());
                                 tvstartAddress.setText(itineraryItem.getStart_address());
                                 tvendAddress.setText(itineraryItem.getEnd_address());
@@ -412,6 +440,9 @@ public class DetailManageItineraryActivity extends ActionBarActivity implements
                                 tvleave_date.setText(itineraryItem.getLeave_date());
                                 tvcost.setText(transferCost(itineraryItem.getCost()));
                                 tvvehicle_type.setText(itineraryItem.getVehicle_type());
+                                tvphone.setText(itineraryItem.getPhone());
+                                customer_id=itineraryItem.getCustomer_id();
+                                driver_id=itineraryItem.getDriver_id();
                                 initilizeMap();
                                 // Add current location on Maps
                                 marker_start_address = addMarkeronMaps(Double.parseDouble(itineraryItem.getStart_address_lat()), Double.parseDouble(itineraryItem.getStart_address_long()),
@@ -577,15 +608,22 @@ public class DetailManageItineraryActivity extends ActionBarActivity implements
 	}
 
 	public String transferDuration(String timeString) {
-		int time = Integer.parseInt(timeString);
-		int hour = time / 60;
-		int min = time % 60;
-		return hour + " "+getResources().getString(R.string.hour)+" " + min + " "+getResources().getString(R.string.min);
+        if(!timeString.equals("null")) {
+            int time = Integer.parseInt(timeString);
+            int hour = time / 60;
+            int min = time % 60;
+            return hour + " "+getResources().getString(R.string.hour)+" " + min + " "+getResources().getString(R.string.min);
+        }
+        return  "0 "+getResources().getString(R.string.hour)+"  0 "+getResources().getString(R.string.min);
+
 	}
 
 	public String transferCost(String cost) {
-		DecimalFormat formatter = new DecimalFormat("#,###,###");
-		return formatter.format(Double.parseDouble(cost));
+        if(!cost.equals("null")) {
+            DecimalFormat formatter = new DecimalFormat("#,###,###");
+            return formatter.format(Double.parseDouble(cost));
+        }
+        return "0";
 
 	}
 
@@ -848,6 +886,18 @@ public class DetailManageItineraryActivity extends ActionBarActivity implements
 		// TODO Auto-generated method stub
 
 	}
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == REQUEST_OK) {
+            if(resultCode == RESULT_OK){
+                finish();
+            }
+            if (resultCode == RESULT_CANCELED) {
+                //Write your code if there's no result
+            }
+        }
+    }
 
 	private void showDialog() {
 		if (!pDialog.isShowing())
@@ -859,5 +909,63 @@ public class DetailManageItineraryActivity extends ActionBarActivity implements
 			pDialog.dismiss();
 	}
 
+    class MyAsyncTask extends AsyncTask<Void, Void, Void> {
+        public MyAsyncTask() {
+
+        }
+
+        @Override
+        protected void onPreExecute() {
+            getItinerary(itinerary_id);
+            super.onPreExecute();
+
+
+        }
+
+        @Override
+        protected Void doInBackground(Void... arg0) {
+            SystemClock.sleep(3000);
+            publishProgress();
+            return null;
+        }
+
+        /**
+         * update layout in function
+         */
+        @Override
+        protected void onProgressUpdate(Void... values) {
+            super.onProgressUpdate(values);
+            if(status.equals(ITINERARY_STATUS_CREATED)){
+                controlLayout.setVisibility(View.VISIBLE);
+                onGoingLayout.setVisibility(View.GONE);
+            }
+            else if(status.equals(ITINERARY_STATUS_DRIVER_ACCEPTED)){
+                controlLayout.setVisibility(View.GONE);
+                onGoingLayout.setVisibility(View.VISIBLE);
+            }
+            else if(status.equals(ITINERARY_STATUS_FINISH)||status.equals(ITINERARY_STATUS_CUSTOMER_ACCEPTED)){
+                controlLayout.setVisibility(View.GONE);
+                onGoingLayout.setVisibility(View.GONE);
+            }
+
+            if(role.equals(DRIVER_ROLE)){
+
+            }
+            else{
+
+            }
+
+
+        }
+
+        /**
+         * after process completed then this function will run
+         */
+        @Override
+        protected void onPostExecute(Void result) {
+
+        }
+
+    }
 
 }

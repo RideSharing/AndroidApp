@@ -212,5 +212,7 @@
     <string name="field_reg_certificate">Giấy phép đăng ký lái xe</string>
     <string name="register_vehicle">Đăng ký</string>
     <string name="delete_vehicle">Xóa phương tiện</string>
+    <string name="not_go_itinerary">Bạn không thể đi vì ...</string>
+    <string name="add_image">Thêm ảnh</string>
 
 </resources>

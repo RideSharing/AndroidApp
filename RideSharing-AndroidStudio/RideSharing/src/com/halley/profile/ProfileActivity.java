@@ -26,6 +26,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Bundle;
@@ -155,11 +156,11 @@ public class ProfileActivity extends ActionBarActivity {
 	}
 
 	private void selectImage() {
-		final CharSequence[] items = { "Camera", "Thư viện", "Hủy bỏ" };
+		final CharSequence[] items = { "Camera",getResources().getString(R.string.gallery), getResources().getString(R.string.cancel) };
 
 		AlertDialog.Builder builder = new AlertDialog.Builder(
 				ProfileActivity.this);
-		builder.setTitle("Thêm ảnh!");
+		builder.setTitle(getResources().getString(R.string.add_image));
 		builder.setItems(items, new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int item) {
@@ -169,15 +170,15 @@ public class ProfileActivity extends ActionBarActivity {
 							.getExternalStorageDirectory(), "temp.jpg");
 					intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(f));
 					startActivityForResult(intent, REQUEST_CAMERA);
-				} else if (items[item].equals("Thư viện")) {
+				} else if (items[item].equals(getResources().getString(R.string.gallery))) {
 					Intent intent = new Intent(
 							Intent.ACTION_PICK,
 							android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
 					intent.setType("image/*");
 					startActivityForResult(
-							Intent.createChooser(intent, "Chọn ảnh"),
+							Intent.createChooser(intent, getResources().getString(R.string.select_image)),
 							SELECT_FILE);
-				} else if (items[item].equals("Hủy bỏ")) {
+				} else if (items[item].equals(getResources().getString(R.string.cancel))) {
 					dialog.dismiss();
 				}
 			}
@@ -228,7 +229,8 @@ public class ProfileActivity extends ActionBarActivity {
 					false);
 			ImageView new_image = (ImageView) root
 					.findViewById(R.id.imageView1);
-			new_image.setImageBitmap(decodeByte2);
+            Drawable d = avatar.getDrawable();
+			new_image.setImageDrawable(d);
 			return root;
 		}
 

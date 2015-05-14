@@ -51,16 +51,17 @@ public class SubmitItineraryActivity extends ActionBarActivity {
 	private ActionBar actionBar;
 	private RoundedImageView imavatar;
 	private TextView tvfullname, tvdescription, tvstart_address, tvend_address,
-			tvduration, tvdistance, tvcost, tvphone, tvleave_date;
+			tvduration, tvdistance, tvcost, tvphone, tvleave_date,tvvehicle_type;
 	private String avatar = "", fullname = "", description = "", start_address = "",
-			end_address = "", duration = "", distance = "", cost = "",
+			end_address = "", duration = "", distance = "", cost = "", vehicle_type="",
 			phone = "", leave_date, itinerary_id = "";
+    private Double rating;
     private CustomActionBar custom_actionbar;
     private SweetAlertDialog pDialog;
 
     private SessionManager session;
 	private Context context=this;
-	private RatingBar rating;
+	private RatingBar ratingbar;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -82,7 +83,8 @@ public class SubmitItineraryActivity extends ActionBarActivity {
 		tvcost = (TextView) findViewById(R.id.cost);
 		tvphone = (TextView) findViewById(R.id.phone);
 		tvleave_date = (TextView) findViewById(R.id.leave_date);
-		rating=(RatingBar)findViewById(R.id.ratingBarDriver);
+		ratingbar=(RatingBar)findViewById(R.id.ratingBarDriver);
+        tvvehicle_type=(TextView)findViewById(R.id.vehicle_type);
 		Bundle bundle = this.getIntent().getExtras().getBundle("bundle");
 		if (bundle != null) {
 			avatar = bundle.getString("avatar");
@@ -96,6 +98,8 @@ public class SubmitItineraryActivity extends ActionBarActivity {
 			phone = bundle.getString("phone");
 			leave_date = bundle.getString("leave_date");
 			itinerary_id = bundle.getString("itinerary_id");
+            rating = bundle.getDouble("rating");
+            vehicle_type= bundle.getString("vehicle_type");
 		}
 		if (!"".equals(avatar)) {
 			byte[] decodeString = Base64.decode(avatar, Base64.DEFAULT);
@@ -113,35 +117,43 @@ public class SubmitItineraryActivity extends ActionBarActivity {
 		tvleave_date.setText(leave_date);
 		tvcost.setText(transferCost(cost));
 		tvphone.setText(phone);
-		rating.setEnabled(false);
-		rating.setRating(4.5f);
+        ratingbar.setEnabled(false);
+        ratingbar.setRating(rating.floatValue());
+        tvvehicle_type.setText(vehicle_type);
 	}
 
 	public void submitItineraryonClick(View v) {
         checkVerifyUser();
 	}
 
-	public String transferDuration(String timeString) {
-		int time = Integer.parseInt(timeString);
-		int hour = time / 60;
-		int min = time % 60;
-		return hour + " "+getResources().getString(R.string.hour)+ " " + min + " "+getResources().getString(R.string.min);
-	}
+    public String transferDuration(String timeString) {
+        if(!timeString.equals("null")) {
+            int time = Integer.parseInt(timeString);
+            int hour = time / 60;
+            int min = time % 60;
+            return hour + " "+getResources().getString(R.string.hour)+" " + min + " "+getResources().getString(R.string.min);
+        }
+        return  "0 "+getResources().getString(R.string.hour)+"  0 "+getResources().getString(R.string.min);
 
-	public String transferCost(String cost) {
-		DecimalFormat formatter = new DecimalFormat("#,###,###");
-		return formatter.format(Double.parseDouble(cost)) + " VNĐ";
+    }
 
-	}
+    public String transferCost(String cost) {
+        if(!cost.equals("null")) {
+            DecimalFormat formatter = new DecimalFormat("#,###,###");
+            return formatter.format(Double.parseDouble(cost));
+        }
+        return "0";
+
+    }
 
     public void checkVerifyUser() {
         String tag_string_req = "req_profile";
         StringRequest strReq = new StringRequest(Request.Method.GET,
-                AppConfig.URL_DRIVER+"/status"+"?lang="+Locale.getDefault().getLanguage(), new Response.Listener<String>() {
+                AppConfig.URL_GET_USER+"/status"+"?lang="+Locale.getDefault().getLanguage(), new Response.Listener<String>() {
 
             @Override
             public void onResponse(String response) {
-                Log.d("", "Verify Driver Response: " + response.toString());
+                Log.d("", "Verify User Response: " + response.toString());
 
 
                 try {

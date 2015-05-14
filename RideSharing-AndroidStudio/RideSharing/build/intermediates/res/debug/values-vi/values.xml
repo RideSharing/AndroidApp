@@ -186,6 +186,7 @@
     <string name="no_load_map">Xin lỗi! Không thể tải được bản đồ </string>
     <string name="not_connect">Không thể kết nối tới server </string>
     <string name="not_found_area">Không tìm thấy địa điểm </string>
+    <string name="not_go_itinerary">Bạn không thể đi vì ...</string>
     <string name="not_verify_driver">Bạn vẫn chưa được xác minh thông tin về tài xế. Chúng tôi vẫn đang trong quá trình xác minh và sẽ phản hồi sớm.</string>
     <string name="not_verify_user">Bạn không có quyền đăng kí hành trình này, bởi vì bạn vẫn chưa được xác minh thông tin tài khoản tài xế. Chúng tôi vẫn đang xác minh thông tin và sẽ phản hồi sớm.</string>
     <string name="ok">OK </string>

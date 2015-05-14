@@ -7,7 +7,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 import org.json.JSONArray;
@@ -16,10 +15,8 @@ import org.json.JSONObject;
 
 import android.app.Dialog;
 import android.app.DialogFragment;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -28,7 +25,6 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -38,7 +34,6 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import com.android.volley.Request;
 import com.android.volley.Request.Method;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -50,6 +45,7 @@ import com.halley.helper.SessionManager;
 import com.halley.registerandlogin.R;
 import com.halley.registerandlogin.RegisterActivity;
 import com.halley.ridesharing.MainActivity;
+import com.halley.vehicle.VehicleAdapter;
 import com.halley.vehicle.VehicleItem;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
@@ -139,7 +135,7 @@ public class RegisterAdvanceDialog extends DialogFragment {
 					addItinerary(start_address, start_address_lat,
 							start_address_long, end_address, end_address_lat,
 							end_address_long, duration, distance, cost,
-							description, leave_date);
+							description, leave_date,vehicle_id);
 
 				}
 
@@ -293,6 +289,7 @@ public class RegisterAdvanceDialog extends DialogFragment {
                                 VehicleAdapter adapter=new VehicleAdapter(vehicleItems,getActivity());
                                 spvehicle_type.setAdapter(adapter);
                                 spvehicle_type.setOnItemSelectedListener(new MyProcessEvent());
+                                spvehicle_type.setSelection(0);
 
                             } else {
                                 // Error in login. Get the error message
@@ -337,7 +334,7 @@ public class RegisterAdvanceDialog extends DialogFragment {
 			final String end_address, final Double end_address_lat,
 			final Double end_address_long, final String duration,
 			final String distance, final String cost, final String description,
-			final String leave_date) {
+			final String leave_date,final String vehicle_id) {
 		// Tag used to cancel the request
 		String tag_string_req = "req_register_itinerary_2";
 		showDialog();
@@ -410,6 +407,7 @@ public class RegisterAdvanceDialog extends DialogFragment {
 				params.put("distance", getDigitfromDistance(distance));
 				params.put("cost", cost);
 				params.put("description", description);
+                params.put("vehicle_id", vehicle_id);
 
 				return params;
 			}
@@ -452,7 +450,7 @@ public class RegisterAdvanceDialog extends DialogFragment {
             AdapterView.OnItemSelectedListener {
 
         public void onItemSelected(AdapterView<?> parent, View arg1, int arg2, long arg3) {
-            Spinner spinner = (Spinner) parent;
+            //Spinner spinner = (Spinner) parent;
             vehicle_id=vehicleItems.get(arg2).getVehicle_id();
 
 

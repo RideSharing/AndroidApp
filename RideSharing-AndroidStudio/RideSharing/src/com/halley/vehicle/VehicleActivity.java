@@ -99,11 +99,11 @@ public class VehicleActivity extends ActionBarActivity {
         }
     }
 
-    public void registerVehicle(String type, String license_plate, String reg_certificate, String license_plate_img, String vehicle_img, String morto_insurance_img) {
+    public void registerVehicle(final String type, final String license_plate,final String reg_certificate,final String license_plate_img, final String vehicle_img, final String morto_insurance_img) {
         // Tag used to cancel the request
         String tag_string_req = "req_register";
 
-        pDialog.setTitleText(getResources().getString(R.string.process_data));
+
         showDialog();
 
         StringRequest strReq = new StringRequest(Request.Method.POST,
@@ -166,12 +166,12 @@ public class VehicleActivity extends ActionBarActivity {
             protected Map<String, String> getParams() {
                 // Posting params to register url
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("type", saveType);
-                params.put("license_plate", saveLicensePlate);
-                params.put("reg_certificate", saveCertificate);
-                params.put("license_plate_img", saveLicense_plate_img);
-                params.put("vehicle_img", saveVehicle_img);
-                params.put("motor_insurance_img", saveMotor_insurance_img);
+                params.put("type", type);
+                params.put("license_plate", license_plate);
+                params.put("reg_certificate", reg_certificate);
+                params.put("license_plate_img", license_plate_img);
+                params.put("vehicle_img", vehicle_img);
+                params.put("motor_insurance_img", morto_insurance_img);
                 return params;
             }
 
@@ -197,29 +197,29 @@ public class VehicleActivity extends ActionBarActivity {
     }
 
     private void selectImage() {
-        final CharSequence[] items = {"Camera", "Thư viện", "Hủy bỏ"};
+        final CharSequence[] items = { "Camera",getResources().getString(R.string.gallery), getResources().getString(R.string.cancel) };
 
         AlertDialog.Builder builder = new AlertDialog.Builder(
                 VehicleActivity.this);
-        builder.setTitle("Thêm ảnh!");
+        builder.setTitle(getResources().getString(R.string.add_image));
         builder.setItems(items, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int item) {
                 if (items[item].equals("Camera")) {
                     Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    File f = new File(Environment
+                    File f = new File(android.os.Environment
                             .getExternalStorageDirectory(), "temp.jpg");
                     intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(f));
                     startActivityForResult(intent, REQUEST_CAMERA);
-                } else if (items[item].equals("Thư viện")) {
+                } else if (items[item].equals(getResources().getString(R.string.gallery))) {
                     Intent intent = new Intent(
                             Intent.ACTION_PICK,
-                            MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                            android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                     intent.setType("image/*");
                     startActivityForResult(
-                            Intent.createChooser(intent, "Chọn ảnh"),
+                            Intent.createChooser(intent, getResources().getString(R.string.select_image)),
                             SELECT_FILE);
-                } else if (items[item].equals("Hủy bỏ")) {
+                } else if (items[item].equals(getResources().getString(R.string.cancel))) {
                     dialog.dismiss();
                 }
             }

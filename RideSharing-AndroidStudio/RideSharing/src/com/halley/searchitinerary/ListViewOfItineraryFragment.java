@@ -98,6 +98,8 @@ public class ListViewOfItineraryFragment extends Fragment {
 				bundle.putString("phone",m.getPhone());
 				bundle.putString("leave_date",m.getLeave_date());
 				bundle.putString("itinerary_id", m.getItinerary_id());
+                bundle.putDouble("rating", m.getRating());
+                bundle.putString("vehicle_type",m.getVehicle_type());
 				i.putExtra("bundle", bundle);
 				startActivity(i);
 				
@@ -159,7 +161,7 @@ public class ListViewOfItineraryFragment extends Fragment {
 											.getString("end_address"));
 									itineraryItem.setAvatarlUrl(itinerary
 											.getString("link_avatar"));
-									itineraryItem.setRating(Float.parseFloat(itinerary.getString("rating")));
+									itineraryItem.setRating(Float.parseFloat(itinerary.getString("average_rating")));
 									itineraryItem.setLeave_date(itinerary
 											.getString("leave_date"));
 									itineraryItem.setCost(itinerary
@@ -174,7 +176,9 @@ public class ListViewOfItineraryFragment extends Fragment {
 											.getString("phone"));
 									itineraryItem.setItinerary_id(itinerary
 											.getString("itinerary_id"));
-									itineraryItems.add(itineraryItem);
+                                    itineraryItem.setVehicle_type(itinerary
+                                            .getString("vehicle_type"));
+                                    itineraryItems.add(itineraryItem);
 								}
 								listAdapter = new ItineraryListAdapter(
 										getActivity(), itineraryItems);

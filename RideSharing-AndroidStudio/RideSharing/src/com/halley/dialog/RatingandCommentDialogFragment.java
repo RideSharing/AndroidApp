@@ -1,5 +1,6 @@
 package com.halley.dialog;
 
+import android.app.Activity;
 import android.app.DialogFragment;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -37,6 +38,7 @@ import java.util.Map;
 public class RatingandCommentDialogFragment extends DialogFragment {
     private final String DRIVER_ROLE="driver";
     RatingBar rating;
+    Activity activity;
     TextView tvRating, tvComment, tvReview;
     String rating_user;
     Button btnOK;
@@ -67,6 +69,7 @@ public class RatingandCommentDialogFragment extends DialogFragment {
         Bundle bundle=getArguments();
         if(bundle!=null){
             rating_user=bundle.getString("rating_user");
+
         }
         rating.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
@@ -83,15 +86,15 @@ public class RatingandCommentDialogFragment extends DialogFragment {
                             R.string.no_input, Toast.LENGTH_LONG).show();
                 }
                 else{
-                    ratingUser(String.valueOf(rating.getRating()),rating_user);
-                    commentUser(comment,rating_user);
+                    ratingUser(String.valueOf(rating.getRating()),comment, rating_user);
+
                 }
             }
         });
 
         return v;
     }
-    public void ratingUser(final String rating,final String rating_user_id){
+    public void ratingUser(final String rating,final String comment,final String rating_user_id){
         // Tag used to cancel the request
         String tag_string_req = "req_rating";
 
@@ -109,9 +112,7 @@ public class RatingandCommentDialogFragment extends DialogFragment {
                     // Check for error node in json
                     if (!error) {
                         // Error in login. Get the error message
-                        String message = jObj.getString("message");
-                        Toast.makeText(getActivity(),
-                                message, Toast.LENGTH_LONG).show();
+                        commentUser(comment, rating_user_id);
                     } else {
                         // Error in login. Get the error message
                         String message = jObj.getString("message");
@@ -180,6 +181,8 @@ public class RatingandCommentDialogFragment extends DialogFragment {
                         Toast.makeText(getActivity(),
                                 message, Toast.LENGTH_LONG).show();
                         dismiss();
+                        getActivity().setResult(-1);
+                        getActivity().finish();
                     } else {
                         // Error in login. Get the error message
                         String message = jObj.getString("message");

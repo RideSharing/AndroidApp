@@ -36,6 +36,8 @@ public class AppConfig {
     // Server driver reject itinerary url
     public static String URL_DRIVER_REJECT_ITINERARY = "http://192.168.10.107/RESTFul/v1/driver_reject_itinerary";
 
+	public static String URL_DRIVER_END_ITINERARY =  "http://192.168.10.107/RESTFul/v1/customer_end_itinerary";
+
     public static String URL_FEEDBACK = "http://192.168.10.107/RESTFul/v1/feedback?lang="+lang;
 
     public static String URL_RATING="http://192.168.10.107/RESTFul/v1/rating";

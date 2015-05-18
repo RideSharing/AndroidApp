@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.android.volley.toolbox.ImageLoader;
@@ -63,14 +64,14 @@ public class ItineraryListAdapter extends BaseAdapter {
 				.findViewById(R.id.avatar);
 		TextView description = (TextView) convertView
 				.findViewById(R.id.description);
-		TextView rating = (TextView) convertView.findViewById(R.id.rating);
+		TextView cost = (TextView) convertView.findViewById(R.id.cost);
 		TextView start_address = (TextView) convertView
 				.findViewById(R.id.start_address);
 		TextView end_address = (TextView) convertView
 				.findViewById(R.id.end_address);
 		TextView leave_date = (TextView) convertView
 				.findViewById(R.id.leave_date);
-
+		RatingBar rating= (RatingBar)convertView.findViewById(R.id.ratingBar1);
 		// getting itinerary data for the row
 		ItineraryItem m = itineraryItems.get(position);
 
@@ -87,10 +88,10 @@ public class ItineraryListAdapter extends BaseAdapter {
 
 		// title
 		description.setText(m.getDescription());
-
+		Double rt=m.getRating();
 		// rating
-		rating.setText(activity.getResources().getString(R.string.rating)+ ": " + String.valueOf(m.getRating())
-				+ ". "+activity.getResources().getString(R.string.cost)+ ": " + m.getCost());
+		rating.setRating(rt.floatValue());
+		cost.setText(activity.getResources().getString(R.string.cost)+ ": " + m.getCost());
 		// start_address
 		start_address.setText(activity.getResources().getString(R.string.start_addess) + ": " + m.getStart_address());
 		// end_address

@@ -100,17 +100,7 @@ public class AboutUsActivity extends ActionBarActivity {
 		});
 		dialog.show();
 
-//        /** Instantiating TimeDailogFragment, which is a DialogFragment object */
-//        RatingandCommentDialogFragment dialog = new RatingandCommentDialogFragment();
-//
-//        Bundle b=new Bundle();
-//        b.putString("rating_user","11");
-//        dialog.setArguments(b);
-//        /** Getting FragmentManager object */
-//        FragmentManager fragmentManager = getFragmentManager();
-//
-//        /** Starting a FragmentTransaction */
-//        dialog.show(fragmentManager, "rating");
+
 
 	}
 

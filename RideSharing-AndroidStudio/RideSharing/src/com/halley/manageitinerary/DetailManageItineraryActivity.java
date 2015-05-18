@@ -153,9 +153,27 @@ public class DetailManageItineraryActivity extends ActionBarActivity implements
     @Override
     public void onClick(View v) {
         if(v.getId()==R.id.btnDeleteItinerary){
-            confirmDelelte();
+            SweetAlertDialog dialog = new SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE);
+            dialog.setTitleText(getResources().getString(R.string.delete_itinerary))
+                    .setContentText(getResources().getString(R.string.you_sure))
+                    .setCancelText(getResources().getString(R.string.cancel))
+                    .setConfirmText(getResources().getString(R.string.ok))
+                    .showCancelButton(true)
+                    .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                        @Override
+                        public void onClick(SweetAlertDialog sDialog) {
+                            sDialog.cancel();
+                        }
+                    })
+                    .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                        @Override
+                        public void onClick(SweetAlertDialog sweetAlertDialog) {
+                            deleteItinerary(itinerary_id);
+                            finish();
+                        }
+                    }).show();
         } else if(v.getId()==R.id.btnEditItinerary){
-            updateItinerary();
+            updateItinerary(itinerary_id);
         } else if(v.getId()==R.id.btnOngoing){
 
             checkStatusItinerary(itinerary_id);
@@ -187,6 +205,7 @@ public class DetailManageItineraryActivity extends ActionBarActivity implements
                     Intent i=new Intent(this, TrackingActivity.class);
                     i.putExtra("driver_id",driver_id);
                     i.putExtra("customer_id",customer_id);
+                    i.putExtra("itinerary_id",itinerary_id);
                     i.putExtra("role",role);
                     startActivityForResult(i,REQUEST_OK);
 
@@ -208,33 +227,8 @@ public class DetailManageItineraryActivity extends ActionBarActivity implements
     }
 
 
-	public void confirmDelelte() {
 
-    SweetAlertDialog dialog = new SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE);
-
-            dialog.setTitleText(getResources().getString(R.string.delete_itinerary))
-            .setContentText(getResources().getString(R.string.you_sure))
-            .setCancelText(getResources().getString(R.string.cancel))
-            .setConfirmText(getResources().getString(R.string.ok))
-            .showCancelButton(true)
-            .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                @Override
-                public void onClick(SweetAlertDialog sDialog) {
-                    sDialog.cancel();
-                }
-            })
-            .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                @Override
-                public void onClick(SweetAlertDialog sweetAlertDialog) {
-                    deleteItinerary();
-
-                    finish();
-                }
-            }).show();
-
-	}
-
-	public void updateItinerary() {
+	public void updateItinerary(final String itinerary_id) {
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setTitle(R.string.update_itinerary);
 		View view = View.inflate(this, R.layout.dialog_detail_itinerary, null);
@@ -279,7 +273,7 @@ public class DetailManageItineraryActivity extends ActionBarActivity implements
 							R.string.no_input,
 							Toast.LENGTH_SHORT).show();
 				} else {
-					editItinerary();
+					editItinerary(itinerary_id);
 					dialog.dismiss();
 
 				}
@@ -298,7 +292,7 @@ public class DetailManageItineraryActivity extends ActionBarActivity implements
 
 	}
 
-	public void editItinerary() {
+	public void editItinerary(final String itinerary_id) {
 		// Tag used to cancel the request
 		String tag_string_req = "req_register";
 
@@ -499,7 +493,7 @@ public class DetailManageItineraryActivity extends ActionBarActivity implements
         AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
     }
 
-	public void deleteItinerary() {
+	public void deleteItinerary(final String itinerary_id) {
 		// Tag used to cancel the request
 		String tag_string_req = "req_register";
 
@@ -891,6 +885,7 @@ public class DetailManageItineraryActivity extends ActionBarActivity implements
 
         if (requestCode == REQUEST_OK) {
             if(resultCode == RESULT_OK){
+                setResult(RESULT_OK);
                 finish();
             }
             if (resultCode == RESULT_CANCELED) {

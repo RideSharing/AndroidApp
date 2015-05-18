@@ -181,11 +181,13 @@
     <string name="month">Tháng</string>
     <string name="moto_insurance_img">Hình ảnh bảo hiểm xe máy</string>
     <string name="name">Họ tên </string>
+    <string name="need_to_refresh">Ứng dụng không lấy được vị trí của bạn, vui lòng kiểm tra GPS của bạn đã được bật hoặc click nút "Refresh" dể tìm vị trí của bạn</string>
     <string name="new_password">Mật khẩu mới </string>
     <string name="no_directions">không thể xác định được đường </string>
     <string name="no_input">Vui lòng điền đầy đủ thông tin </string>
     <string name="no_load_map">Xin lỗi! Không thể tải được bản đồ </string>
     <string name="not_connect">Không thể kết nối tới server </string>
+    <string name="not_end_itinerary">Bạn không thể kết thúc hành trình này bởi vì hành trình của bạn chưa bắt đầu hoặc chưa nhận được phản hồi từ driver</string>
     <string name="not_found_area">Không tìm thấy địa điểm </string>
     <string name="not_go_itinerary">Bạn không thể đi vì ...</string>
     <string name="not_verify_driver">Bạn vẫn chưa được xác minh thông tin về tài xế. Chúng tôi vẫn đang trong quá trình xác minh và sẽ phản hồi sớm.</string>
@@ -219,6 +221,7 @@
     <string name="start_addess">Nơi bắt đầu </string>
     <string name="start_itinerary">Bắt đầu hành trình</string>
     <string name="start_itinerary_detail">Tài xế đã bắt đầu chuyến đi</string>
+    <string name="start_waiting">Đang chờ người đi cùng</string>
     <string name="start_waiting_detail">Tài xế đang đợi bạn</string>
     <string name="statistic_customer">Đây là biểu đồ thể hiện toàn bộ các hành trình bạn đã tham gia</string>
     <string name="statistic_driver">Đây là biểu đồ thể hiện toàn bộ các hành trình bạn đã tạo và đi</string>

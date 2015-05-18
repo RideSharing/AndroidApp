@@ -74,19 +74,23 @@ public class MapViewOfItineraryFragment extends Fragment implements
             cost=bundle.getString("cost");
             leave_date=bundle.getString("leave_date");
             isFrom = this.getArguments().getBoolean("isFrom");
+			if(fromLatitude==0f&&fromLongitude==0f){
+				Toast.makeText(getActivity(),getResources().getString(R.string.need_to_refresh),Toast.LENGTH_LONG).show();
+			}
+			else {
+				getItineraries();
+				initilizeMap();
 
-			getItineraries();
-			initilizeMap();
-
-			// adding marker
-			marker_user = googleMap.addMarker(new MarkerOptions()
-					.position(new LatLng(fromLatitude, fromLongitude))
-					.title(getResources().getString(R.string.current_address))
-					.snippet("marker_user")
-					.icon(BitmapDescriptorFactory
-							.fromResource(R.drawable.ic_marker_start))
-					.draggable(true));
-			marker_user.hideInfoWindow();
+				// adding marker
+				marker_user = googleMap.addMarker(new MarkerOptions()
+						.position(new LatLng(fromLatitude, fromLongitude))
+						.title(getResources().getString(R.string.current_address))
+						.snippet("marker_user")
+						.icon(BitmapDescriptorFactory
+								.fromResource(R.drawable.ic_marker_start))
+						.draggable(true));
+				marker_user.hideInfoWindow();
+			}
 
 		}
 		return view;

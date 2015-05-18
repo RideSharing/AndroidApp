@@ -564,11 +564,13 @@
     <string name="month">Month</string>
     <string name="moto_insurance_img">Moto Insurance Image</string>
     <string name="name">Full name </string>
+    <string name="need_to_refresh">App is not get your location, please check your GPS is enabled or click "Refresh" button to get your location again.</string>
     <string name="new_password">New Password </string>
     <string name="no_directions">Cannot be determind the road. </string>
     <string name="no_input">Please enter complete infomation </string>
     <string name="no_load_map">Sorry! Not load the map </string>
     <string name="not_connect">Cannot connected to server </string>
+    <string name="not_end_itinerary">You cannot end this itinerary because your itinerary is not going on or not get response form driver.</string>
     <string name="not_found_area">Not found area </string>
     <string name="not_go_itinerary">You cannot go because ...</string>
     <string name="not_verify_driver">You do not have role to submit this itinerary, because you still be verified driver. Waiting for us to check your infomation</string>
@@ -602,6 +604,7 @@
     <string name="start_addess">Start Address </string>
     <string name="start_itinerary">Start Itinerary</string>
     <string name="start_itinerary_detail">Your driver has drove.</string>
+    <string name="start_waiting">Start Waiting</string>
     <string name="start_waiting_detail">Your driver is waiting you.</string>
     <string name="statistic_customer">This is a chart show all itinerary you had joined.</string>
     <string name="statistic_driver">This is a chart show all itinerary you had created and gone.</string>

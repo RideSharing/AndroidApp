@@ -78,44 +78,46 @@ public class ListViewOfItineraryFragment extends Fragment {
             leave_date=bundle.getString("leave_date");
             isFrom = this.getArguments().getBoolean("isFrom");
 		}
-		getItineraries();
-		listView.setOnItemClickListener(new OnItemClickListener() {
+		if(!(fromLatitude==0f&&fromLongitude==0f)){
+			getItineraries();
+			listView.setOnItemClickListener(new OnItemClickListener() {
 
-			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1, int position,
-					long arg3) {
-				ItineraryItem m = itineraryItems.get(position);
-				Intent i=new Intent(getActivity(),SubmitItineraryActivity.class);
-				Bundle bundle=new Bundle();
-				bundle.putString("avatar", m.getAvatarlUrl());
-				bundle.putString("fullname",m.getFullname());
-				bundle.putString("description",m.getDescription());
-				bundle.putString("start_address", m.getStart_address());
-				bundle.putString("end_address", m.getEnd_address());
-				bundle.putString("duration", m.getDuration());
-				bundle.putString("distance", m.getDistance());
-				bundle.putString("cost",m.getCost());
-				bundle.putString("phone",m.getPhone());
-				bundle.putString("leave_date",m.getLeave_date());
-				bundle.putString("itinerary_id", m.getItinerary_id());
-                bundle.putDouble("rating", m.getRating());
-                bundle.putString("vehicle_type",m.getVehicle_type());
-				i.putExtra("bundle", bundle);
-				startActivity(i);
-				
-			}
-		});
-        mSwipeRefreshLayout.setOnRefreshListener(new PullRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
+				@Override
+				public void onItemClick(AdapterView<?> arg0, View arg1, int position,
+										long arg3) {
+					ItineraryItem m = itineraryItems.get(position);
+					Intent i = new Intent(getActivity(), SubmitItineraryActivity.class);
+					Bundle bundle = new Bundle();
+					bundle.putString("avatar", m.getAvatarlUrl());
+					bundle.putString("fullname", m.getFullname());
+					bundle.putString("description", m.getDescription());
+					bundle.putString("start_address", m.getStart_address());
+					bundle.putString("end_address", m.getEnd_address());
+					bundle.putString("duration", m.getDuration());
+					bundle.putString("distance", m.getDistance());
+					bundle.putString("cost", m.getCost());
+					bundle.putString("phone", m.getPhone());
+					bundle.putString("leave_date", m.getLeave_date());
+					bundle.putString("itinerary_id", m.getItinerary_id());
+					bundle.putDouble("rating", m.getRating());
+					bundle.putString("vehicle_type", m.getVehicle_type());
+					i.putExtra("bundle", bundle);
+					startActivity(i);
+
+				}
+			});
+			mSwipeRefreshLayout.setOnRefreshListener(new PullRefreshLayout.OnRefreshListener() {
+				@Override
+				public void onRefresh() {
 //                Toast.makeText(getActivity(),"MainActivity"+ "Refresh triggered at "
 //                        ,Toast.LENGTH_LONG).show();
-                task=new MyAsyncTask();
-                task.execute();
-            }
-        });
+					task = new MyAsyncTask();
+					task.execute();
+				}
+			});
 
-        mSwipeRefreshLayout.setRefreshStyle(PullRefreshLayout.STYLE_MATERIAL);
+			mSwipeRefreshLayout.setRefreshStyle(PullRefreshLayout.STYLE_MATERIAL);
+		}
 		return rootView;
 	}
 

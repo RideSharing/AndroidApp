@@ -217,5 +217,8 @@
     <string name="start_itinerary_detail">Tài xế đã bắt đầu chuyến đi</string>
     <string name="start_waiting_detail">Tài xế đang đợi bạn</string>
     <string name="title_activity_detail_vehicle">DetailVehicleActivity</string>
+    <string name="start_waiting">Đang chờ người đi cùng</string>
+    <string name="need_to_refresh">Ứng dụng không lấy được vị trí của bạn, vui lòng kiểm tra GPS của bạn đã được bật hoặc click nút "Refresh" dể tìm vị trí của bạn</string>
+    <string name="not_end_itinerary">Bạn không thể kết thúc hành trình này bởi vì hành trình của bạn chưa bắt đầu hoặc chưa nhận được phản hồi từ driver</string>
 
 </resources>

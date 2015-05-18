@@ -24,16 +24,31 @@
         android:layout_alignTop="@+id/avatar"
         android:layout_toRightOf="@+id/avatar"
         android:textSize="@dimen/description"
+        android:text="addd"
         android:textStyle="bold" />
-
     <!-- Rating -->
-
-    <TextView
-        android:id="@+id/rating"
-        android:layout_width="fill_parent"
+    <LinearLayout
+        android:id="@+id/ratingBarLayout"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/description"
-        android:layout_marginTop="1dip"
+        android:layout_toRightOf="@+id/avatar"
+        android:layout_below="@+id/description"
+       >
+    <RatingBar
+        android:id="@+id/ratingBar1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:numStars="5"
+        android:progressDrawable="@drawable/ratingbarstar_small"
+         />
+    </LinearLayout>
+    <TextView
+        android:id="@+id/cost"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/description"
+        android:layout_marginTop="25dp"
+        android:text="ádddddd"
         android:layout_toRightOf="@+id/avatar"
         android:textSize="@dimen/rating" />
 
@@ -43,7 +58,7 @@
         android:id="@+id/address"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/rating"
+        android:layout_below="@+id/cost"
         android:layout_marginTop="5dp"
         android:layout_toRightOf="@+id/avatar"
         android:orientation="vertical" >
@@ -53,13 +68,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/address"
+            android:text="ád"
             android:textSize="@dimen/address" />
 
         <TextView
             android:id="@+id/end_address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/start_address"
             android:textColor="@color/address"
             android:textSize="@dimen/address" />
     </LinearLayout>
@@ -72,7 +87,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_below="@id/address"
+        android:text="addd"
+        android:layout_below="@+id/address"
         android:textColor="@color/leave_date"
         android:textSize="@dimen/leave_date" />
 

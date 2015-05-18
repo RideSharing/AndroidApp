@@ -55,6 +55,7 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
  * Created by enclaveit on 4/23/15.
  */
 public class ListItineraryByStatus extends Fragment{
+    private static final int REQUEST_OK = 1;
     private static final String DRIVER_ROLE="driver";
     private static final String CUSTOMER_ROLE="customer";
     private static final String ITINERARY_STATUS_CREATED ="1";
@@ -112,7 +113,7 @@ public class ListItineraryByStatus extends Fragment{
                         bundle.putString("status",m.getStatus());
                         i.putExtra("bundle", bundle);
 
-                        startActivity(i);
+                        startActivityForResult(i, REQUEST_OK);
                     }
                     else if(m.getStatus().equals(ITINERARY_STATUS_CUSTOMER_ACCEPTED)){
                         if(role.equals(DRIVER_ROLE)) {
@@ -132,7 +133,7 @@ public class ListItineraryByStatus extends Fragment{
                                         bundle.putString("status",m.getStatus());
                                         i.putExtra("bundle", bundle);
 
-                                        startActivity(i);
+                                        startActivityForResult(i, REQUEST_OK);
                                     }
                                     else if(item.getItemId()==R.id.see_customer){
                                         getCustomerProfile(m.getCustomer_id(),m.getItinerary_id(),m.getStatus());
@@ -160,7 +161,7 @@ public class ListItineraryByStatus extends Fragment{
                                         bundle.putString("status",m.getStatus());
                                         i.putExtra("bundle", bundle);
 
-                                        startActivity(i);
+                                        startActivityForResult(i, REQUEST_OK);
                                     }
                                     else if(item.getItemId()==R.id.reject_itinerary){
                                         new SweetAlertDialog(getActivity(), SweetAlertDialog.NORMAL_TYPE)
@@ -691,6 +692,7 @@ public class ListItineraryByStatus extends Fragment{
         }
 
     }
+
 
 
 }

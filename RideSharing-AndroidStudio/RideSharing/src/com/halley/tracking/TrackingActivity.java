@@ -9,10 +9,15 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.FragmentManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -36,6 +41,11 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -55,7 +65,10 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
+import com.halley.app.AppConfig;
+import com.halley.app.AppController;
 import com.halley.custom_theme.CustomActionBar;
+import com.halley.dialog.RatingandCommentDialogFragment;
 import com.halley.helper.SessionManager;
 import com.halley.map.GPSLocation.GMapV2Direction;
 import com.halley.registerandlogin.R;
@@ -81,12 +94,13 @@ public class TrackingActivity extends ActionBarActivity implements
     private static final int START_ITINERARY=1;
     private static final int START_WAITING=2;
     private static final int END_ITINERARY=3;
+	private static  boolean IS_END_ITINERARY=false;
 	private static final long INTERVAL = 1000;
 	private static final long FASTEST_INTERVAL = 5000;
 	private LocationRequest mLocationRequest;
 	private GoogleApiClient mGoogleApiClient;
 
-    String role,customer_id,driver_id;
+    String role,customer_id,driver_id, itinerary_id;
 	private ActionBar actionBar;
 	private GoogleMap googleMap;
 	// Direction maps
@@ -94,7 +108,6 @@ public class TrackingActivity extends ActionBarActivity implements
 	private Marker marker_user;
 	private Marker marker_driver;
     private SessionManager session;
-	private Double fromLatitude, fromLongitude;
 	private Context context = this;
     private CustomActionBar custom_actionbar;
     private SweetAlertDialog pDialog;
@@ -103,7 +116,7 @@ public class TrackingActivity extends ActionBarActivity implements
 	HubConnection conn;
 	HubProxy proxy;
 	Handler mHandler = new Handler();
-
+	final Activity activity=this;
 	final MyRunnable mUpdateResults = new MyRunnable() {
 		public void run() {
 			test(mUpdateResults.data);
@@ -133,29 +146,32 @@ public class TrackingActivity extends ActionBarActivity implements
             role=bundle.getString("role");
             customer_id=bundle.getString("customer_id");
             driver_id=bundle.getString("driver_id");
+			itinerary_id=bundle.getString("itinerary_id");
             Toast.makeText(this,role+" "+customer_id+" "+driver_id,Toast.LENGTH_LONG).show();
         }
         btn = (Button) findViewById(R.id.btnTracking);
         if(role.equals(DRIVER_ROLE)){
             if(session.getWaitingCustomer()==START_ITINERARY){
-                btn.setText("Start itinerary");
+                btn.setText(getResources().getString(R.string.start_itinerary));
             }
             else if(session.getWaitingCustomer()==START_WAITING){
-                btn.setText("Start waiting");
+                btn.setText(getResources().getString(R.string.start_waiting));
             }
             else if(session.getWaitingCustomer()==END_ITINERARY){
-                btn.setText("End itinerary");
+                btn.setText(getResources().getString(R.string.end_itinerary));
             }
         }
-        else if(role.equals(CUSTOMER_ROLE)){
-            btn.setText("End itinerary");
+        else if(role.equals(CUSTOMER_ROLE)) {
+			btn.setText(getResources().getString(R.string.end_itinerary));
+
+
         }
         btn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(role.equals(DRIVER_ROLE)){
                     if (session.getWaitingCustomer()==START_ITINERARY) {
-                        btn.setText("Start waiting");
+						btn.setText(getResources().getString(R.string.start_waiting));
                         session.setWaitingCustomer(START_WAITING);
 
                         // Add current location on Maps
@@ -166,7 +182,7 @@ public class TrackingActivity extends ActionBarActivity implements
                             }
                         });
                     } else if (session.getWaitingCustomer()==START_WAITING) {
-                        btn.setText("End itinerary");
+						btn.setText(getResources().getString(R.string.end_itinerary));
                         session.setWaitingCustomer(END_ITINERARY);
                         // Add current location on Maps
                         proxy.invoke("setItineraryStatus", driver_id,customer_id, "Start waiting").done(new Action<Void>() {
@@ -177,12 +193,36 @@ public class TrackingActivity extends ActionBarActivity implements
                         });
                     } else if(session.getWaitingCustomer()==END_ITINERARY){
                         session.setWaitingCustomer(START_ITINERARY);
-                        Toast.makeText(getApplicationContext(),"OK",Toast.LENGTH_LONG).show();
+						/** Instantiating TimeDailogFragment, which is a DialogFragment object */
+						RatingandCommentDialogFragment dialog = new RatingandCommentDialogFragment();
+						Bundle b=new Bundle();
+						b.putString("rating_user",customer_id);
+						dialog.setArguments(b);
+						/** Getting FragmentManager object */
+						FragmentManager fragmentManager = getFragmentManager();
+						/** Starting a FragmentTransaction */
+						dialog.show(fragmentManager, "rating");
+
+                        //Toast.makeText(getApplicationContext(),"OK",Toast.LENGTH_LONG).show();
                     }
                 }
                 else if(role.equals(CUSTOMER_ROLE)){
-
-                    Toast.makeText(getApplicationContext(),"OK",Toast.LENGTH_LONG).show();
+					if(IS_END_ITINERARY){
+						endItinerary(itinerary_id);
+					}
+					else {
+						new SweetAlertDialog(activity, SweetAlertDialog.WARNING_TYPE)
+								.setTitleText(getResources().getString(R.string.announce))
+								.setContentText(getResources().getString(R.string.not_end_itinerary))
+								.setConfirmText(getResources().getString(R.string.ok))
+								.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+									@Override
+									public void onClick(SweetAlertDialog sDialog) {
+										sDialog.cancel();
+									}
+								})
+								.show();
+					}
                 }
             }
         });
@@ -294,7 +334,10 @@ public class TrackingActivity extends ActionBarActivity implements
                     .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                         @Override
                         public void onClick(SweetAlertDialog sDialog) {
-                            sDialog.cancel();
+							IS_END_ITINERARY=true;
+							sDialog.cancel();
+
+
                         }
                     })
                     .show();
@@ -316,9 +359,9 @@ public class TrackingActivity extends ActionBarActivity implements
 		builder.include(marker_a.getPosition());
 		builder.include(marker_b.getPosition());
 		LatLngBounds bounds = builder.build();
+		//bounds = boundsWithCenterAndLatLngDistance(centerPointPosition, 12000, 12000);
 		int padding = 0; // offset from edges of the map in pixels
-		CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, 50, 50,
-				padding);
+		CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds,50);
 		googleMap.moveCamera(cu);
 		googleMap.animateCamera(cu);
 	}
@@ -355,6 +398,76 @@ public class TrackingActivity extends ActionBarActivity implements
 				.snippet(snippet)
 				.icon(BitmapDescriptorFactory.fromResource(icon))
 				.draggable(true));
+	}
+	public void endItinerary(final String itinerary_id) {
+		// Tag used to cancel the request
+		String tag_string_req = "req_register";
+
+		pDialog.setTitleText(getResources().getString(R.string.process_data));
+		StringRequest strReq = new StringRequest(Request.Method.PUT,
+				AppConfig.URL_DRIVER_END_ITINERARY + "/" + itinerary_id,
+				new Response.Listener<String>() {
+
+					@Override
+					public void onResponse(String response) {
+						Log.d(TAG,
+								"End itinerary Response: "
+										+ response.toString());
+
+						try {
+							JSONObject jObj = new JSONObject(response);
+							boolean error = jObj.getBoolean("error");
+							if (!error) {
+								String message = jObj.getString("message");
+								Toast.makeText(getApplicationContext(),
+										message, Toast.LENGTH_LONG).show();
+								/** Instantiating TimeDailogFragment, which is a DialogFragment object */
+								RatingandCommentDialogFragment dialog = new RatingandCommentDialogFragment();
+								Bundle b=new Bundle();
+								b.putString("rating_user",driver_id);
+								dialog.setArguments(b);
+								/** Getting FragmentManager object */
+								FragmentManager fragmentManager = getFragmentManager();
+								/** Starting a FragmentTransaction */
+								dialog.show(fragmentManager, "rating");
+							} else {
+
+								String message = jObj.getString("message");
+								Toast.makeText(getApplicationContext(),
+										message, Toast.LENGTH_LONG).show();
+							}
+						} catch (JSONException e) {
+							e.printStackTrace();
+						}
+
+					}
+				}, new Response.ErrorListener() {
+
+			@Override
+			public void onErrorResponse(VolleyError error) {
+				Log.e(TAG, "Registration Error: " + error.getMessage());
+				// Toast.makeText(getApplicationContext(),
+				// error.getMessage(), Toast.LENGTH_LONG).show();
+
+			}
+		}) {
+
+			@Override
+			public Map<String, String> getHeaders() throws AuthFailureError {
+				// Posting parameters to login url
+				Map<String, String> params = new HashMap<String, String>();
+
+				// Toast.makeText(getApplicationContext(), "Go Go "+ key,
+				// Toast.LENGTH_LONG).show();
+				params.put("Authorization", session.getAPIKey());
+
+				return params;
+			}
+
+		};
+
+		// Adding request to request queue
+		AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
 	}
 
 

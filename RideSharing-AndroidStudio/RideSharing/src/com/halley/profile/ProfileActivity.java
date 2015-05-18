@@ -85,8 +85,8 @@ public class ProfileActivity extends ActionBarActivity {
 	private ImageView avatar;
 	public Bitmap decodeByte2;
 	private RoundedImageView editprofile, editavatar;
-
-	String savepass, savefullname, savephone, savepersonalid;
+    private static int SELECT = 0;
+	String savepass, savefullname, savephone, savepersonalid, personalid_img_str, savepersonal_img;
 
 	public String getSavepass() {
 		return savepass;
@@ -189,6 +189,15 @@ public class ProfileActivity extends ActionBarActivity {
 	public void zoomImage(View view) {
 		FragmentTransaction ft = getFragmentManager().beginTransaction();
 		MyDialogFragment frag = new MyDialogFragment();
+        Bundle bundle=new Bundle();
+
+        if(SELECT == 1) {
+            bundle.putString("personal_img",savepersonal_img );
+            SELECT =0;
+        } else {
+            bundle.putString("personal_img", personalid_img_str);
+        }
+        frag.setArguments(bundle);
 		frag.show(ft, "txn_tag");
 	}
 
@@ -203,7 +212,7 @@ public class ProfileActivity extends ActionBarActivity {
 
 	}
 
-	public class MyDialogFragment extends DialogFragment {
+    public static class MyDialogFragment extends DialogFragment {
 
 		@Override
 		public void onCreate(Bundle savedInstanceState) {
@@ -229,8 +238,16 @@ public class ProfileActivity extends ActionBarActivity {
 					false);
 			ImageView new_image = (ImageView) root
 					.findViewById(R.id.imageView1);
-            Drawable d = avatar.getDrawable();
-			new_image.setImageDrawable(d);
+            Bundle bundle = this.getArguments();
+            String personal_img = bundle.getString("personal_img");
+            byte[] decodeString = Base64.decode(
+                    personal_img, Base64.DEFAULT);
+            Bitmap decodeByte = BitmapFactory
+                    .decodeByteArray(decodeString, 0,
+                            decodeString.length);
+            new_image.setImageBitmap(decodeByte);
+
+
 			return root;
 		}
 
@@ -333,7 +350,7 @@ public class ProfileActivity extends ActionBarActivity {
 
 							// Check for error node in json
 							if (!error) {
-
+                                SELECT = 1;
 								String message = jObj.getString("message");
                                 Toast.makeText(getApplicationContext(),
                                         message, Toast.LENGTH_LONG).show();
@@ -669,7 +686,7 @@ public class ProfileActivity extends ActionBarActivity {
 								txtemail.setText(jObj.getString("email").equals("null") ? "" : jObj.getString("email"));
 								txtphone.setText(jObj.getString("phone").equals("null") ? "" : jObj.getString("phone"));
 								txtpersonalID.setText(jObj.getString("personalID").equals("null") ? "" : jObj.getString("personalID"));
-								String personalid_img = jObj
+								personalid_img_str = jObj
 										.getString("personalID_img");
 								String link_avatar = jObj
 										.getString("link_avatar");
@@ -692,7 +709,7 @@ public class ProfileActivity extends ActionBarActivity {
 								}
 								if (!"".equals(personalid_img)) {
 									byte[] decodeString2 = Base64.decode(
-											personalid_img, Base64.DEFAULT);
+                                            personalid_img_str, Base64.DEFAULT);
 									decodeByte2 = BitmapFactory
 											.decodeByteArray(decodeString2, 0,
 													decodeString2.length);
@@ -743,6 +760,12 @@ public class ProfileActivity extends ActionBarActivity {
 		AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
 
 	}
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        hideDialog();
+    }
 
 	private void showDialog() {
 		if (!pDialog.isShowing())
@@ -796,6 +819,7 @@ public class ProfileActivity extends ActionBarActivity {
 						personalid_img.setBackground(null);
 						personalid_img.setImageBitmap(bm);
 						setPersonalidImage(img_str_new);
+                        savepersonal_img = img_str_new;
 					}
 
 					String path = android.os.Environment
@@ -842,6 +866,7 @@ public class ProfileActivity extends ActionBarActivity {
 					personalid_img.setBackground(null);
 					personalid_img.setImageBitmap(bm);
 					setPersonalidImage(img_str_new);
+                    savepersonal_img = img_str_new;
 				}
 
 			}

@@ -67,11 +67,12 @@ public class UpgradeProfile extends ActionBarActivity {
 	TextView driverLicense;
 
 	private ImageView imageLicense;
-
+    private String driver_license_img;
 	private AlertDialog dialog;
 	Bitmap decodeByte;
 	private ActionBar actionBar;
 	Button btnUpgradeDriver;
+    private static int SELECT = 0;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -189,7 +190,7 @@ public class UpgradeProfile extends ActionBarActivity {
 								driverLicense.setText(jObj.getString(
 										"driver_license").equals("null") ? ""
 										: jObj.getString("driver_license"));
-								String driver_license_img = jObj
+								driver_license_img = jObj
 										.getString("driver_license_img");
 								
 								if (!driver_license_img.equals("null")) {
@@ -344,6 +345,7 @@ public class UpgradeProfile extends ActionBarActivity {
 											response.lastIndexOf("}") + 1));
 							boolean error = jObj.getBoolean("error");
 							if (!error) {
+                                SELECT = 1;
 								String message = jObj.getString("message");
 								Toast.makeText(getApplicationContext(),
 										message, Toast.LENGTH_SHORT).show();
@@ -451,6 +453,7 @@ public class UpgradeProfile extends ActionBarActivity {
 					String img_str_new = Base64.encodeToString(image, 0);
 					imageLicense.setImageBitmap(bm);
 					img_str=img_str_new;
+                    SELECT = 1;
 					String path = android.os.Environment
 							.getExternalStorageDirectory()
 							+ File.separator
@@ -486,7 +489,7 @@ public class UpgradeProfile extends ActionBarActivity {
 				String img_str_new = Base64.encodeToString(image, 0);
 				img_str=img_str_new;
 				imageLicense.setImageBitmap(bm);
-
+                   SELECT = 1;
 			}
 		}
 	}
@@ -518,10 +521,19 @@ public class UpgradeProfile extends ActionBarActivity {
 	public void zoomImage(View view) {
 		FragmentTransaction ft = getFragmentManager().beginTransaction();
 		MyDialogFragment frag = new MyDialogFragment();
+        Bundle bundle = new Bundle();
+        if(SELECT == 1) {
+            SELECT=0;
+            bundle.putString("license_img", img_str);
+        }else {
+            bundle.putString("license_img", driver_license_img);
+        }
+
+        frag.setArguments(bundle);
 		frag.show(ft, "txn_tag");
 	}
 
-	public class MyDialogFragment extends DialogFragment {
+	public static class MyDialogFragment extends DialogFragment {
 
 		@Override
 		public void onCreate(Bundle savedInstanceState) {
@@ -547,8 +559,14 @@ public class UpgradeProfile extends ActionBarActivity {
 					false);
 			ImageView new_image = (ImageView) root
 					.findViewById(R.id.imageView1);
-            Drawable d = imageLicense.getDrawable();
-			new_image.setImageDrawable(d);
+            Bundle bundle = this.getArguments();
+            String license_img = bundle.getString("license_img");
+            byte[] decodeString = Base64.decode(
+                    license_img, Base64.DEFAULT);
+            Bitmap decodeByte = BitmapFactory
+                    .decodeByteArray(decodeString, 0,
+                            decodeString.length);
+            new_image.setImageBitmap(decodeByte);
 			return root;
 		}
 

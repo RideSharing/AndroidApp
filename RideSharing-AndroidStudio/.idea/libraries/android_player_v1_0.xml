@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="android-player-v1.0">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/RideSharing/build/intermediates/exploded-aar/com.github.geftimov/android-player/v1.0/res" />
+      <root url="jar://$PROJECT_DIR$/RideSharing/build/intermediates/exploded-aar/com.github.geftimov/android-player/v1.0/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

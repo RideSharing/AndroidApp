@@ -16,6 +16,13 @@
         <dex dex="/media/enclaveit/DATA/RideSharingGIT/AndroidApp/RideSharing-AndroidStudio/RideSharing/build/intermediates/pre-dexed/debug/volley-542888863f7491d910bb8848b64a7ce509ccdba9.jar" />
     </item>
     <item
+        jar="/media/enclaveit/DATA/RideSharingGIT/AndroidApp/RideSharing-AndroidStudio/RideSharing/build/intermediates/exploded-aar/com.github.geftimov/android-player/v1.0/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="9af0d0c22da76e32173c58027577adcf81063222">
+        <dex dex="/media/enclaveit/DATA/RideSharingGIT/AndroidApp/RideSharing-AndroidStudio/RideSharing/build/intermediates/pre-dexed/debug/classes-237fac14d9def91796badb2788d24e05ad59b689.jar" />
+    </item>
+    <item
         jar="/media/enclaveit/DATA/RideSharingGIT/AndroidApp/RideSharing-AndroidStudio/RideSharing/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.3/libs/internal_impl-21.0.3.jar"
         jumboMode="false"
         revision="21.1.2"

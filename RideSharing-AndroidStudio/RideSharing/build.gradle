@@ -25,6 +25,7 @@ dependencies {
     compile 'com.github.baoyongzhang:android-PullRefreshLayout:2774ad800e'
     compile 'com.github.PhilJay:MPAndroidChart:v2.0.9'
     compile 'com.github.clans:fab:1.4.0'
+    compile 'com.github.geftimov:android-player:v1.0'
 
 }
 

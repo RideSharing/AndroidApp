@@ -122,48 +122,63 @@ public class DetailVehicleActivity extends ActionBarActivity {
     public void zoomImageLicensePlate(View v) {
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         MyDialogFragment frag = new MyDialogFragment();
-        frag.show(ft, "txn_tag");
         whichKind = 1;
+        Bundle b = new Bundle();
+        b.putString("license_plate", license_plate_img);
+        b.putInt("whichKind", whichKind);
+        frag.setArguments(b);
+        frag.show(ft, "txn_tag");
+
     }
 
     public void zoomImageVehicle(View v) {
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         MyDialogFragment frag = new MyDialogFragment();
-        frag.show(ft, "txn_tag");
         whichKind = 2;
+        Bundle b = new Bundle();
+        b.putString("vehicle_img", vehicle_img);
+        b.putInt("whichKind", whichKind);
+        frag.setArguments(b);
+        frag.show(ft, "txn_tag");
+
     }
 
     public void zoomImageInsurance(View v) {
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         MyDialogFragment frag = new MyDialogFragment();
-        frag.show(ft, "txn_tag");
         whichKind = 3;
+        Bundle b = new Bundle();
+        b.putString("insurance", motor_insurance_img);
+        b.putInt("whichKind", whichKind);
+        frag.setArguments(b);
+        frag.show(ft, "txn_tag");
+
     }
 
     private void selectImage() {
-        final CharSequence[] items = {"Camera", "Thư viện", "Hủy bỏ"};
+        final CharSequence[] items = { "Camera",getResources().getString(R.string.gallery), getResources().getString(R.string.cancel) };
 
         AlertDialog.Builder builder = new AlertDialog.Builder(
                 DetailVehicleActivity.this);
-        builder.setTitle("Thêm ảnh!");
+        builder.setTitle(getResources().getString(R.string.add_image));
         builder.setItems(items, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int item) {
                 if (items[item].equals("Camera")) {
                     Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    File f = new File(Environment
+                    File f = new File(android.os.Environment
                             .getExternalStorageDirectory(), "temp.jpg");
                     intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(f));
                     startActivityForResult(intent, REQUEST_CAMERA);
-                } else if (items[item].equals("Thư viện")) {
+                } else if (items[item].equals(getResources().getString(R.string.gallery))) {
                     Intent intent = new Intent(
                             Intent.ACTION_PICK,
-                            MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                            android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                     intent.setType("image/*");
                     startActivityForResult(
-                            Intent.createChooser(intent, "Chọn ảnh"),
+                            Intent.createChooser(intent, getResources().getString(R.string.select_image)),
                             SELECT_FILE);
-                } else if (items[item].equals("Hủy bỏ")) {
+                } else if (items[item].equals(getResources().getString(R.string.cancel))) {
                     dialog.dismiss();
                 }
             }
@@ -598,7 +613,7 @@ public class DetailVehicleActivity extends ActionBarActivity {
 
     }
 
-    public class MyDialogFragment extends DialogFragment {
+    public static class MyDialogFragment extends DialogFragment {
 
         @Override
         public void onCreate(Bundle savedInstanceState) {
@@ -624,22 +639,40 @@ public class DetailVehicleActivity extends ActionBarActivity {
                     false);
             ImageView new_image = (ImageView) root
                     .findViewById(R.id.imageView1);
-            if (whichKind == 1) {
-                Drawable d = imgLicensePlate.getDrawable();
-                new_image.setImageDrawable(d);
-            } else if (whichKind == 2) {
-                Drawable d = imgVehicle.getDrawable();
-                new_image.setImageDrawable(d);
-            } else if (whichKind == 3) {
-                Drawable d = imgInsurance.getDrawable();
-                new_image.setImageDrawable(d);
-            }
 
+            Bundle extras = this.getArguments();
+
+            String license_plate = extras.getString("license_plate");
+            String vehicle_img = extras.getString("vehicle_img");
+            String motor_insurance_img = extras.getString("insurance");
+            int whichKind = extras.getInt("whichKind");
+            if (whichKind == 1) {
+                byte[] decodeString = Base64.decode(
+                        license_plate, Base64.DEFAULT);
+                Bitmap decodeByte = BitmapFactory
+                        .decodeByteArray(decodeString, 0,
+                                decodeString.length);
+                new_image.setImageBitmap(decodeByte);
+            } else if (whichKind == 2) {
+                byte[] decodeString = Base64.decode(
+                        vehicle_img, Base64.DEFAULT);
+                Bitmap decodeByte = BitmapFactory
+                        .decodeByteArray(decodeString, 0,
+                                decodeString.length);
+                new_image.setImageBitmap(decodeByte);
+            } else if (whichKind == 3) {
+                byte[] decodeString = Base64.decode(
+                        motor_insurance_img, Base64.DEFAULT);
+                Bitmap decodeByte = BitmapFactory
+                        .decodeByteArray(decodeString, 0,
+                                decodeString.length);
+                new_image.setImageBitmap(decodeByte);
+
+            }
             return root;
         }
 
     }
-
     @Override
     public void onBackPressed() {
         super.onBackPressed();

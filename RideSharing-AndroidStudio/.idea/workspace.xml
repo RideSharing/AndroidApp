@@ -18,7 +18,6 @@
   </component>
   <component name="BookmarkManager">
     <bookmark url="file://$PROJECT_DIR$/RideSharing/build.gradle" line="3" />
-    <bookmark url="file://$PROJECT_DIR$/RideSharing/src/com/halley/app/AppConfig.java" line="73" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="51c4b662-914d-4b41-be5b-2e4c7f8c00ff" name="Default" comment="" />
@@ -31,6 +30,11 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
+  <component name="Commander">
+    <leftPanel />
+    <rightPanel />
+    <splitter proportion="0.5" />
+  </component>
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
   </component>
@@ -46,35 +50,36 @@
       <file leaf-file-name="VehicleActivity.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/RideSharing/src/com/halley/vehicle/VehicleActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="2862" max-vertical-offset="6894">
-              <caret line="202" column="31" selection-start-line="202" selection-start-column="31" selection-end-line="202" selection-end-column="31" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="3105" max-vertical-offset="8640">
+              <caret line="239" column="17" selection-start-line="239" selection-start-column="17" selection-end-line="239" selection-end-column="17" />
               <folding>
-                <element signature="e#2623#2670#0" expanded="true" />
-                <element signature="e#3673#3690#0" expanded="true" />
-                <element signature="e#7465#7507#0" expanded="true" />
-                <element signature="e#7509#7550#0" expanded="true" />
-                <element signature="e#7682#7726#0" expanded="true" />
-                <element signature="e#8351#8393#0" expanded="true" />
-                <element signature="e#8734#8781#0" expanded="true" />
-                <element signature="e#8872#8913#0" expanded="true" />
-                <element signature="e#14283#14315#1" expanded="true" />
-                <element signature="e#14719#14739#0" expanded="true" />
-                <element signature="e#16311#16333#0" expanded="true" />
-                <element signature="e#16571#16588#0" expanded="true" />
+                <element signature="e#2792#2839#0" expanded="true" />
+                <element signature="e#3842#3859#0" expanded="true" />
+                <element signature="e#11306#11348#0" expanded="true" />
+                <element signature="e#11350#11391#0" expanded="true" />
+                <element signature="e#11523#11567#0" expanded="true" />
+                <element signature="e#12192#12234#0" expanded="true" />
+                <element signature="e#12575#12622#0" expanded="true" />
+                <element signature="e#12713#12754#0" expanded="true" />
+                <element signature="e#18124#18156#1" expanded="true" />
+                <element signature="e#18560#18580#0" expanded="true" />
+                <element signature="e#20152#20174#0" expanded="true" />
+                <element signature="e#20412#20429#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ItineraryItem.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/RideSharing/src/com/halley/listitinerary/data/ItineraryItem.java">
+      <file leaf-file-name="activity_detail_vehicle.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/RideSharing/res/layout/activity_detail_vehicle.xml">
+          <provider editor-type-id="android-designer">
+            <state />
+          </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="181" max-vertical-offset="2286">
-              <caret line="23" column="34" selection-start-line="23" selection-start-column="34" selection-end-line="23" selection-end-column="34" />
+            <state vertical-scroll-proportion="-60.517242" vertical-offset="1827" max-vertical-offset="6696">
+              <caret line="199" column="55" selection-start-line="199" selection-start-column="55" selection-end-line="199" selection-end-column="55" />
               <folding>
-                <element signature="e#715#716#0" expanded="true" />
-                <element signature="e#765#766#0" expanded="true" />
-                <element signature="e#807#808#0" expanded="true" />
+                <element signature="e#922#944#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -83,132 +88,91 @@
       <file leaf-file-name="ProfileActivity.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/RideSharing/src/com/halley/profile/ProfileActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="1224" max-vertical-offset="14148">
-              <caret line="186" column="5" selection-start-line="157" selection-start-column="4" selection-end-line="186" selection-end-column="5" />
+            <state vertical-scroll-proportion="-5.5333333" vertical-offset="3290" max-vertical-offset="14598">
+              <caret line="275" column="39" selection-start-line="275" selection-start-column="37" selection-end-line="275" selection-end-column="39" />
               <folding>
-                <element signature="e#5245#5287#0" expanded="true" />
-                <element signature="e#5289#5330#0" expanded="true" />
-                <element signature="e#5438#5482#0" expanded="true" />
-                <element signature="e#5978#6020#0" expanded="true" />
-                <element signature="e#6253#6300#0" expanded="true" />
-                <element signature="e#6358#6399#0" expanded="true" />
-                <element signature="e#7826#7873#0" expanded="true" />
-                <element signature="e#9970#10017#0" expanded="true" />
-                <element signature="e#12264#12284#0" expanded="true" />
-                <element signature="e#13506#13528#0" expanded="true" />
-                <element signature="e#13732#13749#0" expanded="true" />
-                <element signature="e#14472#14519#0" expanded="true" />
-                <element signature="e#16579#16602#0" expanded="true" />
-                <element signature="e#17262#17305#0" expanded="true" />
-                <element signature="e#17597#17624#0" expanded="true" />
-                <element signature="e#18018#18065#0" expanded="true" />
-                <element signature="e#27173#27205#1" expanded="true" />
+                <element signature="e#5317#5359#0" expanded="true" />
+                <element signature="e#5361#5402#0" expanded="true" />
+                <element signature="e#5510#5554#0" expanded="true" />
+                <element signature="e#6050#6092#0" expanded="true" />
+                <element signature="e#6325#6372#0" expanded="true" />
+                <element signature="e#6430#6471#0" expanded="true" />
+                <element signature="e#8524#8571#0" expanded="true" />
+                <element signature="e#10668#10715#0" expanded="true" />
+                <element signature="e#12581#12597#0" expanded="true" />
+                <element signature="e#13005#13025#0" expanded="true" />
+                <element signature="e#14247#14269#0" expanded="true" />
+                <element signature="e#14473#14490#0" expanded="true" />
+                <element signature="e#15213#15260#0" expanded="true" />
+                <element signature="e#17320#17343#0" expanded="true" />
+                <element signature="e#18003#18046#0" expanded="true" />
+                <element signature="e#18338#18365#0" expanded="true" />
+                <element signature="e#18759#18806#0" expanded="true" />
+                <element signature="e#28156#28188#1" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="UpgradeProfile.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/RideSharing/src/com/halley/profile/UpgradeProfile.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.09719223" vertical-offset="5931" max-vertical-offset="9324">
-              <caret line="399" column="30" selection-start-line="399" selection-start-column="30" selection-end-line="399" selection-end-column="30" />
-              <folding>
-                <element signature="e#3070#3090#0" expanded="true" />
-                <element signature="e#3632#3652#0" expanded="true" />
-                <element signature="e#4453#4470#0" expanded="true" />
-                <element signature="e#4992#5039#0" expanded="true" />
-                <element signature="e#7419#7466#0" expanded="true" />
-                <element signature="e#8076#8099#0" expanded="true" />
-                <element signature="e#8205#8225#0" expanded="true" />
-                <element signature="e#9726#9773#0" expanded="true" />
-                <element signature="e#11751#11793#0" expanded="true" />
-                <element signature="e#11795#11836#0" expanded="true" />
-                <element signature="e#11967#12011#0" expanded="true" />
-                <element signature="e#12636#12678#0" expanded="true" />
-                <element signature="e#13019#13066#0" expanded="true" />
-                <element signature="e#13157#13198#0" expanded="true" />
-                <element signature="e#17569#17601#1" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TrackingActivity.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="TrackingActivity.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/RideSharing/src/com/halley/tracking/TrackingActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-3.2166667" vertical-offset="8267" max-vertical-offset="8730">
-              <caret line="470" column="54" selection-start-line="470" selection-start-column="54" selection-end-line="470" selection-end-column="54" />
+            <state vertical-scroll-proportion="0.18716578" vertical-offset="3296" max-vertical-offset="6930">
+              <caret line="309" column="20" selection-start-line="309" selection-start-column="12" selection-end-line="309" selection-end-column="20" />
+              <folding>
+                <element signature="e#9232#9259#0" expanded="true" />
+                <element signature="e#9605#9632#0" expanded="true" />
+                <element signature="e#10230#10273#0" expanded="true" />
+                <element signature="e#10311#10368#0" expanded="true" />
+                <element signature="e#10406#10443#0" expanded="true" />
+                <element signature="e#10923#10966#0" expanded="true" />
+                <element signature="e#11004#11059#0" expanded="true" />
+                <element signature="e#11097#11134#0" expanded="true" />
+                <element signature="e#13056#13076#0" expanded="true" />
+                <element signature="e#15411#15458#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="UpgradeProfile.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/RideSharing/src/com/halley/profile/UpgradeProfile.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="8325" max-vertical-offset="9648">
+              <caret line="535" column="17" selection-start-line="535" selection-start-column="17" selection-end-line="535" selection-end-column="17" />
+              <folding>
+                <element signature="e#9792#9839#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="LoginActivity.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/RideSharing/src/com/halley/registerandlogin/LoginActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.4" vertical-offset="1122" max-vertical-offset="4446">
+              <caret line="61" column="46" selection-start-line="61" selection-start-column="46" selection-end-line="61" selection-end-column="46" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#4146#4223#0" expanded="true" />
-                <element signature="e#4219#4220#0" expanded="true" />
-                <element signature="e#5938#7662#0" expanded="true" />
-                <element signature="e#6417#6665#0" expanded="true" />
-                <element signature="e#6638#6639#0" expanded="true" />
-                <element signature="e#7015#7263#0" expanded="true" />
-                <element signature="e#7236#7237#0" expanded="true" />
-                <element signature="e#7651#7652#0" expanded="true" />
-                <element signature="e#7776#7906#0" expanded="true" />
-                <element signature="e#7901#7902#0" expanded="true" />
-                <element signature="e#8111#8228#0" expanded="true" />
-                <element signature="e#8223#8224#0" expanded="true" />
-                <element signature="e#8287#8385#0" expanded="true" />
-                <element signature="e#8380#8381#0" expanded="true" />
-                <element signature="e#8438#8539#0" expanded="true" />
-                <element signature="e#8534#8535#0" expanded="true" />
-                <element signature="e#8589#9706#0" expanded="true" />
-                <element signature="e#8858#9067#0" expanded="true" />
-                <element signature="e#9048#9049#0" expanded="true" />
-                <element signature="e#9103#9384#0" expanded="true" />
-                <element signature="e#9138#9165#0" expanded="true" />
-                <element signature="e#9365#9366#0" expanded="true" />
-                <element signature="e#9420#9695#0" expanded="true" />
-                <element signature="e#9455#9482#0" expanded="true" />
-                <element signature="e#9676#9677#0" expanded="true" />
-                <element signature="e#9701#9702#0" expanded="true" />
-                <element signature="e#11705#11725#0" expanded="true" />
-                <element signature="e#13932#13979#0" expanded="true" />
-                <element signature="e#14477#14601#0" expanded="true" />
-                <element signature="e#14596#14597#0" expanded="true" />
-                <element signature="e#15786#16022#0" expanded="true" />
-                <element signature="e#16015#16016#0" expanded="true" />
+                <element signature="e#3324#3830#0" expanded="true" />
+                <element signature="e#3762#3779#0" expanded="true" />
+                <element signature="e#3824#3825#0" expanded="true" />
+                <element signature="e#3872#4081#0" expanded="true" />
+                <element signature="e#4076#4077#0" expanded="true" />
+                <element signature="e#4153#4386#0" expanded="true" />
+                <element signature="e#4381#4382#0" expanded="true" />
+                <element signature="e#4624#4671#0" expanded="true" />
+                <element signature="e#6620#6636#0" expanded="true" />
               </folding>
             </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SessionManager.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/RideSharing/src/com/halley/helper/SessionManager.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="1062" max-vertical-offset="1584">
-              <caret line="73" column="45" selection-start-line="73" selection-start-column="45" selection-end-line="73" selection-end-column="45" />
-              <folding>
-                <element signature="e#1929#1930#0" expanded="true" />
-                <element signature="e#1983#1984#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="activity_tracking.xml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/RideSharing/res/layout/activity_tracking.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-7.448276" vertical-offset="36" max-vertical-offset="756">
-              <caret line="14" column="37" selection-start-line="14" selection-start-column="37" selection-end-line="14" selection-end-column="37" />
-              <folding />
-            </state>
-          </provider>
-          <provider editor-type-id="android-designer">
-            <state />
           </provider>
         </entry>
       </file>
       <file leaf-file-name="strings.xml" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/RideSharing/res/values/strings.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-48.12" vertical-offset="2757" max-vertical-offset="4140">
-              <caret line="220" column="42" selection-start-line="220" selection-start-column="42" selection-end-line="220" selection-end-column="42" />
+            <state vertical-scroll-proportion="-5.12" vertical-offset="3796" max-vertical-offset="4194">
+              <caret line="218" column="79" selection-start-line="218" selection-start-column="79" selection-end-line="218" selection-end-column="79" />
               <folding />
             </state>
           </provider>
@@ -217,56 +181,8 @@
       <file leaf-file-name="DetailManageItineraryActivity.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/RideSharing/src/com/halley/manageitinerary/DetailManageItineraryActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-4.8" vertical-offset="7650" max-vertical-offset="17586">
-              <caret line="433" column="65" selection-start-line="433" selection-start-column="65" selection-end-line="433" selection-end-column="65" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#7668#7693#0" expanded="true" />
-                <element signature="e#8181#8232#0" expanded="true" />
-                <element signature="e#8262#8305#0" expanded="true" />
-                <element signature="e#8334#8375#0" expanded="true" />
-                <element signature="e#8405#8442#0" expanded="true" />
-                <element signature="e#8516#8721#0" expanded="true" />
-                <element signature="e#8706#8707#0" expanded="true" />
-                <element signature="e#8760#9006#0" expanded="true" />
-                <element signature="e#8991#8992#0" expanded="true" />
-                <element signature="e#9136#9161#0" expanded="true" />
-                <element signature="e#9940#10047#0" expanded="true" />
-                <element signature="e#10042#10043#0" expanded="true" />
-                <element signature="e#10277#10881#0" expanded="true" />
-                <element signature="e#10752#10769#0" expanded="true" />
-                <element signature="e#10876#10877#0" expanded="true" />
-                <element signature="e#10927#11033#0" expanded="true" />
-                <element signature="e#11028#11029#0" expanded="true" />
-                <element signature="e#11191#11238#0" expanded="true" />
-                <element signature="e#12968#12984#0" expanded="true" />
-                <element signature="e#13321#13337#0" expanded="true" />
-                <element signature="e#18145#18192#0" expanded="true" />
-                <element signature="e#18489#18534#0" expanded="true" />
-                <element signature="e#19944#19964#0" expanded="true" />
-                <element signature="e#20229#20245#0" expanded="true" />
-                <element signature="e#20637#20684#0" expanded="true" />
-                <element signature="e#22081#22097#0" expanded="true" />
-                <element signature="e#22507#22526#0" expanded="true" />
-                <element signature="e#22855#23611#0" expanded="true" />
-                <element signature="e#23340#23360#0" expanded="true" />
-                <element signature="e#23606#23607#0" expanded="true" />
-                <element signature="e#23879#23918#0" expanded="true" />
-                <element signature="e#23935#23973#0" expanded="true" />
-                <element signature="e#24006#24045#0" expanded="true" />
-                <element signature="e#24053#24091#0" expanded="true" />
-                <element signature="e#25964#25984#0" expanded="true" />
-                <element signature="e#28678#28700#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ListItineraryByStatus.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/RideSharing/src/com/halley/manageitinerary/ListItineraryByStatus.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="4642" max-vertical-offset="11304">
-              <caret line="339" column="75" selection-start-line="339" selection-start-column="75" selection-end-line="339" selection-end-column="75" />
+            <state vertical-scroll-proportion="-7.866667" vertical-offset="1546" max-vertical-offset="15678">
+              <caret line="176" column="27" selection-start-line="176" selection-start-column="27" selection-end-line="176" selection-end-column="27" />
               <folding />
             </state>
           </provider>
@@ -278,6 +194,11 @@
     <FindUsagesManager>
       <setting name="OPEN_NEW_TAB" value="true" />
     </FindUsagesManager>
+  </component>
+  <component name="GenerateSignedApkSettings">
+    <option name="KEY_STORE_PATH" value="$PROJECT_DIR$/../../Untitled" />
+    <option name="KEY_ALIAS" value="ridesharing" />
+    <option name="REMEMBER_PASSWORDS" value="true" />
   </component>
   <component name="GradleLocalSettings">
     <option name="tasksExpandState">
@@ -1084,6 +1005,11 @@
                 <option name="name" value="prepareComGithubClansFab140Library" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
+                <option name="description" value="Prepare com.github.geftimov:android-player:v1.0" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/RideSharing" />
+                <option name="name" value="prepareComGithubGeftimovAndroidPlayerV10Library" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
                 <option name="description" value="Prepare com.github.traex.rippleeffect:library:1.2.4" />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/RideSharing" />
                 <option name="name" value="prepareComGithubTraexRippleeffectLibrary124Library" />
@@ -1186,7 +1112,7 @@
     </option>
     <option name="modificationStamps">
       <map>
-        <entry key="$PROJECT_DIR$" value="10008870571834" />
+        <entry key="$PROJECT_DIR$" value="10009130174126" />
       </map>
     </option>
     <option name="projectBuildClasspath">
@@ -1369,10 +1295,7 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/RideSharing/src/com/halley/statistic/DemoBase.java" />
         <option value="$PROJECT_DIR$/RideSharing/res/layout/fragment_map_view_of_itinerary.xml" />
-        <option value="$PROJECT_DIR$/RideSharing/res/layout/activity_statistic.xml" />
-        <option value="$PROJECT_DIR$/RideSharing/res/layout/activity_register_itinerary.xml" />
         <option value="$PROJECT_DIR$/RideSharing/src/com/halley/registeritinerary/RegisterItineraryActivity.java" />
         <option value="$PROJECT_DIR$/RideSharing/res/layout/activity_search_advance.xml" />
         <option value="$PROJECT_DIR$/RideSharing/src/com/halley/listitinerary/adapter/TabListItineraryAdapter.java" />
@@ -1388,17 +1311,12 @@
         <option value="$PROJECT_DIR$/RideSharing/res/layout/dialog_driver_accept_customer.xml" />
         <option value="$PROJECT_DIR$/RideSharing/src/com/halley/aboutus/AboutUsActivity.java" />
         <option value="$PROJECT_DIR$/RideSharing/src/com/halley/listitinerary/data/VehicleItem.java" />
-        <option value="$PROJECT_DIR$/RideSharing/build.gradle" />
         <option value="$PROJECT_DIR$/RideSharing/res/layout/activity_detail_vehicle.xml" />
-        <option value="$PROJECT_DIR$/RideSharing/res/layout/activity_detail_manage_itinerary.xml" />
         <option value="$PROJECT_DIR$/RideSharing/res/layout/dialog_register_advance.xml" />
         <option value="$PROJECT_DIR$/RideSharing/res/layout/activity_submit_itinerary.xml" />
         <option value="$PROJECT_DIR$/RideSharing/res/layout/activity_list_vehicle.xml" />
-        <option value="$PROJECT_DIR$/RideSharing/res/layout/list_vehicle.xml" />
         <option value="$PROJECT_DIR$/RideSharing/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/RideSharing/res/values-vi/strings.xml" />
-        <option value="$PROJECT_DIR$/RideSharing/AndroidManifest.xml" />
-        <option value="$PROJECT_DIR$/RideSharing/src/com/halley/ridesharing/MainActivity.java" />
         <option value="$PROJECT_DIR$/RideSharing/src/com/halley/registeritinerary/VehicleAdapter.java" />
         <option value="$PROJECT_DIR$/RideSharing/src/com/halley/searchitinerary/ListViewOfItineraryFragment.java" />
         <option value="$PROJECT_DIR$/RideSharing/src/com/halley/searchitinerary/MapViewOfItineraryFragment.java" />
@@ -1408,18 +1326,26 @@
         <option value="$PROJECT_DIR$/RideSharing/src/com/halley/registeritinerary/RegisterAdvanceDialog.java" />
         <option value="$PROJECT_DIR$/RideSharing/res/layout/activity_main.xml" />
         <option value="$PROJECT_DIR$/RideSharing/src/com/halley/statistic/StatisticItem.java" />
-        <option value="$PROJECT_DIR$/RideSharing/src/com/halley/app/AppConfig.java" />
         <option value="$PROJECT_DIR$/RideSharing/src/com/halley/statistic/StatisticActivity.java" />
-        <option value="$PROJECT_DIR$/RideSharing/src/com/halley/vehicle/DetailVehicleActivity.java" />
         <option value="$PROJECT_DIR$/RideSharing/src/com/halley/listitinerary/data/ItineraryItem.java" />
         <option value="$PROJECT_DIR$/RideSharing/src/com/halley/manageitinerary/ListItineraryByStatus.java" />
         <option value="$PROJECT_DIR$/RideSharing/src/com/halley/helper/SessionManager.java" />
-        <option value="$PROJECT_DIR$/RideSharing/src/com/halley/tracking/TrackingActivity.java" />
         <option value="$PROJECT_DIR$/RideSharing/src/com/halley/manageitinerary/DetailManageItineraryActivity.java" />
+        <option value="$PROJECT_DIR$/RideSharing/src/com/halley/ridesharing/MainActivity.java" />
+        <option value="$PROJECT_DIR$/RideSharing/src/com/halley/app/AppConfig.java" />
+        <option value="$PROJECT_DIR$/RideSharing/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/RideSharing/res/layout/activity_tracking.xml" />
-        <option value="$PROJECT_DIR$/RideSharing/src/com/halley/profile/ProfileActivity.java" />
+        <option value="$PROJECT_DIR$/RideSharing/res/layout/activity_detail_manage_itinerary.xml" />
+        <option value="$PROJECT_DIR$/RideSharing/res/layout/activity_register_itinerary.xml" />
+        <option value="$PROJECT_DIR$/RideSharing/res/layout/activity_statistic.xml" />
+        <option value="$PROJECT_DIR$/RideSharing/res/layout/list_vehicle.xml" />
+        <option value="$PROJECT_DIR$/RideSharing/build.gradle" />
+        <option value="$PROJECT_DIR$/RideSharing/src/com/halley/registerandlogin/LoginActivity.java" />
+        <option value="$PROJECT_DIR$/RideSharing/src/com/halley/vehicle/DetailVehicleActivity.java" />
         <option value="$PROJECT_DIR$/RideSharing/src/com/halley/profile/UpgradeProfile.java" />
         <option value="$PROJECT_DIR$/RideSharing/src/com/halley/vehicle/VehicleActivity.java" />
+        <option value="$PROJECT_DIR$/RideSharing/src/com/halley/profile/ProfileActivity.java" />
+        <option value="$PROJECT_DIR$/RideSharing/src/com/halley/tracking/TrackingActivity.java" />
       </list>
     </option>
   </component>
@@ -1458,6 +1384,8 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="ProjectPane" />
+      <pane id="PackagesPane" />
       <pane id="AndroidView">
         <subPane>
           <PATH>
@@ -1484,78 +1412,6 @@
             <PATH_ELEMENT>
               <option name="myItemId" value="RideSharing" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="RideSharing-AndroidStudio" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="RideSharing" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="res" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="RideSharing-AndroidStudio" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="RideSharing" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="res" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="values" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderTypeNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="RideSharing-AndroidStudio" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="RideSharing" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="res" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="values" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="strings.xml" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResGroupNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="RideSharing-AndroidStudio" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="RideSharing" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="res" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="layout" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderTypeNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
@@ -1619,98 +1475,6 @@
               <option name="myItemId" value="halley" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="submititinerary" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="RideSharing-AndroidStudio" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="RideSharing" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="halley" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="statistic" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="RideSharing-AndroidStudio" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="RideSharing" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="halley" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="searchitinerary" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="RideSharing-AndroidStudio" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="RideSharing" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="halley" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ridesharing" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="RideSharing-AndroidStudio" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="RideSharing" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="halley" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="registeritinerary" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -1752,209 +1516,13 @@
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="profile" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="RideSharing-AndroidStudio" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="RideSharing" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="halley" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="RideSharing-AndroidStudio" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="RideSharing" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="halley" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="manageitinerary" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="RideSharing-AndroidStudio" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="RideSharing" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="halley" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="listitinerary" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="RideSharing-AndroidStudio" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="RideSharing" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="halley" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="listitinerary" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="data" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="RideSharing-AndroidStudio" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="RideSharing" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="halley" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="listitinerary" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="adapter" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="RideSharing-AndroidStudio" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="RideSharing" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="halley" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="helper" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="RideSharing-AndroidStudio" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="RideSharing" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="halley" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="dialog" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="RideSharing-AndroidStudio" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="RideSharing" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="halley" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="RideSharing-AndroidStudio" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="RideSharing" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="manifests" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidManifestsGroupNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
-      <pane id="ProjectPane" />
       <pane id="Scope" />
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -1975,6 +1543,10 @@
     <property name="OverrideImplement.combined" value="true" />
     <property name="OverrideImplement.overriding.sorted" value="false" />
     <property name="last_directory_selection" value="$PROJECT_DIR$/RideSharing/res/drawable-hdpi" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../Untitled" />
+    <property name="ExportApk.ApkPath" value="$PROJECT_DIR$/RideSharing" />
+    <property name="ExportApk.Flavors" value="" />
+    <property name="ExportApk.BuildType" value="release" />
   </component>
   <component name="RecentsManager">
     <key name="android.template.packageName">
@@ -2198,12 +1770,12 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="45" y="24" width="1235" height="696" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32984293" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32984293" sideWeight="0.4995795" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2181501" sideWeight="0.4995795" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -2214,11 +1786,12 @@
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.83246076" sideWeight="0.4995795" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32984293" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.11692844" sideWeight="0.64844406" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.21989529" sideWeight="0.64844406" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32984293" sideWeight="0.5004205" order="13" side_tool="true" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22624055" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Memory Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="16" side_tool="true" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32984293" sideWeight="0.4995795" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32968882" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24978974" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -2229,7 +1802,6 @@
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Thumbnails" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32984293" sideWeight="0.4995795" order="15" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32984293" sideWeight="0.4995795" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -2254,22 +1826,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/RideSharing/res/menu/main.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.05625" vertical-offset="0" max-vertical-offset="320">
-          <caret line="1" column="4" selection-start-line="1" selection-start-column="4" selection-end-line="1" selection-end-column="50" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/RideSharing/res/menu/pop_up_menu_itinerary_customer.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="288">
-          <caret line="3" column="32" selection-start-line="3" selection-start-column="32" selection-end-line="3" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/RideSharing/res/menu/pop_up_menu_itinerary_driver.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="288">
@@ -2280,31 +1836,22 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/RideSharing/src/com/halley/registerandlogin/LoginActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3204">
-          <caret line="44" column="32" selection-start-line="44" selection-start-column="32" selection-end-line="44" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/RideSharing/src/com/halley/dialog/SearchDialogFragment.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="2.08125" vertical-offset="0" max-vertical-offset="4896">
           <caret line="72" column="4" selection-start-line="72" selection-start-column="4" selection-end-line="72" selection-end-column="4" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/RideSharing/res/layout/fragment_categories_manage_itinerary_driver.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="113.0" vertical-offset="3385" max-vertical-offset="3672">
           <caret line="6" column="48" selection-start-line="6" selection-start-column="48" selection-end-line="6" selection-end-column="48" />
           <folding />
         </state>
-      </provider>
-      <provider editor-type-id="android-designer">
-        <state />
       </provider>
     </entry>
     <entry file="file://$USER_HOME$/Android/Sdk/sources/android-21/com/android/internal/os/ZygoteInit.java">
@@ -2338,25 +1885,25 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/RideSharing/res/layout/dialog_rating.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.31358886" vertical-offset="486" max-vertical-offset="1440">
           <caret line="32" column="12" selection-start-line="32" selection-start-column="12" selection-end-line="37" selection-end-column="62" />
           <folding />
         </state>
       </provider>
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/RideSharing/res/layout/dialog_driver_accept_customer.xml">
+      <provider selected="true" editor-type-id="android-designer">
+        <state />
+      </provider>
       <provider editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="1405" max-vertical-offset="1944">
           <caret line="85" column="47" selection-start-line="85" selection-start-column="47" selection-end-line="85" selection-end-column="47" />
           <folding />
         </state>
-      </provider>
-      <provider selected="true" editor-type-id="android-designer">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/RideSharing/src/com/halley/aboutus/AboutUsActivity.java">
@@ -2373,75 +1920,36 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/RideSharing/res/layout/fragment_list_view_of_itinerary.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="4.37931" vertical-offset="127" max-vertical-offset="414">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/RideSharing/res/layout/dialog_detail_itinerary.xml">
+      <provider selected="true" editor-type-id="android-designer">
+        <state />
+      </provider>
       <provider editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1728">
           <caret line="25" column="40" selection-start-line="25" selection-start-column="40" selection-end-line="25" selection-end-column="40" />
           <folding />
         </state>
       </provider>
-      <provider selected="true" editor-type-id="android-designer">
-        <state />
-      </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/RideSharing/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="270" max-vertical-offset="1206">
-          <caret line="26" column="40" selection-start-line="26" selection-start-column="40" selection-end-line="26" selection-end-column="40" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/RideSharing/res/layout/activity_detail_vehicle.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="5.586207" vertical-offset="594" max-vertical-offset="6696">
-          <caret line="24" column="50" selection-start-line="24" selection-start-column="50" selection-end-line="24" selection-end-column="50" />
-          <folding>
-            <element signature="e#2913#2935#0" expanded="false" />
-            <element signature="e#5189#5212#0" expanded="false" />
-            <element signature="e#6876#6901#0" expanded="false" />
-            <element signature="e#9353#9382#0" expanded="false" />
-            <element signature="e#11797#11820#0" expanded="false" />
-            <element signature="e#14247#14275#0" expanded="false" />
-            <element signature="e#15124#15140#0" expanded="false" />
-            <element signature="e#15630#15654#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
+    <entry file="file://$PROJECT_DIR$/RideSharing/res/layout/activity_list_vehicle.xml">
       <provider editor-type-id="android-designer">
         <state />
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/RideSharing/res/layout/activity_list_vehicle.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="18" max-vertical-offset="558">
           <caret line="1" column="50" selection-start-line="1" selection-start-column="50" selection-end-line="1" selection-end-column="50" />
           <folding />
         </state>
-      </provider>
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/RideSharing/res/layout/list_vehicle.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="5786" max-vertical-offset="6300">
-          <caret line="344" column="13" selection-start-line="344" selection-start-column="13" selection-end-line="344" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/RideSharing/res/values-vi/strings.xml">
@@ -2452,23 +1960,15 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/RideSharing/AndroidManifest.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="2438" max-vertical-offset="2826">
-          <caret line="142" column="15" selection-start-line="142" selection-start-column="15" selection-end-line="142" selection-end-column="15" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/RideSharing/res/layout/dialog_register_advance.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-3.0689654" vertical-offset="3349" max-vertical-offset="4176">
           <caret line="191" column="40" selection-start-line="191" selection-start-column="33" selection-end-line="191" selection-end-column="40" />
           <folding />
         </state>
-      </provider>
-      <provider editor-type-id="android-designer">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/RideSharing/src/com/halley/vehicle/VehicleAdapter.java">
@@ -2479,6 +1979,9 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/RideSharing/res/layout/activity_submit_itinerary.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-5.586207" vertical-offset="5490" max-vertical-offset="6246">
           <caret line="314" column="45" selection-start-line="314" selection-start-column="33" selection-end-line="314" selection-end-column="45" />
@@ -2487,28 +1990,22 @@
           </folding>
         </state>
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/RideSharing/res/layout/fragment_categories_manage_itinerary_customer.xml">
       <provider editor-type-id="android-designer">
         <state />
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/RideSharing/res/layout/fragment_categories_manage_itinerary_customer.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="27.931034" vertical-offset="972" max-vertical-offset="2898">
           <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
           <folding />
         </state>
       </provider>
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/RideSharing/src/com/halley/searchitinerary/ListViewOfItineraryFragment.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-3.0666666" vertical-offset="3310" max-vertical-offset="5022">
           <caret line="197" column="43" selection-start-line="197" selection-start-column="40" selection-end-line="197" selection-end-column="43" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -2524,24 +2021,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1674">
           <caret line="92" column="91" selection-start-line="92" selection-start-column="91" selection-end-line="92" selection-end-column="91" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/RideSharing/src/com/halley/submititinerary/SubmitItineraryActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-6.266667" vertical-offset="3070" max-vertical-offset="4716">
-          <caret line="227" column="0" selection-start-line="227" selection-start-column="0" selection-end-line="227" selection-end-column="0" />
-          <folding>
-            <element signature="e#5210#5249#0" expanded="false" />
-            <element signature="e#5266#5304#0" expanded="false" />
-            <element signature="e#5337#5376#0" expanded="false" />
-            <element signature="e#5384#5422#0" expanded="false" />
-            <element signature="e#6691#6734#0" expanded="false" />
-            <element signature="e#6788#6838#0" expanded="false" />
-            <element signature="e#6892#6929#0" expanded="false" />
-            <element signature="e#8815#8862#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -2551,19 +2030,6 @@
           <caret line="60" column="13" selection-start-line="60" selection-start-column="13" selection-end-line="60" selection-end-column="13" />
           <folding />
         </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/RideSharing/res/layout/activity_detail_manage_itinerary.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-4.3103447" vertical-offset="5851" max-vertical-offset="6300">
-          <caret line="332" column="47" selection-start-line="332" selection-start-column="37" selection-end-line="332" selection-end-column="47" />
-          <folding>
-            <element signature="e#11715#11737#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/RideSharing/src/com/halley/vehicle/ManageVehicle.java">
@@ -2578,18 +2044,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.5046729" vertical-offset="18" max-vertical-offset="684">
           <caret line="10" column="5" selection-start-line="10" selection-start-column="5" selection-end-line="10" selection-end-column="5" />
-          <folding>
-            <element signature="e#179#180#0" expanded="false" />
-            <element signature="e#206#207#0" expanded="false" />
-            <element signature="e#246#247#0" expanded="false" />
-            <element signature="e#278#279#0" expanded="false" />
-            <element signature="e#316#317#0" expanded="false" />
-            <element signature="e#350#351#0" expanded="false" />
-            <element signature="e#404#405#0" expanded="false" />
-            <element signature="e#450#451#0" expanded="false" />
-            <element signature="e#493#494#0" expanded="false" />
-            <element signature="e#532#533#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -2602,28 +2056,12 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/RideSharing/res/layout/activity_main.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6164383" vertical-offset="108" max-vertical-offset="1134">
-          <caret line="16" column="47" selection-start-line="16" selection-start-column="35" selection-end-line="16" selection-end-column="47" />
-          <folding />
-        </state>
-      </provider>
       <provider editor-type-id="android-designer">
         <state />
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/RideSharing/src/com/halley/ridesharing/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="12850" max-vertical-offset="15858">
-          <caret line="151" column="37" selection-start-line="151" selection-start-column="37" selection-end-line="151" selection-end-column="37" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/RideSharing/src/com/halley/app/AppConfig.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1060" max-vertical-offset="1458">
-          <caret line="77" column="51" selection-start-line="77" selection-start-column="25" selection-end-line="77" selection-end-column="51" />
+        <state vertical-scroll-proportion="0.6164383" vertical-offset="108" max-vertical-offset="1134">
+          <caret line="16" column="47" selection-start-line="16" selection-start-column="35" selection-end-line="16" selection-end-column="47" />
           <folding />
         </state>
       </provider>
@@ -2641,20 +2079,20 @@
         <state vertical-scroll-proportion="-4.4666667" vertical-offset="8128" max-vertical-offset="9432">
           <caret line="459" column="0" selection-start-line="459" selection-start-column="0" selection-end-line="459" selection-end-column="0" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#3491#3531#0" expanded="true" />
-            <element signature="e#3560#3599#0" expanded="true" />
-            <element signature="e#3659#3713#0" expanded="true" />
-            <element signature="e#3742#3792#0" expanded="true" />
-            <element signature="e#5029#5902#0" expanded="true" />
-            <element signature="e#5891#5892#0" expanded="true" />
-            <element signature="e#11750#11770#0" expanded="true" />
-            <element signature="e#12035#12051#0" expanded="true" />
-            <element signature="e#14082#14090#0" expanded="true" />
-            <element signature="e#14384#14394#0" expanded="true" />
-            <element signature="e#14641#14695#0" expanded="true" />
-            <element signature="e#14700#14750#0" expanded="true" />
-            <element signature="e#14846#14858#0" expanded="true" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#3491#3531#0" expanded="false" />
+            <element signature="e#3560#3599#0" expanded="false" />
+            <element signature="e#3659#3713#0" expanded="false" />
+            <element signature="e#3742#3792#0" expanded="false" />
+            <element signature="e#5029#5902#0" expanded="false" />
+            <element signature="e#5891#5892#0" expanded="false" />
+            <element signature="e#11750#11770#0" expanded="false" />
+            <element signature="e#12035#12051#0" expanded="false" />
+            <element signature="e#14082#14090#0" expanded="false" />
+            <element signature="e#14384#14394#0" expanded="false" />
+            <element signature="e#14641#14695#0" expanded="false" />
+            <element signature="e#14700#14750#0" expanded="false" />
+            <element signature="e#14846#14858#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -2663,7 +2101,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.5064516" vertical-offset="36581" max-vertical-offset="90972">
           <caret line="2210" column="0" selection-start-line="2210" selection-start-column="0" selection-end-line="2210" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2679,18 +2116,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="181" max-vertical-offset="2286">
           <caret line="23" column="34" selection-start-line="23" selection-start-column="34" selection-end-line="23" selection-end-column="34" />
-          <folding>
-            <element signature="e#715#716#0" expanded="true" />
-            <element signature="e#765#766#0" expanded="true" />
-            <element signature="e#807#808#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/RideSharing/src/com/halley/vehicle/DetailVehicleActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="5.628302" vertical-offset="599" max-vertical-offset="10674">
-          <caret line="259" column="0" selection-start-line="259" selection-start-column="0" selection-end-line="259" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -2703,199 +2128,248 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/RideSharing/src/com/halley/manageitinerary/ListItineraryByStatus.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="4642" max-vertical-offset="11304">
-          <caret line="339" column="75" selection-start-line="339" selection-start-column="75" selection-end-line="339" selection-end-column="75" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/RideSharing/src/com/halley/helper/SessionManager.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="1062" max-vertical-offset="1584">
           <caret line="73" column="45" selection-start-line="73" selection-start-column="45" selection-end-line="73" selection-end-column="45" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/RideSharing/src/com/halley/app/AppConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-3.0333333" vertical-offset="1150" max-vertical-offset="1548">
+          <caret line="74" column="0" selection-start-line="74" selection-start-column="0" selection-end-line="74" selection-end-column="0" />
           <folding>
-            <element signature="e#1929#1930#0" expanded="true" />
-            <element signature="e#1983#1984#0" expanded="true" />
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/RideSharing/src/com/halley/manageitinerary/DetailManageItineraryActivity.java">
+    <entry file="file://$PROJECT_DIR$/RideSharing/src/com/halley/ridesharing/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-4.8" vertical-offset="7650" max-vertical-offset="17586">
-          <caret line="433" column="65" selection-start-line="433" selection-start-column="65" selection-end-line="433" selection-end-column="65" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#7668#7693#0" expanded="true" />
-            <element signature="e#8181#8232#0" expanded="true" />
-            <element signature="e#8262#8305#0" expanded="true" />
-            <element signature="e#8334#8375#0" expanded="true" />
-            <element signature="e#8405#8442#0" expanded="true" />
-            <element signature="e#8516#8721#0" expanded="true" />
-            <element signature="e#8706#8707#0" expanded="true" />
-            <element signature="e#8760#9006#0" expanded="true" />
-            <element signature="e#8991#8992#0" expanded="true" />
-            <element signature="e#9136#9161#0" expanded="true" />
-            <element signature="e#9940#10047#0" expanded="true" />
-            <element signature="e#10042#10043#0" expanded="true" />
-            <element signature="e#10277#10881#0" expanded="true" />
-            <element signature="e#10752#10769#0" expanded="true" />
-            <element signature="e#10876#10877#0" expanded="true" />
-            <element signature="e#10927#11033#0" expanded="true" />
-            <element signature="e#11028#11029#0" expanded="true" />
-            <element signature="e#11191#11238#0" expanded="true" />
-            <element signature="e#12968#12984#0" expanded="true" />
-            <element signature="e#13321#13337#0" expanded="true" />
-            <element signature="e#18145#18192#0" expanded="true" />
-            <element signature="e#18489#18534#0" expanded="true" />
-            <element signature="e#19944#19964#0" expanded="true" />
-            <element signature="e#20229#20245#0" expanded="true" />
-            <element signature="e#20637#20684#0" expanded="true" />
-            <element signature="e#22081#22097#0" expanded="true" />
-            <element signature="e#22507#22526#0" expanded="true" />
-            <element signature="e#22855#23611#0" expanded="true" />
-            <element signature="e#23340#23360#0" expanded="true" />
-            <element signature="e#23606#23607#0" expanded="true" />
-            <element signature="e#23879#23918#0" expanded="true" />
-            <element signature="e#23935#23973#0" expanded="true" />
-            <element signature="e#24006#24045#0" expanded="true" />
-            <element signature="e#24053#24091#0" expanded="true" />
-            <element signature="e#25964#25984#0" expanded="true" />
-            <element signature="e#28678#28700#0" expanded="true" />
-          </folding>
+        <state vertical-scroll-proportion="-4.0" vertical-offset="8106" max-vertical-offset="15858">
+          <caret line="549" column="20" selection-start-line="549" selection-start-column="20" selection-end-line="549" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/RideSharing/src/com/halley/submititinerary/SubmitItineraryActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5578635" vertical-offset="3070" max-vertical-offset="4716">
+          <caret line="227" column="0" selection-start-line="227" selection-start-column="0" selection-end-line="227" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/RideSharing/src/com/halley/manageitinerary/ListItineraryByStatus.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1998" max-vertical-offset="11304">
+          <caret line="185" column="56" selection-start-line="165" selection-start-column="40" selection-end-line="185" selection-end-column="56" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/RideSharing/res/layout/activity_tracking.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-7.448276" vertical-offset="36" max-vertical-offset="756">
-          <caret line="14" column="37" selection-start-line="14" selection-start-column="37" selection-end-line="14" selection-end-column="37" />
-          <folding />
-        </state>
-      </provider>
       <provider editor-type-id="android-designer">
         <state />
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/RideSharing/src/com/halley/tracking/TrackingActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-3.2166667" vertical-offset="8267" max-vertical-offset="8730">
-          <caret line="470" column="54" selection-start-line="470" selection-start-column="54" selection-end-line="470" selection-end-column="54" />
+        <state vertical-scroll-proportion="-3.1034484" vertical-offset="0" max-vertical-offset="774">
+          <caret line="5" column="4" selection-start-line="5" selection-start-column="4" selection-end-line="5" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/RideSharing/res/layout/activity_detail_manage_itinerary.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-11.793103" vertical-offset="0" max-vertical-offset="6318">
+          <caret line="19" column="34" selection-start-line="19" selection-start-column="34" selection-end-line="19" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/RideSharing/res/layout/activity_register_itinerary.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="41.206898" vertical-offset="1285" max-vertical-offset="1674">
+          <caret line="5" column="25" selection-start-line="5" selection-start-column="25" selection-end-line="5" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/RideSharing/res/layout/activity_statistic.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="44.689655" vertical-offset="2160" max-vertical-offset="2754">
+          <caret line="48" column="8" selection-start-line="48" selection-start-column="8" selection-end-line="48" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/RideSharing/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="276" max-vertical-offset="2826">
+          <caret line="26" column="39" selection-start-line="26" selection-start-column="39" selection-end-line="26" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/RideSharing/res/layout/list_vehicle.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-8.379311" vertical-offset="5301" max-vertical-offset="6300">
+          <caret line="308" column="63" selection-start-line="308" selection-start-column="63" selection-end-line="308" selection-end-column="63" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/RideSharing/res/layout/activity_detail_vehicle.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-60.517242" vertical-offset="1827" max-vertical-offset="6696">
+          <caret line="199" column="55" selection-start-line="199" selection-start-column="55" selection-end-line="199" selection-end-column="55" />
+          <folding>
+            <element signature="e#922#944#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/RideSharing/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="270" max-vertical-offset="1224">
+          <caret line="27" column="53" selection-start-line="27" selection-start-column="53" selection-end-line="27" selection-end-column="53" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/RideSharing/src/com/halley/registerandlogin/LoginActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.4" vertical-offset="1122" max-vertical-offset="4446">
+          <caret line="61" column="46" selection-start-line="61" selection-start-column="46" selection-end-line="61" selection-end-column="46" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#4146#4223#0" expanded="true" />
-            <element signature="e#4219#4220#0" expanded="true" />
-            <element signature="e#5938#7662#0" expanded="true" />
-            <element signature="e#6417#6665#0" expanded="true" />
-            <element signature="e#6638#6639#0" expanded="true" />
-            <element signature="e#7015#7263#0" expanded="true" />
-            <element signature="e#7236#7237#0" expanded="true" />
-            <element signature="e#7651#7652#0" expanded="true" />
-            <element signature="e#7776#7906#0" expanded="true" />
-            <element signature="e#7901#7902#0" expanded="true" />
-            <element signature="e#8111#8228#0" expanded="true" />
-            <element signature="e#8223#8224#0" expanded="true" />
-            <element signature="e#8287#8385#0" expanded="true" />
-            <element signature="e#8380#8381#0" expanded="true" />
-            <element signature="e#8438#8539#0" expanded="true" />
-            <element signature="e#8534#8535#0" expanded="true" />
-            <element signature="e#8589#9706#0" expanded="true" />
-            <element signature="e#8858#9067#0" expanded="true" />
-            <element signature="e#9048#9049#0" expanded="true" />
-            <element signature="e#9103#9384#0" expanded="true" />
-            <element signature="e#9138#9165#0" expanded="true" />
-            <element signature="e#9365#9366#0" expanded="true" />
-            <element signature="e#9420#9695#0" expanded="true" />
-            <element signature="e#9455#9482#0" expanded="true" />
-            <element signature="e#9676#9677#0" expanded="true" />
-            <element signature="e#9701#9702#0" expanded="true" />
-            <element signature="e#11705#11725#0" expanded="true" />
-            <element signature="e#13932#13979#0" expanded="true" />
-            <element signature="e#14477#14601#0" expanded="true" />
-            <element signature="e#14596#14597#0" expanded="true" />
-            <element signature="e#15786#16022#0" expanded="true" />
-            <element signature="e#16015#16016#0" expanded="true" />
+            <element signature="e#3324#3830#0" expanded="true" />
+            <element signature="e#3762#3779#0" expanded="true" />
+            <element signature="e#3824#3825#0" expanded="true" />
+            <element signature="e#3872#4081#0" expanded="true" />
+            <element signature="e#4076#4077#0" expanded="true" />
+            <element signature="e#4153#4386#0" expanded="true" />
+            <element signature="e#4381#4382#0" expanded="true" />
+            <element signature="e#4624#4671#0" expanded="true" />
+            <element signature="e#6620#6636#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/RideSharing/src/com/halley/vehicle/VehicleActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="3105" max-vertical-offset="8640">
+          <caret line="239" column="17" selection-start-line="239" selection-start-column="17" selection-end-line="239" selection-end-column="17" />
+          <folding>
+            <element signature="e#2792#2839#0" expanded="true" />
+            <element signature="e#3842#3859#0" expanded="true" />
+            <element signature="e#11306#11348#0" expanded="true" />
+            <element signature="e#11350#11391#0" expanded="true" />
+            <element signature="e#11523#11567#0" expanded="true" />
+            <element signature="e#12192#12234#0" expanded="true" />
+            <element signature="e#12575#12622#0" expanded="true" />
+            <element signature="e#12713#12754#0" expanded="true" />
+            <element signature="e#18124#18156#1" expanded="true" />
+            <element signature="e#18560#18580#0" expanded="true" />
+            <element signature="e#20152#20174#0" expanded="true" />
+            <element signature="e#20412#20429#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/RideSharing/res/values/strings.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-48.12" vertical-offset="2757" max-vertical-offset="4122">
-          <caret line="220" column="42" selection-start-line="220" selection-start-column="42" selection-end-line="220" selection-end-column="42" />
+        <state vertical-scroll-proportion="-5.12" vertical-offset="3796" max-vertical-offset="4176">
+          <caret line="218" column="79" selection-start-line="218" selection-start-column="79" selection-end-line="218" selection-end-column="79" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/RideSharing/src/com/halley/vehicle/VehicleActivity.java">
+    <entry file="file://$PROJECT_DIR$/RideSharing/src/com/halley/vehicle/DetailVehicleActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="2862" max-vertical-offset="6894">
-          <caret line="202" column="31" selection-start-line="202" selection-start-column="31" selection-end-line="202" selection-end-column="31" />
+        <state vertical-scroll-proportion="0.9320755" vertical-offset="9208" max-vertical-offset="11268">
+          <caret line="615" column="17" selection-start-line="615" selection-start-column="11" selection-end-line="615" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/RideSharing/src/com/halley/profile/UpgradeProfile.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="8325" max-vertical-offset="9648">
+          <caret line="535" column="17" selection-start-line="535" selection-start-column="17" selection-end-line="535" selection-end-column="17" />
           <folding>
-            <element signature="e#2623#2670#0" expanded="true" />
-            <element signature="e#3673#3690#0" expanded="true" />
-            <element signature="e#7465#7507#0" expanded="true" />
-            <element signature="e#7509#7550#0" expanded="true" />
-            <element signature="e#7682#7726#0" expanded="true" />
-            <element signature="e#8351#8393#0" expanded="true" />
-            <element signature="e#8734#8781#0" expanded="true" />
-            <element signature="e#8872#8913#0" expanded="true" />
-            <element signature="e#14283#14315#1" expanded="true" />
-            <element signature="e#14719#14739#0" expanded="true" />
-            <element signature="e#16311#16333#0" expanded="true" />
-            <element signature="e#16571#16588#0" expanded="true" />
+            <element signature="e#9792#9839#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/RideSharing/src/com/halley/profile/ProfileActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1548" max-vertical-offset="14148">
-          <caret line="186" column="5" selection-start-line="157" selection-start-column="4" selection-end-line="186" selection-end-column="5" />
+        <state vertical-scroll-proportion="-5.5333333" vertical-offset="3290" max-vertical-offset="14598">
+          <caret line="275" column="39" selection-start-line="275" selection-start-column="37" selection-end-line="275" selection-end-column="39" />
           <folding>
-            <element signature="e#5245#5287#0" expanded="true" />
-            <element signature="e#5289#5330#0" expanded="true" />
-            <element signature="e#5438#5482#0" expanded="true" />
-            <element signature="e#5978#6020#0" expanded="true" />
-            <element signature="e#6253#6300#0" expanded="true" />
-            <element signature="e#6358#6399#0" expanded="true" />
-            <element signature="e#7826#7873#0" expanded="true" />
-            <element signature="e#9970#10017#0" expanded="true" />
-            <element signature="e#12264#12284#0" expanded="true" />
-            <element signature="e#13506#13528#0" expanded="true" />
-            <element signature="e#13732#13749#0" expanded="true" />
-            <element signature="e#14472#14519#0" expanded="true" />
-            <element signature="e#16579#16602#0" expanded="true" />
-            <element signature="e#17262#17305#0" expanded="true" />
-            <element signature="e#17597#17624#0" expanded="true" />
-            <element signature="e#18018#18065#0" expanded="true" />
-            <element signature="e#27173#27205#1" expanded="true" />
+            <element signature="e#5317#5359#0" expanded="true" />
+            <element signature="e#5361#5402#0" expanded="true" />
+            <element signature="e#5510#5554#0" expanded="true" />
+            <element signature="e#6050#6092#0" expanded="true" />
+            <element signature="e#6325#6372#0" expanded="true" />
+            <element signature="e#6430#6471#0" expanded="true" />
+            <element signature="e#8524#8571#0" expanded="true" />
+            <element signature="e#10668#10715#0" expanded="true" />
+            <element signature="e#12581#12597#0" expanded="true" />
+            <element signature="e#13005#13025#0" expanded="true" />
+            <element signature="e#14247#14269#0" expanded="true" />
+            <element signature="e#14473#14490#0" expanded="true" />
+            <element signature="e#15213#15260#0" expanded="true" />
+            <element signature="e#17320#17343#0" expanded="true" />
+            <element signature="e#18003#18046#0" expanded="true" />
+            <element signature="e#18338#18365#0" expanded="true" />
+            <element signature="e#18759#18806#0" expanded="true" />
+            <element signature="e#28156#28188#1" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/RideSharing/src/com/halley/profile/UpgradeProfile.java">
+    <entry file="file://$PROJECT_DIR$/RideSharing/src/com/halley/manageitinerary/DetailManageItineraryActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.09719223" vertical-offset="5931" max-vertical-offset="9324">
-          <caret line="399" column="30" selection-start-line="399" selection-start-column="30" selection-end-line="399" selection-end-column="30" />
+        <state vertical-scroll-proportion="-7.866667" vertical-offset="1546" max-vertical-offset="15678">
+          <caret line="176" column="27" selection-start-line="176" selection-start-column="27" selection-end-line="176" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/RideSharing/src/com/halley/tracking/TrackingActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.18716578" vertical-offset="3296" max-vertical-offset="6930">
+          <caret line="309" column="20" selection-start-line="309" selection-start-column="12" selection-end-line="309" selection-end-column="20" />
           <folding>
-            <element signature="e#3070#3090#0" expanded="true" />
-            <element signature="e#3632#3652#0" expanded="true" />
-            <element signature="e#4453#4470#0" expanded="true" />
-            <element signature="e#4992#5039#0" expanded="true" />
-            <element signature="e#7419#7466#0" expanded="true" />
-            <element signature="e#8076#8099#0" expanded="true" />
-            <element signature="e#8205#8225#0" expanded="true" />
-            <element signature="e#9726#9773#0" expanded="true" />
-            <element signature="e#11751#11793#0" expanded="true" />
-            <element signature="e#11795#11836#0" expanded="true" />
-            <element signature="e#11967#12011#0" expanded="true" />
-            <element signature="e#12636#12678#0" expanded="true" />
-            <element signature="e#13019#13066#0" expanded="true" />
-            <element signature="e#13157#13198#0" expanded="true" />
-            <element signature="e#17569#17601#1" expanded="true" />
+            <element signature="e#9232#9259#0" expanded="true" />
+            <element signature="e#9605#9632#0" expanded="true" />
+            <element signature="e#10230#10273#0" expanded="true" />
+            <element signature="e#10311#10368#0" expanded="true" />
+            <element signature="e#10406#10443#0" expanded="true" />
+            <element signature="e#10923#10966#0" expanded="true" />
+            <element signature="e#11004#11059#0" expanded="true" />
+            <element signature="e#11097#11134#0" expanded="true" />
+            <element signature="e#13056#13076#0" expanded="true" />
+            <element signature="e#15411#15458#0" expanded="true" />
           </folding>
         </state>
       </provider>

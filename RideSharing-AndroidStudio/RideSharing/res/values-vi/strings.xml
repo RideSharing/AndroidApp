@@ -214,5 +214,8 @@
     <string name="delete_vehicle">Xóa phương tiện</string>
     <string name="not_go_itinerary">Bạn không thể đi vì ...</string>
     <string name="add_image">Thêm ảnh</string>
+    <string name="start_itinerary_detail">Tài xế đã bắt đầu chuyến đi</string>
+    <string name="start_waiting_detail">Tài xế đang đợi bạn</string>
+    <string name="title_activity_detail_vehicle">DetailVehicleActivity</string>
 
 </resources>

@@ -556,7 +556,7 @@ public class MainActivity extends ActionBarActivity implements
                 intent = new Intent(this, SearchAdvanceActivity.class);
                 break;
 			case 2:
-                checkVerifyDriver();
+                intent = new Intent(this, ProfileActivity.class);
 				break;
 			case 3:
 				intent = new Intent(this, ManageItineraryActivity.class);

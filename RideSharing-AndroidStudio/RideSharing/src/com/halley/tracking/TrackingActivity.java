@@ -159,7 +159,7 @@ public class TrackingActivity extends ActionBarActivity implements
                         session.setWaitingCustomer(START_WAITING);
 
                         // Add current location on Maps
-                        proxy.invoke("setItineraryStatus", driver_id, "Start itinerary").done(new Action<Void>() {
+                        proxy.invoke("setItineraryStatus", driver_id,customer_id, "Start itinerary").done(new Action<Void>() {
                             @Override
                             public void run(Void obj) throws Exception {
                                 System.out.println("SENT!");
@@ -169,17 +169,19 @@ public class TrackingActivity extends ActionBarActivity implements
                         btn.setText("End itinerary");
                         session.setWaitingCustomer(END_ITINERARY);
                         // Add current location on Maps
-                        proxy.invoke("setItineraryStatus", driver_id, "Start waiting").done(new Action<Void>() {
+                        proxy.invoke("setItineraryStatus", driver_id,customer_id, "Start waiting").done(new Action<Void>() {
                             @Override
                             public void run(Void obj) throws Exception {
                                 System.out.println("SENT!");
                             }
                         });
                     } else if(session.getWaitingCustomer()==END_ITINERARY){
+                        session.setWaitingCustomer(START_ITINERARY);
                         Toast.makeText(getApplicationContext(),"OK",Toast.LENGTH_LONG).show();
                     }
                 }
                 else if(role.equals(CUSTOMER_ROLE)){
+
                     Toast.makeText(getApplicationContext(),"OK",Toast.LENGTH_LONG).show();
                 }
             }
@@ -248,13 +250,15 @@ public class TrackingActivity extends ActionBarActivity implements
                     }
                 });
 
-                proxy.subscribe(new Object() {
-                    @SuppressWarnings("unused")
-                    public void getItineraryStatus(String pos) {
-                        mUpdateResults.setData(pos);
-                        mHandler.post(mUpdateResults);
-                    }
-                });
+                if(CUSTOMER_ROLE.equals(role)){
+                    proxy.subscribe(new Object() {
+                        @SuppressWarnings("unused")
+                        public void getItineraryStatus(String driver_id, String pos) {
+                            mUpdateResults.setData(pos);
+                            mHandler.post(mUpdateResults);
+                        }
+                    });
+                }
 			}
 		});
 
@@ -271,9 +275,29 @@ public class TrackingActivity extends ActionBarActivity implements
 
 	public void test(String latlng) {
         if ("Start itinerary".equals(latlng)) {
-            Toast.makeText(this,latlng,Toast.LENGTH_LONG).show();
-        } else if ("Start waitting".equals(latlng)) {
-            Toast.makeText(this,latlng,Toast.LENGTH_LONG).show();
+            new SweetAlertDialog(this, SweetAlertDialog.SUCCESS_TYPE)
+                    .setTitleText(getResources().getString(R.string.announce))
+                    .setContentText(getResources().getString(R.string.start_itinerary_detail))
+                    .setConfirmText(getResources().getString(R.string.ok))
+                    .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                        @Override
+                        public void onClick(SweetAlertDialog sDialog) {
+                            sDialog.cancel();
+                        }
+                    })
+                    .show();
+        } else if ("Start waiting".equals(latlng)) {
+            new SweetAlertDialog(this, SweetAlertDialog.SUCCESS_TYPE)
+                    .setTitleText(getResources().getString(R.string.announce))
+                    .setContentText(getResources().getString(R.string.start_waiting_detail))
+                    .setConfirmText(getResources().getString(R.string.ok))
+                    .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                        @Override
+                        public void onClick(SweetAlertDialog sDialog) {
+                            sDialog.cancel();
+                        }
+                    })
+                    .show();
         } else {
             String[] str = latlng.toString().split(",");
             double lat = Double.parseDouble(str[0]);
@@ -345,6 +369,7 @@ public class TrackingActivity extends ActionBarActivity implements
 		super.onStart();
 		Log.d(TAG, "onStart fired ..............");
 		mGoogleApiClient.connect();
+
 	}
 
 	@Override
@@ -355,6 +380,9 @@ public class TrackingActivity extends ActionBarActivity implements
 		Log.d(TAG,
 				"isConnected ...............: "
 						+ mGoogleApiClient.isConnected());
+        proxy.removeSubscription("getPos");
+        proxy.removeSubscription("getItineraryStatus");
+        conn.disconnect();
 	}
 
 	private boolean isGooglePlayServicesAvailable() {

@@ -1,5 +1,7 @@
 package com.halley.registerandlogin;
 
+import com.eftimoff.androidplayer.Player;
+import com.eftimoff.androidplayer.actions.property.PropertyAction;
 import com.halley.ridesharing.MainActivity;
 
 import android.graphics.Color;
@@ -23,6 +25,8 @@ import android.content.Intent;
 import android.util.Log;
 import android.view.View;
 
+import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -50,7 +54,28 @@ public class LoginActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
-		
+        final View viewLogo = findViewById(R.id.layout_logo);
+        final PropertyAction fabAction = PropertyAction.newPropertyAction(viewLogo).
+                scaleX(0).
+                scaleY(0).
+                duration(750).
+                interpolator(new AccelerateDecelerateInterpolator()).
+                build();
+        final PropertyAction headerAction = PropertyAction.newPropertyAction(viewLogo).
+                interpolator(new DecelerateInterpolator()).
+                translationY(-200).
+                duration(550).
+                alpha(0.4f).
+                build();
+        final PropertyAction bottomAction = PropertyAction.newPropertyAction(viewLogo).
+                translationY(500).
+                duration(550).
+                alpha(0f).
+                build();
+
+        Player.init().
+                animate(fabAction).
+                play();
 		inputEmail = (EditText) findViewById(R.id.email);
 		inputPassword = (EditText) findViewById(R.id.password);
 		btnLogin = (Button) findViewById(R.id.btnLogin);

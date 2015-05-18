@@ -197,7 +197,7 @@
                             android:id="@+id/license_plate_image"
                             android:layout_width="118dp"
                             android:layout_height="90dp"
-                            android:onClick="zoomImage"
+                            android:onClick="zoomImageLicensePlate"
                             android:scaleType="centerCrop" />
 
                         <ImageView
@@ -252,7 +252,7 @@
                             android:id="@+id/vehicle_image"
                             android:layout_width="118dp"
                             android:layout_height="90dp"
-                            android:onClick="zoomImage"
+                            android:onClick="zoomImageVehicle"
                             android:scaleType="centerCrop" />
 
                         <ImageView
@@ -306,7 +306,7 @@
                             android:id="@+id/moto_insurance_img"
                             android:layout_width="118dp"
                             android:layout_height="90dp"
-                            android:onClick="zoomImage"
+                            android:onClick="zoomImageInsurance"
                             android:scaleType="centerCrop" />
 
                         <ImageView

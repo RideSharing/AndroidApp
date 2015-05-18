@@ -3,6 +3,9 @@ package com.halley.vehicle;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.DialogFragment;
+import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -17,7 +20,9 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Base64;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -194,6 +199,103 @@ public class VehicleActivity extends ActionBarActivity {
     public void btnClickMotoInsurance(View view) {
         selectImage();
         whichKind = 3;
+    }
+
+    public void zoomImageLicensePlate(View v) {
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        MyDialogFragment frag = new MyDialogFragment();
+        whichKind = 1;
+        Bundle b = new Bundle();
+        b.putString("license_plate", saveLicense_plate_img);
+        b.putInt("whichKind", whichKind);
+        frag.setArguments(b);
+        frag.show(ft, "txn_tag");
+
+    }
+
+    public void zoomImageVehicle(View v) {
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        MyDialogFragment frag = new MyDialogFragment();
+        whichKind = 2;
+        Bundle b = new Bundle();
+        b.putString("vehicle_img", saveVehicle_img);
+        b.putInt("whichKind", whichKind);
+        frag.setArguments(b);
+        frag.show(ft, "txn_tag");
+
+    }
+
+    public void zoomImageInsurance(View v) {
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        MyDialogFragment frag = new MyDialogFragment();
+        whichKind = 3;
+        Bundle b = new Bundle();
+        b.putString("insurance", saveMotor_insurance_img);
+        b.putInt("whichKind", whichKind);
+        frag.setArguments(b);
+        frag.show(ft, "txn_tag");
+
+    }
+
+    public static class MyDialogFragment extends DialogFragment {
+
+        @Override
+        public void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            setStyle(DialogFragment.STYLE_NORMAL, R.style.MY_DIALOG);
+        }
+
+        @Override
+        public void onStart() {
+            super.onStart();
+            Dialog d = getDialog();
+            if (d != null) {
+                int width = ViewGroup.LayoutParams.MATCH_PARENT;
+                int height = ViewGroup.LayoutParams.MATCH_PARENT;
+                d.getWindow().setLayout(width, height);
+            }
+        }
+
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                                 Bundle savedInstanceState) {
+            View root = inflater.inflate(R.layout.zooming_layout, container,
+                    false);
+            ImageView new_image = (ImageView) root
+                    .findViewById(R.id.imageView1);
+
+            Bundle extras = this.getArguments();
+
+            String license_plate = extras.getString("license_plate");
+            String vehicle_img = extras.getString("vehicle_img");
+            String motor_insurance_img = extras.getString("insurance");
+            int whichKind = extras.getInt("whichKind");
+            if (whichKind == 1) {
+                byte[] decodeString = Base64.decode(
+                        license_plate, Base64.DEFAULT);
+                Bitmap decodeByte = BitmapFactory
+                        .decodeByteArray(decodeString, 0,
+                                decodeString.length);
+                new_image.setImageBitmap(decodeByte);
+            } else if (whichKind == 2) {
+                byte[] decodeString = Base64.decode(
+                        vehicle_img, Base64.DEFAULT);
+                Bitmap decodeByte = BitmapFactory
+                        .decodeByteArray(decodeString, 0,
+                                decodeString.length);
+                new_image.setImageBitmap(decodeByte);
+            } else if (whichKind == 3) {
+                byte[] decodeString = Base64.decode(
+                        motor_insurance_img, Base64.DEFAULT);
+                Bitmap decodeByte = BitmapFactory
+                        .decodeByteArray(decodeString, 0,
+                                decodeString.length);
+                new_image.setImageBitmap(decodeByte);
+
+            }
+            return root;
+        }
+
     }
 
     private void selectImage() {

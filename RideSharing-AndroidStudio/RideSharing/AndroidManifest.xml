@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.halley.registerandlogin"
     android:versionCode="1"
-    android:versionName="1.0" >
+    android:versionName="1.0">
 
     <uses-sdk
         android:minSdkVersion="16"
@@ -36,6 +37,8 @@
     <application
         android:name="com.halley.app.AppController"
         android:allowBackup="true"
+        android:icon="@drawable/ic_logo"
+        tools:replace="android:icon,android:theme"
         android:theme="@style/AppTheme" >
         <meta-data
             android:name="com.google.android.gms.version"

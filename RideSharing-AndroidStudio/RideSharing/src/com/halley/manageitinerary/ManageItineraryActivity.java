@@ -14,6 +14,7 @@ import android.view.View;
 
 import android.widget.CompoundButton;
 
+import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,6 +37,7 @@ public class ManageItineraryActivity extends ActionBarActivity {
     private SessionManager session;
     FragmentManager fragmentManager;
     FragmentTransaction fragmentTransaction;
+    LinearLayout switchLayout;
     private static final String ITINERARY_STATUS_CREATED ="1";
     private static final String ITINERARY_STATUS_CUSTOMER_ACCEPTED ="2";
     private static final String ITINERARY_STATUS_DRIVER_ACCEPTED ="3";
@@ -50,24 +52,24 @@ public class ManageItineraryActivity extends ActionBarActivity {
         actionBar=custom_actionbar.getActionBar();
         session=new SessionManager(getApplicationContext());
         switchrole = (Switch) findViewById(R.id.switchrole);
-
+        switchLayout=(LinearLayout)findViewById(R.id.switchLayout);
         if(!session.isDriver()){
-            switchrole.setEnabled(false);
+            switchLayout.setVisibility(View.GONE);
             switchrole.setChecked(true);
-
-            //Toast.makeText(this,"asd",Toast.LENGTH_LONG).show();
         }
         else {
+
             switchrole.setChecked(false);
             switchrole.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     if (isChecked) {
-
                         fragmentManager = getFragmentManager();
-                        fragmentManager.popBackStackImmediate();
+
                         fragmentTransaction = fragmentManager
                                 .beginTransaction();
+                        fragmentManager.popBackStack();
+
                         ManageItineraryCustomerFragment fragmentS1 = new ManageItineraryCustomerFragment();
                         fragmentTransaction.replace(R.id.enabled_view_foo, fragmentS1);
                         fragmentTransaction.commit();
@@ -75,9 +77,10 @@ public class ManageItineraryActivity extends ActionBarActivity {
                     } else {
 
                         fragmentManager = getFragmentManager();
-                        fragmentManager.popBackStackImmediate();
                         fragmentTransaction = fragmentManager
                                 .beginTransaction();
+                        fragmentManager.popBackStack();
+
                         ManageItineraryDriverFragment fragmentS1 = new ManageItineraryDriverFragment();
                         fragmentTransaction.replace(R.id.enabled_view_foo, fragmentS1);
                         fragmentTransaction.commit();
@@ -90,10 +93,11 @@ public class ManageItineraryActivity extends ActionBarActivity {
 
             //check the current state before we display the screen
             fragmentManager = getFragmentManager();
-            fragmentManager.popBackStackImmediate();
+
             fragmentTransaction = fragmentManager
                     .beginTransaction();
-            fragmentTransaction.addToBackStack(null);
+            fragmentManager.popBackStack();
+
             ManageItineraryCustomerFragment fragmentS1 = new ManageItineraryCustomerFragment();
             fragmentTransaction.replace(R.id.enabled_view_foo, fragmentS1);
             fragmentTransaction.commit();
@@ -102,10 +106,11 @@ public class ManageItineraryActivity extends ActionBarActivity {
 
             //check the current state before we display the screen
             fragmentManager = getFragmentManager();
-            fragmentManager.popBackStackImmediate();
+
             fragmentTransaction = fragmentManager
                     .beginTransaction();
-            fragmentTransaction.addToBackStack(null);
+            fragmentManager.popBackStack();
+
             ManageItineraryDriverFragment fragmentS1 = new ManageItineraryDriverFragment();
             fragmentTransaction.replace(R.id.enabled_view_foo, fragmentS1);
             fragmentTransaction.commit();
@@ -142,7 +147,6 @@ public class ManageItineraryActivity extends ActionBarActivity {
 
     public void displaylistItineraryFragment(String role, String status) {
         fragmentManager = getFragmentManager();
-        fragmentManager.popBackStackImmediate();
         fragmentTransaction = fragmentManager
                 .beginTransaction();
         fragmentTransaction.addToBackStack(null);
@@ -165,10 +169,9 @@ public class ManageItineraryActivity extends ActionBarActivity {
             if(switchrole.isChecked()){
                 //check the current state before we display the screen
                 fragmentManager = getFragmentManager();
-                fragmentManager.popBackStackImmediate();
                 fragmentTransaction = fragmentManager
                         .beginTransaction();
-                fragmentTransaction.addToBackStack(null);
+                fragmentManager.popBackStack();
                 ManageItineraryCustomerFragment fragmentS1 = new ManageItineraryCustomerFragment();
                 fragmentTransaction.replace(R.id.enabled_view_foo, fragmentS1);
                 fragmentTransaction.commit();
@@ -176,10 +179,10 @@ public class ManageItineraryActivity extends ActionBarActivity {
             else{
                 //check the current state before we display the screen
                 fragmentManager = getFragmentManager();
-                fragmentManager.popBackStackImmediate();
+                fragmentManager.popBackStack();
                 fragmentTransaction = fragmentManager
                         .beginTransaction();
-                fragmentTransaction.addToBackStack(null);
+
                 ManageItineraryDriverFragment fragmentS1 = new ManageItineraryDriverFragment();
                 fragmentTransaction.replace(R.id.enabled_view_foo, fragmentS1);
                 fragmentTransaction.commit();

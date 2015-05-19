@@ -8,10 +8,10 @@ package com.github.clans.fab;
 
 public final class R {
 	public static final class anim {
-		public static final int fab_scale_down = 0x7f040008;
-		public static final int fab_scale_up = 0x7f040009;
-		public static final int fab_slide_in_from_right = 0x7f04000a;
-		public static final int fab_slide_out_to_right = 0x7f04000b;
+		public static final int fab_scale_down = 0x7f050008;
+		public static final int fab_scale_up = 0x7f050009;
+		public static final int fab_slide_in_from_right = 0x7f05000a;
+		public static final int fab_slide_out_to_right = 0x7f05000b;
 	}
 	public static final class attr {
 		public static final int fab_colorNormal = 0x7f01002b;
@@ -61,25 +61,25 @@ public final class R {
 		public static final int menu_showShadow = 0x7f010038;
 	}
 	public static final class dimen {
-		public static final int fab_size_mini = 0x7f0a0032;
-		public static final int fab_size_normal = 0x7f0a0033;
-		public static final int labels_text_size = 0x7f0a0034;
+		public static final int fab_size_mini = 0x7f0b0032;
+		public static final int fab_size_normal = 0x7f0b0033;
+		public static final int labels_text_size = 0x7f0b0034;
 	}
 	public static final class drawable {
 		public static final int fab_add = 0x7f020063;
 	}
 	public static final class id {
-		public static final int end = 0x7f0b0015;
-		public static final int fab_label = 0x7f0b0004;
-		public static final int marquee = 0x7f0b0016;
-		public static final int middle = 0x7f0b0017;
-		public static final int mini = 0x7f0b0014;
-		public static final int none = 0x7f0b000f;
-		public static final int normal = 0x7f0b000b;
-		public static final int start = 0x7f0b0018;
+		public static final int end = 0x7f0c0015;
+		public static final int fab_label = 0x7f0c0004;
+		public static final int marquee = 0x7f0c0016;
+		public static final int middle = 0x7f0c0017;
+		public static final int mini = 0x7f0c0014;
+		public static final int none = 0x7f0c000f;
+		public static final int normal = 0x7f0c000b;
+		public static final int start = 0x7f0c0018;
 	}
 	public static final class string {
-		public static final int app_name = 0x7f0d0017;
+		public static final int app_name = 0x7f0e0017;
 	}
 	public static final class styleable {
 		public static final int[] FloatingActionButton = { 0x7f01002b, 0x7f01002c, 0x7f01002d, 0x7f01002e, 0x7f01002f, 0x7f010030, 0x7f010031, 0x7f010032, 0x7f010033, 0x7f010034, 0x7f010035, 0x7f010036, 0x7f010037 };

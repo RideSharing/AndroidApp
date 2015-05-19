@@ -17,7 +17,6 @@ dependencies {
     compile 'com.google.android.gms:play-services:6.5+'
     compile 'com.github.traex.rippleeffect:library:1.2.4'
     compile 'cn.pedant.sweetalert:library:1.3'
-
     compile project(':gson-2.2.2')
     compile project(':signalr-client-sdk')
     compile project(':signalr-client-sdk-android')

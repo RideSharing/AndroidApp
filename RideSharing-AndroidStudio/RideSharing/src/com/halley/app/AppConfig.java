@@ -67,7 +67,7 @@ public class AppConfig {
 
 	// Show list itinerary for user
 	public static String URL_DRIVER_ITINERARY = "http://192.168.10.107/RESTFul/v1/itineraries/driver/itinerary_status?lang="+lang;
-	
+
 	// Show list itinerary for customer
 	public static String URL_CUSTOMER_ITINERARY = "http://192.168.10.107/RESTFul/v1/itineraries/customer/itinerary_status?lang="+lang;
 

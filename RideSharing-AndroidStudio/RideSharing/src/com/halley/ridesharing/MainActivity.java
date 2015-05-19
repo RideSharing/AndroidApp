@@ -335,7 +335,7 @@ public class MainActivity extends ActionBarActivity implements
 				mAdapter.setIsFrom(false);
 			}
 		} else {
-			Log.d("Do not get currentLocation", "null");
+			Log.d("Do not get currentGPS", "");
 		}
 		viewPager.setAdapter(mAdapter);
 		// Adding Tabs
@@ -533,13 +533,6 @@ public class MainActivity extends ActionBarActivity implements
 				break;
 			case 6:
 				intent = new Intent(this, StatisticActivity.class);
-				if (mCurrentLocation != null) {
-					intent.putExtra("fromLatitude",
-							mCurrentLocation.getLatitude());
-					intent.putExtra("fromLongitude",
-							mCurrentLocation.getLongitude());
-
-				}
 				break;
 			case 7:
 				intent = new Intent(this, AboutUsActivity.class);
@@ -560,6 +553,9 @@ public class MainActivity extends ActionBarActivity implements
 				break;
 			case 3:
 				intent = new Intent(this, ManageItineraryActivity.class);
+				break;
+			case 4:
+				intent = new Intent(this, StatisticActivity.class);
 				break;
 			case 5:
 				intent = new Intent(this, AboutUsActivity.class);

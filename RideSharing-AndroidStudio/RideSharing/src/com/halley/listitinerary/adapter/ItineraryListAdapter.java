@@ -72,6 +72,8 @@ public class ItineraryListAdapter extends BaseAdapter {
 		TextView leave_date = (TextView) convertView
 				.findViewById(R.id.leave_date);
 		RatingBar rating= (RatingBar)convertView.findViewById(R.id.ratingBar1);
+		rating.setEnabled(false);
+		rating.setIsIndicator(true);
 		// getting itinerary data for the row
 		ItineraryItem m = itineraryItems.get(position);
 

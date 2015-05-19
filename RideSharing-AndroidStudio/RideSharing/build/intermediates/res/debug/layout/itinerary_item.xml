@@ -27,27 +27,25 @@
         android:text="addd"
         android:textStyle="bold" />
     <!-- Rating -->
-    <LinearLayout
-        android:id="@+id/ratingBarLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/avatar"
-        android:layout_below="@+id/description"
-       >
+
     <RatingBar
         android:id="@+id/ratingBar1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/avatar"
+        android:layout_below="@+id/description"
         android:numStars="5"
         android:progressDrawable="@drawable/ratingbarstar_small"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
          />
-    </LinearLayout>
+
     <TextView
         android:id="@+id/cost"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/description"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="25dp"
         android:text="ádddddd"
         android:layout_toRightOf="@+id/avatar"
         android:textSize="@dimen/rating" />

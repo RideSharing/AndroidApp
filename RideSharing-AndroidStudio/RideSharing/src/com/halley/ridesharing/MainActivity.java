@@ -67,20 +67,20 @@ import com.halley.aboutus.AboutUsActivity;
 import com.halley.app.AppConfig;
 import com.halley.app.AppController;
 import com.halley.custom_theme.CustomActionBar;
-import com.halley.dialog.SearchDialogFragment;
-import com.halley.dialog.SearchDialogFragment.OnDataPass;
+import com.halley.itinerary.list.search.SearchDialogFragment;
+import com.halley.itinerary.list.search.SearchDialogFragment.OnDataPass;
 
 import com.halley.helper.RoundedImageView;
 import com.halley.helper.SessionManager;
-import com.halley.listitinerary.adapter.TabListItineraryAdapter;
-import com.halley.manageitinerary.ManageItineraryActivity;
-import com.halley.model.slidingmenu.NavDrawerItem;
-import com.halley.model.slidingmenu.adapter.NavDrawerListAdapter;
+import com.halley.itinerary.list.adapter.TabListItineraryAdapter;
+import com.halley.itinerary.manage.ManageItineraryActivity;
+import com.halley.model.menu.NavDrawerItem;
+import com.halley.model.menu.adapter.NavDrawerListAdapter;
 import com.halley.profile.ProfileActivity;
 import com.halley.registerandlogin.LoginActivity;
 import com.halley.registerandlogin.R;
-import com.halley.registeritinerary.RegisterItineraryActivity;
-import com.halley.searchitinerary.SearchAdvanceActivity;
+import com.halley.itinerary.create.CreateItineraryActivity;
+import com.halley.itinerary.list.search.SearchAdvanceActivity;
 import com.halley.statistic.StatisticActivity;
 import com.halley.vehicle.ManageVehicle;
 
@@ -725,8 +725,6 @@ public class MainActivity extends ActionBarActivity implements
 		mCurrentLocation = location;
         fromLocation = getDetailLocation(location);
 		stopLocationUpdates();
-		// mLastUpdateTime = DateFormat.getTimeInstance().format(new Date());
-
 	}
 
 	@Override
@@ -791,7 +789,7 @@ public class MainActivity extends ActionBarActivity implements
 
 		@Override
 		protected Void doInBackground(Void... arg0) {
-			SystemClock.sleep(3000);
+			SystemClock.sleep(5000);
 			publishProgress();
 			return null;
 		}
@@ -869,7 +867,7 @@ public class MainActivity extends ActionBarActivity implements
                     if (!error) {
                         String status=jObj.getString("status");
                         if(status.equals(STATUS_DRIVER_VERIFY)) {
-                            Intent intent = new Intent(getApplicationContext(), RegisterItineraryActivity.class);
+                            Intent intent = new Intent(getApplicationContext(), CreateItineraryActivity.class);
                             if (mCurrentLocation != null) {
                                 intent.putExtra("fromLatitude",
                                         mCurrentLocation.getLatitude());

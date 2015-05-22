@@ -23,8 +23,8 @@ public final class R {
 		public static final int rippelColor = 0x7f0a0063;
 	}
 	public static final class drawable {
-		public static final int ic_launcher = 0x7f02007a;
-		public static final int shape_rounded = 0x7f0200b2;
+		public static final int ic_launcher = 0x7f02007b;
+		public static final int shape_rounded = 0x7f0200b4;
 	}
 	public static final class id {
 		public static final int doubleRipple = 0x7f0c0028;
@@ -32,7 +32,7 @@ public final class R {
 		public static final int simpleRipple = 0x7f0c002a;
 	}
 	public static final class string {
-		public static final int app_name = 0x7f0e0017;
+		public static final int app_name = 0x7f0e0018;
 	}
 	public static final class style {
 		public static final int AppTheme = 0x7f0f0001;

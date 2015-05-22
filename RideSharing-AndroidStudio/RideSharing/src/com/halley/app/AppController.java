@@ -7,7 +7,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
-import com.halley.listitinerary.volley.LruBitmapCache;
+import com.halley.itinerary.list.volley.LruBitmapCache;
 
 public class AppController extends Application {
 

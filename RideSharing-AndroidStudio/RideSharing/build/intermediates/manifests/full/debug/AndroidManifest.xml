@@ -22,6 +22,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
@@ -39,6 +40,9 @@
         android:icon="@drawable/ic_logo"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
+        <service android:name="com.halley.itinerary.notification.ScheduleService" />
+        <service android:name="com.halley.itinerary.notification.NotifyService" />
+
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
@@ -81,7 +85,7 @@
             android:parentActivityName="com.halley.ridesharing.MainActivity" >
         </activity>
         <activity
-            android:name="com.halley.registeritinerary.RegisterItineraryActivity"
+            android:name="com.halley.itinerary.create.CreateItineraryActivity"
             android:label="@string/title_activity_register_itinerary"
             android:launchMode="singleTask"
             android:parentActivityName="com.halley.ridesharing.MainActivity" >
@@ -99,12 +103,12 @@
             android:windowSoftInputMode="adjustPan" >
         </activity>
         <activity
-            android:name="com.halley.submititinerary.SubmitItineraryActivity"
+            android:name="com.halley.itinerary.join_in.JoinItineraryActivity"
             android:label="@string/title_activity_submit_itinerary"
             android:parentActivityName="com.halley.ridesharing.MainActivity" >
         </activity>
         <activity
-            android:name="com.halley.searchitinerary.SearchAdvanceActivity"
+            android:name="com.halley.itinerary.list.search.SearchAdvanceActivity"
             android:label="@string/title_activity_search_advance"
             android:parentActivityName="com.halley.ridesharing.MainActivity" >
         </activity>
@@ -116,17 +120,17 @@
             android:parentActivityName="com.halley.ridesharing.MainActivity" >
         </activity>
         <activity
-            android:name="com.halley.manageitinerary.ManageItineraryActivity"
+            android:name="com.halley.itinerary.manage.ManageItineraryActivity"
             android:label="@string/title_activity_manage_itinerary"
             android:launchMode="singleTask"
             android:parentActivityName="com.halley.ridesharing.MainActivity" >
         </activity>
         <activity
-            android:name="com.halley.manageitinerary.DetailManageItineraryActivity"
+            android:name="com.halley.itinerary.detail.DetailItineraryActivity"
             android:label="@string/title_activity_detail_manage_itinerary" >
         </activity>
         <activity
-            android:name="com.halley.tracking.TrackingActivity"
+            android:name="com.halley.itinerary.tracking.TrackingActivity"
             android:label="@string/title_activity_tracking" >
         </activity>
         <activity

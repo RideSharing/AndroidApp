@@ -410,6 +410,7 @@
     <string name="accept">Accept</string>
     <string name="action_settings">Settings </string>
     <string name="add_image">Add Image</string>
+    <string name="alarm_notification">Your itinerary will start one hour later</string>
     <string name="announce">Announce</string>
     <string name="app_menu">Menu </string>
     <string name="app_name">RideSharing </string>
@@ -417,6 +418,7 @@
     <string name="btn_cancel_change">Cancel </string>
     <string name="btn_change_password">Change Password </string>
     <string name="btn_confirm_change">Submit </string>
+    <string name="btn_create_itinerary">Create Itinerary</string>
     <string name="btn_link_back_login">Already have password, Login now! </string>
     <string name="btn_link_to_detail_itinerary">Click to see detail </string>
     <string name="btn_link_to_forgot_password">Forgot Password </string>
@@ -426,17 +428,17 @@
     <string name="btn_logout">Sign out </string>
     <string name="btn_register">Sign up </string>
     <string name="btn_search">Search Itineraries</string>
-    <string name="btn_send_pass_to_mail">Password has reset and sent your email. Please check your mail. </string>
+    <string name="btn_send_pass_to_mail">Get Password</string>
     <string name="btn_submit">Submit </string>
-    <string name="btn_submitAdvance">Advance </string>
-    <string name="btn_submit_itinerary">Submit Itinerary </string>
-    <string name="btn_upgrade_driver">Upgrade </string>
+    <string name="btn_submitAdvance">Detail</string>
+    <string name="btn_submit_itinerary">Join in Itinerary </string>
+    <string name="btn_upgrade_driver">Driver</string>
     <string name="camera">Camera </string>
     <string name="cancel">Cancel </string>
     <string name="cancel_change">Your infomation not changed </string>
-    <string name="change_info">Update Info </string>
+    <string name="change_info">Update</string>
     <string name="change_pasword">Change Password </string>
-    <string name="change_profile">Edit Info </string>
+    <string name="change_profile">Edit</string>
     <string name="choose_role">Choose role: </string>
     <string name="comment">Comment </string>
     <!-- From: file:/media/enclaveit/DATA/RideSharingGIT/AndroidApp/RideSharing-AndroidStudio/RideSharing/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/common_strings.xml -->
@@ -518,21 +520,21 @@
     <string name="driver">Driver </string>
     <string name="driver_accept_customer">Do you accept Customer join in Itinerary?</string>
     <string name="driver_accept_detail">This sections contain itineraries that both Driver and Customer agreed </string>
-    <string name="driver_accepted">On Going </string>
+    <string name="driver_accepted">Ready to go</string>
     <string name="driver_created">Created Itineraries </string>
     <string name="driver_created_detail">This sections contain itineraries you created but no one has asked to join yet </string>
-    <string name="driver_information">Update infor driver </string>
+    <string name="driver_information">Update driver information</string>
     <string name="driver_license">Driver License </string>
     <string name="driver_license_img">Image Driver License </string>
-    <string name="driver_waiting">Waiting customer accept </string>
+    <string name="driver_waiting">Waiting driver accept</string>
     <string name="driver_waiting_detail">This sections contain itineraries that customer asked to join, and he/she waiting for you to "Accept" or "Deny" </string>
-    <string name="duration">Except Time (hour) </string>
+    <string name="duration">Duration </string>
     <string name="edit">Edit </string>
     <string name="email">Email </string>
     <string name="email_hint">Enter your email </string>
     <string name="end_addess">End Address </string>
     <string name="end_itinerary">End Itinerary</string>
-    <string name="extra_info_itinerary">Check info in map, then click "Advance" </string>
+    <string name="extra_info_itinerary">Check info in map, then click "Detail"</string>
     <string name="feedback">Feedback </string>
     <string name="field_license_plate">License Plate</string>
     <string name="field_reg_certificate">Registration Certificate</string>
@@ -540,6 +542,8 @@
     <string name="finish_app">Do you want to log out? </string>
     <string name="finish_itinerary">Itinerary finished</string>
     <string name="finish_itinerary_detail">This sections contain itineraries you finished</string>
+    <string name="forgot_pass_message">Password has reset and sent your email. Please check your mail.</string>
+    <string name="format_email">Please enter an email address</string>
     <string name="gallery">Library </string>
     <string name="hello_world">hello</string>
     <string name="hint">Hint </string>
@@ -553,7 +557,7 @@
     <string name="info_basic">Infomation Contact </string>
     <string name="init">Init layout...</string>
     <string name="input_address">Enter your area </string>
-    <string name="join_in_itinerary">want to join in your itinerary</string>
+    <string name="join_in_itinerary">join in your itinerary</string>
     <string name="leave_date">Leave date </string>
     <string name="license_plate">License Plate</string>
     <string name="license_plate_image">License Plate Image</string>
@@ -562,6 +566,7 @@
     <string name="map">Map </string>
     <string name="min">min </string>
     <string name="month">Month</string>
+    <string name="more_detail">More detail</string>
     <string name="moto_insurance_img">Moto Insurance Image</string>
     <string name="name">Full name </string>
     <string name="need_to_refresh">App is not get your location, please check your GPS is enabled or click "Refresh" button to get your location again.</string>
@@ -587,6 +592,7 @@
     <string name="personalid_img">PersionalID Image </string>
     <string name="phone">Phone</string>
     <string name="process_data">Process data...</string>
+    <string name="profile">Profile</string>
     <string name="rating">Rating </string>
     <string name="refresh">Refresh... </string>
     <string name="reg_certificate">Registration Certificate</string>
@@ -597,9 +603,10 @@
     <string name="review_user">Rating and comment for driver/user when you finished this itinerary.</string>
     <string name="search_hint">Search area </string>
     <string name="searching">Searching...</string>
-    <string name="see_customer_profile">See customer</string>
+    <string name="see_customer_profile">See other</string>
     <string name="see_itinerary">See itinerary</string>
     <string name="select_image">Select Image </string>
+    <string name="set_alarm_success">Set alarm for this itinerary successful at</string>
     <string name="slogan">....</string>
     <string name="start_addess">Start Address </string>
     <string name="start_itinerary">Start Itinerary</string>
@@ -627,8 +634,8 @@
     <string name="title_activity_list_vehicle">ListVehicle</string>
     <string name="title_activity_manage_itinerary">List of itinerary </string>
     <string name="title_activity_popup_itinerary">PopupItineraryActivity </string>
-    <string name="title_activity_register_advance">Register Advance </string>
-    <string name="title_activity_register_itinerary">Register Itinerary </string>
+    <string name="title_activity_register_advance">Itinerary detail</string>
+    <string name="title_activity_register_itinerary">Create Itinerary</string>
     <string name="title_activity_search_advance">Search Advance </string>
     <string name="title_activity_statistic">StatisticActivity</string>
     <string name="title_activity_submit_itinerary">Submit Itinerary </string>
@@ -638,14 +645,14 @@
     <string name="title_activity_vehicle">VehicleActivity</string>
     <string name="title_item_detail">Item Detail </string>
     <string name="title_item_list">Items </string>
-    <string name="type_vehicle">Type of vehicle</string>
+    <string name="type_vehicle">Vehicle</string>
     <string name="update">Update</string>
-    <string name="update_driver_information">Update info Drive r</string>
+    <string name="update_driver_information">Update Driver information</string>
     <string name="update_image">Update Image </string>
     <string name="update_itinerary">Update infomation of itinerary </string>
     <string name="update_success">Update completed </string>
     <string name="vehicle_image">Vehicle Image</string>
-    <string name="vehicle_page">Driver Vehicle</string>
+    <string name="vehicle_page">Vehicle</string>
     <!-- From: file:/media/enclaveit/DATA/RideSharingGIT/AndroidApp/RideSharing-AndroidStudio/RideSharing/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/wallet_strings.xml -->
     <eat-comment/>
     <string name="wallet_buy_button_place_holder" translation_description="Text on a button that allows a user to make a payment with Google Wallet [CHAR LIMIT=30]">Buy with Google</string>

@@ -5,7 +5,7 @@
         android:title="@string/see_itinerary"
         />
     <item
-        android:id="@+id/see_customer"
+        android:id="@+id/see_other"
         android:title="@string/see_customer_profile"
         />
 </menu>

@@ -78,26 +78,30 @@ uses-permission#android.permission.READ_EXTERNAL_STORAGE
 ADDED from AndroidManifest.xml:25:5
 	android:name
 		ADDED from AndroidManifest.xml:25:22
-uses-feature#android.hardware.camera
-ADDED from AndroidManifest.xml:27:5
+uses-permission#android.permission.CALL_PHONE
+ADDED from AndroidManifest.xml:26:5
 	android:name
-		ADDED from AndroidManifest.xml:27:19
-uses-feature#android.hardware.camera.autofocus
+		ADDED from AndroidManifest.xml:26:22
+uses-feature#android.hardware.camera
 ADDED from AndroidManifest.xml:28:5
 	android:name
 		ADDED from AndroidManifest.xml:28:19
-uses-feature#0x00020000
-ADDED from AndroidManifest.xml:31:5
-	android:glEsVersion
-		ADDED from AndroidManifest.xml:32:9
-	android:required
-		ADDED from AndroidManifest.xml:33:9
-uses-permission#android.permission.READ_PHONE_STATE
-ADDED from AndroidManifest.xml:35:5
+uses-feature#android.hardware.camera.autofocus
+ADDED from AndroidManifest.xml:29:5
 	android:name
-		ADDED from AndroidManifest.xml:35:22
+		ADDED from AndroidManifest.xml:29:19
+uses-feature#0x00020000
+ADDED from AndroidManifest.xml:32:5
+	android:glEsVersion
+		ADDED from AndroidManifest.xml:33:9
+	android:required
+		ADDED from AndroidManifest.xml:34:9
+uses-permission#android.permission.READ_PHONE_STATE
+ADDED from AndroidManifest.xml:36:5
+	android:name
+		ADDED from AndroidManifest.xml:36:22
 application
-ADDED from AndroidManifest.xml:37:5
+ADDED from AndroidManifest.xml:38:5
 MERGED from com.android.support:appcompat-v7:21.0.3:16:5
 MERGED from com.android.support:support-v4:21.0.3:16:5
 MERGED from com.google.android.gms:play-services:6.5.87:20:5
@@ -114,194 +118,202 @@ MERGED from com.github.geftimov:android-player:v1.0:11:5
 	android:label
 		ADDED from com.pnikosis:materialish-progress:1.0:14:9
 	android:allowBackup
-		ADDED from AndroidManifest.xml:39:9
-	android:icon
 		ADDED from AndroidManifest.xml:40:9
+	android:icon
+		ADDED from AndroidManifest.xml:41:9
 		REJECTED from com.pnikosis:materialish-progress:1.0:13:9
 		REJECTED from com.github.baoyongzhang:android-PullRefreshLayout:2774ad800e:13:9
 	android:theme
-		ADDED from AndroidManifest.xml:42:9
+		ADDED from AndroidManifest.xml:43:9
 		REJECTED from com.github.baoyongzhang:android-PullRefreshLayout:2774ad800e:14:9
 	tools:replace
-		ADDED from AndroidManifest.xml:41:9
+		ADDED from AndroidManifest.xml:42:9
 	android:name
-		ADDED from AndroidManifest.xml:38:9
+		ADDED from AndroidManifest.xml:39:9
+service#com.halley.itinerary.notification.ScheduleService
+ADDED from AndroidManifest.xml:45:9
+	android:name
+		ADDED from AndroidManifest.xml:45:18
+service#com.halley.itinerary.notification.NotifyService
+ADDED from AndroidManifest.xml:46:9
+	android:name
+		ADDED from AndroidManifest.xml:46:18
 meta-data#com.google.android.gms.version
-ADDED from AndroidManifest.xml:43:9
+ADDED from AndroidManifest.xml:47:9
 MERGED from com.google.android.gms:play-services:6.5.87:21:9
 	android:value
-		ADDED from AndroidManifest.xml:45:13
+		ADDED from AndroidManifest.xml:49:13
 	android:name
-		ADDED from AndroidManifest.xml:44:13
-meta-data#com.google.android.maps.v2.API_KEY
-ADDED from AndroidManifest.xml:46:9
-	android:value
 		ADDED from AndroidManifest.xml:48:13
-	android:name
-		ADDED from AndroidManifest.xml:47:13
-activity#com.halley.registerandlogin.LoginActivity
-ADDED from AndroidManifest.xml:53:9
-	android:label
-		ADDED from AndroidManifest.xml:55:13
-	android:launchMode
-		ADDED from AndroidManifest.xml:56:13
-	android:windowSoftInputMode
-		ADDED from AndroidManifest.xml:57:13
-	android:name
-		ADDED from AndroidManifest.xml:54:13
-intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER
-ADDED from AndroidManifest.xml:58:13
-action#android.intent.action.MAIN
-ADDED from AndroidManifest.xml:59:17
-	android:name
-		ADDED from AndroidManifest.xml:59:25
-category#android.intent.category.LAUNCHER
-ADDED from AndroidManifest.xml:61:17
-	android:name
-		ADDED from AndroidManifest.xml:61:27
-activity#com.halley.ridesharing.MainActivity
-ADDED from AndroidManifest.xml:64:9
-	android:label
-		ADDED from AndroidManifest.xml:66:13
-	android:launchMode
-		ADDED from AndroidManifest.xml:67:13
-	android:name
-		ADDED from AndroidManifest.xml:65:13
-meta-data#android.app.default_searchable
-ADDED from AndroidManifest.xml:68:13
+meta-data#com.google.android.maps.v2.API_KEY
+ADDED from AndroidManifest.xml:50:9
 	android:value
-		ADDED from AndroidManifest.xml:70:17
+		ADDED from AndroidManifest.xml:52:13
 	android:name
-		ADDED from AndroidManifest.xml:69:17
+		ADDED from AndroidManifest.xml:51:13
+activity#com.halley.registerandlogin.LoginActivity
+ADDED from AndroidManifest.xml:57:9
+	android:label
+		ADDED from AndroidManifest.xml:59:13
+	android:launchMode
+		ADDED from AndroidManifest.xml:60:13
+	android:windowSoftInputMode
+		ADDED from AndroidManifest.xml:61:13
+	android:name
+		ADDED from AndroidManifest.xml:58:13
+intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER
+ADDED from AndroidManifest.xml:62:13
+action#android.intent.action.MAIN
+ADDED from AndroidManifest.xml:63:17
+	android:name
+		ADDED from AndroidManifest.xml:63:25
+category#android.intent.category.LAUNCHER
+ADDED from AndroidManifest.xml:65:17
+	android:name
+		ADDED from AndroidManifest.xml:65:27
+activity#com.halley.ridesharing.MainActivity
+ADDED from AndroidManifest.xml:68:9
+	android:label
+		ADDED from AndroidManifest.xml:70:13
+	android:launchMode
+		ADDED from AndroidManifest.xml:71:13
+	android:name
+		ADDED from AndroidManifest.xml:69:13
+meta-data#android.app.default_searchable
+ADDED from AndroidManifest.xml:72:13
+	android:value
+		ADDED from AndroidManifest.xml:74:17
+	android:name
+		ADDED from AndroidManifest.xml:73:17
 activity#com.halley.registerandlogin.RegisterActivity
-ADDED from AndroidManifest.xml:72:9
+ADDED from AndroidManifest.xml:76:9
 	android:label
-		ADDED from AndroidManifest.xml:74:13
+		ADDED from AndroidManifest.xml:78:13
 	android:parentActivityName
-		ADDED from AndroidManifest.xml:76:13
-	android:launchMode
-		ADDED from AndroidManifest.xml:75:13
-	android:windowSoftInputMode
-		ADDED from AndroidManifest.xml:77:13
-	android:name
-		ADDED from AndroidManifest.xml:73:13
-activity#com.halley.profile.ProfileActivity
-ADDED from AndroidManifest.xml:79:9
-	android:label
-		ADDED from AndroidManifest.xml:81:13
-	android:parentActivityName
-		ADDED from AndroidManifest.xml:82:13
-	android:name
 		ADDED from AndroidManifest.xml:80:13
-activity#com.halley.registeritinerary.RegisterItineraryActivity
-ADDED from AndroidManifest.xml:84:9
-	android:label
-		ADDED from AndroidManifest.xml:86:13
-	android:parentActivityName
-		ADDED from AndroidManifest.xml:88:13
 	android:launchMode
-		ADDED from AndroidManifest.xml:87:13
-	android:name
-		ADDED from AndroidManifest.xml:85:13
-activity#com.halley.profile.UpgradeProfile
-ADDED from AndroidManifest.xml:90:9
-	android:label
-		ADDED from AndroidManifest.xml:92:13
-	android:parentActivityName
-		ADDED from AndroidManifest.xml:93:13
-	android:name
-		ADDED from AndroidManifest.xml:91:13
-activity#com.halley.registerandlogin.ForgotPasswordActivity
-ADDED from AndroidManifest.xml:95:9
-	android:label
-		ADDED from AndroidManifest.xml:97:13
-	android:parentActivityName
-		ADDED from AndroidManifest.xml:99:13
-	android:launchMode
-		ADDED from AndroidManifest.xml:98:13
+		ADDED from AndroidManifest.xml:79:13
 	android:windowSoftInputMode
-		ADDED from AndroidManifest.xml:100:13
+		ADDED from AndroidManifest.xml:81:13
 	android:name
+		ADDED from AndroidManifest.xml:77:13
+activity#com.halley.profile.ProfileActivity
+ADDED from AndroidManifest.xml:83:9
+	android:label
+		ADDED from AndroidManifest.xml:85:13
+	android:parentActivityName
+		ADDED from AndroidManifest.xml:86:13
+	android:name
+		ADDED from AndroidManifest.xml:84:13
+activity#com.halley.itinerary.create.CreateItineraryActivity
+ADDED from AndroidManifest.xml:88:9
+	android:label
+		ADDED from AndroidManifest.xml:90:13
+	android:parentActivityName
+		ADDED from AndroidManifest.xml:92:13
+	android:launchMode
+		ADDED from AndroidManifest.xml:91:13
+	android:name
+		ADDED from AndroidManifest.xml:89:13
+activity#com.halley.profile.UpgradeProfile
+ADDED from AndroidManifest.xml:94:9
+	android:label
 		ADDED from AndroidManifest.xml:96:13
-activity#com.halley.submititinerary.SubmitItineraryActivity
-ADDED from AndroidManifest.xml:102:9
-	android:label
-		ADDED from AndroidManifest.xml:104:13
 	android:parentActivityName
-		ADDED from AndroidManifest.xml:105:13
+		ADDED from AndroidManifest.xml:97:13
 	android:name
+		ADDED from AndroidManifest.xml:95:13
+activity#com.halley.registerandlogin.ForgotPasswordActivity
+ADDED from AndroidManifest.xml:99:9
+	android:label
+		ADDED from AndroidManifest.xml:101:13
+	android:parentActivityName
 		ADDED from AndroidManifest.xml:103:13
-activity#com.halley.searchitinerary.SearchAdvanceActivity
-ADDED from AndroidManifest.xml:107:9
-	android:label
-		ADDED from AndroidManifest.xml:109:13
-	android:parentActivityName
-		ADDED from AndroidManifest.xml:110:13
+	android:launchMode
+		ADDED from AndroidManifest.xml:102:13
+	android:windowSoftInputMode
+		ADDED from AndroidManifest.xml:104:13
 	android:name
+		ADDED from AndroidManifest.xml:100:13
+activity#com.halley.itinerary.join_in.JoinItineraryActivity
+ADDED from AndroidManifest.xml:106:9
+	android:label
 		ADDED from AndroidManifest.xml:108:13
-activity#com.halley.aboutus.AboutUsActivity
-ADDED from AndroidManifest.xml:112:9
-	android:label
-		ADDED from AndroidManifest.xml:114:13
 	android:parentActivityName
-		ADDED from AndroidManifest.xml:117:13
-	android:launchMode
-		ADDED from AndroidManifest.xml:116:13
-	android:logo
-		ADDED from AndroidManifest.xml:115:13
+		ADDED from AndroidManifest.xml:109:13
 	android:name
+		ADDED from AndroidManifest.xml:107:13
+activity#com.halley.itinerary.list.search.SearchAdvanceActivity
+ADDED from AndroidManifest.xml:111:9
+	android:label
 		ADDED from AndroidManifest.xml:113:13
-activity#com.halley.manageitinerary.ManageItineraryActivity
-ADDED from AndroidManifest.xml:119:9
-	android:label
-		ADDED from AndroidManifest.xml:121:13
 	android:parentActivityName
-		ADDED from AndroidManifest.xml:123:13
-	android:launchMode
-		ADDED from AndroidManifest.xml:122:13
+		ADDED from AndroidManifest.xml:114:13
 	android:name
-		ADDED from AndroidManifest.xml:120:13
-activity#com.halley.manageitinerary.DetailManageItineraryActivity
-ADDED from AndroidManifest.xml:125:9
+		ADDED from AndroidManifest.xml:112:13
+activity#com.halley.aboutus.AboutUsActivity
+ADDED from AndroidManifest.xml:116:9
 	android:label
-		ADDED from AndroidManifest.xml:127:13
+		ADDED from AndroidManifest.xml:118:13
+	android:parentActivityName
+		ADDED from AndroidManifest.xml:121:13
+	android:launchMode
+		ADDED from AndroidManifest.xml:120:13
+	android:logo
+		ADDED from AndroidManifest.xml:119:13
 	android:name
+		ADDED from AndroidManifest.xml:117:13
+activity#com.halley.itinerary.manage.ManageItineraryActivity
+ADDED from AndroidManifest.xml:123:9
+	android:label
+		ADDED from AndroidManifest.xml:125:13
+	android:parentActivityName
+		ADDED from AndroidManifest.xml:127:13
+	android:launchMode
 		ADDED from AndroidManifest.xml:126:13
-activity#com.halley.tracking.TrackingActivity
+	android:name
+		ADDED from AndroidManifest.xml:124:13
+activity#com.halley.itinerary.detail.DetailItineraryActivity
 ADDED from AndroidManifest.xml:129:9
 	android:label
 		ADDED from AndroidManifest.xml:131:13
 	android:name
 		ADDED from AndroidManifest.xml:130:13
-activity#com.halley.statistic.StatisticActivity
+activity#com.halley.itinerary.tracking.TrackingActivity
 ADDED from AndroidManifest.xml:133:9
 	android:label
 		ADDED from AndroidManifest.xml:135:13
-	android:parentActivityName
-		ADDED from AndroidManifest.xml:136:13
 	android:name
 		ADDED from AndroidManifest.xml:134:13
-activity#com.halley.vehicle.VehicleActivity
-ADDED from AndroidManifest.xml:138:9
+activity#com.halley.statistic.StatisticActivity
+ADDED from AndroidManifest.xml:137:9
 	android:label
-		ADDED from AndroidManifest.xml:140:13
-	android:parentActivityName
-		ADDED from AndroidManifest.xml:141:13
-	android:name
 		ADDED from AndroidManifest.xml:139:13
-activity#com.halley.vehicle.ManageVehicle
-ADDED from AndroidManifest.xml:143:9
-	android:label
-		ADDED from AndroidManifest.xml:145:13
 	android:parentActivityName
-		ADDED from AndroidManifest.xml:146:13
+		ADDED from AndroidManifest.xml:140:13
 	android:name
+		ADDED from AndroidManifest.xml:138:13
+activity#com.halley.vehicle.VehicleActivity
+ADDED from AndroidManifest.xml:142:9
+	android:label
 		ADDED from AndroidManifest.xml:144:13
-activity#com.halley.vehicle.DetailVehicleActivity
-ADDED from AndroidManifest.xml:148:9
-	android:label
-		ADDED from AndroidManifest.xml:150:13
 	android:parentActivityName
-		ADDED from AndroidManifest.xml:151:13
+		ADDED from AndroidManifest.xml:145:13
 	android:name
+		ADDED from AndroidManifest.xml:143:13
+activity#com.halley.vehicle.ManageVehicle
+ADDED from AndroidManifest.xml:147:9
+	android:label
 		ADDED from AndroidManifest.xml:149:13
+	android:parentActivityName
+		ADDED from AndroidManifest.xml:150:13
+	android:name
+		ADDED from AndroidManifest.xml:148:13
+activity#com.halley.vehicle.DetailVehicleActivity
+ADDED from AndroidManifest.xml:152:9
+	android:label
+		ADDED from AndroidManifest.xml:154:13
+	android:parentActivityName
+		ADDED from AndroidManifest.xml:155:13
+	android:name
+		ADDED from AndroidManifest.xml:153:13

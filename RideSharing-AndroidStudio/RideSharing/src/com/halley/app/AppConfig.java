@@ -1,10 +1,5 @@
 package com.halley.app;
 
-import android.content.Intent;
-
-import com.halley.helper.SessionManager;
-import com.halley.manageitinerary.ManageItineraryActivity;
-
 import java.util.Locale;
 
 public class AppConfig {
@@ -65,7 +60,7 @@ public class AppConfig {
 	public static String URL_DRIVER = "http://192.168.10.107/RESTFul/v1/driver";
 
 
-	// Show list itinerary for user
+	// Show list itinerary for driver
 	public static String URL_DRIVER_ITINERARY = "http://192.168.10.107/RESTFul/v1/itineraries/driver/itinerary_status?lang="+lang;
 
 	// Show list itinerary for customer
@@ -79,4 +74,7 @@ public class AppConfig {
 
     public static String URL_GET_STATISTIC_CUSTOMER = "http://192.168.10.107/RESTFul/v1/statistic_customer";
 
+	public static String URL_FORGOT_PASSWORD = "http://192.168.10.107/RESTFul/v1/forgotpass";
+
+	public static String URL_GET_COMMENT_OF_CUSTOMER = "http://192.168.10.107/RESTFul/v1/commentsofuser";
 }

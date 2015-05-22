@@ -49,6 +49,7 @@
     <string name="accept">Chấp nhận</string>
     <string name="action_settings">Tùy chọn </string>
     <string name="add_image">Thêm ảnh</string>
+    <string name="alarm_notification">Hành trình của bạn sẽ bắt đầu sau một tiếng nữa.</string>
     <string name="announce">Thông báo</string>
     <string name="app_menu">Menu </string>
     <string name="app_name">RideSharing </string>
@@ -56,6 +57,7 @@
     <string name="btn_cancel_change">Hủy bỏ </string>
     <string name="btn_change_password">Thay đổi mật khẩu </string>
     <string name="btn_confirm_change">Xác nhận </string>
+    <string name="btn_create_itinerary">Tạo mới hành trình</string>
     <string name="btn_link_back_login">Đã có mật khẩu, đăng nhập ngay! </string>
     <string name="btn_link_to_detail_itinerary">Click vào để xem chi tiết </string>
     <string name="btn_link_to_forgot_password">Quên mật khẩu </string>
@@ -65,11 +67,11 @@
     <string name="btn_logout">Đăng xuất </string>
     <string name="btn_register">Đăng kí </string>
     <string name="btn_search">Tìm hành trình</string>
-    <string name="btn_send_pass_to_mail">Mật khẩu đã được reset và gửi về email của bạn. Vui lòng kiểm tra mail </string>
+    <string name="btn_send_pass_to_mail">Lấy mật khẩu</string>
     <string name="btn_submit">Xác nhận </string>
-    <string name="btn_submitAdvance">Nâng cao </string>
-    <string name="btn_submit_itinerary">Xác nhận hành trình </string>
-    <string name="btn_upgrade_driver">Nâng cấp </string>
+    <string name="btn_submitAdvance">Chi tiết</string>
+    <string name="btn_submit_itinerary">Đề nghị đi cùng</string>
+    <string name="btn_upgrade_driver">Tài xế</string>
     <string name="camera">Camera </string>
     <string name="cancel">Hủy bỏ </string>
     <string name="cancel_change">Thông tin của bạn được giữ nguyên </string>
@@ -135,15 +137,15 @@
     <string name="driver">Tài xế </string>
     <string name="driver_accept_customer">Bạn có chập nhận cho người này đi cùng không?</string>
     <string name="driver_accept_detail">Nơi liệt kê danh sách những hành trình đã được sự đồng ý giữa tài xế và người đi cùng</string>
-    <string name="driver_accepted">Xách balo lên và đi </string>
+    <string name="driver_accepted">Hành trình sắp đi</string>
     <string name="driver_created">Hành trình đã đăng </string>
     <string name="driver_created_detail">Nơi liệt kê danh sách những hành trình đã đăng và chưa có người dùng đăng kí đi cùng</string>
     <string name="driver_information">Cập nhật thông tin lái xe </string>
     <string name="driver_license">Số bằng lái xe </string>
     <string name="driver_license_img">Hình ảnh bằng lái xe </string>
-    <string name="driver_waiting">Chờ người dùng đăng kí </string>
+    <string name="driver_waiting">Chờ tài xế chấp nhận</string>
     <string name="driver_waiting_detail">Nơi liệt kê danh sách những hành trình đã được người dùng đăng kí và đợi xác nhận "Đồng ý" hay "Từ chối" từ tài xế</string>
-    <string name="duration">Thời gian dự kiến (giờ) </string>
+    <string name="duration">Thời gian dự kiến </string>
     <string name="edit">Chỉnh sửa </string>
     <string name="email">Email </string>
     <string name="email_hint">Nhập email </string>
@@ -157,6 +159,8 @@
     <string name="finish_app">Bạn muốn thoát khỏi ứng dụng? </string>
     <string name="finish_itinerary">Hành trình đã đi</string>
     <string name="finish_itinerary_detail">Đây là nơi liệt kê các hành trình bạn đã đi</string>
+    <string name="forgot_pass_message">Mật khẩu đã được reset và gửi vào email của bạn. Vui lòng kiểm tra email của bạn</string>
+    <string name="format_email">Vui lòng nhập định dạng email</string>
     <string name="gallery">Thư viện </string>
     <string name="hello_world">Chào</string>
     <string name="hint">Gợi ý </string>
@@ -170,7 +174,7 @@
     <string name="info_basic">Thông tin cơ bản </string>
     <string name="init">Khởi tạo giao diện...</string>
     <string name="input_address">Vui lòng nhập địa điểm </string>
-    <string name="join_in_itinerary">muốn đăng kí đi cùng hành trình này.</string>
+    <string name="join_in_itinerary"> đăng kí đi cùng hành trình này.</string>
     <string name="leave_date">Ngày đi </string>
     <string name="license_plate">Biển số xe</string>
     <string name="license_plate_image">Hình ảnh biển số xe</string>
@@ -179,6 +183,7 @@
     <string name="map">Bản đồ </string>
     <string name="min">phút </string>
     <string name="month">Tháng</string>
+    <string name="more_detail">Chi tiết</string>
     <string name="moto_insurance_img">Hình ảnh bảo hiểm xe máy</string>
     <string name="name">Họ tên </string>
     <string name="need_to_refresh">Ứng dụng không lấy được vị trí của bạn, vui lòng kiểm tra GPS của bạn đã được bật hoặc click nút "Refresh" dể tìm vị trí của bạn</string>
@@ -204,6 +209,7 @@
     <string name="personalid_img">Hình ảnh CMND </string>
     <string name="phone">Số điện thoại </string>
     <string name="process_data">Xử lý dữ liệu...</string>
+    <string name="profile">Thông tin</string>
     <string name="rating">Đánh giá </string>
     <string name="refresh">Refresh </string>
     <string name="reg_certificate">Giấy chứng nhận đăng ký phương tiện</string>
@@ -217,6 +223,7 @@
     <string name="see_customer_profile">Xem người đi cùng</string>
     <string name="see_itinerary">Xem hành trình</string>
     <string name="select_image">Chọn ảnh </string>
+    <string name="set_alarm_success">Bạn đã đặt báo thức cho hành trình này thành công vào lúc </string>
     <string name="slogan">....</string>
     <string name="start_addess">Nơi bắt đầu </string>
     <string name="start_itinerary">Bắt đầu hành trình</string>
@@ -238,8 +245,8 @@
     <string name="title_activity_list_vehicle">Danh sách phương tiện</string>
     <string name="title_activity_manage_itinerary">Danh sach hành trình </string>
     <string name="title_activity_popup_itinerary">Cửa sổ hành trình </string>
-    <string name="title_activity_register_advance">Đăng kí bổ sung </string>
-    <string name="title_activity_register_itinerary">Dang ki hanh trình </string>
+    <string name="title_activity_register_advance">Chi tiết</string>
+    <string name="title_activity_register_itinerary">Tạo mới hành trình</string>
     <string name="title_activity_search_advance">Tìm kiếm nâng cao </string>
     <string name="title_activity_statistic">Thống kê</string>
     <string name="title_activity_submit_itinerary">Xác nhận hành trình </string>
@@ -249,15 +256,15 @@
     <string name="title_activity_vehicle">Phương tiện </string>
     <string name="title_item_detail">Item Detail </string>
     <string name="title_item_list">Items </string>
-    <string name="type_vehicle">Loại xe máy</string>
+    <string name="type_vehicle">Phương tiện</string>
     <string name="update">Cập nhật</string>
     <string name="update_driver_information">Cập nhật thông tin lái xe </string>
     <string name="update_image">Cập nhật hình ảnh </string>
     <string name="update_itinerary">Cập nhật thông tin hành trình </string>
     <string name="update_success">Cập nhật thành công </string>
     <string name="vehicle_image">Hình ảnh phương tiện</string>
-    <string name="vehicle_page">Phương tiện giao thông</string>
-    <string name="welcome">Welcome </string>
+    <string name="vehicle_page">Phương tiện</string>
+    <string name="welcome">Xin chào</string>
     <string name="year">Năm</string>
     <string name="you_sure">Bạn có chắc chắn không? </string>
 </resources>

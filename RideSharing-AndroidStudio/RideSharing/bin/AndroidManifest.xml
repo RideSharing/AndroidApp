@@ -92,7 +92,7 @@
             android:parentActivityName="com.halley.ridesharing.MainActivity" >
         </activity>
         <activity
-            android:name="com.halley.registeritinerary.RegisterItineraryActivity"
+            android:name="com.halley.itinerary.create.CreateItineraryActivity"
             android:label="@string/title_activity_register_itinerary"
             android:launchMode="singleTask"
             android:parentActivityName="com.halley.ridesharing.MainActivity" >
@@ -100,7 +100,7 @@
         <activity
             android:name="com.halley.registeritinerary.RegisterAdvanceActivity"
             android:label="@string/title_activity_register_advance"
-            android:parentActivityName="com.halley.registeritinerary.RegisterItineraryActivity" >
+            android:parentActivityName="com.halley.itinerary.create.CreateItineraryActivity" >
         </activity>
         <activity
             android:name=".PopupItineraryActivity"
@@ -119,12 +119,12 @@
             android:windowSoftInputMode="adjustPan" >
         </activity>
         <activity
-            android:name="com.halley.submititinerary.SubmitItineraryActivity"
+            android:name="com.halley.itinerary.join_in.JoinItineraryActivity"
             android:label="@string/title_activity_submit_itinerary"
             android:parentActivityName="com.halley.ridesharing.MainActivity" >
         </activity>
         <activity
-            android:name="com.halley.searchitinerary.SearchAdvanceActivity"
+            android:name="com.halley.itinerary.list.search.SearchAdvanceActivity"
             android:label="@string/title_activity_search_advance" >
         </activity>
         <activity
@@ -134,17 +134,17 @@
             android:parentActivityName="com.halley.ridesharing.MainActivity" >
         </activity>
         <activity
-            android:name="com.halley.manageitinerary.ManageItineraryActivity"
+            android:name="com.halley.itinerary.manage.ManageItineraryActivity"
             android:label="@string/title_activity_manage_itinerary"
             android:launchMode="singleTask"
             android:parentActivityName="com.halley.ridesharing.MainActivity" >
         </activity>
         <activity
-            android:name="com.halley.manageitinerary.DetailManageItineraryActivity"
+            android:name="com.halley.itinerary.detail.DetailItineraryActivity"
             android:label="@string/title_activity_detail_manage_itinerary" >
         </activity>
         <activity
-            android:name="com.halley.tracking.TrackingActivity"
+            android:name="com.halley.itinerary.tracking.TrackingActivity"
             android:label="@string/title_activity_tracking" >
         </activity>
       

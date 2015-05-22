@@ -183,60 +183,13 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:drawableTop="@drawable/ic_author_cody"
-                        android:gravity="center"
-                        android:text="Nguyễn Nhật Cường"
-                        android:textSize="10dp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:drawableTop="@drawable/ic_author_harold"
-                        android:gravity="center"
-                        android:text="Bùi Quang Huy"
-                        android:textSize="10dp"
-                        android:textStyle="bold" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:gravity="center"
-                    android:orientation="horizontal" >
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:drawableTop="@drawable/ic_author_vidal"
-                        android:gravity="center"
-                        android:text="Lê Trung Vĩ"
-                        android:textSize="10dp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:drawableTop="@drawable/ic_author_hanley"
                         android:gravity="center"
-                        android:text="Nguyễn Thanh Hoàng"
-                        android:textSize="10dp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:drawableTop="@drawable/ic_author_truman"
-                        android:gravity="center"
-                        android:text="Nguyễn Quang Trung"
+                        android:text="Nguyễn Trần Tấn Hoàng"
                         android:textSize="10dp"
                         android:textStyle="bold" />
                 </LinearLayout>
+
             </LinearLayout>
         </LinearLayout>
 

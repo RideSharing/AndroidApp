@@ -69,9 +69,9 @@ public class StatisticActivity extends ActionBarActivity implements OnSeekBarCha
     private final String STATISTIC_ITINERARY="itinerary";
     private final String STATISTIC_TOTAL_MONEY="total_money";
     int year =Calendar.getInstance().get(Calendar.YEAR);
-
-    private List<String> mMonths;
-    private List<String> mYear;
+    private String[] mMonths = new String[] {
+            "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+    };
 
     private String[] mYears =new String[]{
             String.valueOf(year-3),String.valueOf(year-2),String.valueOf(year-1),String.valueOf(year)+" (*)"
@@ -127,21 +127,21 @@ public class StatisticActivity extends ActionBarActivity implements OnSeekBarCha
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
                 if(isChecked) {
-                    setData(mMonths.size(), 200f, 1, mChartCustomer);
+                    setData(mMonths.length, 200f, 1, mChartCustomer);
                     lnDriver.setVisibility(View.GONE);
                     lnCustomer.setVisibility(View.VISIBLE);
 
                 }
                 else {
-                    setData(mMonths.size(), 200f, 1, mChartDriver);
+                    setData(mMonths.length, 200f, 1, mChartDriver);
                     lnDriver.setVisibility(View.VISIBLE);
                     lnCustomer.setVisibility(View.GONE);
                 }
                 spin.setSelection(0);
                 spinbyYear.setSelection(0);
                 spinbyType.setSelection(0);
-                mSeekBarX.setMax(mMonths.size());
-                mSeekBarX.setProgress(mMonths.size());
+                mSeekBarX.setMax(mMonths.length);
+                mSeekBarX.setProgress(mMonths.length);
             }
         });
     }
@@ -227,11 +227,11 @@ public class StatisticActivity extends ActionBarActivity implements OnSeekBarCha
         yr.setDrawGridLines(false);
 //        yr.setInverted(true);
 
-        setData(mMonths.size(), 50,1,mChart);
+        setData(mMonths.length, 50f,1,mChart);
         mChart.animateY(2500);
         // setting data
-        mSeekBarX.setMax(mMonths.size());
-        mSeekBarX.setProgress(mMonths.size());
+        mSeekBarX.setMax(mMonths.length);
+        mSeekBarX.setProgress(mMonths.length);
         mSeekBarX.setOnSeekBarChangeListener(this);
         Legend l = mChart.getLegend();
         l.setPosition(LegendPosition.BELOW_CHART_LEFT);
@@ -240,102 +240,92 @@ public class StatisticActivity extends ActionBarActivity implements OnSeekBarCha
         // mChart.setDrawLegend(false);
 
     }
-    private void getStatistic(final String url, final String field_statistic,final String year) {
-        // Tag used to cancel the request
-        String tag_string_req = "req_get_statistic_customer";
-        statisticItems= new ArrayList<StatisticItem>();
-        StringRequest strReq = new StringRequest(Request.Method.GET,
-                url+"/"+field_statistic+"/"+year,
-                new Response.Listener<String>() {
+//    private void getStatistic(final String url, final String field_statistic,final String year) {
+//        // Tag used to cancel the request
+//        String tag_string_req = "req_get_statistic_customer";
+//        statisticItems= new ArrayList<StatisticItem>();
+//        StringRequest strReq = new StringRequest(Request.Method.GET,
+//                url+"/"+field_statistic+"/"+year,
+//                new Response.Listener<String>() {
+//
+//                    @Override
+//                    public void onResponse(String response) {
+//                        // Log.d("Login Response: ", response.toString());
+//                        try {
+//
+//                            JSONObject jObj = new JSONObject(response
+//                                    .substring(response.indexOf("{"),
+//                                            response.lastIndexOf("}") + 1));
+//                            boolean error = jObj.getBoolean("error");
+//                            // Check for error node in json
+//
+//                            if (!error) {
+//                                JSONArray statistics=jObj.getJSONArray("stats");
+//                                for(int i=0;i<statistics.length();i++){
+//                                    JSONObject statistic = statistics.getJSONObject(i);
+//                                    StatisticItem statisticItem=new StatisticItem();
+//                                    statisticItem.setDate(statistic.getString("month"));
+//                                    if(field_statistic.equals(STATISTIC_ITINERARY)){
+//                                        statisticItem.setNumber_itinerary(statistic.getString("number"));
+//                                    }
+//                                    else if(field_statistic.equals(STATISTIC_TOTAL_MONEY)){
+//                                        statisticItem.setTotal_money(statistic.getString("total_money"));
+//                                    }
+//                                    statisticItems.add(statisticItem);
+//                                }
+//
+//
+//
+//                            } else {
+//                                // Error in login. Get the error message
+//                                String message = jObj.getString("message");
+//                                Toast.makeText(getApplicationContext(), message,
+//                                        Toast.LENGTH_LONG).show();
+//                            }
+//                        } catch (JSONException e) {
+//                            // JSON error
+//                            e.printStackTrace();
+//                        }
+//
+//                    }
+//                }, new Response.ErrorListener() {
+//
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//
+//                Toast.makeText(getApplicationContext(),
+//                        R.string.not_connect,
+//                        Toast.LENGTH_LONG).show();
+//
+//            }
+//        }) {
+//
+//            @Override
+//            public Map<String, String> getHeaders() {
+//                // Posting parameters to login url
+//                Map<String, String> params = new HashMap<String, String>();
+//                params.put("Authorization", session.getAPIKey());
+//                return params;
+//            }
+//
+//        };
+//
+//        // Adding request to request queue
+//        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+//    }
 
-                    @Override
-                    public void onResponse(String response) {
-                        // Log.d("Login Response: ", response.toString());
-                        try {
-
-                            JSONObject jObj = new JSONObject(response
-                                    .substring(response.indexOf("{"),
-                                            response.lastIndexOf("}") + 1));
-                            boolean error = jObj.getBoolean("error");
-                            // Check for error node in json
-
-                            if (!error) {
-                                JSONArray statistics=jObj.getJSONArray("stats");
-                                for(int i=0;i<statistics.length();i++){
-                                    JSONObject statistic = statistics.getJSONObject(i);
-                                    StatisticItem statisticItem=new StatisticItem();
-                                    statisticItem.setDate(statistic.getString("month"));
-                                    if(field_statistic.equals(STATISTIC_ITINERARY)){
-                                        statisticItem.setNumber_itinerary(statistic.getString("number"));
-                                    }
-                                    else if(field_statistic.equals(STATISTIC_TOTAL_MONEY)){
-                                        statisticItem.setTotal_money(statistic.getString("total_money"));
-                                    }
-                                    statisticItems.add(statisticItem);
-                                }
-                                getValx(statisticItems);
-
-
-                            } else {
-                                // Error in login. Get the error message
-                                String message = jObj.getString("message");
-                                Toast.makeText(getApplicationContext(), message,
-                                        Toast.LENGTH_LONG).show();
-                            }
-                        } catch (JSONException e) {
-                            // JSON error
-                            e.printStackTrace();
-                        }
-
-                    }
-                }, new Response.ErrorListener() {
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-                Toast.makeText(getApplicationContext(),
-                        R.string.not_connect,
-                        Toast.LENGTH_LONG).show();
-
-            }
-        }) {
-
-            @Override
-            public Map<String, String> getHeaders() {
-                // Posting parameters to login url
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("Authorization", session.getAPIKey());
-                return params;
-            }
-
-        };
-
-        // Adding request to request queue
-        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
-    }
-    public void getValx(List<StatisticItem> stats){
-        mMonths=new ArrayList<String>();
-        mYear=new ArrayList<String>();
-        for(int i=0;i<stats.size();i++){
-            String[] split_date=stats.get(i).getDate().split("-");
-           String month=split_date[1];
-            if(!mMonths.contains(month)) mMonths.add(month);
-            String year=split_date[0];
-            if(!mYear.contains(year)) mYear.add(year);
-        }
-    }
 
 
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
 
-        if(seekBar.getMax()==mMonths.size()) {
-            tvX.setText("" + ((mSeekBarX.getProgress()<mMonths.size())?mSeekBarX.getProgress() +1:mSeekBarX.getProgress()));
-            setData((mSeekBarX.getProgress() < mMonths.size()) ? mSeekBarX.getProgress() + 1 : mSeekBarX.getProgress(), 200f, 1,(swStatistic_role.isChecked())?mChartCustomer:mChartDriver);
+        if(seekBar.getMax()==mMonths.length) {
+            tvX.setText("" + ((mSeekBarX.getProgress()<mMonths.length)?mSeekBarX.getProgress() +1:mSeekBarX.getProgress()));
+            setData((mSeekBarX.getProgress() < mMonths.length) ? mSeekBarX.getProgress() + 1 : mSeekBarX.getProgress(), 200f, 1,(swStatistic_role.isChecked())?mChartCustomer:mChartDriver);
         }
         else{
-            tvX.setText("" + ((mSeekBarX.getProgress()<mYear.size())?mSeekBarX.getProgress() +1:mSeekBarX.getProgress()));
-            setData((mSeekBarX.getProgress() < mYear.size()) ? mSeekBarX.getProgress() + 1 : mSeekBarX.getProgress(), 200f, 2,(swStatistic_role.isChecked())?mChartCustomer:mChartDriver);
+            tvX.setText("" + ((mSeekBarX.getProgress()<mYears.length)?mSeekBarX.getProgress() +1:mSeekBarX.getProgress()));
+            setData((mSeekBarX.getProgress() < mYears.length) ? mSeekBarX.getProgress() + 1 : mSeekBarX.getProgress(), 200f, 2,(swStatistic_role.isChecked())?mChartCustomer:mChartDriver);
         }
         if(swStatistic_role.isChecked())
             mChartCustomer.invalidate();
@@ -360,10 +350,10 @@ public class StatisticActivity extends ActionBarActivity implements OnSeekBarCha
         ArrayList<String> xVals = new ArrayList<String>();
         for (int i = 0; i < count; i++) {
             if(orderby==1) {
-                xVals.add(mMonths.get(i%mMonths.size()));
+                xVals.add(mMonths[i % 12]);
             }
             else{
-                xVals.add(mYear.get(i%mYear.size()));
+                xVals.add(mYears[i%4]);
             }
         }
 
@@ -423,21 +413,38 @@ public class StatisticActivity extends ActionBarActivity implements OnSeekBarCha
                 if(arg2==0){
                     spinbyYear.setEnabled(true);
                     spinbyYear.setClickable(true);
-                    mSeekBarX.setMax(mMonths.size());
-                    mSeekBarX.setProgress(mMonths.size());
-                    setData(mMonths.size(),200f,1,(swStatistic_role.isChecked())?mChartCustomer:mChartDriver);
+                    mSeekBarX.setMax(mMonths.length);
+                    mSeekBarX.setProgress(mMonths.length);
+                    setData(mMonths.length,200f,1,(swStatistic_role.isChecked())?mChartCustomer:mChartDriver);
                 }
                 else{
                     spinbyYear.setEnabled(false);
                     spinbyYear.setClickable(false);
-                    mSeekBarX.setMax(mYear.size());
-                    mSeekBarX.setProgress(mYear.size());
-                    setData(mYear.size(),200f,2,(swStatistic_role.isChecked())?mChartCustomer:mChartDriver);
+                    mSeekBarX.setMax(mYears.length);
+                    mSeekBarX.setProgress(mYears.length);
+                    setData(mYears.length,200f,2,(swStatistic_role.isChecked())?mChartCustomer:mChartDriver);
                 }
             }
             else if(spinner.getId() == R.id.spOrderByYear)
             {
-
+                if(spinbyType.getSelectedItemPosition()==0){
+                    setData(mYears.length,20f,1,(swStatistic_role.isChecked())?mChartCustomer:mChartDriver);
+                }
+                else setData(mYears.length,80000f,1,(swStatistic_role.isChecked())?mChartCustomer:mChartDriver);
+            }
+            else if(spinner.getId() == R.id.spOrderByType){
+                if(arg2==0){
+                    if(spin.getSelectedItemPosition()==0){
+                        setData(mMonths.length,20f,1,(swStatistic_role.isChecked())?mChartCustomer:mChartDriver);
+                    }
+                    else setData(mYears.length,80000f,1,(swStatistic_role.isChecked())?mChartCustomer:mChartDriver);
+                }
+                else{
+                    if(spin.getSelectedItemPosition()==0){
+                        setData(mMonths.length,20f,1,(swStatistic_role.isChecked())?mChartCustomer:mChartDriver);
+                    }
+                    else setData(mYears.length,80000f,1,(swStatistic_role.isChecked())?mChartCustomer:mChartDriver);
+                }
             }
 
 
@@ -456,11 +463,11 @@ public class StatisticActivity extends ActionBarActivity implements OnSeekBarCha
         protected void onPreExecute() {
             String year= String.valueOf(Calendar.getInstance().get(Calendar.YEAR));
             if(!swStatistic_role.isChecked()){
-                getStatistic(AppConfig.URL_GET_STATISTIC_CUSTOMER,STATISTIC_ITINERARY,year);
+                //getStatistic(AppConfig.URL_GET_STATISTIC_CUSTOMER,STATISTIC_ITINERARY,year);
 
             }
             else{
-                getStatistic(AppConfig.URL_GET_STATISTIC_DRIVER,STATISTIC_ITINERARY,year);
+                //getStatistic(AppConfig.URL_GET_STATISTIC_DRIVER,STATISTIC_ITINERARY,year);
             }
 
             super.onPreExecute();

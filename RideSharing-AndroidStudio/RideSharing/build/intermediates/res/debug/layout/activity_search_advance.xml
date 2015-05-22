@@ -32,6 +32,8 @@
                 android:hint="@string/start_addess"
                 android:inputType="textNoSuggestions"
                 android:onClick="showDialogonClick"
+                android:gravity="center_vertical"
+                android:drawableLeft="@drawable/ic_marker_start"
                 android:padding="10dp"
                 android:textColor="@color/input_login"
                 android:textColorHint="@color/input_login_hint" />
@@ -44,6 +46,8 @@
                 android:background="@color/white"
                 android:hint="@string/end_addess"
                 android:inputType="textNoSuggestions"
+                android:gravity="center_vertical"
+                android:drawableLeft="@drawable/ic_marker_end"
                 android:onClick="showDialogonClick"
                 android:padding="10dp"
                 android:textColor="@color/input_login"

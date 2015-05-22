@@ -191,15 +191,30 @@
                     android:textSize="20dp"
                     android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/leave_date"
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="15dp"
-                    android:padding="7dip"
-                    android:textColor="@color/input_login"
-                    android:textColorHint="@color/input_login_hint"
-                    android:textSize="15dp" />
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/leave_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="15dp"
+                        android:padding="7dip"
+                        android:textColor="@color/input_login"
+                        android:textColorHint="@color/input_login_hint"
+                        android:textSize="15dp" />
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_gravity="right"
+                        android:src="@drawable/ic_alarm"
+                        android:onClick="onClickSetAlarm"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true" />
+                </RelativeLayout>
             </LinearLayout>
 
             <LinearLayout
@@ -337,7 +352,7 @@
                     android:layout_margin="5dp"
                     android:layout_weight="1"
                     android:background="@drawable/flat_selector"
-                    android:text="@string/start_addess"
+                    android:text="@string/title_activity_tracking"
                     android:textColor="@color/white" />
             </LinearLayout>
         </LinearLayout>

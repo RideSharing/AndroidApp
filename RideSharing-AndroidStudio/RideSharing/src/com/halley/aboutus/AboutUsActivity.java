@@ -8,23 +8,15 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Dialog;
-import android.app.FragmentManager;
-import android.app.ProgressDialog;
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.Typeface;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request.Method;
@@ -34,7 +26,6 @@ import com.android.volley.toolbox.StringRequest;
 import com.halley.app.AppConfig;
 import com.halley.app.AppController;
 import com.halley.custom_theme.CustomActionBar;
-import com.halley.dialog.RatingandCommentDialogFragment;
 import com.halley.helper.SessionManager;
 import com.halley.registerandlogin.R;
 import com.halley.registerandlogin.RegisterActivity;
@@ -55,7 +46,7 @@ public class AboutUsActivity extends ActionBarActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_about_us);
+		setContentView(R.layout.activity_about_us_main);
 
 		// Progress dialog
 		pDialog = new SweetAlertDialog(this,SweetAlertDialog.PROGRESS_TYPE);

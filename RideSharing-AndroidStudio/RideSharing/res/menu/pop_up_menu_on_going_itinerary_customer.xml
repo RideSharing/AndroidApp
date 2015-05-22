@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/see_itinerary"
+        android:title="@string/see_itinerary"
+        />
+    <item
+        android:id="@+id/see_other"
+        android:title="@string/reject_itinerary_menu"
+        />
+</menu>

@@ -77,4 +77,8 @@ public class AppConfig {
 	public static String URL_FORGOT_PASSWORD = "http://192.168.10.107/RESTFul/v1/forgotpass";
 
 	public static String URL_GET_COMMENT_OF_CUSTOMER = "http://192.168.10.107/RESTFul/v1/commentsofuser";
+
+	public static String URL_GET_MESSAGE= "http://192.168.10.107/RESTFul/v1/messages";
+
+	public static String URL_POST_MESSAGE= "http://192.168.10.107/RESTFul/v1/message";
 }

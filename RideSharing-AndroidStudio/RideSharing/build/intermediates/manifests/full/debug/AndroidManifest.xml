@@ -153,6 +153,10 @@
             android:label="@string/title_activity_detail_vehicle"
             android:parentActivityName="com.halley.vehicle.ManageVehicle" >
         </activity>
+        <activity
+            android:name="com.halley.message.ManageMessageActivity"
+            android:label="@string/title_activity_manage_message" >
+        </activity>
     </application>
 
 </manifest>

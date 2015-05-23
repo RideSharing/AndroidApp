@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.android.volley.toolbox.ImageLoader;
 import com.halley.app.AppController;
 import com.halley.helper.CustomNetworkImageView;
+import com.halley.message.MessageItem;
 import com.halley.registerandlogin.R;
 
 import java.util.List;
@@ -33,6 +34,8 @@ public class VehicleListAdapter extends BaseAdapter {
         this.vehicleItems = vehicleItems;
         this.context = context;
     }
+
+
 
     @Override
     public int getCount() {

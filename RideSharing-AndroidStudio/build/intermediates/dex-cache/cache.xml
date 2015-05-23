@@ -2,116 +2,116 @@
 <items version="2" >
 
     <item
-        jar="/media/enclaveit/DATA/RideSharingGIT/AndroidApp/RideSharing-AndroidStudio/gson-2.2.2/gson-2.2.2.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="53bfcd3c8e310d1493b2691484525ed90b04e236">
-        <dex dex="/media/enclaveit/DATA/RideSharingGIT/AndroidApp/RideSharing-AndroidStudio/RideSharing/build/intermediates/pre-dexed/debug/gson-2.2.2-d95ef9f6cf9f698999dcaedc05f7ef36d926045b.jar" />
-    </item>
-    <item
-        jar="/media/enclaveit/DATA/RideSharingGIT/AndroidApp/RideSharing-AndroidStudio/volley/volley.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="d4aaa36e04ee71a83444f8367c97a46fda662d2c">
-        <dex dex="/media/enclaveit/DATA/RideSharingGIT/AndroidApp/RideSharing-AndroidStudio/RideSharing/build/intermediates/pre-dexed/debug/volley-542888863f7491d910bb8848b64a7ce509ccdba9.jar" />
-    </item>
-    <item
-        jar="/media/enclaveit/DATA/RideSharingGIT/AndroidApp/RideSharing-AndroidStudio/RideSharing/build/intermediates/exploded-aar/com.github.geftimov/android-player/v1.0/classes.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="9af0d0c22da76e32173c58027577adcf81063222">
-        <dex dex="/media/enclaveit/DATA/RideSharingGIT/AndroidApp/RideSharing-AndroidStudio/RideSharing/build/intermediates/pre-dexed/debug/classes-237fac14d9def91796badb2788d24e05ad59b689.jar" />
-    </item>
-    <item
-        jar="/media/enclaveit/DATA/RideSharingGIT/AndroidApp/RideSharing-AndroidStudio/RideSharing/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.3/libs/internal_impl-21.0.3.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="01ec05bfbafcc07646ba813000bf2ef11742dd03">
-        <dex dex="/media/enclaveit/DATA/RideSharingGIT/AndroidApp/RideSharing-AndroidStudio/RideSharing/build/intermediates/pre-dexed/debug/internal_impl-21.0.3-71abc8d35609f071b6e4707b6309391cc322fda1.jar" />
-    </item>
-    <item
-        jar="/media/enclaveit/DATA/RideSharingGIT/AndroidApp/RideSharing-AndroidStudio/RideSharing/build/intermediates/exploded-aar/com.github.baoyongzhang/android-PullRefreshLayout/2774ad800e/classes.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="d6076faeafe27ae5cb2d792508ba2fef0fcd03f7">
-        <dex dex="/media/enclaveit/DATA/RideSharingGIT/AndroidApp/RideSharing-AndroidStudio/RideSharing/build/intermediates/pre-dexed/debug/classes-18a44c79d7abad9a56dedd4f70b62f623e2bbc2c.jar" />
-    </item>
-    <item
-        jar="/media/enclaveit/DATA/RideSharingGIT/AndroidApp/RideSharing-AndroidStudio/RideSharing/build/intermediates/exploded-aar/com.github.clans/fab/1.4.0/classes.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="594127e64b096f8e54e148680c3404e3e9c68542">
-        <dex dex="/media/enclaveit/DATA/RideSharingGIT/AndroidApp/RideSharing-AndroidStudio/RideSharing/build/intermediates/pre-dexed/debug/classes-71e633ddf7e8d50494b89526529b1972e8483b1b.jar" />
-    </item>
-    <item
-        jar="/media/enclaveit/DATA/RideSharingGIT/AndroidApp/RideSharing-AndroidStudio/RideSharing/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/classes.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="dd9247ea0fabe8ee479638c4b4a23e93752be256">
-        <dex dex="/media/enclaveit/DATA/RideSharingGIT/AndroidApp/RideSharing-AndroidStudio/RideSharing/build/intermediates/pre-dexed/debug/classes-db6d78c0651a9b1a24f9803fb090102c968fc271.jar" />
-    </item>
-    <item
-        jar="/media/enclaveit/DATA/RideSharingGIT/AndroidApp/RideSharing-AndroidStudio/RideSharing/build/intermediates/exploded-aar/cn.pedant.sweetalert/library/1.3/classes.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="0c3529d9491be892952749d252ae1defa9b1f937">
-        <dex dex="/media/enclaveit/DATA/RideSharingGIT/AndroidApp/RideSharing-AndroidStudio/RideSharing/build/intermediates/pre-dexed/debug/classes-fde9e7a74842badcbcd7ea11cd2a51597c3f80b0.jar" />
-    </item>
-    <item
-        jar="/media/enclaveit/DATA/RideSharingGIT/AndroidApp/RideSharing-AndroidStudio/RideSharing/build/intermediates/exploded-aar/com.github.traex.rippleeffect/library/1.2.4/classes.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="92d981b737c081135da787938b9b12d484f42387">
-        <dex dex="/media/enclaveit/DATA/RideSharingGIT/AndroidApp/RideSharing-AndroidStudio/RideSharing/build/intermediates/pre-dexed/debug/classes-6f0e7ad3f74f38a373bf93ace7720137be798286.jar" />
-    </item>
-    <item
-        jar="/media/enclaveit/DATA/RideSharingGIT/AndroidApp/RideSharing-AndroidStudio/RideSharing/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/classes.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="81d42bf983a8741f4888a6e333e454e4a5e0eeb7">
-        <dex dex="/media/enclaveit/DATA/RideSharingGIT/AndroidApp/RideSharing-AndroidStudio/RideSharing/build/intermediates/pre-dexed/debug/classes-e5e4c0cf1b8987e46b938bc4d0f4eaf623c39c9f.jar" />
-    </item>
-    <item
-        jar="/media/enclaveit/DATA/RideSharingGIT/AndroidApp/RideSharing-AndroidStudio/signalr-client-sdk/signalr-client-sdk.jar"
+        jar="/media/enclaveit/DATA/Newest Android App/AndroidApp/RideSharing-AndroidStudio/signalr-client-sdk/signalr-client-sdk.jar"
         jumboMode="false"
         revision="21.1.2"
         sha1="a9ae02bd1a15497aa9222498ae7c6b27a53fa41f">
-        <dex dex="/media/enclaveit/DATA/RideSharingGIT/AndroidApp/RideSharing-AndroidStudio/RideSharing/build/intermediates/pre-dexed/debug/signalr-client-sdk-780b6b7590e128221fa4aee42981bb16440a179a.jar" />
+        <dex dex="/media/enclaveit/DATA/Newest Android App/AndroidApp/RideSharing-AndroidStudio/RideSharing/build/intermediates/pre-dexed/debug/signalr-client-sdk-0d08048060819449ad30b1f3fd3595fee346e23e.jar" />
     </item>
     <item
-        jar="/home/enclaveit/Android/Sdk/extras/android/m2repository/com/android/support/support-annotations/21.0.3/support-annotations-21.0.3.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="4b74cefe1f0c1b819e7260c8627a14674e37fd35">
-        <dex dex="/media/enclaveit/DATA/RideSharingGIT/AndroidApp/RideSharing-AndroidStudio/RideSharing/build/intermediates/pre-dexed/debug/support-annotations-21.0.3-570e4dc7f6de96ab0f886663fba4440bfe046dfb.jar" />
-    </item>
-    <item
-        jar="/media/enclaveit/DATA/RideSharingGIT/AndroidApp/RideSharing-AndroidStudio/RideSharing/build/intermediates/exploded-aar/com.pnikosis/materialish-progress/1.0/classes.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="57487745ce450899f9f250d5ae5c092a682cd041">
-        <dex dex="/media/enclaveit/DATA/RideSharingGIT/AndroidApp/RideSharing-AndroidStudio/RideSharing/build/intermediates/pre-dexed/debug/classes-5f57221cff241a9b2b3b899087c0b10b2528ae59.jar" />
-    </item>
-    <item
-        jar="/media/enclaveit/DATA/RideSharingGIT/AndroidApp/RideSharing-AndroidStudio/RideSharing/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.3/classes.jar"
+        jar="/media/enclaveit/DATA/Newest Android App/AndroidApp/RideSharing-AndroidStudio/RideSharing/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.3/classes.jar"
         jumboMode="false"
         revision="21.1.2"
         sha1="2c91c949a45a21cdecf26e03951e46c7beec9ad8">
-        <dex dex="/media/enclaveit/DATA/RideSharingGIT/AndroidApp/RideSharing-AndroidStudio/RideSharing/build/intermediates/pre-dexed/debug/classes-9d75a4db2722f2ca1eb83278637374989103d45e.jar" />
+        <dex dex="/media/enclaveit/DATA/Newest Android App/AndroidApp/RideSharing-AndroidStudio/RideSharing/build/intermediates/pre-dexed/debug/classes-b29f16036691078396701dbf353f32de4466eeba.jar" />
     </item>
     <item
-        jar="/media/enclaveit/DATA/RideSharingGIT/AndroidApp/RideSharing-AndroidStudio/signalr-client-sdk-android/signalr-client-sdk-android.jar"
+        jar="/media/enclaveit/DATA/Newest Android App/AndroidApp/RideSharing-AndroidStudio/RideSharing/build/intermediates/exploded-aar/cn.pedant.sweetalert/library/1.3/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="0c3529d9491be892952749d252ae1defa9b1f937">
+        <dex dex="/media/enclaveit/DATA/Newest Android App/AndroidApp/RideSharing-AndroidStudio/RideSharing/build/intermediates/pre-dexed/debug/classes-157819a596a82edf7b7c37a2831fa3b8ecd41c8b.jar" />
+    </item>
+    <item
+        jar="/home/enclaveit/android-sdks/extras/android/m2repository/com/android/support/support-annotations/21.0.3/support-annotations-21.0.3.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="4b74cefe1f0c1b819e7260c8627a14674e37fd35">
+        <dex dex="/media/enclaveit/DATA/Newest Android App/AndroidApp/RideSharing-AndroidStudio/RideSharing/build/intermediates/pre-dexed/debug/support-annotations-21.0.3-67e502112a18e30448f3e24a9dd41a8ed2f413ed.jar" />
+    </item>
+    <item
+        jar="/media/enclaveit/DATA/Newest Android App/AndroidApp/RideSharing-AndroidStudio/RideSharing/build/intermediates/exploded-aar/com.pnikosis/materialish-progress/1.0/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="57487745ce450899f9f250d5ae5c092a682cd041">
+        <dex dex="/media/enclaveit/DATA/Newest Android App/AndroidApp/RideSharing-AndroidStudio/RideSharing/build/intermediates/pre-dexed/debug/classes-d0b0d9b29841c0c525332e598176b73bfc93f9ed.jar" />
+    </item>
+    <item
+        jar="/media/enclaveit/DATA/Newest Android App/AndroidApp/RideSharing-AndroidStudio/RideSharing/build/intermediates/exploded-aar/com.github.baoyongzhang/android-PullRefreshLayout/2774ad800e/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="d6076faeafe27ae5cb2d792508ba2fef0fcd03f7">
+        <dex dex="/media/enclaveit/DATA/Newest Android App/AndroidApp/RideSharing-AndroidStudio/RideSharing/build/intermediates/pre-dexed/debug/classes-223c1d6c7c1ce41ee4a9fd3f5226927d3723fc9c.jar" />
+    </item>
+    <item
+        jar="/media/enclaveit/DATA/Newest Android App/AndroidApp/RideSharing-AndroidStudio/gson-2.2.2/gson-2.2.2.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="53bfcd3c8e310d1493b2691484525ed90b04e236">
+        <dex dex="/media/enclaveit/DATA/Newest Android App/AndroidApp/RideSharing-AndroidStudio/RideSharing/build/intermediates/pre-dexed/debug/gson-2.2.2-4d995f160e7e057a153cd885958ffc1c87e6e676.jar" />
+    </item>
+    <item
+        jar="/media/enclaveit/DATA/Newest Android App/AndroidApp/RideSharing-AndroidStudio/RideSharing/build/intermediates/exploded-aar/com.github.traex.rippleeffect/library/1.2.4/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="92d981b737c081135da787938b9b12d484f42387">
+        <dex dex="/media/enclaveit/DATA/Newest Android App/AndroidApp/RideSharing-AndroidStudio/RideSharing/build/intermediates/pre-dexed/debug/classes-eb3952c57e193041caa80aaa172730be2703335b.jar" />
+    </item>
+    <item
+        jar="/media/enclaveit/DATA/Newest Android App/AndroidApp/RideSharing-AndroidStudio/RideSharing/build/intermediates/exploded-aar/com.github.geftimov/android-player/v1.0/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="9af0d0c22da76e32173c58027577adcf81063222">
+        <dex dex="/media/enclaveit/DATA/Newest Android App/AndroidApp/RideSharing-AndroidStudio/RideSharing/build/intermediates/pre-dexed/debug/classes-b946226adc55269008e8285d1c2b28c7a83fa4a9.jar" />
+    </item>
+    <item
+        jar="/media/enclaveit/DATA/Newest Android App/AndroidApp/RideSharing-AndroidStudio/RideSharing/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.3/libs/internal_impl-21.0.3.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="01ec05bfbafcc07646ba813000bf2ef11742dd03">
+        <dex dex="/media/enclaveit/DATA/Newest Android App/AndroidApp/RideSharing-AndroidStudio/RideSharing/build/intermediates/pre-dexed/debug/internal_impl-21.0.3-3eef291595c4c0f71fe98645c1f8f8042587ebd7.jar" />
+    </item>
+    <item
+        jar="/media/enclaveit/DATA/Newest Android App/AndroidApp/RideSharing-AndroidStudio/RideSharing/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="dd9247ea0fabe8ee479638c4b4a23e93752be256">
+        <dex dex="/media/enclaveit/DATA/Newest Android App/AndroidApp/RideSharing-AndroidStudio/RideSharing/build/intermediates/pre-dexed/debug/classes-3ca364835208a2f0c60b0d4ad3ba471602d69b63.jar" />
+    </item>
+    <item
+        jar="/media/enclaveit/DATA/Newest Android App/AndroidApp/RideSharing-AndroidStudio/RideSharing/build/intermediates/exploded-aar/com.github.clans/fab/1.4.0/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="594127e64b096f8e54e148680c3404e3e9c68542">
+        <dex dex="/media/enclaveit/DATA/Newest Android App/AndroidApp/RideSharing-AndroidStudio/RideSharing/build/intermediates/pre-dexed/debug/classes-0d07071477aa95589eb5e676f427e77d8a007d06.jar" />
+    </item>
+    <item
+        jar="/media/enclaveit/DATA/Newest Android App/AndroidApp/RideSharing-AndroidStudio/signalr-client-sdk-android/signalr-client-sdk-android.jar"
         jumboMode="false"
         revision="21.1.2"
         sha1="a6417809c26c61a7e208100f8284c1acdc398428">
-        <dex dex="/media/enclaveit/DATA/RideSharingGIT/AndroidApp/RideSharing-AndroidStudio/RideSharing/build/intermediates/pre-dexed/debug/signalr-client-sdk-android-29100fca43f2e5fd1a987248ff5b0bb3fd8a704a.jar" />
+        <dex dex="/media/enclaveit/DATA/Newest Android App/AndroidApp/RideSharing-AndroidStudio/RideSharing/build/intermediates/pre-dexed/debug/signalr-client-sdk-android-f4a9984f3d176bacbb01b84f646c83625550a69e.jar" />
+    </item>
+    <item
+        jar="/media/enclaveit/DATA/Newest Android App/AndroidApp/RideSharing-AndroidStudio/RideSharing/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="81d42bf983a8741f4888a6e333e454e4a5e0eeb7">
+        <dex dex="/media/enclaveit/DATA/Newest Android App/AndroidApp/RideSharing-AndroidStudio/RideSharing/build/intermediates/pre-dexed/debug/classes-3ab5cb3ca40cea31756dbd6851175f64b8b25b2b.jar" />
+    </item>
+    <item
+        jar="/media/enclaveit/DATA/Newest Android App/AndroidApp/RideSharing-AndroidStudio/volley/volley.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="d4aaa36e04ee71a83444f8367c97a46fda662d2c">
+        <dex dex="/media/enclaveit/DATA/Newest Android App/AndroidApp/RideSharing-AndroidStudio/RideSharing/build/intermediates/pre-dexed/debug/volley-89b1992b8dbb4dbe9cb9178cc4a6d8affd3066cb.jar" />
     </item>
     <item
         jar="/home/enclaveit/.gradle/caches/modules-2/files-2.1/com.github.PhilJay/MPAndroidChart/v2.0.9/6df6035161f0263100c3a70626bccbfd0bb545b7/MPAndroidChart-v2.0.9.jar"
         jumboMode="false"
         revision="21.1.2"
         sha1="6df6035161f0263100c3a70626bccbfd0bb545b7">
-        <dex dex="/media/enclaveit/DATA/RideSharingGIT/AndroidApp/RideSharing-AndroidStudio/RideSharing/build/intermediates/pre-dexed/debug/MPAndroidChart-v2.0.9-87912886e08f9fdbd0d83dab86874ec60140d1ba.jar" />
+        <dex dex="/media/enclaveit/DATA/Newest Android App/AndroidApp/RideSharing-AndroidStudio/RideSharing/build/intermediates/pre-dexed/debug/MPAndroidChart-v2.0.9-87912886e08f9fdbd0d83dab86874ec60140d1ba.jar" />
     </item>
 
 </items>

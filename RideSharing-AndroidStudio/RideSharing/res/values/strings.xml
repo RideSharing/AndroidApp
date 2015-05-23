@@ -49,6 +49,7 @@
         <item>Search Itinerary </item>
         <item>Profile Info </item>
         <item>Manage Itinerary </item>
+        <item>Manage Message</item>
         <item>Statistic </item>
         <item>About Us </item>
         <item>Logout </item>
@@ -63,6 +64,7 @@
         <item>@drawable/ic_search_itinerary </item>
         <item>@drawable/ic_profile </item>
         <item>@drawable/ic_manage_itinerary </item>
+        <item>@drawable/ic_manage_message</item>
         <item>@drawable/ic_statistic </item>
         <item>@drawable/ic_about_us </item>
         <item>@drawable/ic_logout </item>
@@ -234,5 +236,15 @@ int    <string name="description">Description about Itinerary </string>
     <string name="set_alarm_success">Set alarm for this itinerary successful at</string>
     <string name="more_detail">More detail</string>
     <string name="profile">Profile</string>
+    <string name="title_activity_manage_message">ManageMessageActivity</string>
+    <string name="subject">Subject</string>
+    <string name="subject_hint">Enter your subject</string>
+    <string name="to_email">Email Address</string>
+    <string name="to_email_hint">Enter Email Address</string>
+    <string name="content">Content</string>
+    <string name="content_hint">Enter your message</string>
+    <string name="send_message">Send message</string>
+    <string name="new_message">Compose</string>
+    <string name="delete_message">Delete Message</string>
 
 </resources>

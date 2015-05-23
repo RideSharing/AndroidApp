@@ -8,4 +8,4 @@
         android:name="com.google.android.gms.maps.MapFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
-</RelativeLayout><!-- From: file:/media/enclaveit/DATA/RideSharingGIT/AndroidApp/RideSharing-AndroidStudio/RideSharing/res/layout/fragment_map_view_of_itinerary.xml -->
+</RelativeLayout><!-- From: file:/media/enclaveit/DATA/Newest%20Android%20App/AndroidApp/RideSharing-AndroidStudio/RideSharing/res/layout/fragment_map_view_of_itinerary.xml -->

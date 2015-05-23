@@ -124,20 +124,20 @@ MERGED from com.github.geftimov:android-player:v1.0:11:5
 		REJECTED from com.pnikosis:materialish-progress:1.0:13:9
 		REJECTED from com.github.baoyongzhang:android-PullRefreshLayout:2774ad800e:13:9
 	android:theme
-		ADDED from AndroidManifest.xml:43:9
+		ADDED from AndroidManifest.xml:42:9
 		REJECTED from com.github.baoyongzhang:android-PullRefreshLayout:2774ad800e:14:9
 	tools:replace
-		ADDED from AndroidManifest.xml:42:9
+		ADDED from AndroidManifest.xml:43:9
 	android:name
 		ADDED from AndroidManifest.xml:39:9
 service#com.halley.itinerary.notification.ScheduleService
+ADDED from AndroidManifest.xml:44:9
+	android:name
+		ADDED from AndroidManifest.xml:44:18
+service#com.halley.itinerary.notification.NotifyService
 ADDED from AndroidManifest.xml:45:9
 	android:name
 		ADDED from AndroidManifest.xml:45:18
-service#com.halley.itinerary.notification.NotifyService
-ADDED from AndroidManifest.xml:46:9
-	android:name
-		ADDED from AndroidManifest.xml:46:18
 meta-data#com.google.android.gms.version
 ADDED from AndroidManifest.xml:47:9
 MERGED from com.google.android.gms:play-services:6.5.87:21:9
@@ -258,9 +258,9 @@ ADDED from AndroidManifest.xml:116:9
 	android:parentActivityName
 		ADDED from AndroidManifest.xml:121:13
 	android:launchMode
-		ADDED from AndroidManifest.xml:120:13
-	android:logo
 		ADDED from AndroidManifest.xml:119:13
+	android:logo
+		ADDED from AndroidManifest.xml:120:13
 	android:name
 		ADDED from AndroidManifest.xml:117:13
 activity#com.halley.itinerary.manage.ManageItineraryActivity
@@ -317,3 +317,9 @@ ADDED from AndroidManifest.xml:152:9
 		ADDED from AndroidManifest.xml:155:13
 	android:name
 		ADDED from AndroidManifest.xml:153:13
+activity#com.halley.message.ManageMessageActivity
+ADDED from AndroidManifest.xml:157:9
+	android:label
+		ADDED from AndroidManifest.xml:159:13
+	android:name
+		ADDED from AndroidManifest.xml:158:13

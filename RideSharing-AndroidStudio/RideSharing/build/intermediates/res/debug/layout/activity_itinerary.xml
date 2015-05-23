@@ -2,4 +2,4 @@
     android:id="@+id/pager"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-</android.support.v4.view.ViewPager><!-- From: file:/media/enclaveit/DATA/RideSharingGIT/AndroidApp/RideSharing-AndroidStudio/RideSharing/res/layout/activity_itinerary.xml -->
+</android.support.v4.view.ViewPager><!-- From: file:/media/enclaveit/DATA/Newest%20Android%20App/AndroidApp/RideSharing-AndroidStudio/RideSharing/res/layout/activity_itinerary.xml -->

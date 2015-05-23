@@ -514,8 +514,8 @@ public final class R {
 		public static final int abc_search_dropdown_item_icons_2line = 0x7f040014;
 		public static final int abc_search_view = 0x7f040015;
 		public static final int abc_simple_dropdown_hint = 0x7f040016;
-		public static final int alert_dialog = 0x7f04002a;
-		public static final int support_simple_spinner_dropdown_item = 0x7f04004a;
+		public static final int alert_dialog = 0x7f04002b;
+		public static final int support_simple_spinner_dropdown_item = 0x7f04004e;
 	}
 	public static final class string {
 		public static final int LOADING = 0x7f0e0000;
@@ -535,9 +535,9 @@ public final class R {
 		public static final int abc_shareactionprovider_share_with = 0x7f0e000e;
 		public static final int abc_shareactionprovider_share_with_application = 0x7f0e000f;
 		public static final int app_name = 0x7f0e0018;
-		public static final int dialog_cancel = 0x7f0e0062;
-		public static final int dialog_default_title = 0x7f0e0063;
-		public static final int dialog_ok = 0x7f0e0067;
+		public static final int dialog_cancel = 0x7f0e0065;
+		public static final int dialog_default_title = 0x7f0e0066;
+		public static final int dialog_ok = 0x7f0e006a;
 	}
 	public static final class style {
 		public static final int Base_TextAppearance_AppCompat = 0x7f0f0003;

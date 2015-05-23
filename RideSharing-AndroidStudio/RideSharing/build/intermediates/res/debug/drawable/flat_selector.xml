@@ -3,4 +3,4 @@
     <item android:drawable="@drawable/rect_pressed" android:state_pressed="true"/>
     <item android:drawable="@drawable/rect_normal"/>
 
-</selector><!-- From: file:/media/enclaveit/DATA/RideSharingGIT/AndroidApp/RideSharing-AndroidStudio/RideSharing/res/drawable/flat_selector.xml -->
+</selector><!-- From: file:/media/enclaveit/DATA/Newest%20Android%20App/AndroidApp/RideSharing-AndroidStudio/RideSharing/res/drawable/flat_selector.xml -->

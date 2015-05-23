@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <searchable xmlns:android="http://schemas.android.com/apk/res/android"
     android:hint="@string/search_hint"
-    android:label="@string/app_name" /><!-- From: file:/media/enclaveit/DATA/RideSharingGIT/AndroidApp/RideSharing-AndroidStudio/RideSharing/res/xml/searchable.xml -->
+    android:label="@string/app_name" /><!-- From: file:/media/enclaveit/DATA/Newest%20Android%20App/AndroidApp/RideSharing-AndroidStudio/RideSharing/res/xml/searchable.xml -->

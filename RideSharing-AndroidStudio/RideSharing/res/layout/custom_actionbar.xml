@@ -11,7 +11,7 @@
         android:layout_alignParentLeft="true"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="3dp"
-        android:src="@drawable/ic_logo_actionbar" />
+        android:src="@drawable/ic_logo" />
 
     <TextView
         android:id="@+id/title_text"

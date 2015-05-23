@@ -42,6 +42,7 @@
         <item>Tìm kiếm lịch trình </item>
         <item>Thông tin cá nhân </item>
         <item>Quản lý lịch trình </item>
+        <item>Hộp thư thoại</item>
         <item>Thống kê </item>
         <item>Thông tin ứng dụng </item>
         <item>Đăng xuất </item>
@@ -56,6 +57,7 @@
         <item>@drawable/ic_search_itinerary </item>
         <item>@drawable/ic_profile </item>
         <item>@drawable/ic_manage_itinerary </item>
+        <item>@drawable/ic_manage_message</item>
         <item>@drawable/ic_statistic </item>
         <item>@drawable/ic_about_us </item>
         <item>@drawable/ic_logout </item>
@@ -227,5 +229,15 @@
     <string name="set_alarm_success">Bạn đã đặt báo thức cho hành trình này thành công vào lúc </string>
     <string name="more_detail">Chi tiết</string>
     <string name="profile">Thông tin</string>
+    <string name="title_activity_manage_message">Hộp thư thoại</string>
+    <string name="to_email">Địa chỉ email</string>
+    <string name="to_email_hint">Nhập địa chỉ email</string>
+    <string name="subject">Tiêu đề</string>
+    <string name="subject_hint">Nhập tiêu đề tin nhắn</string>
+    <string name="content">Nội dung</string>
+    <string name="content_hint">Nhập nội dung</string>
+    <string name="send_message">Gởi tin nhắn</string>
+    <string name="new_message">Tin nhắn mới</string>
+    <string name="delete_message">Xóa tin nhắn</string>
 
 </resources>
